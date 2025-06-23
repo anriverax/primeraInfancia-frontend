@@ -1,0 +1,28 @@
+"use client";
+
+import { sidebarItems } from "@/shared/utils/sidebarItems";
+import { Logo } from "@/shared/ui/logo";
+import Sidebar from "@/shared/ui/sidebar";
+import FormModal from "./_partials/formModal";
+import TopBar from "@/shared/ui/topbar";
+import { useLayout } from "@/features/admin/hooks/useLayout";
+
+type AuthLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
+  const { session, getUserData } = useLayout();
+
+  return (
+    <div className="relative flex h-dvh w-full bg-gray-50">
+      <Sidebar items={sidebarItems} logo={<Logo />} />
+      <div className="relative flex h-full flex-1 flex-col ">
+        <TopBar {...getUserData()} />
+
+        <div className="flex flex-1 flex-col gap-6 p-12 bg-gray-50">{children}</div>
+        {session && !session?.user.isVerified && <FormModal />}
+      </div>
+    </div>
+  );
+}
