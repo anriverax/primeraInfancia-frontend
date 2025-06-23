@@ -4,14 +4,16 @@ import { Button, Input } from "@heroui/react";
 import { MapPin } from "lucide-react";
 import { useZoneForm } from "../../hooks/useZoneForm";
 import { IZoneList } from "../../zoneType";
+import { Dispatch, SetStateAction } from "react";
 
 type ZoneFormProps = {
-  toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
+  toggleVisibility: (_form: "Z" | "G", _data?: IZoneList | null) => void;
+  setZonesList: Dispatch<SetStateAction<IZoneList[]>>;
   data?: IZoneList | null;
 };
 
-const ZoneForm = ({ toggleVisibility, data }: ZoneFormProps): React.JSX.Element => {
-  const zoneFormik = useZoneForm({ data, toggleVisibility });
+const ZoneForm = ({ toggleVisibility, data, setZonesList }: ZoneFormProps): React.JSX.Element => {
+  const zoneFormik = useZoneForm({ data, toggleVisibility, setZonesList });
   const { handleSubmit, touched, errors, getFieldProps, isSubmitting } = zoneFormik;
 
   const { getInputProps } = useCustomFormFields();

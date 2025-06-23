@@ -1,15 +1,18 @@
-import { useCallback, useState } from "react";
-import { create } from "zustand";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import { IZoneList } from "../zoneType";
 
-type UseZoneModalProps = {
+interface IZoneModalData {
   isVisible: boolean;
   typeModal: "Z" | "G";
   data?: null;
-};
+}
 
+//
 // Función que crea un hook store tipado con T
+
+/* eslint-disable @typescript-eslint/no-explicit-any*/
 export const useZoneModal = () => {
-  const [isVisibleForm, setVisibleForm] = useState<UseZoneModalProps>({
+  const [isVisibleForm, setVisibleForm] = useState<IZoneModalData>({
     isVisible: false,
     typeModal: "Z",
     data: null
@@ -25,19 +28,3 @@ export const useZoneModal = () => {
 
   return { ...isVisibleForm, toggleFormVisibility };
 };
-
-/*
-create<ShareDataZGStoreProps>((set, get) => ({
-  visible: false,
-  state: "Z",
-  data: null,
-  toggleFormVisibility: (form, data) => {
-    const current = get();
-    set({
-      visible: !current.visible,
-      state: form,
-      data: data ?? null
-    });
-  }
-}));
-*/

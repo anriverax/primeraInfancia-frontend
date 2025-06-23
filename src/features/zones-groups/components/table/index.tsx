@@ -7,11 +7,12 @@ import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from 
 import { MapPin } from "lucide-react";
 
 type ZoneTableProps = {
-  toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
+  zonesList: IZoneList[];
+  toggleVisibility: (_form: "Z" | "G", _data?: IZoneList | null) => void;
+  deleteZone: (_zoneId: number) => Promise<void>;
 };
 
-const ZoneTable = ({ toggleVisibility }: ZoneTableProps): React.JSX.Element => {
-  const { zonesList, deleteZone } = useZonesList();
+const ZoneTable = ({ zonesList, toggleVisibility, deleteZone }: ZoneTableProps): React.JSX.Element => {
   const renderZoneCell = useRenderZoneCell(deleteZone, toggleVisibility);
 
   return (

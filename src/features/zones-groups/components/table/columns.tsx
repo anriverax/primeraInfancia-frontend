@@ -18,7 +18,7 @@ export const zoneColumns: IColumns<IZoneColumnKey>[] = [
 /* eslint-disable react-hooks/exhaustive-deps */
 export const useRenderZoneCell = (
   deleteZone: (_zoneId: number) => Promise<void>,
-  toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void
+  toggleVisibility: (_form: "Z" | "G", _data?: IZoneList | null) => void
 ): ((_zone: IZoneList, _columnKey: IZoneColumnKey) => string | number | JSX.Element) => {
   return useCallback((zone: IZoneList, columnKey: IZoneColumnKey) => {
     const cellValue = zone[columnKey as keyof IZoneList];

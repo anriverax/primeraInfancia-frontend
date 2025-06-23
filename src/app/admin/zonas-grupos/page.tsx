@@ -5,8 +5,14 @@ import { ZoneForm, GroupForm } from "@/features/zones-groups/components/forms";
 
 import ZoneTable from "@/features/zones-groups/components/table";
 import { useZoneModal } from "@/features/zones-groups/hooks/useZoneModal";
+import { IZoneList } from "@/features/zones-groups/zoneType";
+import { useState } from "react";
+import { useZonesList } from "@/features/zones-groups/hooks/useZonesList";
+
 export default function ZonesGroupsPage(): React.JSX.Element {
+  const [zonesList, setZonesList] = useState<IZoneList[]>([]);
   const { isVisible, typeModal, data, toggleFormVisibility } = useZoneModal();
+  const { deleteZone } = useZonesList(setZonesList);
   /*const [zoneFormState, setZoneFormState] = useState<formState>({
     visible: false,
     data: null,
@@ -32,9 +38,9 @@ export default function ZonesGroupsPage(): React.JSX.Element {
           </Button>
         </div>
       </div>
-      <ZoneTable toggleVisibility={toggleFormVisibility} />
+      <ZoneTable zonesList={zonesList} toggleVisibility={toggleFormVisibility} deleteZone={deleteZone} />
       {isVisible && typeModal === "Z" && (
-        <ZoneForm toggleVisibility={toggleFormVisibility} data={data} />
+        <ZoneForm toggleVisibility={toggleFormVisibility} data={data} setZonesList={setZonesList} />
       )}
       {isVisible && typeModal === "G" && (
         <GroupForm toggleVisibility={toggleFormVisibility} data={data} />

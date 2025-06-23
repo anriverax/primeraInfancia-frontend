@@ -1,5 +1,5 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { useCallback, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { IZoneList } from "../zoneType";
 import axios, { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
@@ -7,13 +7,11 @@ import { HttpStatusCode } from "@/shared/constants";
 import { addToast } from "@heroui/react";
 
 interface IZoneListRes {
-  zonesList: IZoneList[];
   deleteZone: (_zoneId: number) => Promise<void>;
 }
 
-const useZonesList = (): IZoneListRes => {
+const useZonesList = (setZonesList: Dispatch<SetStateAction<IZoneList[]>>): IZoneListRes => {
   const useRequest = useAxios(true);
-  const [zonesList, setZonesList] = useState<IZoneList[]>([]);
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -62,7 +60,7 @@ const useZonesList = (): IZoneListRes => {
     }
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
-  return { zonesList, deleteZone };
+  return { deleteZone };
 };
 
 export { useZonesList };

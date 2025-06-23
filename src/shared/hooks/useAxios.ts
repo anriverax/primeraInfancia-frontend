@@ -71,8 +71,6 @@ const useAxios = (isPrivate: boolean = false): AxiosInstance => {
         return config;
       },
       (error: AxiosError) => {
-        console.log(error);
-        alert(2);
         Promise.reject(error);
       }
     );
@@ -87,7 +85,7 @@ const useAxios = (isPrivate: boolean = false): AxiosInstance => {
 
         if (error?.response?.status === 401 && !prevRequest?.sent) {
           prevRequest.sent = true;
-          console.log("entro");
+
           const getToken = await refreshAccessToken(session!, update);
 
           prevRequest.headers["Authorization"] = getToken;

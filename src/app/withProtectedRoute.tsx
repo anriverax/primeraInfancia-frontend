@@ -1,7 +1,7 @@
 // components/WithProtectedRoute.tsx
 "use client";
 
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -18,7 +18,9 @@ interface WithProtectedRouteProps {
  * @param WrappedComponent El componente a proteger.
  * @returns Un nuevo componente con lógica de protección de ruta.
  */
-const WithProtectedRoute = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
+const WithProtectedRoute = <P extends object>(
+  WrappedComponent: React.ComponentType<P>
+): FC<P & WithProtectedRouteProps> => {
   const ProtectedRoute: React.FC<P & WithProtectedRouteProps> = (props) => {
     const {
       data: session,
@@ -77,6 +79,7 @@ const WithProtectedRoute = <P extends object>(WrappedComponent: React.ComponentT
 };
 
 // Función auxiliar para obtener el displayName del componente
+/* eslint-disable @typescript-eslint/no-explicit-any */
 function getDisplayName(WrappedComponent: React.ComponentType<any>) {
   return WrappedComponent.displayName || WrappedComponent.name || "Component";
 }
