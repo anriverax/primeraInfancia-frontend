@@ -23,7 +23,9 @@ const ConditionalAlert = memo(
   ({ status, errors, setStatus }: ConditionalAlertProps): React.JSX.Element => {
     const isVisible = Boolean(status && status >= 400);
 
-    const handleClose = useCallback(() => setStatus(undefined), [setStatus]);
+    /* eslint-disable react-hooks/exhaustive-deps */
+    const handleClose = useCallback(() => setStatus(undefined), []);
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     // Extracting axiosMessage from errors object
     const axiosError: string | string[] | undefined = errors ? errors.axiosMessage : undefined;

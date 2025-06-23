@@ -77,6 +77,7 @@ export const authOptions: NextAuthOptions = {
         token.isVerified = session.isVerified ?? token.isVerified;
         token.picture = session.picture ?? token.picture;
       }
+
       return token;
     },
     async session({ session, token }) {

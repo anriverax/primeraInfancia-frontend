@@ -3,13 +3,15 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input } from "@heroui/react";
 import { MapPin } from "lucide-react";
 import { useGroupForm } from "../../hooks/useGroupForm";
+import { IZoneList } from "../../zoneType";
 
 type GroupFormProps = {
-  toggleVisibility: (_form: string) => void;
+  toggleVisibility: (_form: "Z" | "G", _data?: null) => void;
+  data?: IZoneList | null;
 };
 
-const GroupForm = ({ toggleVisibility }: GroupFormProps): React.JSX.Element => {
-  const groupFormik = useGroupForm({ toggleVisibility });
+const GroupForm = ({ data }: GroupFormProps): React.JSX.Element => {
+  const groupFormik = useGroupForm({ data });
   const { handleSubmit, touched, errors, getFieldProps, isSubmitting } = groupFormik;
 
   const { getInputProps } = useCustomFormFields();
@@ -20,7 +22,7 @@ const GroupForm = ({ toggleVisibility }: GroupFormProps): React.JSX.Element => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <MapPin className="h-5 w-5" />
-            <h3 className="text-lg font-medium">Nueva Zona</h3>
+            <h3 className="text-lg font-medium">Nuevo Grupo</h3>
           </div>
         </div>
         <p className="text-blue-100 text-sm mt-1">Complete la información del grupo</p>

@@ -6,12 +6,13 @@ import Sidebar from "@/shared/ui/sidebar";
 import FormModal from "./_partials/formModal";
 import TopBar from "@/shared/ui/topbar";
 import { useLayout } from "@/features/admin/hooks/useLayout";
+import WithProtectedRoute from "../withProtectedRoute";
 
 type AuthLayoutProps = {
   children: React.ReactNode;
 };
 
-export default function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
+function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
   const { session, getUserData } = useLayout();
 
   return (
@@ -26,3 +27,5 @@ export default function AdminLayout({ children }: AuthLayoutProps): React.JSX.El
     </div>
   );
 }
+
+export default WithProtectedRoute(AdminLayout);

@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 import { signInValidation } from "./signInValidation";
 import { FormikProps } from "@/shared/types/globals";
 import { encrypt, formResponseError } from "@/shared/utils/funtions";
-import { PROFILE_REDIRECT_URL } from "@/shared/constants";
+import { DASHBOARD_REDIRECT_URL } from "@/shared/constants";
 
 const initialValues: SingInData = {
   email: "",
@@ -38,7 +38,7 @@ const useSignInForm = (): FormikProps<SingInData> => {
         redirect: false,
         email: encryptedEmail,
         password: encryptedPassword,
-        callbackUrl: `${process.env.NEXT_PUBLIC_URL || ""}${PROFILE_REDIRECT_URL}`
+        callbackUrl: `${process.env.NEXT_PUBLIC_URL || ""}${DASHBOARD_REDIRECT_URL}`
       });
 
       handleSignInResponse(res, formikHelpers);

@@ -8,12 +8,10 @@ type DotsProps = {
 };
 
 const Dots = memo(({ setActiveSlide, activeSlide }: DotsProps): React.JSX.Element => {
-  const handleSlideChange = useCallback(
-    (index: number) => {
-      setActiveSlide(index);
-    },
-    [setActiveSlide]
-  );
+  /* eslint-disable react-hooks/exhaustive-deps */
+  const handleSlideChange = useCallback((index: number) => {
+    setActiveSlide(index);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,7 +19,8 @@ const Dots = memo(({ setActiveSlide, activeSlide }: DotsProps): React.JSX.Elemen
     }, 3000); // it changes every 3 seconds
 
     return (): void => clearInterval(interval); // Interval cleaning
-  }, [setActiveSlide]);
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <div className="flex justify-center space-x-2">

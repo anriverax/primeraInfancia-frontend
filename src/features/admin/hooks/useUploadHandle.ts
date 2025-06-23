@@ -7,6 +7,8 @@ interface UseUploadHandleResponse {
   onChangeImages: (_file: File[]) => void;
   onChangeAvatar: (_file: File | null) => void;
 }
+
+/* eslint-disable react-hooks/exhaustive-deps */
 export const useUploadhandle = (
   setFieldValue: (
     _field: string,
@@ -14,26 +16,18 @@ export const useUploadhandle = (
     _shouldValidate?: boolean
   ) => Promise<void> | Promise<FormikErrors<UploadFilesSchema>>
 ): UseUploadHandleResponse => {
-  const onChangeCv = useCallback(
-    (file: File | null) => {
-      setFieldValue("file", file);
-    },
-    [setFieldValue]
-  );
+  const onChangeCv = useCallback((file: File | null) => {
+    setFieldValue("file", file);
+  }, []);
 
-  const onChangeImages = useCallback(
-    (file: File[]) => {
-      setFieldValue("images", file);
-    },
-    [setFieldValue]
-  );
+  const onChangeImages = useCallback((file: File[]) => {
+    setFieldValue("images", file);
+  }, []);
 
-  const onChangeAvatar = useCallback(
-    (file: File | null) => {
-      setFieldValue("avatar", file);
-    },
-    [setFieldValue]
-  );
+  const onChangeAvatar = useCallback((file: File | null) => {
+    setFieldValue("avatar", file);
+  }, []);
 
   return { onChangeCv, onChangeImages, onChangeAvatar };
 };
+/* eslint-enable react-hooks/exhaustive-deps */

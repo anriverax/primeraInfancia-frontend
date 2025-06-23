@@ -4,3 +4,9 @@ export interface IZoneList {
 }
 
 export type IZoneColumnKey = "name" | "actions";
+
+export interface formState {
+  visible: boolean;
+  data?: IZoneList | null;
+  state: "Z" | "G";
+}

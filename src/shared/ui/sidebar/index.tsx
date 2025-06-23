@@ -27,7 +27,7 @@ const Sidebar = memo(({ logo, items }: SidebarProps): React.JSX.Element => {
 
   const handleToggleSidebar = useCallback(() => {
     setExtended(false);
-  }, [setExtended]);
+  }, []);
 
   return (
     <>

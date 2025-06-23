@@ -3,9 +3,10 @@ import { FormikHelpers, useFormik } from "formik";
 import { groupValidation } from "../groupValidation";
 import { GroupData, GroupSchema } from "../zonesGroupType";
 import { FormikProps } from "@/shared/types/globals";
+import { IZoneList } from "../zoneType";
 
-type UseGroupFormProps = {
-  toggleVisibility: (_form: string) => void;
+type UseZoneFormProps = {
+  data?: IZoneList | null;
 };
 
 const initValuesGroup: GroupData = {
@@ -15,15 +16,14 @@ const initValuesGroup: GroupData = {
   zoneId: 0
 };
 
-const useGroupForm = ({ toggleVisibility }: UseGroupFormProps): FormikProps<GroupSchema> => {
+const useGroupForm = ({ data }: UseZoneFormProps): FormikProps<GroupSchema> => {
   const useRequest = useAxios(true);
   console.log(useRequest);
-
+  console.log(data);
   const handleSubmit = async (
     values: GroupData,
     formikHelpers: FormikHelpers<GroupSchema>
   ): Promise<void> => {
-    toggleVisibility("G");
     console.log(values);
     console.log(formikHelpers);
     try {

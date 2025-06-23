@@ -1,18 +1,24 @@
 import useAxios from "@/shared/hooks/useAxios";
 import { useCallback, useEffect, useState } from "react";
 import { IZoneList } from "../zoneType";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import { HttpStatusCode } from "@/shared/constants";
 import { addToast } from "@heroui/react";
 
-const useZonesList = () => {
+interface IZoneListRes {
+  zonesList: IZoneList[];
+  deleteZone: (_zoneId: number) => Promise<void>;
+}
+
+const useZonesList = (): IZoneListRes => {
   const useRequest = useAxios(true);
   const [zonesList, setZonesList] = useState<IZoneList[]>([]);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     let isMounted = true;
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       try {
         const res: AxiosResponse<FetchResponse<IZoneList[]>> = await useRequest.get("/zone");
 
@@ -21,19 +27,22 @@ const useZonesList = () => {
           setZonesList(data);
         }
       } catch (error) {
-        console.error(error);
+        if (axios.isAxiosError(error))
+          console.error("Error al obtener zonas:", error.response?.data || error.message);
+        else console.error("Error inesperado al obtener zonas:", error);
+        alert(1);
       }
     };
     fetchData();
 
-    return () => {
+    return (): void => {
       isMounted = false;
     };
   }, []);
 
   const deleteZone = useCallback(async (zoneId: number) => {
     try {
-      const res: AxiosResponse<any> = await useRequest.delete(`/zone/${zoneId}`);
+      const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(`/zone/${zoneId}`);
       const { statusCode, message } = res.data;
 
       if (statusCode === HttpStatusCode.OK) {
@@ -52,7 +61,7 @@ const useZonesList = () => {
       console.error(error);
     }
   }, []);
-
+  /* eslint-enable react-hooks/exhaustive-deps */
   return { zonesList, deleteZone };
 };
 

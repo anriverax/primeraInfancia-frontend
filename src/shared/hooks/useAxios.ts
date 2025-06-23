@@ -13,7 +13,8 @@ import { LOGIN_REDIRECT_URL } from "../constants";
 
 // Axios configuration
 const axiosConfig = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND ? process.env.NEXT_PUBLIC_BACKEND : undefined
+  baseURL: process.env.NEXT_PUBLIC_BACKEND ? process.env.NEXT_PUBLIC_BACKEND : undefined,
+  headers: { "Content-Type": "application/json" }
 });
 
 const refreshAccessToken = async (
@@ -69,7 +70,11 @@ const useAxios = (isPrivate: boolean = false): AxiosInstance => {
           config.headers.Authorization = `Bearer ${session.accessToken}`;
         return config;
       },
-      (error: AxiosError) => Promise.reject(error)
+      (error: AxiosError) => {
+        console.log(error);
+        alert(2);
+        Promise.reject(error);
+      }
     );
 
     // Response interceptor
@@ -78,11 +83,11 @@ const useAxios = (isPrivate: boolean = false): AxiosInstance => {
       async (error) => {
         const prevRequest: any = error?.config;
 
-        const isRefreshEndpoint = prevRequest?.url?.includes("/auth/change-password");
+        // const isRefreshEndpoint = prevRequest?.url?.includes("/auth/change-password");
 
-        if ((error?.response?.status === 401 && !prevRequest?.sent) || isRefreshEndpoint) {
+        if (error?.response?.status === 401 && !prevRequest?.sent) {
           prevRequest.sent = true;
-
+          console.log("entro");
           const getToken = await refreshAccessToken(session!, update);
 
           prevRequest.headers["Authorization"] = getToken;

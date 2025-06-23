@@ -3,13 +3,15 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input } from "@heroui/react";
 import { MapPin } from "lucide-react";
 import { useZoneForm } from "../../hooks/useZoneForm";
+import { IZoneList } from "../../zoneType";
 
 type ZoneFormProps = {
-  toggleVisibility: (_form: string) => void;
+  toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
+  data?: IZoneList | null;
 };
 
-const ZoneForm = ({ toggleVisibility }: ZoneFormProps): React.JSX.Element => {
-  const zoneFormik = useZoneForm();
+const ZoneForm = ({ toggleVisibility, data }: ZoneFormProps): React.JSX.Element => {
+  const zoneFormik = useZoneForm({ data, toggleVisibility });
   const { handleSubmit, touched, errors, getFieldProps, isSubmitting } = zoneFormik;
 
   const { getInputProps } = useCustomFormFields();
@@ -20,7 +22,7 @@ const ZoneForm = ({ toggleVisibility }: ZoneFormProps): React.JSX.Element => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <MapPin className="h-5 w-5" />
-            <h3 className="text-lg font-medium">Nueva Zona</h3>
+            <h3 className="text-lg font-medium">{data ? "Editar zona" : "Nueva Zona"}</h3>
           </div>
         </div>
         <p className="text-blue-100 text-sm mt-1">Agregue una nueva zona geográfica</p>

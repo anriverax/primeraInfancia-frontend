@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { Easing, motion } from "framer-motion";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { PanelLeftClose, PanelLeftOpen, X } from "lucide-react";
 import { cn } from "@/shared/utils/tv";
@@ -12,14 +12,16 @@ type ToggleButtonProps = {
 };
 
 const ToggleButton = ({ isExtended, isMobile, setExtended }: ToggleButtonProps): React.JSX.Element => {
+  /* eslint-disable react-hooks/exhaustive-deps */
   const handleClick = useCallback(() => {
     setExtended((prev) => !prev);
-  }, [setExtended]);
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   const getToggleButtonAnimation: {
     transition: {
       duration: number;
-      ease: number[];
+      ease: Easing | Easing[] | undefined;
     };
     className: string;
   } = {

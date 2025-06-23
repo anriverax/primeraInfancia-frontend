@@ -15,8 +15,8 @@ const useLayout = (): useLayoutResponse => {
   const { formStatus, setFormStatus } = useUpdatedProfileStore();
 
   const getUserData = (): TopBarProps => {
-    if (session) {
-      const { name, email, role, picture } = session!.user;
+    if (session?.user) {
+      const { name, email, role, picture } = session.user;
       return {
         name,
         email,
@@ -27,14 +27,14 @@ const useLayout = (): useLayoutResponse => {
     return { name: "", email: "", role: "" as TypeRole, avatar: "" };
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (session?.user.isVerified && formStatus.isOk) {
-      setFormStatus({
-        isOk: false,
-        msg: ""
-      });
-    }
-  }, [session?.user.isVerified, formStatus.isOk, setFormStatus]);
+    if (!session?.user.isVerified) return;
+    if (!formStatus.isOk) return;
+
+    setFormStatus({ isOk: false, msg: "" });
+  }, [session?.user.isVerified, formStatus.isOk]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return { session, getUserData };
 };

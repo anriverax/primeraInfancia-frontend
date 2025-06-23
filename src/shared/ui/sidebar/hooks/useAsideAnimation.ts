@@ -1,34 +1,8 @@
 import { cn } from "@/shared/utils/tv";
 import { useCallback } from "react";
 
-interface AnimationProps {
-  initial:
-    | {
-        x: string;
-      }
-    | boolean;
-  animate:
-    | {
-        x: string | number;
-      }
-    | {
-        width?: undefined | number;
-      };
-  transition: {
-    duration: number;
-    ease: string;
-  };
-  exit?: {
-    x: string;
-  };
-  className: string;
-}
-
-interface UseAsideAnimationResponse {
-  getAsideAnimation: (_isMobile: boolean) => AnimationProps | void;
-}
-
-const useAsideAnimation = (isExtended: boolean): UseAsideAnimationResponse => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const useAsideAnimation = (isExtended: boolean): any => {
   const getAsideAnimation = useCallback(
     (isMobile: boolean) => {
       if (isMobile) {
@@ -56,5 +30,6 @@ const useAsideAnimation = (isExtended: boolean): UseAsideAnimationResponse => {
 
   return { getAsideAnimation };
 };
+/* eslint-enaable @typescript-eslint/no-explicit-any */
 
 export { useAsideAnimation };

@@ -6,9 +6,13 @@ import { IZoneColumnKey, IZoneList } from "@/features/zones-groups/zoneType";
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/table";
 import { MapPin } from "lucide-react";
 
-const ZonePage = (): React.JSX.Element => {
+type ZoneTableProps = {
+  toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
+};
+
+const ZoneTable = ({ toggleVisibility }: ZoneTableProps): React.JSX.Element => {
   const { zonesList, deleteZone } = useZonesList();
-  const renderZoneCell = useRenderZoneCell(deleteZone);
+  const renderZoneCell = useRenderZoneCell(deleteZone, toggleVisibility);
 
   return (
     <div className="space-y-4">
@@ -33,4 +37,4 @@ const ZonePage = (): React.JSX.Element => {
   );
 };
 
-export default ZonePage;
+export default ZoneTable;

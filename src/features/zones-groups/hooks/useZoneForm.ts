@@ -8,15 +8,21 @@ import { AxiosError, AxiosResponse } from "axios";
 import { HttpStatusCode } from "@/shared/constants";
 import { addToast } from "@heroui/react";
 
+import { IZoneList } from "../zoneType";
+
 const initValuesZone: ZoneData = {
   name: ""
 };
 
+type UseZoneFormProps = {
+  data?: IZoneList | null;
+  toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
+};
 export const zoneFormValidation = object({
   name: stringField("El nombre de la zona es requerido")
 });
 
-const useZoneForm = (): FormikProps<ZoneSchema> => {
+const useZoneForm = ({ data, toggleVisibility }: UseZoneFormProps): FormikProps<ZoneSchema> => {
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
@@ -24,11 +30,13 @@ const useZoneForm = (): FormikProps<ZoneSchema> => {
     formikHelpers: FormikHelpers<ZoneSchema>
   ): Promise<void> => {
     try {
-      const response: AxiosResponse<FetchResponse<void>> = await useRequest.post("/zone/create", values);
+      const response: AxiosResponse<FetchResponse<void>> = data
+        ? await useRequest.put(`/zone/${data.id}`, { name: data.name })
+        : await useRequest.post("/zone/create", values);
 
       const result = response.data;
-      if (result.statusCode === HttpStatusCode.CREATED) {
-        formikHelpers.resetForm();
+      if (result.statusCode === HttpStatusCode.CREATED || result.statusCode === HttpStatusCode.OK) {
+        data ? toggleVisibility("Z", null) : formikHelpers.resetForm();
         addToast({
           title: result.message,
           severity: "success",
@@ -47,7 +55,7 @@ const useZoneForm = (): FormikProps<ZoneSchema> => {
 
   const zoneFormik = useFormik({
     enableReinitialize: true,
-    initialValues: initValuesZone,
+    initialValues: data ? { name: data.name } : initValuesZone,
     validationSchema: zoneFormValidation,
     validateOnBlur: true,
     validateOnChange: false,

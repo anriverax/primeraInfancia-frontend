@@ -1,6 +1,6 @@
 import { Tooltip } from "@heroui/react";
 import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
-import { useCallback } from "react";
+import { JSX, useCallback } from "react";
 import { IZoneColumnKey, IZoneList } from "../../zoneType";
 import { IColumns } from "@/shared/types/globals";
 
@@ -15,7 +15,11 @@ export const zoneColumns: IColumns<IZoneColumnKey>[] = [
   }
 ];
 
-export const useRenderZoneCell = (deleteZone: (zoneId: number) => Promise<void>) => {
+/* eslint-disable react-hooks/exhaustive-deps */
+export const useRenderZoneCell = (
+  deleteZone: (_zoneId: number) => Promise<void>,
+  toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void
+): ((_zone: IZoneList, _columnKey: IZoneColumnKey) => string | number | JSX.Element) => {
   return useCallback((zone: IZoneList, columnKey: IZoneColumnKey) => {
     const cellValue = zone[columnKey as keyof IZoneList];
 
@@ -29,7 +33,10 @@ export const useRenderZoneCell = (deleteZone: (zoneId: number) => Promise<void>)
               </span>
             </Tooltip>
             <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+              <span
+                className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                onClick={() => toggleVisibility("Z", zone)}
+              >
                 <EditIcon />
               </span>
             </Tooltip>
@@ -48,3 +55,5 @@ export const useRenderZoneCell = (deleteZone: (zoneId: number) => Promise<void>)
     }
   }, []);
 };
+
+/* eslint-enable react-hooks/exhaustive-deps */
