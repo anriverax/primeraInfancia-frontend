@@ -2,20 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest): NextResponse<unknown> {
-  const isAuth = request.cookies.get("isAuth");
-  const hasToken = request.cookies.get("next-auth.csrf-token");
-  const hasSessionToken = request.cookies.get("next-auth.session-token");
+  const isAuthenticated = request.cookies.get("next-auth.session-token");
+  const isAuthRoute = request.nextUrl.pathname.startsWith("/auth");
+  const isProtectedRoute = request.nextUrl.pathname.startsWith("/admin");
 
-  if (isAuth && hasToken && hasSessionToken) {
-    if (request.nextUrl.pathname.includes("/auth"))
-      return NextResponse.redirect(new URL("/admin/dashboard", request.url));
-  } else {
-    request.cookies.delete("isAuth");
-    request.cookies.delete("next-auth.csrf-token");
-    request.cookies.delete("next-auth.session-token");
+  // If you are authenticated and try to go to /auth, redirect to dashboard
+  if (isAuthenticated && isAuthRoute) {
+    return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+  }
 
-    if (request.nextUrl.pathname.includes("/admin"))
-      return NextResponse.redirect(new URL("/auth/iniciar-sesion", request.url));
+  // If you are not authenticated and try to go to a protected route
+  if (!isAuthenticated && isProtectedRoute) {
+    return NextResponse.redirect(new URL("/auth/iniciar-sesion", request.url));
   }
 
   return NextResponse.next();
@@ -30,5 +28,5 @@ export function middleware(request: NextRequest): NextResponse<unknown> {
  * - favicon.ico (favicon file)
  */
 export const config = {
-  matcher: ["/auth/", "/((?!api|_next/static|_next/image|favicon.ico).*)"]
+  matcher: ["/auth/:path*", "/admin/:path*", "/((?!api|_next/static|_next/image|favicon.ico).*)"]
 };

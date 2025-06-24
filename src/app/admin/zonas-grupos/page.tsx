@@ -13,17 +13,6 @@ export default function ZonesGroupsPage(): React.JSX.Element {
   const [zonesList, setZonesList] = useState<IZoneList[]>([]);
   const { isVisible, typeModal, data, toggleFormVisibility } = useZoneModal();
   const { deleteZone } = useZonesList(setZonesList);
-  /*const [zoneFormState, setZoneFormState] = useState<formState>({
-    visible: false,
-    data: null,
-    state: "Z"
-  });
-
-  const [groupFormState, setGroupFormState] = useState<formState>({
-    visible: false,
-    data: null,
-    state: "G"
-  });*/
 
   return (
     <div className="space-y-8">

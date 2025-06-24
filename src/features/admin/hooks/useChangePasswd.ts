@@ -1,6 +1,6 @@
-import { ChangePasswdData, ResponseUpdatedPasswd } from "../adminType";
+import { ChangePasswdInput, UpdatedPasswdResponse } from "../adminType";
 import { FormikHelpers, useFormik } from "formik";
-import { changePasswdValidation } from "../modalValidation";
+import { changePasswdSchema } from "../modalValidation";
 import { encrypt, formResponseError } from "@/shared/utils/funtions";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
@@ -10,25 +10,25 @@ import { useEffect } from "react";
 import { signOut } from "next-auth/react";
 import { LOGIN_REDIRECT_URL } from "@/shared/constants";
 
-const initialValuesPasswd: ChangePasswdData = {
+const initialValuesPasswd: ChangePasswdInput = {
   currentPassword: "",
   newPassword: "",
   confirmNewPassword: ""
 };
 
-const useChangePasswd = (): FormikProps<ChangePasswdData> => {
+const useChangePasswd = (): FormikProps<ChangePasswdInput> => {
   const useRequest = useAxios(true);
   const { formStatus, setFormStatus } = useUpdatedProfileStore();
 
   const handleSubmit = async (
-    values: ChangePasswdData,
-    formikHelpers: FormikHelpers<ChangePasswdData>
+    values: ChangePasswdInput,
+    formikHelpers: FormikHelpers<ChangePasswdInput>
   ): Promise<void> => {
     const encryptedCurrentPassword = encrypt(values.currentPassword);
     const encryptedNewPassword = encrypt(values.newPassword);
 
     try {
-      const response: AxiosResponse<FetchResponse<ResponseUpdatedPasswd>> = await useRequest.post(
+      const response: AxiosResponse<FetchResponse<UpdatedPasswdResponse>> = await useRequest.post(
         "/auth/change-password",
         {
           value1: encryptedCurrentPassword,
@@ -49,7 +49,7 @@ const useChangePasswd = (): FormikProps<ChangePasswdData> => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValuesPasswd,
-    validationSchema: changePasswdValidation,
+    validationSchema: changePasswdSchema,
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: handleSubmit

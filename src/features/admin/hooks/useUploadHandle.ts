@@ -1,6 +1,6 @@
 import { FormikErrors } from "formik";
 import { useCallback } from "react";
-import { UploadFilesSchema } from "../adminType";
+import { UploadFilesInput } from "../adminType";
 
 interface UseUploadHandleResponse {
   onChangeCv: (_file: File | null) => void;
@@ -14,7 +14,7 @@ export const useUploadhandle = (
     _field: string,
     _value: File | File[] | null,
     _shouldValidate?: boolean
-  ) => Promise<void> | Promise<FormikErrors<UploadFilesSchema>>
+  ) => Promise<void> | Promise<FormikErrors<UploadFilesInput>>
 ): UseUploadHandleResponse => {
   const onChangeCv = useCallback((file: File | null) => {
     setFieldValue("file", file);

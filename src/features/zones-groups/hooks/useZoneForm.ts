@@ -1,34 +1,30 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { formResponseError, stringField } from "@/shared/utils/funtions";
+import { formResponseError } from "@/shared/utils/funtions";
 import { FormikHelpers, useFormik } from "formik";
-import { object } from "yup";
 import { ZoneData, ZoneSchema } from "../zonesGroupType";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { AxiosError, AxiosResponse } from "axios";
 import { HttpStatusCode } from "@/shared/constants";
 import { addToast } from "@heroui/react";
-
-import { IZoneList } from "../zoneType";
+import { IZone, ZoneInput } from "../zoneType";
 import { Dispatch, SetStateAction } from "react";
+import { zoneFormSchema } from "../zonesGroupValidation";
 
-const initValuesZone: ZoneData = {
+const initValuesZone: ZoneInput = {
   name: ""
 };
 
-type UseZoneFormProps = {
-  data?: IZoneList | null;
-  toggleVisibility: (_form: "Z" | "G", _data?: IZoneList | null) => void;
-  setZonesList: Dispatch<SetStateAction<IZoneList[]>>;
+type ZoneFormProps = {
+  data?: ZoneInput | null;
+  toggleVisibility: (_form: "Z" | "G", _data?: IZone | null) => void;
+  setZonesList: Dispatch<SetStateAction<IZone[]>>;
 };
-export const zoneFormValidation = object({
-  name: stringField("El nombre de la zona es requerido")
-});
 
 const useZoneForm = ({
   data,
   toggleVisibility,
   setZonesList
-}: UseZoneFormProps): FormikProps<ZoneSchema> => {
+}: ZoneFormProps): FormikProps<ZoneSchema> => {
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
@@ -36,18 +32,22 @@ const useZoneForm = ({
     formikHelpers: FormikHelpers<ZoneSchema>
   ): Promise<void> => {
     try {
-      const response: AxiosResponse<FetchResponse<IZoneList>> = data
+      const response: AxiosResponse<FetchResponse<IZone>> = data
         ? await useRequest.put(`/zone/${data.id}`, { name: data.name })
         : await useRequest.post("/zone/create", values);
 
       const result = response.data;
       if (result.statusCode === HttpStatusCode.CREATED || result.statusCode === HttpStatusCode.OK) {
-        if (data) toggleVisibility("Z", null);
-        else {
+        if (!data) {
           formikHelpers.resetForm();
-          console.log(result.data);
+
           const { id, name } = result.data;
           setZonesList((prevZones) => [...prevZones, { id, name }]);
+        } else {
+          setZonesList((prevZones) =>
+            prevZones.map((zone: IZone) => (zone.id === data.id ? { ...zone, name: data.name } : zone))
+          );
+          toggleVisibility("Z", null);
         }
 
         addToast({
@@ -60,7 +60,6 @@ const useZoneForm = ({
         });
       }
     } catch (error) {
-      // Handle login error.
       const { setStatus, setFieldError } = formikHelpers;
       formResponseError(error as AxiosError, setStatus, setFieldError);
     }
@@ -69,7 +68,7 @@ const useZoneForm = ({
   const zoneFormik = useFormik({
     enableReinitialize: true,
     initialValues: data ? { name: data.name } : initValuesZone,
-    validationSchema: zoneFormValidation,
+    validationSchema: zoneFormSchema,
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: handleSubmit

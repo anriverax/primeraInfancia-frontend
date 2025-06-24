@@ -3,13 +3,13 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input } from "@heroui/react";
 import { MapPin } from "lucide-react";
 import { useZoneForm } from "../../hooks/useZoneForm";
-import { IZoneList } from "../../zoneType";
 import { Dispatch, SetStateAction } from "react";
+import { IZone, ZoneInput } from '../../zoneType';
 
 type ZoneFormProps = {
-  toggleVisibility: (_form: "Z" | "G", _data?: IZoneList | null) => void;
-  setZonesList: Dispatch<SetStateAction<IZoneList[]>>;
-  data?: IZoneList | null;
+  toggleVisibility: (_form: "Z" | "G", _data?: IZone | null) => void;
+  setZonesList: Dispatch<SetStateAction<IZone[]>>;
+  data?: ZoneInput | null;
 };
 
 const ZoneForm = ({ toggleVisibility, data, setZonesList }: ZoneFormProps): React.JSX.Element => {

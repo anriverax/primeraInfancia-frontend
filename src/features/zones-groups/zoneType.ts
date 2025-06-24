@@ -1,12 +1,18 @@
-export interface IZoneList {
-  id: number;
+import { AxiosMessage } from "@/shared/types/globals";
+
+export interface IZone {
+  id?: number | null;
   name: string;
 }
 
+export type ZoneInput = IZone & AxiosMessage;
+
+export interface GroupData {}
+
 export type IZoneColumnKey = "name" | "actions";
 
-export interface formState {
+export interface ZoneModelState {
   visible: boolean;
-  data?: IZoneList | null;
+  data?: ZoneListData | null;
   state: "Z" | "G";
 }

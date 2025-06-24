@@ -3,11 +3,8 @@ import { useCallback, useState } from "react";
 interface IZoneModalData {
   isVisible: boolean;
   typeModal: "Z" | "G";
-  data?: null;
+  data?: any | null;
 }
-
-//
-// Función que crea un hook store tipado con T
 
 /* eslint-disable @typescript-eslint/no-explicit-any*/
 export const useZoneModal = () => {

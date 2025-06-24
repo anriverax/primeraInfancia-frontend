@@ -5,44 +5,36 @@ import { FC, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-interface WithProtectedRouteProps {
-  // Puedes añadir cualquier prop específica que tu HOC necesite
-  // Por ejemplo, un fallback UI mientras carga la sesión
-  loadingFallback?: React.ReactNode;
-}
-
 /**
- * Higher-Order Component (HOC) para proteger rutas en Client Components.
- * Redirige al usuario a la página de inicio de sesión si no está autenticado.
+ * Higher-Order Component (HOC) to protect paths in Client Components.
+ * Redirects the user to the login page if not authenticated.
  *
- * @param WrappedComponent El componente a proteger.
- * @returns Un nuevo componente con lógica de protección de ruta.
+ * @param WrappedComponent The component to protect.
+ * @returns A new component with path protection logic.
  */
-const WithProtectedRoute = <P extends object>(
-  WrappedComponent: React.ComponentType<P>
-): FC<P & WithProtectedRouteProps> => {
-  const ProtectedRoute: React.FC<P & WithProtectedRouteProps> = (props) => {
+const WithProtectedRoute = <P extends object>(WrappedComponent: React.ComponentType<P>): FC<P> => {
+  const ProtectedRoute: React.FC<P> = (props) => {
     const {
       data: session,
       status,
       update
     } = useSession({
-      // required: true es una forma concisa de manejar la redirección
-      // si la sesión no está autenticada.
+      // required: true is a concise way to handle the redirection
+      // if the session is not authenticated.
       required: true,
       onUnauthenticated() {
-        // Redirige al usuario a la página de inicio de sesión
-        // La URL de redirección debe ser absoluta o relativa a la base de tu dominio.
+        // Redirect the user to the login page
+        // The redirect URL must be absolute or relative to the base of your domain.
         redirect("/auth/iniciar-sesion"); // Cambiado a iniciar-sesion según tu pages.signIn
       }
     });
 
-    // Opcional: Refrescar la sesión cuando la pestaña se vuelve visible.
-    // Esto asegura que la sesión esté actualizada si el usuario cambia de pestaña y regresa.
+    // Optional: Refresh the session when the tab becomes visible.
+    // This ensures that the session is up to date if the user switches tabs and returns.
     useEffect(() => {
       const visibilityHandler = () => {
         if (document.visibilityState === "visible") {
-          // Solo actualiza si no estamos en estado "loading" para evitar llamadas redundantes
+          // Only updates if we are not in "loading" status to avoid redundant calls.
           if (status !== "loading") {
             update();
           }
@@ -52,33 +44,37 @@ const WithProtectedRoute = <P extends object>(
       return () => window.removeEventListener("visibilitychange", visibilityHandler, false);
     }, [update, status]); // Añadir status como dependencia para evitar llamadas innecesarias
 
-    // --- Manejo del estado de carga y no autenticado ---
-    // Si la sesión está cargando, podemos mostrar un fallback UI.
+    // --- Handling of loading and unauthenticated state ---
+    // If the session is loading, we can display a fallback UI.
     if (status === "loading") {
-      // Si se proporciona un loadingFallback, lo renderizamos.
-      // De lo contrario, no renderizamos nada (o un spinner por defecto).
-      return props.loadingFallback || <div>Cargando contenido protegido...</div>;
+      // If a loadingFallback is provided, we render it.
+      // Otherwise, we render nothing (or a default spinner).
+      return null;
     }
 
-    // Si el status es "unauthenticated", `onUnauthenticated` ya se habrá disparado
+    // If the status is “unauthenticated”, `onUnauthenticated` has already been triggered.
     // y redirigirá al usuario. Por lo tanto, `session` nunca será null aquí si `required: true` funciona.
     // En caso de que haya un mínimo delay, `null` es un fallback seguro.
     if (!session) {
       return null;
     }
 
-    // Si llegamos aquí, el status es "authenticated" y tenemos la sesión.
-    // Pasamos la sesión y la función update como props si el componente envuelto las necesita.
-    return <WrappedComponent {...props} session={session} update={update} />;
+    // If we get here, the status is “authenticated” and we are logged in.
+    // We pass the session and the update function as props if the wrapped component needs them.
+    return (
+      <div className="fade-in">
+        <WrappedComponent {...props} session={session} update={update} />
+      </div>
+    );
   };
 
-  // Asignar un displayName es una buena práctica para la depuración en React DevTools
+  // Assigning a displayName is a good practice for debugging in React DevTools.
   ProtectedRoute.displayName = `WithProtectedRoute(${getDisplayName(WrappedComponent)})`;
 
   return ProtectedRoute;
 };
 
-// Función auxiliar para obtener el displayName del componente
+// Auxiliary function to obtain the displayName of the component
 /* eslint-disable @typescript-eslint/no-explicit-any */
 function getDisplayName(WrappedComponent: React.ComponentType<any>) {
   return WrappedComponent.displayName || WrappedComponent.name || "Component";

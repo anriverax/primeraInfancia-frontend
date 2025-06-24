@@ -2,7 +2,7 @@
 
 import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
 import {
-  ModalComponent,
+  IModalComponent,
   useModalRegistry
 } from "@/features/admin/components/modal/partials/layout/modalRegistry";
 import { useActiveFormStore } from "@/shared/hooks/store/useActiveFormStore";
@@ -23,7 +23,7 @@ const FormModal = (): React.JSX.Element => {
           exit: { opacity: 0, height: 0 }
         }}
       >
-        {components.map(({ id, element }: ModalComponent) => (
+        {components.map(({ id, element }: IModalComponent) => (
           <div key={id} className={`mx-auto ${showForm === 0 ? "max-w-full" : "max-w-md"}`}>
             {element}
           </div>

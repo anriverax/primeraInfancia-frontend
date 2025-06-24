@@ -5,12 +5,12 @@ import { TypeRole } from "@/shared/constants";
 import { useEffect } from "react";
 import { Session } from "next-auth";
 
-interface useLayoutResponse {
+interface LayoutResponse {
   session: Session | null;
   getUserData: () => TopBarProps;
 }
 
-const useLayout = (): useLayoutResponse => {
+const useLayout = (): LayoutResponse => {
   const { data: session } = useSession();
   const { formStatus, setFormStatus } = useUpdatedProfileStore();
 

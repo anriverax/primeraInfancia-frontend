@@ -1,25 +1,25 @@
 import { AxiosMessage } from "@/shared/types/globals";
 
-export interface VerifyCodeSchema {
+export interface IVerifyCode {
   verifyCode: string;
 }
 
-export interface UploadFilesSchema extends AxiosMessage {
+export interface IUploadFiles {
   file: File | null;
   images: File[];
   avatar: File | null;
 }
-export interface ChangePasswdSchema {
+export interface IChangePasswd {
   currentPassword: string;
   newPassword: string;
   confirmNewPassword: string;
 }
 
-export type VerifyCodeData = VerifyCodeSchema & AxiosMessage;
-export type UploadFilesData = UploadFilesSchema & AxiosMessage;
-export type ChangePasswdData = ChangePasswdSchema & AxiosMessage;
+export type VerifyCodeInput = IVerifyCode & AxiosMessage;
+export type UploadFilesInput = IUploadFiles & AxiosMessage;
+export type ChangePasswdInput = IChangePasswd & AxiosMessage;
 
-export interface ResponseUpdatedPasswd {
+export interface UpdatedPasswdResponse {
   avatar: string;
   isVerified: boolean;
 }

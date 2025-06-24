@@ -1,24 +1,24 @@
 import { FormikHelpers, useFormik } from "formik";
 import { signIn, SignInResponse } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { SingInData } from "./type";
+import { SingInInput } from "./type";
 import { AxiosError } from "axios";
-import { signInValidation } from "./signInValidation";
+import { signInSchema } from "./signInValidation";
 import { FormikProps } from "@/shared/types/globals";
 import { encrypt, formResponseError } from "@/shared/utils/funtions";
 import { DASHBOARD_REDIRECT_URL } from "@/shared/constants";
 
-const initialValues: SingInData = {
+const initialValues: SingInInput = {
   email: "",
   passwd: ""
 };
 
-const useSignInForm = (): FormikProps<SingInData> => {
+const useSignInForm = (): FormikProps<SingInInput> => {
   const router = useRouter();
 
   const handleSignInResponse = (
     res: SignInResponse | undefined,
-    formikHelpers: FormikHelpers<SingInData>
+    formikHelpers: FormikHelpers<SingInInput>
   ): void => {
     if (res && res.status !== 200) {
       formikHelpers.setFieldError("axiosMessage", res?.error as string);
@@ -27,8 +27,8 @@ const useSignInForm = (): FormikProps<SingInData> => {
   };
 
   const handleSubmit = async (
-    values: SingInData,
-    formikHelpers: FormikHelpers<SingInData>
+    values: SingInInput,
+    formikHelpers: FormikHelpers<SingInInput>
   ): Promise<void> => {
     const encryptedEmail = encrypt(values.email);
     const encryptedPassword = encrypt(values.passwd);
@@ -53,7 +53,7 @@ const useSignInForm = (): FormikProps<SingInData> => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
-    validationSchema: signInValidation,
+    validationSchema: signInSchema,
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: handleSubmit

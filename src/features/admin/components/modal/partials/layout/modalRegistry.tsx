@@ -22,17 +22,17 @@ const ChangePasswd = dynamic(
   }
 );
 
-export interface ModalComponent {
+export interface IModalComponent {
   id: string;
   element: React.JSX.Element;
 }
 
-interface UseModalRegistryResponse {
-  components: ModalComponent[];
+interface ModalRegistryResponse {
+  components: IModalComponent[];
 }
 
-export const useModalRegistry = (): UseModalRegistryResponse => {
-  const getActiveModals = (): ModalComponent[] => [
+export const useModalRegistry = (): ModalRegistryResponse => {
+  const getActiveModals = (): IModalComponent[] => [
     { id: "verify", element: <VerifyEmail /> },
     { id: "upload", element: <UploadFilesModal /> },
     { id: "change", element: <ChangePasswd /> }

@@ -1,4 +1,4 @@
-import { UploadFilesSchema } from "../adminType";
+import { UploadFilesInput } from "../adminType";
 import { FormikHelpers, useFormik } from "formik";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
@@ -6,19 +6,19 @@ import { formResponseError } from "@/shared/utils/funtions";
 import { useActiveFormStore } from "@/shared/hooks/store/useActiveFormStore";
 import { FormikProps } from "@/shared/types/globals";
 
-const initialValuesFiles: UploadFilesSchema = {
+const initialValuesFiles: UploadFilesInput = {
   file: null,
   images: [],
   avatar: null
 };
 
-const useUploadFiles = (): FormikProps<UploadFilesSchema> => {
+const useUploadFiles = (): FormikProps<UploadFilesInput> => {
   const useRequest = useAxios(true);
   const { setShowForm } = useActiveFormStore();
 
   const handleSubmit = async (
-    values: UploadFilesSchema,
-    formikHelpers: FormikHelpers<UploadFilesSchema>
+    values: UploadFilesInput,
+    formikHelpers: FormikHelpers<UploadFilesInput>
   ): Promise<void> => {
     const formData = new FormData();
 

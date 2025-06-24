@@ -1,14 +1,14 @@
 import { AxiosMessage } from "@/shared/types/globals";
 import { MemoExoticComponent } from "react";
 
-export interface SignInSchema {
+export interface ISignIn {
   email: string;
   passwd: string;
 }
 
-export type SingInData = SignInSchema & AxiosMessage;
+export type SingInInput = ISignIn & AxiosMessage;
 
-export interface DataVisLoginFormResponse {
+export interface IAnimationView {
   id: string;
   Component: MemoExoticComponent<() => React.JSX.Element>;
 }

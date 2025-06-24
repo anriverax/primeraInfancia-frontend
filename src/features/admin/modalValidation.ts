@@ -2,13 +2,13 @@ import { validationMessages } from "@/shared/constants";
 import { stringField } from "@/shared/utils/funtions";
 import { regex } from "@/shared/utils/regex-validation";
 import { object, ObjectSchema, ref } from "yup";
-import { ChangePasswdSchema, VerifyCodeSchema } from "./adminType";
+import { IChangePasswd, IVerifyCode } from "./adminType";
 
-export const verifyCodeValidation: ObjectSchema<VerifyCodeSchema> = object({
+export const verifyCodeSchema: ObjectSchema<IVerifyCode> = object({
   verifyCode: stringField("Código OPT inválido")
 });
 
-export const changePasswdValidation: ObjectSchema<ChangePasswdSchema> = object({
+export const changePasswdSchema: ObjectSchema<IChangePasswd> = object({
   currentPassword: stringField(validationMessages.required),
   newPassword: stringField(validationMessages.required)
     .min(8, "La contraseña debe tener al menos 8 caracteres")
