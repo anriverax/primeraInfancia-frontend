@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import { IZoneList } from "../zoneType";
+import { useCallback, useState } from "react";
 
 interface IZoneModalData {
   isVisible: boolean;

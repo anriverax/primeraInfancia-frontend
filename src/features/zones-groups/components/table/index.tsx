@@ -1,7 +1,7 @@
 "use client";
 
 import { useRenderZoneCell, zoneColumns } from "@/features/zones-groups/components/table/columns";
-import { useZonesList } from "@/features/zones-groups/hooks/useZonesList";
+
 import { IZoneColumnKey, IZoneList } from "@/features/zones-groups/zoneType";
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/table";
 import { MapPin } from "lucide-react";

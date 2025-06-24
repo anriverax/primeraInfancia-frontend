@@ -13,8 +13,8 @@ import { LOGIN_REDIRECT_URL } from "../constants";
 
 // Axios configuration
 const axiosConfig = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND ? process.env.NEXT_PUBLIC_BACKEND : undefined,
-  headers: { "Content-Type": "application/json" }
+  baseURL: process.env.NEXT_PUBLIC_BACKEND ? process.env.NEXT_PUBLIC_BACKEND : undefined
+  //  headers: { "Content-Type": "application/json" }
 });
 
 const refreshAccessToken = async (

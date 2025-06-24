@@ -1,5 +1,5 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { IZoneList } from "../zoneType";
 import axios, { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";

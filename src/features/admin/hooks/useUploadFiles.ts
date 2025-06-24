@@ -21,13 +21,15 @@ const useUploadFiles = (): FormikProps<UploadFilesSchema> => {
     formikHelpers: FormikHelpers<UploadFilesSchema>
   ): Promise<void> => {
     const formData = new FormData();
-    console.log("cv ", values.file);
+
     if (values.file) formData.append("cv", values.file);
     formData.append("images", values.images[0]);
     formData.append("images", values.images[1]);
 
     if (values.avatar) formData.append("avatar", values.avatar);
-
+    console.log(formData.getAll("cv"));
+    console.log(formData.getAll("images"));
+    console.log(formData.getAll("avatar"));
     try {
       const filesResponse: AxiosResponse<boolean> = await useRequest.post(
         "/profile/uploadFiles",
