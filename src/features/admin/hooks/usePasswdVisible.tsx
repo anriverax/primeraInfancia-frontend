@@ -4,13 +4,13 @@ import { useCallback, useMemo, useState } from "react";
 type Visibility = [boolean, { endContent: React.JSX.Element }];
 
 const usePasswdVisible = (): Visibility => {
-  const [isVisiblePsswd, setIsVisiblePsswd] = useState<boolean>(false);
+  const [isPasswordVisible, setPasswordVisible1] = useState<boolean>(false);
 
   const toggleVisibilityPsswd = useCallback(() => {
-    setIsVisiblePsswd((prev) => !prev);
+    setPasswordVisible1((prev) => !prev);
   }, []);
 
-  const visiblePsswd = useMemo(
+  const handlePasswordVisible = useMemo(
     () => ({
       endContent: (
         <button
@@ -19,7 +19,7 @@ const usePasswdVisible = (): Visibility => {
           type="button"
           onClick={toggleVisibilityPsswd}
         >
-          {isVisiblePsswd ? (
+          {isPasswordVisible ? (
             <EyeOff size={18} className="text-gray-400" />
           ) : (
             <Eye size={18} className="text-gray-400" />
@@ -27,10 +27,10 @@ const usePasswdVisible = (): Visibility => {
         </button>
       )
     }),
-    [isVisiblePsswd, toggleVisibilityPsswd]
+    [isPasswordVisible, toggleVisibilityPsswd]
   );
 
-  return [isVisiblePsswd, visiblePsswd];
+  return [isPasswordVisible, handlePasswordVisible];
 };
 
 export { usePasswdVisible };

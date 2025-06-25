@@ -4,10 +4,10 @@ import UploadLayout from "./layout/uploadLayout";
 
 type CvUploadProps = {
   file: File | null;
-  setFile: (_file: File | null) => void;
+  onCvChange: (_file: File | null) => void;
 };
 
-const CvUpload = ({ file, setFile }: CvUploadProps): React.JSX.Element => {
+const CvUpload = ({ file, onCvChange }: CvUploadProps): React.JSX.Element => {
   const [fileUploadError, setFileUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -22,19 +22,24 @@ const CvUpload = ({ file, setFile }: CvUploadProps): React.JSX.Element => {
         return;
       }
 
-      setFile(selectedFile);
+      onCvChange(selectedFile);
       setFileUploadError(null);
     }
   };
 
-  const removeFile = (): void => {
-    setFile(null);
+  const handleRemoveFile = (): void => {
+    onCvChange(null);
     setFileUploadError(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   return (
-    <UploadLayout title="Subir CV" errors={fileUploadError} fileInput={file} removeFile={removeFile}>
+    <UploadLayout
+      title="Subir CV"
+      errors={fileUploadError}
+      fileInput={file}
+      onRemoveFile={handleRemoveFile}
+    >
       <>
         {file ? (
           <div className="flex items-center space-x-2">

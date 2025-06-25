@@ -1,30 +1,30 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { formResponseError } from "@/shared/utils/funtions";
+import { handleFormikResponseError } from "@/shared/utils/funtions";
 import { FormikHelpers, useFormik } from "formik";
 import { ZoneData, ZoneSchema } from "../zonesGroupType";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { AxiosError, AxiosResponse } from "axios";
 import { HttpStatusCode } from "@/shared/constants";
 import { addToast } from "@heroui/react";
-import { IZone, ZoneInput } from "../zoneType";
+
 import { Dispatch, SetStateAction } from "react";
-import { zoneFormSchema } from "../zonesGroupValidation";
+
+import { IZone, ZoneInput } from "../zone/zoneType";
+import { zoneSchema } from "../zone/zoneValidation";
+import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 
 const initValuesZone: ZoneInput = {
   name: ""
 };
 
-type ZoneFormProps = {
-  data?: ZoneInput | null;
-  toggleVisibility: (_form: "Z" | "G", _data?: IZone | null) => void;
-  setZonesList: Dispatch<SetStateAction<IZone[]>>;
-};
+interface ZoneFormResponse {
+  zoneFormik: FormikProps<IZone>;
+  reset: () => void;
+  data: IZone | null;
+}
 
-const useZoneForm = ({
-  data,
-  toggleVisibility,
-  setZonesList
-}: ZoneFormProps): FormikProps<ZoneSchema> => {
+const useZoneForm = (setZonesList: Dispatch<SetStateAction<IZone[]>>): ZoneFormResponse => {
+  const { data, reset } = useZoneModalStore();
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
@@ -33,7 +33,7 @@ const useZoneForm = ({
   ): Promise<void> => {
     try {
       const response: AxiosResponse<FetchResponse<IZone>> = data
-        ? await useRequest.put(`/zone/${data.id}`, { name: data.name })
+        ? await useRequest.put(`/zone/${data.id}`, { name: values.name })
         : await useRequest.post("/zone/create", values);
 
       const result = response.data;
@@ -45,9 +45,9 @@ const useZoneForm = ({
           setZonesList((prevZones) => [...prevZones, { id, name }]);
         } else {
           setZonesList((prevZones) =>
-            prevZones.map((zone: IZone) => (zone.id === data.id ? { ...zone, name: data.name } : zone))
+            prevZones.map((zone: IZone) => (zone.id === data.id ? { ...zone, ...values } : zone))
           );
-          toggleVisibility("Z", null);
+          reset();
         }
 
         addToast({
@@ -60,21 +60,20 @@ const useZoneForm = ({
         });
       }
     } catch (error) {
-      const { setStatus, setFieldError } = formikHelpers;
-      formResponseError(error as AxiosError, setStatus, setFieldError);
+      handleFormikResponseError<ZoneData>(error as AxiosError, formikHelpers);
     }
   };
 
   const zoneFormik = useFormik({
     enableReinitialize: true,
     initialValues: data ? { name: data.name } : initValuesZone,
-    validationSchema: zoneFormSchema,
+    validationSchema: zoneSchema,
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: handleSubmit
   });
 
-  return zoneFormik;
+  return { zoneFormik, reset, data };
 };
 
 export { useZoneForm };

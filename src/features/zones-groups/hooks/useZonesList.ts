@@ -1,16 +1,14 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
-import { IZoneList } from "../zoneType";
-import axios, { AxiosResponse } from "axios";
+import { useCallback, useEffect, useState } from "react";
+import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import { HttpStatusCode } from "@/shared/constants";
 import { addToast } from "@heroui/react";
+import { IZone, ZoneListResponse } from "../zone/zoneType";
+import { handleAxiosError } from "@/shared/utils/funtions";
 
-interface IZoneListRes {
-  deleteZone: (_zoneId: number) => Promise<void>;
-}
-
-const useZonesList = (setZonesList: Dispatch<SetStateAction<IZoneList[]>>): IZoneListRes => {
+const useZonesList = (): ZoneListResponse => {
+  const [zonesList, setZonesList] = useState<IZone[]>([]);
   const useRequest = useAxios(true);
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -18,17 +16,14 @@ const useZonesList = (setZonesList: Dispatch<SetStateAction<IZoneList[]>>): IZon
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
       try {
-        const res: AxiosResponse<FetchResponse<IZoneList[]>> = await useRequest.get("/zone");
+        const res: AxiosResponse<FetchResponse<IZone[]>> = await useRequest.get("/zone");
 
         if (isMounted) {
           const { data } = res.data;
           setZonesList(data);
         }
       } catch (error) {
-        if (axios.isAxiosError(error))
-          console.error("Error al obtener zonas:", error.response?.data || error.message);
-        else console.error("Error inesperado al obtener zonas:", error);
-        alert(1);
+        handleAxiosError(error, "zonas", "obtener");
       }
     };
     fetchData();
@@ -56,11 +51,11 @@ const useZonesList = (setZonesList: Dispatch<SetStateAction<IZoneList[]>>): IZon
         });
       }
     } catch (error) {
-      console.error(error);
+      handleAxiosError(error, "zonas", "eliminar");
     }
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
-  return { deleteZone };
+  return { zonesList, setZonesList, deleteZone };
 };
 
 export { useZonesList };

@@ -3,10 +3,12 @@ import { FormikHelpers, useFormik } from "formik";
 import { groupValidation } from "../groupValidation";
 import { GroupData, GroupSchema } from "../zonesGroupType";
 import { FormikProps } from "@/shared/types/globals";
-import { IZoneList } from "../zoneType";
+import { handleFormikResponseError } from "@/shared/utils/funtions";
+import { AxiosError } from "axios";
+import { IZone } from "../zone/zoneType";
 
 type UseZoneFormProps = {
-  data?: IZoneList | null;
+  data?: IZone | null;
 };
 
 const initValuesGroup: GroupData = {
@@ -29,7 +31,7 @@ const useGroupForm = ({ data }: UseZoneFormProps): FormikProps<GroupSchema> => {
     try {
       console.log(1);
     } catch (error) {
-      console.log(error);
+      handleFormikResponseError<GroupData>(error as AxiosError, formikHelpers);
     }
   };
 

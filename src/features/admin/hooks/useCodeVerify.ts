@@ -1,19 +1,19 @@
 import { VerifyCodeInput } from "../adminType";
 import { FormikHelpers, useFormik } from "formik";
 import { verifyCodeSchema } from "../modalValidation";
-import { useActiveFormStore } from "@/shared/hooks/store/useActiveFormStore";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
-import { formResponseError } from "@/shared/utils/funtions";
 import { FormikProps } from "@/shared/types/globals";
+import { handleFormikResponseError } from "@/shared/utils/funtions";
+import { useModalFormVisibleStore } from "@/shared/hooks/store/useModalFormVisibleStore";
 
-const initialValuesCode: VerifyCodeInput = {
+const initialCodeValues: VerifyCodeInput = {
   verifyCode: ""
 };
 
-const useVerifyCode = (): FormikProps<VerifyCodeInput> => {
+const useCodeVerify = (): FormikProps<VerifyCodeInput> => {
   const useRequest = useAxios(true);
-  const { setShowForm } = useActiveFormStore();
+  const { setFormVisible } = useModalFormVisibleStore();
 
   const handleSubmit = async (
     values: VerifyCodeInput,
@@ -22,18 +22,15 @@ const useVerifyCode = (): FormikProps<VerifyCodeInput> => {
     try {
       const avatarResponse: AxiosResponse<boolean> = await useRequest.post("/auth/verify-email", values);
 
-      if (avatarResponse.data) setShowForm(1);
+      if (avatarResponse.data) setFormVisible(1);
     } catch (error) {
-      // Handle login error.
-      const { setStatus, setFieldError } = formikHelpers;
-
-      formResponseError(error as AxiosError, setStatus, setFieldError);
+      handleFormikResponseError<VerifyCodeInput>(error as AxiosError, formikHelpers);
     }
   };
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: initialValuesCode,
+    initialValues: initialCodeValues,
     validationSchema: verifyCodeSchema,
     validateOnBlur: true,
     validateOnChange: false,
@@ -43,4 +40,4 @@ const useVerifyCode = (): FormikProps<VerifyCodeInput> => {
   return formik;
 };
 
-export { useVerifyCode };
+export { useCodeVerify };

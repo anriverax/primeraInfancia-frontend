@@ -5,7 +5,7 @@ import { SingInInput } from "./type";
 import { AxiosError } from "axios";
 import { signInSchema } from "./signInValidation";
 import { FormikProps } from "@/shared/types/globals";
-import { encrypt, formResponseError } from "@/shared/utils/funtions";
+import { encrypt, handleFormikResponseError } from "@/shared/utils/funtions";
 import { DASHBOARD_REDIRECT_URL } from "@/shared/constants";
 
 const initialValues: SingInInput = {
@@ -43,10 +43,7 @@ const useSignInForm = (): FormikProps<SingInInput> => {
 
       handleSignInResponse(res, formikHelpers);
     } catch (error) {
-      // Handle login error.
-      const { setStatus, setFieldError } = formikHelpers;
-
-      formResponseError(error as AxiosError, setStatus, setFieldError);
+      handleFormikResponseError<SingInInput>(error as AxiosError, formikHelpers);
     }
   };
 

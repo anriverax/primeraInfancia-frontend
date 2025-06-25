@@ -1,8 +1,9 @@
 import { Tooltip } from "@heroui/react";
 import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
-import { JSX, useCallback } from "react";
-import { IZoneColumnKey, IZoneList } from "../../zoneType";
+import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
+import { IZone, IZoneColumnKey } from "../../zoneType";
+import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 
 export const zoneColumns: IColumns<IZoneColumnKey>[] = [
   {
@@ -17,11 +18,15 @@ export const zoneColumns: IColumns<IZoneColumnKey>[] = [
 
 /* eslint-disable react-hooks/exhaustive-deps */
 export const useRenderZoneCell = (
-  deleteZone: (_zoneId: number) => Promise<void>,
-  toggleVisibility: (_form: "Z" | "G", _data?: IZoneList | null) => void
-): ((_zone: IZoneList, _columnKey: IZoneColumnKey) => string | number | JSX.Element) => {
-  return useCallback((zone: IZoneList, columnKey: IZoneColumnKey) => {
-    const cellValue = zone[columnKey as keyof IZoneList];
+  deleteZone: (_zoneId: number) => Promise<void>
+): ((
+  _zone: IZone,
+  _columnKey: IZoneColumnKey
+) => string | number | undefined | null | React.JSX.Element) => {
+  const { toggleVisibility } = useZoneModalStore();
+
+  return useCallback((zone: IZone, columnKey: IZoneColumnKey) => {
+    const cellValue = zone[columnKey as keyof IZone];
 
     switch (columnKey) {
       case "actions":
@@ -43,7 +48,7 @@ export const useRenderZoneCell = (
             <Tooltip color="danger" content="Delete user">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
-                onClick={() => deleteZone(zone.id)}
+                onClick={() => deleteZone(zone.id as number)}
               >
                 <Trash2 />
               </span>

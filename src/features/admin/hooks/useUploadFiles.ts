@@ -2,11 +2,11 @@ import { UploadFilesInput } from "../adminType";
 import { FormikHelpers, useFormik } from "formik";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
-import { formResponseError } from "@/shared/utils/funtions";
-import { useActiveFormStore } from "@/shared/hooks/store/useActiveFormStore";
 import { FormikProps } from "@/shared/types/globals";
+import { handleFormikResponseError } from "@/shared/utils/funtions";
+import { useModalFormVisibleStore } from "@/shared/hooks/store/useModalFormVisibleStore";
 
-const initialValuesFiles: UploadFilesInput = {
+const initialFilesValues: UploadFilesInput = {
   file: null,
   images: [],
   avatar: null
@@ -14,7 +14,7 @@ const initialValuesFiles: UploadFilesInput = {
 
 const useUploadFiles = (): FormikProps<UploadFilesInput> => {
   const useRequest = useAxios(true);
-  const { setShowForm } = useActiveFormStore();
+  const { setFormVisible } = useModalFormVisibleStore();
 
   const handleSubmit = async (
     values: UploadFilesInput,
@@ -27,26 +27,22 @@ const useUploadFiles = (): FormikProps<UploadFilesInput> => {
     formData.append("images", values.images[1]);
 
     if (values.avatar) formData.append("avatar", values.avatar);
-    console.log(formData.getAll("cv"));
-    console.log(formData.getAll("images"));
-    console.log(formData.getAll("avatar"));
+
     try {
       const filesResponse: AxiosResponse<boolean> = await useRequest.post(
         "/profile/uploadFiles",
         formData
       );
 
-      if (filesResponse.data) setShowForm(2);
+      if (filesResponse.data) setFormVisible(2);
     } catch (error) {
-      const { setStatus, setFieldError } = formikHelpers;
-
-      formResponseError(error as AxiosError, setStatus, setFieldError);
+      handleFormikResponseError<UploadFilesInput>(error as AxiosError, formikHelpers);
     }
   };
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: initialValuesFiles,
+    initialValues: initialFilesValues,
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: handleSubmit

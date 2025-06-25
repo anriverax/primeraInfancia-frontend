@@ -5,13 +5,13 @@ type UploadLayoutProps = {
   title: string;
   errors: string | null;
   fileInput: File | null | boolean;
-  removeFile: () => void;
+  onRemoveFile: () => void;
 };
 
 const UploadLayout = ({
   title,
   errors,
-  removeFile,
+  onRemoveFile,
   fileInput,
   children
 }: PropsWithChildren<UploadLayoutProps>): JSX.Element => (
@@ -32,7 +32,7 @@ const UploadLayout = ({
           <button
             type="button"
             className="cursor-pointer p-1.5 rounded-full text-gray-500 hover:bg-gray-100"
-            onClick={removeFile}
+            onClick={onRemoveFile}
           >
             <X className="w-4 h-4" />
           </button>

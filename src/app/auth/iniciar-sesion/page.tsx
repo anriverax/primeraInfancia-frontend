@@ -4,7 +4,7 @@ import { Checkbox } from "@heroui/react";
 
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 import { useSignInForm } from "@/features/auth/useSignInForm";
-import { SignInForm } from "./_partials";
+import SignInForm from "@/features/auth/components/signInForm";
 
 const SignInPage = (): React.JSX.Element => {
   const formik = useSignInForm();

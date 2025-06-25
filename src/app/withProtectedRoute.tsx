@@ -32,7 +32,7 @@ const WithProtectedRoute = <P extends object>(WrappedComponent: React.ComponentT
     // Optional: Refresh the session when the tab becomes visible.
     // This ensures that the session is up to date if the user switches tabs and returns.
     useEffect(() => {
-      const visibilityHandler = () => {
+      const visibilityHandler = (): void => {
         if (document.visibilityState === "visible") {
           // Only updates if we are not in "loading" status to avoid redundant calls.
           if (status !== "loading") {
@@ -41,7 +41,7 @@ const WithProtectedRoute = <P extends object>(WrappedComponent: React.ComponentT
         }
       };
       window.addEventListener("visibilitychange", visibilityHandler, false);
-      return () => window.removeEventListener("visibilitychange", visibilityHandler, false);
+      return (): void => window.removeEventListener("visibilitychange", visibilityHandler, false);
     }, [update, status]); // Añadir status como dependencia para evitar llamadas innecesarias
 
     // --- Handling of loading and unauthenticated state ---
@@ -76,7 +76,7 @@ const WithProtectedRoute = <P extends object>(WrappedComponent: React.ComponentT
 
 // Auxiliary function to obtain the displayName of the component
 /* eslint-disable @typescript-eslint/no-explicit-any */
-function getDisplayName(WrappedComponent: React.ComponentType<any>) {
+function getDisplayName(WrappedComponent: React.ComponentType<any>): string {
   return WrappedComponent.displayName || WrappedComponent.name || "Component";
 }
 

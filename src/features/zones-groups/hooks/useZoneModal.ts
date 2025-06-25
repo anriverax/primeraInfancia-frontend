@@ -1,20 +1,23 @@
 import { useCallback, useState } from "react";
+import { ZoneModalAction, ZoneModalInput } from "../zone/zoneType";
 
-interface IZoneModalData {
-  isVisible: boolean;
-  typeModal: "Z" | "G";
-  data?: any | null;
-}
+/**
+ *
+ *  toggleFormVisibility: (form: "Z" | "G", data?: any) => void;
 
-/* eslint-disable @typescript-eslint/no-explicit-any*/
-export const useZoneModal = () => {
-  const [isVisibleForm, setVisibleForm] = useState<IZoneModalData>({
+    isVisible: boolean;
+    typeModal: "Z" | "G";
+    data?: any | null;
+ */
+export const useZoneModal = (): ZoneModalAction => {
+  const [isVisibleForm, setVisibleForm] = useState<ZoneModalInput>({
     isVisible: false,
     typeModal: "Z",
     data: null
   });
 
-  const toggleFormVisibility = useCallback((form: "Z" | "G", data: any = null) => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const toggleVisibility = useCallback((form: "Z" | "G", data: any = null) => {
     setVisibleForm((prev) => ({
       isVisible: !prev.isVisible,
       typeModal: form,
@@ -22,5 +25,7 @@ export const useZoneModal = () => {
     }));
   }, []);
 
-  return { ...isVisibleForm, toggleFormVisibility };
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+
+  return { ...isVisibleForm, toggleVisibility };
 };

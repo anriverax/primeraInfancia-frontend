@@ -1,2 +1,1 @@
-export { default as ZoneForm } from "./zoneForm";
-export { default as GroupForm } from "./groupForm";
+export { default as ZoneForm } from "../../zone/components/zoneForm";

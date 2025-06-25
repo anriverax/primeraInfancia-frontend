@@ -3,7 +3,7 @@
 import { sidebarItems } from "@/shared/utils/sidebarItems";
 import { Logo } from "@/shared/ui/logo";
 import Sidebar from "@/shared/ui/sidebar";
-import FormModal from "./_partials/formModal";
+import FormModal from "../../features/admin/components/modal/modalForms";
 import TopBar from "@/shared/ui/topbar";
 import { useLayout } from "@/features/admin/hooks/useLayout";
 import WithProtectedRoute from "../withProtectedRoute";

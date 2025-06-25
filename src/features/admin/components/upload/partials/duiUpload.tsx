@@ -6,10 +6,10 @@ import UploadLayout from "./layout/uploadLayout";
 type DuiUploadProps = {
   images: File[];
 
-  setImages: (_file: File[]) => void;
+  onImageChange: (_file: File[]) => void;
 };
 
-const DuiUpload = ({ images, setImages }: DuiUploadProps): React.JSX.Element => {
+const DuiUpload = ({ images, onImageChange }: DuiUploadProps): React.JSX.Element => {
   const [imagesUploadError, setImagesUploadError] = useState<string | null>(null);
 
   const imagesInputRef = useRef<HTMLInputElement>(null);
@@ -30,13 +30,13 @@ const DuiUpload = ({ images, setImages }: DuiUploadProps): React.JSX.Element => 
         if (selectedFiles.length !== 2) {
           setImagesUploadError("Por favor, selecciona exactamente 2 imágenes.");
           return;
-        } else setImages(selectedFiles);
-      } else setImages(selectedFiles.slice(0, 2));
+        } else onImageChange(selectedFiles);
+      } else onImageChange(selectedFiles.slice(0, 2));
     }
   };
 
-  const resetImages = (): void => {
-    setImages([]);
+  const handleResetImages = (): void => {
+    onImageChange([]);
 
     setImagesUploadError("Por favor, selecciona exactamente 2 imágenes.");
     if (imagesInputRef.current) imagesInputRef.current.value = "";
@@ -52,7 +52,7 @@ const DuiUpload = ({ images, setImages }: DuiUploadProps): React.JSX.Element => 
       title="Subir DUI"
       errors={imagesUploadError}
       fileInput={images.length === 2}
-      removeFile={resetImages}
+      onRemoveFile={handleResetImages}
     >
       <>
         {images.length ? (

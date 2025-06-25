@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import { IllustratedAuthPortal } from "./iniciar-sesion/_partials";
+
 import { addToast } from "@heroui/react";
-import { useUpdatedProfileStore } from "@/features/admin/hooks/store/useUpdatedProfileStore";
+import { useUpdatedProfileStore } from "@/shared/hooks/store/useUpdatedProfileStore";
+import IllustratedAuthPortal from "@/features/auth/components/illustratedLoginDashboard";
 
 type AuthLayoutProps = {
   children: React.ReactNode;

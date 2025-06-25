@@ -1,6 +1,6 @@
 import { AxiosMessage } from "@/shared/types/globals";
 
-export interface IVerifyCode {
+export interface ICodeVerify {
   verifyCode: string;
 }
 
@@ -9,17 +9,17 @@ export interface IUploadFiles {
   images: File[];
   avatar: File | null;
 }
-export interface IChangePasswd {
+export interface IPasswordChange {
   currentPassword: string;
   newPassword: string;
   confirmNewPassword: string;
 }
 
-export type VerifyCodeInput = IVerifyCode & AxiosMessage;
+export type VerifyCodeInput = ICodeVerify & AxiosMessage;
 export type UploadFilesInput = IUploadFiles & AxiosMessage;
-export type ChangePasswdInput = IChangePasswd & AxiosMessage;
+export type ChangePasswordInput = IPasswordChange & AxiosMessage;
 
-export interface UpdatedPasswdResponse {
+export interface UpdatedPasswordResponse {
   avatar: string;
   isVerified: boolean;
 }

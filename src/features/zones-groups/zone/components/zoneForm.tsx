@@ -1,19 +1,17 @@
-import { ModalLayout } from "@/features/admin/components/modal";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input } from "@heroui/react";
 import { MapPin } from "lucide-react";
 import { useZoneForm } from "../../hooks/useZoneForm";
 import { Dispatch, SetStateAction } from "react";
-import { IZone, ZoneInput } from '../../zoneType';
+import { IZone } from "../zoneType";
+import ModalLayout from '@/features/admin/components/modal/partials/layout/modalLayout';
 
 type ZoneFormProps = {
-  toggleVisibility: (_form: "Z" | "G", _data?: IZone | null) => void;
   setZonesList: Dispatch<SetStateAction<IZone[]>>;
-  data?: ZoneInput | null;
 };
 
-const ZoneForm = ({ toggleVisibility, data, setZonesList }: ZoneFormProps): React.JSX.Element => {
-  const zoneFormik = useZoneForm({ data, toggleVisibility, setZonesList });
+const ZoneForm = ({ setZonesList }: ZoneFormProps): React.JSX.Element => {
+  const { zoneFormik, reset, data } = useZoneForm(setZonesList);
   const { handleSubmit, touched, errors, getFieldProps, isSubmitting } = zoneFormik;
 
   const { getInputProps } = useCustomFormFields();
@@ -38,7 +36,7 @@ const ZoneForm = ({ toggleVisibility, data, setZonesList }: ZoneFormProps): Reac
           <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
             Guardar zona
           </Button>
-          <Button fullWidth onPress={() => toggleVisibility("Z")}>
+          <Button fullWidth onPress={() => reset()}>
             Cancelar
           </Button>
         </div>

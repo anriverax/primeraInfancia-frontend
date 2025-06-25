@@ -40,7 +40,7 @@ export interface SelectProps extends Pick<InputProps, "variant"> {
   isDisabled: boolean;
 }
 
-export interface UseCustomFormFieldsResponse {
+export interface CustomFormFieldsResponse {
   getInputProps: (
     _type: string,
     _label: string,

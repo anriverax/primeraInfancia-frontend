@@ -8,12 +8,12 @@ const UpdatedProfileData = {
 
 type UpdatedProfileState = typeof UpdatedProfileData;
 
-type UpdatedProfileStore = {
+type UpdatedProfileProps = {
   formStatus: UpdatedProfileState;
   setFormStatus: (_data: UpdatedProfileState) => void;
 };
 
-export const useUpdatedProfileStore = create<UpdatedProfileStore>()(
+export const useUpdatedProfileStore = create<UpdatedProfileProps>()(
   persist(
     (set) => ({
       formStatus: UpdatedProfileData,

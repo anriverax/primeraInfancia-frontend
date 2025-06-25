@@ -1,22 +1,22 @@
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
 
-const VerifyEmail = dynamic(
-  () => import("@/features/admin/components/modal").then((mod) => mod.VerifyEmail),
+const EmailVerify = dynamic(
+  () => import("@/features/admin/components/modal/partials/emailVerify").then((mod) => mod),
   {
     ssr: false
   }
 );
 
 const UploadFilesModal = dynamic(
-  () => import("@/features/admin/components/modal").then((mod) => mod.UploadFilesModal),
+  () => import("@/features/admin/components/modal/partials/uploadFilesModal").then((mod) => mod),
   {
     ssr: false
   }
 );
 
-const ChangePasswd = dynamic(
-  () => import("@/features/admin/components/modal").then((mod) => mod.ChangePasswd),
+const PasswordChange = dynamic(
+  () => import("@/features/admin/components/modal/partials/passwordChange").then((mod) => mod),
   {
     ssr: false
   }
@@ -33,9 +33,9 @@ interface ModalRegistryResponse {
 
 export const useModalRegistry = (): ModalRegistryResponse => {
   const getActiveModals = (): IModalComponent[] => [
-    { id: "verify", element: <VerifyEmail /> },
+    { id: "verify", element: <EmailVerify /> },
     { id: "upload", element: <UploadFilesModal /> },
-    { id: "change", element: <ChangePasswd /> }
+    { id: "change", element: <PasswordChange /> }
   ];
 
   const components = useMemo(() => getActiveModals(), []);

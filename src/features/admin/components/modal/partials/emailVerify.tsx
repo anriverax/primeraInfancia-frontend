@@ -1,13 +1,14 @@
 import { Button, InputOtp, ModalBody } from "@heroui/react";
 import ModalHeaderCustom from "../ModalHeaderCustom";
 import { MailCheck } from "lucide-react";
-import { useVerifyCode } from "@/features/admin/hooks/useVerifyCode";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
+import { useCodeVerify } from "@/features/admin/hooks/useCodeVerify";
 
-const VerifyEmail = (): React.JSX.Element => {
-  const formik = useVerifyCode();
+const EmailVerify = (): React.JSX.Element => {
+  const formik = useCodeVerify();
   const { touched, errors, status, handleSubmit, setStatus } = formik;
   const badRequest = Boolean(status && status >= 400);
+
   return (
     <>
       <ModalHeaderCustom
@@ -45,4 +46,4 @@ const VerifyEmail = (): React.JSX.Element => {
   );
 };
 
-export default VerifyEmail;
+export default EmailVerify;

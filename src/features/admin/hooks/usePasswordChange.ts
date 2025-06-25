@@ -1,34 +1,34 @@
-import { ChangePasswdInput, UpdatedPasswdResponse } from "../adminType";
 import { FormikHelpers, useFormik } from "formik";
-import { changePasswdSchema } from "../modalValidation";
-import { encrypt, formResponseError } from "@/shared/utils/funtions";
+import { changePasswordSchema } from "../modalValidation";
+import { encrypt, handleFormikResponseError } from "@/shared/utils/funtions";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
-import { useUpdatedProfileStore } from "./store/useUpdatedProfileStore";
+import { useUpdatedProfileStore } from "../../../shared/hooks/store/useUpdatedProfileStore";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { useEffect } from "react";
 import { signOut } from "next-auth/react";
 import { LOGIN_REDIRECT_URL } from "@/shared/constants";
+import { ChangePasswordInput, UpdatedPasswordResponse } from "../adminType";
 
-const initialValuesPasswd: ChangePasswdInput = {
+const initialPasswordValues: ChangePasswordInput = {
   currentPassword: "",
   newPassword: "",
   confirmNewPassword: ""
 };
 
-const useChangePasswd = (): FormikProps<ChangePasswdInput> => {
+const usePasswordChange = (): FormikProps<ChangePasswordInput> => {
   const useRequest = useAxios(true);
   const { formStatus, setFormStatus } = useUpdatedProfileStore();
 
   const handleSubmit = async (
-    values: ChangePasswdInput,
-    formikHelpers: FormikHelpers<ChangePasswdInput>
+    values: ChangePasswordInput,
+    formikHelpers: FormikHelpers<ChangePasswordInput>
   ): Promise<void> => {
     const encryptedCurrentPassword = encrypt(values.currentPassword);
     const encryptedNewPassword = encrypt(values.newPassword);
 
     try {
-      const response: AxiosResponse<FetchResponse<UpdatedPasswdResponse>> = await useRequest.post(
+      const response: AxiosResponse<FetchResponse<UpdatedPasswordResponse>> = await useRequest.post(
         "/auth/change-password",
         {
           value1: encryptedCurrentPassword,
@@ -41,15 +41,14 @@ const useChangePasswd = (): FormikProps<ChangePasswdInput> => {
       if (result.data) setFormStatus({ isOk: true, msg: result.message as string });
     } catch (error) {
       // Handle login error.
-      const { setStatus, setFieldError } = formikHelpers;
-      formResponseError(error as AxiosError, setStatus, setFieldError);
+      handleFormikResponseError<ChangePasswordInput>(error as AxiosError, formikHelpers);
     }
   };
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: initialValuesPasswd,
-    validationSchema: changePasswdSchema,
+    initialValues: initialPasswordValues,
+    validationSchema: changePasswordSchema,
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: handleSubmit
@@ -63,4 +62,4 @@ const useChangePasswd = (): FormikProps<ChangePasswdInput> => {
   return formik;
 };
 
-export { useChangePasswd };
+export { usePasswordChange };

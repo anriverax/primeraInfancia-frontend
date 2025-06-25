@@ -1,4 +1,4 @@
-import { IAnimationView } from "@/features/auth/type";
+import { IAnimationViewResponse } from '@/features/auth/type';
 import { Check, X } from "lucide-react";
 import { memo, MemoExoticComponent } from "react";
 
@@ -96,7 +96,7 @@ TodoList.displayName = "MemorizedTodoList";
 CheckList.displayName = "MemorizedCheckList";
 Dashboard.displayName = "MemorizedDashboard";
 
-export const AnimationView: IAnimationView[] = [
+export const AnimationView: IAnimationViewResponse[] = [
   { id: "todoList", Component: TodoList },
   { id: "checkList", Component: CheckList },
   { id: "dashboard", Component: Dashboard }

@@ -5,10 +5,10 @@ import {
   InputProps,
   SelectProps,
   TextAreaProps,
-  UseCustomFormFieldsResponse
+  CustomFormFieldsResponse
 } from "../types/customFormFields";
 
-const useCustomFormFields = (): UseCustomFormFieldsResponse => {
+const useCustomFormFields = (): CustomFormFieldsResponse => {
   const getInputProps = useCallback(
     (
       type: string,

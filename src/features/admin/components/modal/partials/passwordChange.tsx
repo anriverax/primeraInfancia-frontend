@@ -2,17 +2,17 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input, ModalBody } from "@heroui/react";
 import { KeyIcon } from "lucide-react";
 import ModalHeaderCustom from "../ModalHeaderCustom";
-import { useChangePasswd } from "@/features/admin/hooks/useChangePasswd";
-import { usePasswdVisible } from "@/features/admin/hooks/store/usePasswdVisible";
+import { usePasswordChange } from "@/features/admin/hooks/usePasswordChange";
+import { usePasswdVisible } from "@/features/admin/hooks/usePasswdVisible";
 
-const ChangePasswd = (): React.JSX.Element => {
-  const formikPasswd = useChangePasswd();
+const PasswordChange = (): React.JSX.Element => {
+  const formikPasswd = usePasswordChange();
   const { handleSubmit, touched, errors, getFieldProps, isSubmitting } = formikPasswd;
   const { getInputProps } = useCustomFormFields();
 
-  const [isVisiblePsswd1, visiblePsswd1] = usePasswdVisible();
-  const [isVisiblePsswd2, visiblePsswd2] = usePasswdVisible();
-  const [isVisiblePsswd3, visiblePsswd3] = usePasswdVisible();
+  const [isPasswordVisible1, PasswordVisible1] = usePasswdVisible();
+  const [isPasswordVisible2, PasswordVisible2] = usePasswdVisible();
+  const [isPasswordVisible3, PasswordVisible3] = usePasswdVisible();
 
   return (
     <>
@@ -26,32 +26,32 @@ const ChangePasswd = (): React.JSX.Element => {
           <Input
             {...getFieldProps("currentPassword")}
             {...getInputProps(
-              isVisiblePsswd1 ? "text" : "password",
+              isPasswordVisible1 ? "text" : "password",
               "Contraseña temporal",
               touched.currentPassword,
               errors.currentPassword
             )}
-            {...visiblePsswd1}
+            {...PasswordVisible1}
           />
           <Input
             {...getFieldProps("newPassword")}
             {...getInputProps(
-              isVisiblePsswd2 ? "text" : "password",
+              isPasswordVisible2 ? "text" : "password",
               "Contraseña nueva",
               touched.newPassword,
               errors.newPassword
             )}
-            {...visiblePsswd2}
+            {...PasswordVisible2}
           />
           <Input
             {...getFieldProps("confirmNewPassword")}
             {...getInputProps(
-              isVisiblePsswd3 ? "text" : "password",
+              isPasswordVisible3 ? "text" : "password",
               "Confirmar contraseña",
               touched.confirmNewPassword,
               errors.confirmNewPassword
             )}
-            {...visiblePsswd3}
+            {...PasswordVisible3}
           />
           <div className="flex flex-row gap-2 py-4">
             <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
@@ -64,4 +64,4 @@ const ChangePasswd = (): React.JSX.Element => {
   );
 };
 
-export default ChangePasswd;
+export default PasswordChange;

@@ -5,25 +5,25 @@ import UploadLayout from "./layout/uploadLayout";
 
 type AvatarUploadProps = {
   avatar: File | null;
-  setAvatar: (_file: File | null) => void;
+  onAvatarChange: (_file: File | null) => void;
 };
 
-const AvatarUpload = ({ avatar, setAvatar }: AvatarUploadProps): React.JSX.Element => {
+const AvatarUpload = ({ avatar, onAvatarChange }: AvatarUploadProps): React.JSX.Element => {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [avatarUploadError, setAvatarUploadError] = useState<string | null>(null);
 
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
   // Remove avatar
-  const removeAvatar = (): void => {
-    setAvatar(null);
+  const handleRemoveFile = (): void => {
+    onAvatarChange(null);
     setAvatarPreview(null);
     setAvatarUploadError(null);
     if (avatarInputRef.current) avatarInputRef.current.value = "";
   };
 
   // Handle avatar upload - exactly 1 image
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleAvatarInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
 
@@ -34,7 +34,7 @@ const AvatarUpload = ({ avatar, setAvatar }: AvatarUploadProps): React.JSX.Eleme
         return;
       }
 
-      setAvatar(selectedFile);
+      onAvatarChange(selectedFile);
       setAvatarUploadError(null);
 
       // Crea un preview de la imagen
@@ -51,7 +51,7 @@ const AvatarUpload = ({ avatar, setAvatar }: AvatarUploadProps): React.JSX.Eleme
       title="Subir Avatar"
       errors={avatarUploadError}
       fileInput={avatar}
-      removeFile={removeAvatar}
+      onRemoveFile={handleRemoveFile}
     >
       <>
         {avatarPreview && avatar ? (
@@ -77,7 +77,7 @@ const AvatarUpload = ({ avatar, setAvatar }: AvatarUploadProps): React.JSX.Eleme
                 accept="image/*"
                 className="hidden"
                 ref={avatarInputRef}
-                onChange={handleAvatarChange}
+                onChange={handleAvatarInputChange}
               />
             </div>
           </label>

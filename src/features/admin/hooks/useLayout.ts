@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { useUpdatedProfileStore } from "./store/useUpdatedProfileStore";
+import { useUpdatedProfileStore } from "../../../shared/hooks/store/useUpdatedProfileStore";
 import { TopBarProps } from "@/shared/types/globals";
 import { TypeRole } from "@/shared/constants";
 import { useEffect } from "react";

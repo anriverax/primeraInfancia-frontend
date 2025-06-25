@@ -2,32 +2,32 @@ import { FormikErrors } from "formik";
 import { useCallback } from "react";
 import { UploadFilesInput } from "../adminType";
 
-interface UseUploadHandleResponse {
-  onChangeCv: (_file: File | null) => void;
-  onChangeImages: (_file: File[]) => void;
-  onChangeAvatar: (_file: File | null) => void;
+interface UploadHandlerResponse {
+  handleCvChange: (_file: File | null) => void;
+  handleImagesChange: (_file: File[]) => void;
+  handleAvatarChange: (_file: File | null) => void;
 }
 
 /* eslint-disable react-hooks/exhaustive-deps */
-export const useUploadhandle = (
+export const useUploadHandler = (
   setFieldValue: (
     _field: string,
     _value: File | File[] | null,
     _shouldValidate?: boolean
   ) => Promise<void> | Promise<FormikErrors<UploadFilesInput>>
-): UseUploadHandleResponse => {
-  const onChangeCv = useCallback((file: File | null) => {
+): UploadHandlerResponse => {
+  const handleCvChange = useCallback((file: File | null) => {
     setFieldValue("file", file);
   }, []);
 
-  const onChangeImages = useCallback((file: File[]) => {
+  const handleImagesChange = useCallback((file: File[]) => {
     setFieldValue("images", file);
   }, []);
 
-  const onChangeAvatar = useCallback((file: File | null) => {
+  const handleAvatarChange = useCallback((file: File | null) => {
     setFieldValue("avatar", file);
   }, []);
 
-  return { onChangeCv, onChangeImages, onChangeAvatar };
+  return { handleCvChange, handleImagesChange, handleAvatarChange };
 };
 /* eslint-enable react-hooks/exhaustive-deps */

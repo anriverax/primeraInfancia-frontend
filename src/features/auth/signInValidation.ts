@@ -1,7 +1,7 @@
 import { object, ObjectSchema } from "yup";
 import { ISignIn } from "./type";
 import { validationMessages } from "@/shared/constants";
-import { regex } from "@/shared/utils/regex-validation";
+import { regex } from "@/shared/types/regex-validation";
 import { stringField } from "@/shared/utils/funtions";
 
 export const signInSchema: ObjectSchema<ISignIn> = object({
