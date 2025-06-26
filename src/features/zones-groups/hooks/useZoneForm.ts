@@ -1,43 +1,30 @@
 import useAxios from "@/shared/hooks/useAxios";
 import { handleFormikResponseError } from "@/shared/utils/funtions";
 import { FormikHelpers, useFormik } from "formik";
-import { ZoneData, ZoneSchema } from "../zonesGroupType";
-import { FetchResponse, FormikProps } from "@/shared/types/globals";
-import { AxiosError, AxiosResponse } from "axios";
-import { HttpStatusCode } from "@/shared/constants";
+import { FetchResponse } from "@/shared/types/globals";
+import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { addToast } from "@heroui/react";
-
 import { Dispatch, SetStateAction } from "react";
-
-import { IZone, ZoneInput } from "../zone/zoneType";
+import { IZone, ZoneFormResponse, ZoneInput } from "../zone/zoneType";
 import { zoneSchema } from "../zone/zoneValidation";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 
-const initValuesZone: ZoneInput = {
+const initZoneValues: ZoneInput = {
   name: ""
 };
 
-interface ZoneFormResponse {
-  zoneFormik: FormikProps<IZone>;
-  reset: () => void;
-  data: IZone | null;
-}
-
-const useZoneForm = (setZonesList: Dispatch<SetStateAction<IZone[]>>): ZoneFormResponse => {
+const useZoneForm = (setZonesList: Dispatch<SetStateAction<ZoneInput[]>>): ZoneFormResponse => {
   const { data, reset } = useZoneModalStore();
   const useRequest = useAxios(true);
 
-  const handleSubmit = async (
-    values: ZoneData,
-    formikHelpers: FormikHelpers<ZoneSchema>
-  ): Promise<void> => {
+  const handleSubmit = async (values: ZoneInput, formikHelpers: FormikHelpers<IZone>): Promise<void> => {
     try {
       const response: AxiosResponse<FetchResponse<IZone>> = data
         ? await useRequest.put(`/zone/${data.id}`, { name: values.name })
         : await useRequest.post("/zone/create", values);
 
       const result = response.data;
-      if (result.statusCode === HttpStatusCode.CREATED || result.statusCode === HttpStatusCode.OK) {
+      if (result.statusCode === HttpStatusCode.Created || result.statusCode === HttpStatusCode.Ok) {
         if (!data) {
           formikHelpers.resetForm();
 
@@ -60,13 +47,13 @@ const useZoneForm = (setZonesList: Dispatch<SetStateAction<IZone[]>>): ZoneFormR
         });
       }
     } catch (error) {
-      handleFormikResponseError<ZoneData>(error as AxiosError, formikHelpers);
+      handleFormikResponseError<IZone>(error as AxiosError, formikHelpers);
     }
   };
 
   const zoneFormik = useFormik({
     enableReinitialize: true,
-    initialValues: data ? { name: data.name } : initValuesZone,
+    initialValues: data ? { name: data.name } : initZoneValues,
     validationSchema: zoneSchema,
     validateOnBlur: true,
     validateOnChange: false,

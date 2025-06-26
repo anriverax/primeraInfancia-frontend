@@ -3,6 +3,7 @@
 import { Button } from "@heroui/react";
 import ZoneLayout from "@/features/zones-groups/zone/components/zoneLayout";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
+import GroupLayout from "@/features/zones-groups/group/components/groupLayout";
 
 export default function ZonesGroupsPage(): React.JSX.Element {
   const { toggleVisibility } = useZoneModalStore();
@@ -20,10 +21,8 @@ export default function ZonesGroupsPage(): React.JSX.Element {
           </Button>
         </div>
       </div>
-      <ZoneLayout toggleVisibility={toggleVisibility} />
-      {/*isVisible && typeModal === "G" && (
-        <GroupForm toggleVisibility={toggleFormVisibility} data={data} />
-      )*/}
+      <ZoneLayout />
+      <GroupLayout />
     </div>
   );
 }

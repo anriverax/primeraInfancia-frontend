@@ -1,4 +1,4 @@
-import { VerifyCodeInput } from "../adminType";
+import { IVerifyCode, VerifyCodeInput } from "../adminType";
 import { FormikHelpers, useFormik } from "formik";
 import { verifyCodeSchema } from "../modalValidation";
 import { AxiosError, AxiosResponse } from "axios";
@@ -11,20 +11,20 @@ const initialCodeValues: VerifyCodeInput = {
   verifyCode: ""
 };
 
-const useCodeVerify = (): FormikProps<VerifyCodeInput> => {
+const useCodeVerify = (): FormikProps<IVerifyCode> => {
   const useRequest = useAxios(true);
   const { setFormVisible } = useModalFormVisibleStore();
 
   const handleSubmit = async (
     values: VerifyCodeInput,
-    formikHelpers: FormikHelpers<VerifyCodeInput>
+    formikHelpers: FormikHelpers<IVerifyCode>
   ): Promise<void> => {
     try {
       const avatarResponse: AxiosResponse<boolean> = await useRequest.post("/auth/verify-email", values);
 
       if (avatarResponse.data) setFormVisible(1);
     } catch (error) {
-      handleFormikResponseError<VerifyCodeInput>(error as AxiosError, formikHelpers);
+      handleFormikResponseError<IVerifyCode>(error as AxiosError, formikHelpers);
     }
   };
 

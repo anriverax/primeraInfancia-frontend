@@ -2,7 +2,7 @@ import { Tooltip } from "@heroui/react";
 import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
-import { IZone, IZoneColumnKey } from "../../zoneType";
+import { IZone, IZoneColumnKey, ZoneInput } from "../../zoneType";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 
 export const zoneColumns: IColumns<IZoneColumnKey>[] = [
@@ -20,13 +20,13 @@ export const zoneColumns: IColumns<IZoneColumnKey>[] = [
 export const useRenderZoneCell = (
   deleteZone: (_zoneId: number) => Promise<void>
 ): ((
-  _zone: IZone,
+  _zone: ZoneInput,
   _columnKey: IZoneColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
   const { toggleVisibility } = useZoneModalStore();
 
-  return useCallback((zone: IZone, columnKey: IZoneColumnKey) => {
-    const cellValue = zone[columnKey as keyof IZone];
+  return useCallback((zone: ZoneInput, columnKey: IZoneColumnKey) => {
+    const cellValue = zone[columnKey as keyof ZoneInput];
 
     switch (columnKey) {
       case "actions":

@@ -1,8 +1,7 @@
 import useAxios from "@/shared/hooks/useAxios";
 import { useCallback, useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
+import { AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
-import { HttpStatusCode } from "@/shared/constants";
 import { addToast } from "@heroui/react";
 import { IZone, ZoneListResponse } from "../zone/zoneType";
 import { handleAxiosError } from "@/shared/utils/funtions";
@@ -38,7 +37,7 @@ const useZonesList = (): ZoneListResponse => {
       const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(`/zone/${zoneId}`);
       const { statusCode, message } = res.data;
 
-      if (statusCode === HttpStatusCode.OK) {
+      if (statusCode === HttpStatusCode.Ok) {
         setZonesList((prev) => prev.filter((zone) => zone.id !== zoneId));
 
         addToast({

@@ -1,11 +1,11 @@
 import { User, Lock } from "lucide-react";
 import { Button, Input } from "@heroui/react";
-import { SingInInput } from "../type";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
+import { ISignIn } from "../type";
 
 type SignInFormProps = {
-  formik: FormikProps<SingInInput>;
+  formik: FormikProps<ISignIn>;
 };
 
 const SignInForm = ({ formik }: SignInFormProps): React.JSX.Element => {

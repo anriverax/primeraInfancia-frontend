@@ -1,4 +1,4 @@
-import { IAnimationViewResponse } from '@/features/auth/type';
+import { IAnimationViewResponse } from "@/features/auth/type";
 import { Check, X } from "lucide-react";
 import { memo, MemoExoticComponent } from "react";
 

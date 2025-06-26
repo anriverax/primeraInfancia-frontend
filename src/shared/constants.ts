@@ -43,18 +43,3 @@ export const roleDisplayNames: Record<TypeRole, string> = {
   [TypeRole.TECNICO_APOYO]: "Técnico de Apoyo",
   [TypeRole.ESTUDIANTE]: "Estudiante"
 };
-
-/* eslint-disable no-unused-vars*/
-export enum HttpStatusCode {
-  OK = 200,
-  CREATED = 201,
-  NO_CONTENT = 204,
-  BAD_REQUEST = 400,
-  UNAUTHORIZED = 401,
-  FORBIDDEN = 403,
-  NOT_FOUND = 404,
-  CONFLICT = 409,
-  INTERNAL_SERVER_ERROR = 500
-}
-
-/* eslint-enaable no-unused-vars*/

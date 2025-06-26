@@ -37,6 +37,32 @@ export function handleFormikResponseError<T>(error: AxiosError, formikHelpers: F
   }
 }
 
+export function showToast(
+  message: string,
+  severity: "default" | "primary" | "secondary" | "success" | "warning" | "danger"
+): void {
+  const color =
+    severity === "success"
+      ? "text-green-500"
+      : severity === "danger"
+        ? "text-red-500"
+        : severity === "warning"
+          ? "text-yellow-500"
+          : severity === "primary"
+            ? "text-blue-500"
+            : severity === "secondary"
+              ? "text-gray-500"
+              : "text-gray-700";
+
+  addToast({
+    title: message,
+    severity,
+    variant: "bordered",
+    classNames: {
+      icon: `w-6 h-6 fill-current ${color}`
+    }
+  });
+}
 export function handleAxiosError(error: unknown, message: string, action: "obtener" | "eliminar"): void {
   const isAxios = axios.isAxiosError(error);
   const isDev = process.env.NODE_ENV === "development";
@@ -44,18 +70,9 @@ export function handleAxiosError(error: unknown, message: string, action: "obten
 
   const detail = isAxios ? error.response?.data || error.message : (error as Error).message || error;
 
-  if (!isDev) {
-    addToast({
-      title: `${title} ${message}`,
-      severity: "danger",
-      variant: "bordered",
-      classNames: {
-        icon: "w-6 h-6 fill-current text-danger-500"
-      }
-    });
-  } else {
+  if (isDev) {
     /* eslint-disable no-console */
     console.error(`${title} ${message}:`, detail);
     /* eslint-enable no-console */
-  }
+  } else showToast(`${title} ${message}`, "danger");
 }

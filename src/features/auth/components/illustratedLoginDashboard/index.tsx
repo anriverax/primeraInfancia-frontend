@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Clipboard } from "lucide-react";
-import { AnimationView, Circles, Dots, Greeting, Title } from './partials';
-import { TransitionPanel } from '@/shared/ui/motionPrimitive/TransitionPanel';
-import { IAnimationViewResponse } from '../../type';
+import { AnimationView, Circles, Dots, Greeting, Title } from "./partials";
+import { TransitionPanel } from "@/shared/ui/motionPrimitive/TransitionPanel";
+import { IAnimationViewResponse } from "../../type";
 
 const IllustratedAuthPortal = (): React.JSX.Element => {
   const [activeSlide, setActiveSlide] = useState<number>(0);

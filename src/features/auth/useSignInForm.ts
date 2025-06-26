@@ -1,24 +1,24 @@
 import { FormikHelpers, useFormik } from "formik";
 import { signIn, SignInResponse } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { SingInInput } from "./type";
+import { ISignIn, SignInInput } from "./type";
 import { AxiosError } from "axios";
 import { signInSchema } from "./signInValidation";
 import { FormikProps } from "@/shared/types/globals";
 import { encrypt, handleFormikResponseError } from "@/shared/utils/funtions";
 import { DASHBOARD_REDIRECT_URL } from "@/shared/constants";
 
-const initialValues: SingInInput = {
+const initialValues: SignInInput = {
   email: "",
   passwd: ""
 };
 
-const useSignInForm = (): FormikProps<SingInInput> => {
+const useSignInForm = (): FormikProps<ISignIn> => {
   const router = useRouter();
 
   const handleSignInResponse = (
     res: SignInResponse | undefined,
-    formikHelpers: FormikHelpers<SingInInput>
+    formikHelpers: FormikHelpers<ISignIn>
   ): void => {
     if (res && res.status !== 200) {
       formikHelpers.setFieldError("axiosMessage", res?.error as string);
@@ -27,8 +27,8 @@ const useSignInForm = (): FormikProps<SingInInput> => {
   };
 
   const handleSubmit = async (
-    values: SingInInput,
-    formikHelpers: FormikHelpers<SingInInput>
+    values: SignInInput,
+    formikHelpers: FormikHelpers<ISignIn>
   ): Promise<void> => {
     const encryptedEmail = encrypt(values.email);
     const encryptedPassword = encrypt(values.passwd);
@@ -43,7 +43,7 @@ const useSignInForm = (): FormikProps<SingInInput> => {
 
       handleSignInResponse(res, formikHelpers);
     } catch (error) {
-      handleFormikResponseError<SingInInput>(error as AxiosError, formikHelpers);
+      handleFormikResponseError<ISignIn>(error as AxiosError, formikHelpers);
     }
   };
 

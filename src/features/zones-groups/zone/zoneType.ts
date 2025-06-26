@@ -1,12 +1,12 @@
-import { AxiosMessage } from "@/shared/types/globals";
+import { AxiosMessage, FormikProps } from "@/shared/types/globals";
 import { Dispatch, SetStateAction } from "react";
 
-export interface IZone {
+export interface ZoneInput {
   id?: number | null;
   name: string;
 }
 
-export type ZoneInput = IZone & AxiosMessage;
+export type IZone = ZoneInput & AxiosMessage;
 
 export type IZoneColumnKey = "name" | "actions";
 export interface ZoneListResponse {
@@ -24,15 +24,14 @@ export interface ZoneModalInput {
   data?: any | null;
 }
 
+export interface ZoneFormResponse {
+  zoneFormik: FormikProps<IZone>;
+  reset: () => void;
+  data: ZoneInput | null;
+}
+
 export interface ZoneModalAction extends ZoneModalInput {
   toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
 }
 
 /* eslint-enable @typescript-eslint/no-explicit-any */
-export interface GroupSchema {
-  description?: string;
-  memberCount: number;
-  zoneId: number;
-}
-
-export type GroupData = GroupSchema & AxiosMessage;

@@ -4,7 +4,8 @@ import { MapPin } from "lucide-react";
 import { useZoneForm } from "../../hooks/useZoneForm";
 import { Dispatch, SetStateAction } from "react";
 import { IZone } from "../zoneType";
-import ModalLayout from '@/features/admin/components/modal/partials/layout/modalLayout';
+import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
+import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 
 type ZoneFormProps = {
   setZonesList: Dispatch<SetStateAction<IZone[]>>;
@@ -12,7 +13,7 @@ type ZoneFormProps = {
 
 const ZoneForm = ({ setZonesList }: ZoneFormProps): React.JSX.Element => {
   const { zoneFormik, reset, data } = useZoneForm(setZonesList);
-  const { handleSubmit, touched, errors, getFieldProps, isSubmitting } = zoneFormik;
+  const { handleSubmit, touched, status, errors, setStatus, getFieldProps, isSubmitting } = zoneFormik;
 
   const { getInputProps } = useCustomFormFields();
 
@@ -27,6 +28,12 @@ const ZoneForm = ({ setZonesList }: ZoneFormProps): React.JSX.Element => {
         </div>
         <p className="text-blue-100 text-sm mt-1">Agregue una nueva zona geográfica</p>
       </div>
+      <div className="p-5">
+        {Object.keys(errors).length > 0 && status === 401 && (
+          <ConditionalAlert status={status} errors={errors} setStatus={setStatus} />
+        )}
+      </div>
+
       <form className="p-5 text-white space-y-4" onSubmit={handleSubmit}>
         <Input
           {...getFieldProps("name")}
@@ -34,7 +41,7 @@ const ZoneForm = ({ setZonesList }: ZoneFormProps): React.JSX.Element => {
         />
         <div className="flex flex-row gap-2 py-4">
           <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
-            Guardar zona
+            {`${data ? "Actualizar zona" : "Crear zona"}`}
           </Button>
           <Button fullWidth onPress={() => reset()}>
             Cancelar

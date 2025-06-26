@@ -1,50 +1,63 @@
 import useAxios from "@/shared/hooks/useAxios";
 import { FormikHelpers, useFormik } from "formik";
-import { groupValidation } from "../groupValidation";
-import { GroupData, GroupSchema } from "../zonesGroupType";
-import { FormikProps } from "@/shared/types/globals";
-import { handleFormikResponseError } from "@/shared/utils/funtions";
-import { AxiosError } from "axios";
-import { IZone } from "../zone/zoneType";
+import { FetchResponse } from "@/shared/types/globals";
+import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
+import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
+import { Dispatch, SetStateAction } from "react";
+import { GroupFormResponse, GroupInput, IGroup } from "../group/groupType";
+import { groupShema } from "../group/groupValidation";
+import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
+import { addToast } from "@heroui/react";
 
-type UseZoneFormProps = {
-  data?: IZone | null;
-};
-
-const initValuesGroup: GroupData = {
+const initGroupValues: GroupInput = {
   name: "",
   description: "",
   memberCount: 0,
+  personId: 0,
   zoneId: 0
 };
 
-const useGroupForm = ({ data }: UseZoneFormProps): FormikProps<GroupSchema> => {
+const useGroupForm = (setGroupList?: Dispatch<SetStateAction<IGroup[]>>): GroupFormResponse => {
+  const { data, reset } = useZoneModalStore();
   const useRequest = useAxios(true);
-  console.log(useRequest);
-  console.log(data);
+
   const handleSubmit = async (
-    values: GroupData,
-    formikHelpers: FormikHelpers<GroupSchema>
+    values: GroupInput,
+    formikHelpers: FormikHelpers<IGroup>
   ): Promise<void> => {
-    console.log(values);
-    console.log(formikHelpers);
     try {
-      console.log(1);
+      const response: AxiosResponse<FetchResponse<IGroup>> = data
+        ? await useRequest.put(`/group/${data.id}`, values)
+        : await useRequest.post("/group/create", values);
+
+      const result = response.data;
+      if (result.statusCode === HttpStatusCode.Created || result.statusCode === HttpStatusCode.Ok) {
+        if (!data) {
+          formikHelpers.resetForm();
+          setGroupList!((prevZones) => [...prevZones, { ...result.data }]);
+        } else {
+          setGroupList!((prevZones) =>
+            prevZones.map((group: IGroup) => (group.id === data.id ? { ...group, ...values } : group))
+          );
+          reset();
+        }
+        showToast(String(result.message), "success");
+      }
     } catch (error) {
-      handleFormikResponseError<GroupData>(error as AxiosError, formikHelpers);
+      handleFormikResponseError<IGroup>(error as AxiosError, formikHelpers);
     }
   };
 
   const groupFormik = useFormik({
     enableReinitialize: true,
-    initialValues: initValuesGroup,
-    validationSchema: groupValidation,
+    initialValues: data ? data : initGroupValues,
+    validationSchema: groupShema,
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: handleSubmit
   });
 
-  return groupFormik;
+  return { groupFormik, reset, data };
 };
 
 export { useGroupForm };
