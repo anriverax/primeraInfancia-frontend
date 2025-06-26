@@ -7,7 +7,6 @@ import { Dispatch, SetStateAction } from "react";
 import { GroupFormResponse, GroupInput, IGroup } from "../group/groupType";
 import { groupShema } from "../group/groupValidation";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
-import { addToast } from "@heroui/react";
 
 const initGroupValues: GroupInput = {
   name: "",

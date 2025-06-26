@@ -2,7 +2,7 @@ import { Tooltip } from "@heroui/react";
 import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
-import { IZone, IZoneColumnKey, ZoneInput } from "../../zoneType";
+import { IZoneColumnKey, ZoneInput } from "../../zoneType";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 
 export const zoneColumns: IColumns<IZoneColumnKey>[] = [

@@ -1,5 +1,5 @@
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import { Button, Input } from "@heroui/react";
+import { Button, Input, NumberInput, Textarea } from "@heroui/react";
 import { MapPin } from "lucide-react";
 import { useGroupForm } from "../../hooks/useGroupForm";
 import { Dispatch, SetStateAction } from "react";
@@ -12,9 +12,19 @@ type GroupFormProps = {
 
 const GroupForm = ({ setGroupList }: GroupFormProps): React.JSX.Element => {
   const { groupFormik, reset, data } = useGroupForm(setGroupList);
-  const { handleSubmit, touched, errors, getFieldProps, isSubmitting } = groupFormik;
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    touched,
+    errors,
+    getFieldProps,
+    isSubmitting,
+    values,
+    setFieldValue
+  } = groupFormik;
 
-  const { getInputProps } = useCustomFormFields();
+  const { getInputProps, getTextAreaProps } = useCustomFormFields();
 
   return (
     <ModalLayout size="md">
@@ -32,10 +42,25 @@ const GroupForm = ({ setGroupList }: GroupFormProps): React.JSX.Element => {
           {...getFieldProps("name")}
           {...getInputProps("text", "Nombre del grupo", touched.name, errors.name)}
         />
-        <Input
-          {...getFieldProps("name")}
-          {...getInputProps("text", "Nombre del grupo", touched.name, errors.name)}
+        <Textarea
+          {...getFieldProps("description")}
+          {...getTextAreaProps(
+            "Dirección",
+            "Ingrese su dirección",
+            touched.description,
+            errors.description
+          )}
         />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <NumberInput
+            {...getFieldProps("memberCount")}
+            onChange={(e) => {
+              if (!isNaN(Number(e))) setFieldValue("memberCount", e);
+            }}
+            {...getTextAreaProps("Límite de integrantes", "", touched.memberCount, errors.memberCount)}
+          />
+          <NumberInput label="Límite de integrantes" variant="bordered" />
+        </div>
         <div className="flex flex-row gap-2 py-4">
           <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
             {`${data ? "Actualizar grupo" : "Crear grupo"}`}

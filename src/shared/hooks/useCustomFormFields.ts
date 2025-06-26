@@ -5,10 +5,30 @@ import {
   InputProps,
   SelectProps,
   TextAreaProps,
-  CustomFormFieldsResponse
+  CustomFormFieldsResponse,
+  ClassNamesProps
 } from "../types/customFormFields";
 
 const useCustomFormFields = (): CustomFormFieldsResponse => {
+  const classNameProps: ClassNamesProps = {
+    variant: "bordered",
+    classNames: {
+      inputWrapper: "border data-[hover=true]:border-blue-500 group-data-[focus=true]:border-blue-500",
+      label: "group-data-[filled=true]:font-bold",
+      input: "text-gray-600"
+    }
+  };
+
+  const getCommonFieldProps = (label: string, isRequired: boolean = true) => ({
+    isRequired,
+    label
+  });
+
+  const getValidationState = (touched: boolean | undefined, error: string | undefined) => ({
+    isInvalid: !!(touched && error),
+    errorMessage: touched && error ? error : undefined
+  });
+
   const getInputProps = useCallback(
     (
       type: string,
@@ -16,24 +36,31 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
       touched: boolean | undefined,
       error: string | undefined,
       isRequired: boolean = true
-    ): InputProps =>
-      ({
-        isRequired,
-        type,
-        label,
-        variant: "bordered",
-        classNames: {
-          inputWrapper:
-            "border data-[hover=true]:border-blue-500 group-data-[focus=true]:border-blue-500",
-          label: "group-data-[filled=true]:font-bold",
-          input: "text-gray-600"
-        },
-        isInvalid: Boolean(touched && error),
-        errorMessage: touched ? error : undefined
-      }) as const,
+    ): InputProps => ({
+      ...getCommonFieldProps(label, isRequired),
+      type,
+      ...classNameProps,
+      ...getValidationState(touched, error)
+    }),
     []
   );
-  /* eslint-disable*/
+
+  const getTextAreaProps = useCallback(
+    (
+      label: string,
+      placeholder: string,
+      touched: boolean | undefined,
+      error: string | undefined,
+      isRequired: boolean = true
+    ): TextAreaProps => ({
+      ...getCommonFieldProps(label, isRequired),
+      placeholder,
+      ...classNameProps,
+      ...getValidationState(touched, error)
+    }),
+    []
+  );
+
   const getDateProps = useCallback(
     (value: DateValue | string | null, name: string, label: string, description: string): DateProps =>
       ({
@@ -46,21 +73,6 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
         },
         description
       }) as const,
-    []
-  );
-
-  const getTextAreaProps = useCallback(
-    (name: string, label: string, placeholder: string): TextAreaProps => {
-      const { variant, classNames } = getInputProps("", label, false, undefined);
-
-      return {
-        name,
-        label,
-        placeholder,
-        variant,
-        classNames
-      };
-    },
     []
   );
 
