@@ -1,5 +1,5 @@
 import { DateValue } from "@internationalized/date";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import {
   DateProps,
   InputProps,
@@ -10,16 +10,22 @@ import {
 } from "../types/customFormFields";
 
 const useCustomFormFields = (): CustomFormFieldsResponse => {
-  const classNameProps: ClassNamesProps = {
-    variant: "bordered",
-    classNames: {
-      inputWrapper: "border data-[hover=true]:border-blue-500 group-data-[focus=true]:border-blue-500",
-      label: "group-data-[filled=true]:font-bold",
-      input: "text-gray-600"
-    }
-  };
+  const classNameProps = useMemo<ClassNamesProps>(
+    () => ({
+      variant: "bordered",
+      classNames: {
+        inputWrapper: "border data-[hover=true]:border-blue-500 group-data-[focus=true]:border-blue-500",
+        label: "group-data-[filled=true]:font-bold",
+        input: "text-gray-600"
+      }
+    }),
+    []
+  );
 
-  const getCommonFieldProps = (label: string, isRequired: boolean = true) => ({
+  const getCommonFieldProps = (
+    label: string,
+    isRequired: boolean = true
+  ): { isRequired: boolean; label: string } => ({
     isRequired,
     label
   });
@@ -42,7 +48,7 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
       ...classNameProps,
       ...getValidationState(touched, error)
     }),
-    []
+    [classNameProps]
   );
 
   const getTextAreaProps = useCallback(
@@ -58,9 +64,9 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
       ...classNameProps,
       ...getValidationState(touched, error)
     }),
-    []
+    [classNameProps]
   );
-
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const getDateProps = useCallback(
     (value: DateValue | string | null, name: string, label: string, description: string): DateProps =>
       ({
@@ -75,7 +81,7 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
       }) as const,
     []
   );
-
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   const getSelectProps = useCallback(
     (itemsLength: number, itemValue: number): SelectProps =>
       ({

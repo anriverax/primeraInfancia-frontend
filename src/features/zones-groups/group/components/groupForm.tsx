@@ -12,17 +12,7 @@ type GroupFormProps = {
 
 const GroupForm = ({ setGroupList }: GroupFormProps): React.JSX.Element => {
   const { groupFormik, reset, data } = useGroupForm(setGroupList);
-  const {
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    touched,
-    errors,
-    getFieldProps,
-    isSubmitting,
-    values,
-    setFieldValue
-  } = groupFormik;
+  const { handleSubmit, touched, errors, getFieldProps, isSubmitting, setFieldValue } = groupFormik;
 
   const { getInputProps, getTextAreaProps } = useCustomFormFields();
 
