@@ -4,7 +4,7 @@ import { FetchResponse } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { Dispatch, SetStateAction } from "react";
-import { GroupFormResponse, GroupInput, IGroup } from "../group/groupType";
+import { GroupFormResult, GroupInput, IGroup } from "../group/groupType";
 import { groupShema } from "../group/groupValidation";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 
@@ -16,7 +16,7 @@ const initGroupValues: GroupInput = {
   zoneId: 0
 };
 
-const useGroupForm = (setGroupList?: Dispatch<SetStateAction<IGroup[]>>): GroupFormResponse => {
+const useGroupForm = (setGroupList?: Dispatch<SetStateAction<IGroup[]>>): GroupFormResult => {
   const { data, reset } = useZoneModalStore();
   const useRequest = useAxios(true);
 
@@ -30,6 +30,9 @@ const useGroupForm = (setGroupList?: Dispatch<SetStateAction<IGroup[]>>): GroupF
         : await useRequest.post("/group/create", values);
 
       const result = response.data;
+
+      showToast(String(result.message), "success");
+
       if (result.statusCode === HttpStatusCode.Created || result.statusCode === HttpStatusCode.Ok) {
         if (!data) {
           formikHelpers.resetForm();
@@ -40,7 +43,6 @@ const useGroupForm = (setGroupList?: Dispatch<SetStateAction<IGroup[]>>): GroupF
           );
           reset();
         }
-        showToast(String(result.message), "success");
       }
     } catch (error) {
       handleFormikResponseError<IGroup>(error as AxiosError, formikHelpers);

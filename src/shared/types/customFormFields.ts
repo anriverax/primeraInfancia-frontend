@@ -45,7 +45,7 @@ export interface SelectProps
   isDisabled: boolean;
 }
 
-export interface CustomFormFieldsResponse {
+export interface CustomFormFieldsResult {
   getInputProps: (
     _type: string,
     _label: string,

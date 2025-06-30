@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { SidebarItemType, UseMenuItemResponse } from "../type";
+import { SidebarItemType, MenuItemResult } from "../type";
 import { usePathname } from "next/navigation";
 
 type UseMenuItemProps = {
@@ -8,7 +8,7 @@ type UseMenuItemProps = {
   isExtended: boolean;
 };
 
-const useMenuItem = ({ item, isMobile, isExtended }: UseMenuItemProps): UseMenuItemResponse => {
+const useMenuItem = ({ item, isMobile, isExtended }: UseMenuItemProps): MenuItemResult => {
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
   const hasSubmenu = item.submenu && item.submenu.length > 0;

@@ -5,6 +5,7 @@ type ModalLayoutProps = Pick<ModalVariantProps, "size">;
 
 const ModalLayout = ({ size, children }: PropsWithChildren<ModalLayoutProps>): React.JSX.Element => (
   <Modal
+    scrollBehavior="inside"
     backdrop="blur"
     defaultOpen={true}
     placement="center"

@@ -10,8 +10,37 @@ export interface GroupInput extends ZoneInput {
 
 export type IGroup = GroupInput & AxiosMessage;
 
-export interface GroupFormResponse {
+export interface GroupFormResult {
   groupFormik: FormikProps<IGroup>;
   reset: () => void;
   data: GroupInput | null;
 }
+
+export interface IPersonList extends Pick<ZoneInput, "id"> {
+  fullName: string;
+}
+
+export interface GroupSelectBoxResult {
+  zonesList: ZoneInput[];
+  personList: IPersonList[];
+}
+
+export type IGroupColumnKey = "name" | "description" | "count" | "zone" | "actions";
+
+export interface IGroupTable extends Omit<GroupInput, "zoneId" | "personId"> {
+  Zone?: ZoneInput;
+  Person?: {
+    id: number;
+  };
+
+  _count?: {
+    GroupMember: number;
+  };
+}
+export interface GroupListResult {
+  groupList: IGroupTable[];
+  deleteGroup: (_groupId: number) => Promise<void>;
+  setGroupsList: (_groups: IGroupTable[]) => void;
+}
+
+export type GroupTableProps = Pick<GroupListResult, "groupList" | "deleteGroup">;

@@ -5,16 +5,21 @@ export interface ZoneInput {
   name: string;
 }
 
+export interface IZoneTable extends ZoneInput {
+  _count?: {
+    Group: number;
+  };
+}
 export type IZone = ZoneInput & AxiosMessage;
 
-export type IZoneColumnKey = "name" | "actions";
-export interface ZoneListResponse {
-  zonesList: IZone[];
+export type IZoneColumnKey = "name" | "count" | "actions";
+export interface ZoneListResult {
+  zonesList: IZoneTable[];
   deleteZone: (_zoneId: number) => Promise<void>;
-  setZonesList: (_zones: IZone[]) => void;
+  setZonesList: (_zones: IZoneTable[]) => void;
 }
 
-export type ZoneTableProps = Pick<ZoneListResponse, "zonesList" | "deleteZone">;
+export type ZoneTableProps = Pick<ZoneListResult, "zonesList" | "deleteZone">;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ZoneModalInput {
@@ -23,7 +28,7 @@ export interface ZoneModalInput {
   data?: any | null;
 }
 
-export interface ZoneFormResponse {
+export interface ZoneFormResult {
   zoneFormik: FormikProps<IZone>;
   reset: () => void;
   data: ZoneInput | null;

@@ -2,12 +2,12 @@ import useAxios from "@/shared/hooks/useAxios";
 import { useCallback, useEffect } from "react";
 import { AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
-import { IZoneTable, ZoneListResult } from "../zone/zoneType";
 import { handleAxiosError, showToast } from "@/shared/utils/funtions";
-import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
+import { useGroupListStore } from "@/shared/hooks/store/useGroupListStore";
+import { GroupListResult, IGroupTable } from "../group/groupType";
 
-const useZonesList = (): ZoneListResult => {
-  const { zonesList, setZonesList } = useZoneListStore();
+const useGroupsList = (): GroupListResult => {
+  const { groupList, setGroupsList } = useGroupListStore();
   const useRequest = useAxios(true);
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -15,14 +15,14 @@ const useZonesList = (): ZoneListResult => {
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
       try {
-        const res: AxiosResponse<FetchResponse<IZoneTable[]>> = await useRequest.get("/zone");
+        const res: AxiosResponse<FetchResponse<IGroupTable[]>> = await useRequest.get("/group");
 
         if (isMounted) {
           const { data } = res.data;
-          setZonesList(data);
+          setGroupsList(data);
         }
       } catch (error) {
-        handleAxiosError(error, "zonas", "obtener");
+        handleAxiosError(error, "grupos", "obtener");
       }
     };
     fetchData();
@@ -32,21 +32,23 @@ const useZonesList = (): ZoneListResult => {
     };
   }, []);
 
-  const deleteZone = useCallback(async (zoneId: number) => {
+  const deleteGroup = useCallback(async (groupId: number) => {
     try {
-      const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(`/zone/delete/${zoneId}`);
+      const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(
+        `/group/delete/${groupId}`
+      );
       const { statusCode, message } = res.data;
 
       if (statusCode === HttpStatusCode.Ok) {
         showToast(String(message), "success");
-        setZonesList(zonesList.filter((zone) => zone.id !== zoneId));
+        setGroupsList(groupList.filter((group) => group.id !== groupId));
       }
     } catch (error) {
-      handleAxiosError(error, "zonas", "eliminar");
+      handleAxiosError(error, "grupos", "eliminar");
     }
   }, []);
   /* eslint-enable react-hooks/exhaustive-deps */
-  return { zonesList, setZonesList, deleteZone };
+  return { groupList, setGroupsList, deleteGroup };
 };
 
-export { useZonesList };
+export { useGroupsList };

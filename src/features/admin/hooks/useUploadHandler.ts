@@ -2,7 +2,7 @@ import { FormikErrors } from "formik";
 import { useCallback } from "react";
 import { UploadFilesInput } from "../adminType";
 
-interface UploadHandlerResponse {
+interface UploadHandlerResult {
   handleCvChange: (_file: File | null) => void;
   handleImagesChange: (_file: File[]) => void;
   handleAvatarChange: (_file: File | null) => void;
@@ -15,7 +15,7 @@ export const useUploadHandler = (
     _value: File | File[] | null,
     _shouldValidate?: boolean
   ) => Promise<void> | Promise<FormikErrors<UploadFilesInput>>
-): UploadHandlerResponse => {
+): UploadHandlerResult => {
   const handleCvChange = useCallback((file: File | null) => {
     setFieldValue("file", file);
   }, []);

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Clipboard } from "lucide-react";
 import { AnimationView, Circles, Dots, Greeting, Title } from "./partials";
 import { TransitionPanel } from "@/shared/ui/motionPrimitive/TransitionPanel";
-import { IAnimationViewResponse } from "../../type";
+import { IAnimationViewResult } from "../../type";
 
 const IllustratedAuthPortal = (): React.JSX.Element => {
   const [activeSlide, setActiveSlide] = useState<number>(0);
@@ -25,7 +25,7 @@ const IllustratedAuthPortal = (): React.JSX.Element => {
                   exit: { opacity: 0, y: -50, filter: "blur(4px)" }
                 }}
               >
-                {AnimationView.map(({ id, Component }: IAnimationViewResponse) => (
+                {AnimationView.map(({ id, Component }: IAnimationViewResult) => (
                   <div key={id} className="absolute top-6 left-6 right-6 bottom-6">
                     <Component />
                   </div>

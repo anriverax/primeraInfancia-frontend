@@ -63,6 +63,7 @@ export function showToast(
     }
   });
 }
+
 export function handleAxiosError(error: unknown, message: string, action: "obtener" | "eliminar"): void {
   const isAxios = axios.isAxiosError(error);
   const isDev = process.env.NODE_ENV === "development";

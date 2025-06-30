@@ -1,3 +1,4 @@
+import { Easing } from "framer-motion";
 import { ElementType, JSX } from "react";
 
 export interface SubMenuItem {
@@ -14,7 +15,7 @@ export interface SidebarItemType {
   submenu?: SubMenuItem[];
 }
 
-export interface UseMenuItemResponse {
+export interface MenuItemResult {
   hasSubmenu: boolean | undefined;
   isSubmenuOpen: boolean;
   isActive: boolean;
@@ -28,7 +29,7 @@ export interface UseMenuItemResponse {
     };
     transition: {
       duration: number;
-      ease: string;
+      ease: Easing | Easing[] | undefined;
     };
     className: string;
   };

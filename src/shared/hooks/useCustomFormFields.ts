@@ -5,11 +5,11 @@ import {
   InputProps,
   SelectProps,
   TextAreaProps,
-  CustomFormFieldsResponse,
+  CustomFormFieldsResult,
   ClassNamesProps
 } from "../types/customFormFields";
 
-const useCustomFormFields = (): CustomFormFieldsResponse => {
+const useCustomFormFields = (): CustomFormFieldsResult => {
   const classNameProps = useMemo<ClassNamesProps>(
     () => ({
       variant: "bordered",
@@ -30,7 +30,13 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
     label
   });
 
-  const getValidationState = (touched: boolean | undefined, error: string | undefined) => ({
+  const getValidationState = (
+    touched: boolean | undefined,
+    error: string | undefined
+  ): {
+    isInvalid: boolean;
+    errorMessage: string | undefined;
+  } => ({
     isInvalid: !!(touched && error),
     errorMessage: touched && error ? error : undefined
   });

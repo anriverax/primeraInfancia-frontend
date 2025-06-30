@@ -8,7 +8,7 @@ export interface SignInInput {
 
 export type ISignIn = SignInInput & AxiosMessage;
 
-export interface IAnimationViewResponse {
+export interface IAnimationViewResult {
   id: string;
   Component: MemoExoticComponent<() => React.JSX.Element>;
 }
