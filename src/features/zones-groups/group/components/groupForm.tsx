@@ -1,10 +1,12 @@
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import { Button, Input, NumberInput, Textarea } from "@heroui/react";
+import { Button, Input, NumberInput, Select, SelectItem, Textarea } from "@heroui/react";
 import { MapPin } from "lucide-react";
 import { useGroupForm } from "../../hooks/useGroupForm";
 import { Dispatch, SetStateAction } from "react";
 import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
 import { IGroup } from "../groupType";
+import { useGroupSelectBox } from "../../hooks/useGroupSelectBox";
+import { ZoneInput } from "../../zone/zoneType";
 
 type GroupFormProps = {
   setGroupList?: Dispatch<SetStateAction<IGroup[]>>;
@@ -12,10 +14,12 @@ type GroupFormProps = {
 
 const GroupForm = ({ setGroupList }: GroupFormProps): React.JSX.Element => {
   const { groupFormik, reset, data } = useGroupForm(setGroupList);
-  const { handleSubmit, touched, errors, getFieldProps, isSubmitting, setFieldValue } = groupFormik;
-
-  const { getInputProps, getTextAreaProps } = useCustomFormFields();
-
+  const { values, handleSubmit, touched, errors, getFieldProps, isSubmitting, setFieldValue } =
+    groupFormik;
+  const { zonesList } = useGroupSelectBox();
+  console.log("zonesList", zonesList);
+  const { getInputProps, getTextAreaProps, getSelectProps } = useCustomFormFields();
+  console.log("zonesList", groupFormik.values);
   return (
     <ModalLayout size="md">
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-4 text-white">
@@ -49,7 +53,23 @@ const GroupForm = ({ setGroupList }: GroupFormProps): React.JSX.Element => {
             }}
             {...getTextAreaProps("Límite de integrantes", "", touched.memberCount, errors.memberCount)}
           />
-          <NumberInput label="Límite de integrantes" variant="bordered" />
+          <div aria-hidden={true}>
+            <Select
+              items={zonesList ? zonesList : []}
+              {...getSelectProps(
+                "Seleccione una zona",
+                zonesList ? zonesList.length : 0,
+                values.zoneId,
+                touched.description,
+                errors.description
+              )}
+              onChange={async (e: React.ChangeEvent<HTMLSelectElement>) => {
+                await setFieldValue("zoneId", Number(e.target.value));
+              }}
+            >
+              {(zone: ZoneInput) => <SelectItem key={zone.id}>{zone.name}</SelectItem>}
+            </Select>
+          </div>
         </div>
         <div className="flex flex-row gap-2 py-4">
           <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>

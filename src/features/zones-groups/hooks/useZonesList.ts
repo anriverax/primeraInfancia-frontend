@@ -5,9 +5,10 @@ import { FetchResponse } from "@/shared/types/globals";
 import { addToast } from "@heroui/react";
 import { IZone, ZoneListResponse } from "../zone/zoneType";
 import { handleAxiosError } from "@/shared/utils/funtions";
+import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
 
 const useZonesList = (): ZoneListResponse => {
-  const [zonesList, setZonesList] = useState<IZone[]>([]);
+  const { zonesList, setZonesList } = useZoneListStore();
   const useRequest = useAxios(true);
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -38,7 +39,7 @@ const useZonesList = (): ZoneListResponse => {
       const { statusCode, message } = res.data;
 
       if (statusCode === HttpStatusCode.Ok) {
-        setZonesList((prev) => prev.filter((zone) => zone.id !== zoneId));
+        setZonesList(zonesList.filter((zone) => zone.id !== zoneId));
 
         addToast({
           title: message,

@@ -6,12 +6,12 @@ import ZoneForm from "./zoneForm";
 
 const ZoneLayout = (): React.JSX.Element => {
   const { isVisible, typeModal } = useZoneModalStore();
-  const { zonesList, setZonesList, deleteZone } = useZonesList();
+  const { zonesList, deleteZone } = useZonesList();
 
   return (
     <>
       <ZoneTable zonesList={zonesList} deleteZone={deleteZone} />
-      {isVisible && typeModal === "Z" && <ZoneForm setZonesList={setZonesList} />}
+      {isVisible && typeModal === "Z" && <ZoneForm />}
     </>
   );
 };

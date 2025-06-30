@@ -66,6 +66,32 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
     }),
     [classNameProps]
   );
+
+  const getSelectProps = useCallback(
+    (
+      label: string,
+      itemsLength: number,
+      itemValue: number,
+      touched: boolean | undefined,
+      error: string | undefined,
+      isRequired: boolean = true
+    ): SelectProps => ({
+      ...getCommonFieldProps(label, isRequired),
+      variant: "bordered",
+      className: "w-full",
+      classNames: {
+        trigger:
+          "border data-[hover=true]:border-blue-500 data-[open=true]:border-blue-500 data-[focus=true]:border-blue-500",
+        label: "group-data-[filled=true]:font-bold",
+        value: "group-data-[has-value=true]:text-gray-600"
+      },
+      selectedKeys: [itemValue === 0 ? "" : itemValue.toString()],
+      isLoading: itemsLength === 0,
+      isDisabled: itemsLength === 0,
+      ...getValidationState(touched, error)
+    }),
+    []
+  );
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const getDateProps = useCallback(
     (value: DateValue | string | null, name: string, label: string, description: string): DateProps =>
@@ -82,23 +108,6 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
     []
   );
   /* eslint-enable @typescript-eslint/no-explicit-any */
-  const getSelectProps = useCallback(
-    (itemsLength: number, itemValue: number): SelectProps =>
-      ({
-        variant: "bordered",
-        className: "w-full",
-        classNames: {
-          trigger:
-            "border data-[hover=true]:border-blue-500 data-[open=true]:border-blue-500 data-[focus=true]:border-blue-500",
-          label: "group-data-[filled=true]:font-bold",
-          value: "group-data-[has-value=true]:text-gray-600"
-        },
-        selectedKeys: [itemValue === 0 ? "" : itemValue.toString()],
-        isLoading: itemsLength === 0,
-        isDisabled: itemsLength === 0
-      }) as const,
-    []
-  );
 
   return { getInputProps, getDateProps, getTextAreaProps, getSelectProps };
 };

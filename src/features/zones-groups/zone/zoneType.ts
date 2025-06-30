@@ -1,5 +1,4 @@
 import { AxiosMessage, FormikProps } from "@/shared/types/globals";
-import { Dispatch, SetStateAction } from "react";
 
 export interface ZoneInput {
   id?: number | null;
@@ -12,7 +11,7 @@ export type IZoneColumnKey = "name" | "actions";
 export interface ZoneListResponse {
   zonesList: IZone[];
   deleteZone: (_zoneId: number) => Promise<void>;
-  setZonesList: Dispatch<SetStateAction<IZone[]>>;
+  setZonesList: (_zones: IZone[]) => void;
 }
 
 export type ZoneTableProps = Pick<ZoneListResponse, "zonesList" | "deleteZone">;

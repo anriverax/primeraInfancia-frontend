@@ -2,17 +2,11 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input } from "@heroui/react";
 import { MapPin } from "lucide-react";
 import { useZoneForm } from "../../hooks/useZoneForm";
-import { Dispatch, SetStateAction } from "react";
-import { IZone } from "../zoneType";
 import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 
-type ZoneFormProps = {
-  setZonesList: Dispatch<SetStateAction<IZone[]>>;
-};
-
-const ZoneForm = ({ setZonesList }: ZoneFormProps): React.JSX.Element => {
-  const { zoneFormik, reset, data } = useZoneForm(setZonesList);
+const ZoneForm = (): React.JSX.Element => {
+  const { zoneFormik, reset, data } = useZoneForm();
   const { handleSubmit, touched, status, errors, setStatus, getFieldProps, isSubmitting } = zoneFormik;
 
   const { getInputProps } = useCustomFormFields();

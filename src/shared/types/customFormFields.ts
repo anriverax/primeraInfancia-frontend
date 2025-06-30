@@ -32,7 +32,8 @@ export interface TextAreaProps
   placeholder: string;
 }
 
-export interface SelectProps extends Pick<InputProps, "variant"> {
+export interface SelectProps
+  extends Pick<InputProps, "label" | "variant" | "isRequired" | "isInvalid" | "errorMessage"> {
   className: string;
   classNames: {
     trigger: string;
@@ -52,12 +53,6 @@ export interface CustomFormFieldsResponse {
     _error: string | undefined,
     _isRequired?: boolean
   ) => InputProps;
-  getDateProps: (
-    _value: DateValue | string | null,
-    _name: string,
-    _label: string,
-    _description: string
-  ) => DateProps;
   getTextAreaProps: (
     _label: string,
     _placeholder: string,
@@ -65,5 +60,18 @@ export interface CustomFormFieldsResponse {
     _error: string | undefined,
     _isRequired?: boolean
   ) => TextAreaProps;
-  getSelectProps: (_itemsLength: number, _itemValue: number) => SelectProps;
+  getSelectProps: (
+    _label: string,
+    _itemsLength: number,
+    _itemValue: number,
+    _touched: boolean | undefined,
+    _error: string | undefined,
+    _isRequired?: boolean
+  ) => SelectProps;
+  getDateProps: (
+    _value: DateValue | string | null,
+    _name: string,
+    _label: string,
+    _description: string
+  ) => DateProps;
 }

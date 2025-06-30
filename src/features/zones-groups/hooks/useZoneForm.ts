@@ -4,16 +4,17 @@ import { FormikHelpers, useFormik } from "formik";
 import { FetchResponse } from "@/shared/types/globals";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { addToast } from "@heroui/react";
-import { Dispatch, SetStateAction } from "react";
 import { IZone, ZoneFormResponse, ZoneInput } from "../zone/zoneType";
 import { zoneSchema } from "../zone/zoneValidation";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
+import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
 
 const initZoneValues: ZoneInput = {
   name: ""
 };
 
-const useZoneForm = (setZonesList: Dispatch<SetStateAction<ZoneInput[]>>): ZoneFormResponse => {
+const useZoneForm = (): ZoneFormResponse => {
+  const { zonesList, setZonesList } = useZoneListStore();
   const { data, reset } = useZoneModalStore();
   const useRequest = useAxios(true);
 
@@ -29,10 +30,10 @@ const useZoneForm = (setZonesList: Dispatch<SetStateAction<ZoneInput[]>>): ZoneF
           formikHelpers.resetForm();
 
           const { id, name } = result.data;
-          setZonesList((prevZones) => [...prevZones, { id, name }]);
+          setZonesList([...zonesList, { id, name }]);
         } else {
-          setZonesList((prevZones) =>
-            prevZones.map((zone: IZone) => (zone.id === data.id ? { ...zone, ...values } : zone))
+          setZonesList(
+            zonesList.map((zone: IZone) => (zone.id === data.id ? { ...zone, ...values } : zone))
           );
           reset();
         }
