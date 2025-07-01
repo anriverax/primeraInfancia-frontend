@@ -4,6 +4,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import crypto from "crypto-js";
 import { FormikHelpers } from "formik";
 import { addToast } from "@heroui/react";
+import Swal from "sweetalert2";
 
 export const stringField = (requiredMessage: string): StringSchema<string, AnyObject, undefined, ""> =>
   string().required(requiredMessage);
@@ -76,4 +77,21 @@ export function handleAxiosError(error: unknown, message: string, action: "obten
     console.error(`${title} ${message}:`, detail);
     /* eslint-enable no-console */
   } else showToast(`${title} ${message}`, "danger");
+}
+
+export async function confirmDelete(options?: { title?: string; text?: string }): Promise<boolean> {
+  const { title = "¿Estás seguro?", text = "Esta acción no se puede deshacer." } = options || {};
+
+  const result = await Swal.fire({
+    title,
+    text,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#006eeb",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar"
+  });
+
+  return result.isConfirmed;
 }

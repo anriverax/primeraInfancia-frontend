@@ -43,4 +43,9 @@ export interface GroupListResult {
   setGroupsList: (_groups: IGroupTable[]) => void;
 }
 
-export type GroupTableProps = Pick<GroupListResult, "groupList" | "deleteGroup">;
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface GroupTableProps extends Pick<GroupListResult, "groupList" | "deleteGroup"> {
+  onEditGroup: (_form: "Z" | "G", _data?: any | null) => void;
+}
+
+/* eslint-enable @typescript-eslint/no-explicit-any */

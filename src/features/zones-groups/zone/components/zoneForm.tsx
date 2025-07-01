@@ -4,6 +4,8 @@ import { MapPin } from "lucide-react";
 import { useZoneForm } from "../../hooks/useZoneForm";
 import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
+import { cn } from "@/shared/utils/tv";
+import { ZGModalHeader } from "../../zGModalHeader";
 
 const ZoneForm = (): React.JSX.Element => {
   const { zoneFormik, reset, data } = useZoneForm();
@@ -13,22 +15,20 @@ const ZoneForm = (): React.JSX.Element => {
 
   return (
     <ModalLayout size="md">
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-4 text-white">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <MapPin className="h-5 w-5" />
-            <h3 className="text-lg font-medium">{data ? "Editar zona" : "Nueva Zona"}</h3>
-          </div>
-        </div>
-        <p className="text-blue-100 text-sm mt-1">Agregue una nueva zona geográfica</p>
-      </div>
-      <div className="p-5">
+      <ZGModalHeader
+        title={data ? "Editar zona" : "Nuevo zona"}
+        description="Agregue una nueva zona geográfica"
+      >
+        <MapPin className="h-5 w-5" />
+      </ZGModalHeader>
+
+      <div className={cn({ "p-5": Object.keys(errors).length > 0 && status === 401 })}>
         {Object.keys(errors).length > 0 && status === 401 && (
           <ConditionalAlert status={status} errors={errors} setStatus={setStatus} />
         )}
       </div>
 
-      <form className="p-5 text-white space-y-4" onSubmit={handleSubmit}>
+      <form className="p-5 space-y-4" onSubmit={handleSubmit}>
         <Input
           {...getFieldProps("name")}
           {...getInputProps("text", "Nombre de la zona", touched.name, errors.name)}

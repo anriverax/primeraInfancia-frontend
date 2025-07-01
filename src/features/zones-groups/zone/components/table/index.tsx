@@ -2,10 +2,21 @@ import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from 
 import { MapPin } from "lucide-react";
 import { useRenderZoneCell, zoneColumns } from "./columns";
 import { IZoneColumnKey, IZoneTable, ZoneTableProps } from "../../zoneType";
+import { tableClassNames } from "@/shared/constants";
+import Swal from "sweetalert2";
+import { confirmDelete } from "@/shared/utils/funtions";
 
-const ZoneTable = ({ zonesList, deleteZone }: ZoneTableProps): React.JSX.Element => {
-  const renderZoneCell = useRenderZoneCell(deleteZone);
+const ZoneTable = ({ zonesList, onDeleteZone, onEditZone }: ZoneTableProps): React.JSX.Element => {
+  const onConfirmDeleteZone = async (zoneId: number) => {
+    const confirmed = await confirmDelete({
+      text: "Al eliminar la zona, también se eliminarán los grupos vinculados a ella."
+    });
+    if (confirmed) {
+      await onDeleteZone(zoneId);
+    }
+  };
 
+  const renderZoneCell = useRenderZoneCell(onConfirmDeleteZone, onEditZone);
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
@@ -13,7 +24,7 @@ const ZoneTable = ({ zonesList, deleteZone }: ZoneTableProps): React.JSX.Element
         <h2 className="text-lg font-semibold text-gray-900">Zonas</h2>
       </div>
 
-      <Table aria-label="Tabla para mostrar las zonas registradas">
+      <Table classNames={tableClassNames} aria-label="Tabla para mostrar las zonas registradas">
         <TableHeader columns={zoneColumns}>
           {(zoneCol) => <TableColumn key={zoneCol.key}>{zoneCol.label}</TableColumn>}
         </TableHeader>

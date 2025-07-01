@@ -3,7 +3,6 @@ import { EditIcon, Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
 import { IZoneColumnKey, IZoneTable, ZoneInput } from "../../zoneType";
-import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 
 export const zoneColumns: IColumns<IZoneColumnKey>[] = [
   {
@@ -17,15 +16,14 @@ export const zoneColumns: IColumns<IZoneColumnKey>[] = [
   }
 ];
 
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderZoneCell = (
-  deleteZone: (_zoneId: number) => Promise<void>
+  onConfirmDeleteZone: (_zoneId: number) => void,
+  onEditZone: (_form: "Z" | "G", _data?: any | null) => void
 ): ((
   _zone: IZoneTable,
   _columnKey: IZoneColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
-  const { toggleVisibility } = useZoneModalStore();
-
   return useCallback((zone: IZoneTable, columnKey: IZoneColumnKey) => {
     const cellValue = zone[columnKey as keyof ZoneInput];
 
@@ -42,17 +40,17 @@ export const useRenderZoneCell = (
             <Tooltip content="Edit user">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                onClick={() => toggleVisibility("Z", zone)}
+                onClick={() => onEditZone("Z", zone)}
               >
-                <EditIcon />
+                <EditIcon className="h-4 w-4" />
               </span>
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
-                onClick={() => deleteZone(zone.id as number)}
+                onClick={() => onConfirmDeleteZone(zone.id as number)}
               >
-                <Trash2 />
+                <Trash2 className="h-4 w-4" />
               </span>
             </Tooltip>
           </div>
@@ -63,4 +61,4 @@ export const useRenderZoneCell = (
   }, []);
 };
 
-/* eslint-enable react-hooks/exhaustive-deps */
+/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */

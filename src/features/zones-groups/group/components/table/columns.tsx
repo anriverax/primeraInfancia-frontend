@@ -1,6 +1,5 @@
 import { IColumns } from "@/shared/types/globals";
-import { IGroupColumnKey, IGroupTable } from "../../groupType";
-import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
+import { GroupInput, IGroupColumnKey, IGroupTable } from "../../groupType";
 import { EditIcon, Trash2, Users } from "lucide-react";
 import { Tooltip } from "@heroui/react";
 import { useCallback } from "react";
@@ -18,17 +17,26 @@ export const groupColumns: IColumns<IGroupColumnKey>[] = [
     label: "Acciones"
   }
 ];
-
+/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderGroupCell = (
-  deleteGroup: (_groupId: number) => Promise<void>
+  onDeleteGroup: (_groupId: number) => Promise<void>,
+  onEditGroup: (_form: "Z" | "G", _data?: any | null) => void
 ): ((
   _group: IGroupTable,
   _columnKey: IGroupColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
-  const { toggleVisibility } = useZoneModalStore();
-
   return useCallback((group: IGroupTable, columnKey: IGroupColumnKey) => {
     let cellValue: string | number | React.JSX.Element | null | undefined;
+    const { name, description, memberCount } = group;
+
+    const updateGroupData: GroupInput = {
+      id: group.id,
+      name,
+      description,
+      memberCount,
+      personId: group.Person?.id || 0,
+      zoneId: group.Zone?.id || 0
+    };
 
     switch (columnKey) {
       case "count":
@@ -50,17 +58,17 @@ export const useRenderGroupCell = (
             <Tooltip content="Edit user">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                onClick={() => toggleVisibility("G", group)}
+                onClick={() => onEditGroup("G", updateGroupData)}
               >
-                <EditIcon />
+                <EditIcon className="h-4 w-4" />
               </span>
             </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
-                onClick={() => deleteGroup(group.id as number)}
+                onClick={() => onDeleteGroup(group.id as number)}
               >
-                <Trash2 />
+                <Trash2 className="h-4 w-4" />
               </span>
             </Tooltip>
           </div>
@@ -82,3 +90,5 @@ export const useRenderGroupCell = (
     }
   }, []);
 };
+
+/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */

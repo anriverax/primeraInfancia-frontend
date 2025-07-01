@@ -1,21 +1,28 @@
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input, NumberInput, Select, SelectItem, Textarea } from "@heroui/react";
-import { MapPin } from "lucide-react";
+import { Users } from "lucide-react";
 import { useGroupForm } from "../../hooks/useGroupForm";
-import { Dispatch, SetStateAction } from "react";
 import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
-import { IGroup, IPersonList } from "../groupType";
+import { IPersonList } from "../groupType";
 import { useGroupSelectBox } from "../../hooks/useGroupSelectBox";
 import { ZoneInput } from "../../zone/zoneType";
+import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
+import { cn } from "@/shared/utils/tv";
+import { ZGModalHeader } from "../../zGModalHeader";
 
-type GroupFormProps = {
-  setGroupList?: Dispatch<SetStateAction<IGroup[]>>;
-};
-
-const GroupForm = ({ setGroupList }: GroupFormProps): React.JSX.Element => {
-  const { groupFormik, reset, data } = useGroupForm(setGroupList);
-  const { values, handleSubmit, touched, errors, getFieldProps, isSubmitting, setFieldValue } =
-    groupFormik;
+const GroupForm = (): React.JSX.Element => {
+  const { groupFormik, reset, data } = useGroupForm();
+  const {
+    values,
+    status,
+    touched,
+    errors,
+    handleSubmit,
+    getFieldProps,
+    isSubmitting,
+    setFieldValue,
+    setStatus
+  } = groupFormik;
 
   const { zonesList, personList } = useGroupSelectBox();
 
@@ -23,14 +30,16 @@ const GroupForm = ({ setGroupList }: GroupFormProps): React.JSX.Element => {
 
   return (
     <ModalLayout size="md">
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-4 text-white">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <MapPin className="h-5 w-5" />
-            <h3 className="text-lg font-medium">{data ? "Editar grupo" : "Nuevo Grupo"}</h3>
-          </div>
-        </div>
-        <p className="text-blue-100 text-sm mt-1">Complete la información del grupo</p>
+      <ZGModalHeader
+        title={data ? "Editar grupo" : "Nuevo Grupo"}
+        description="Complete la información del grupo"
+      >
+        <Users className="h-5 w-5" />
+      </ZGModalHeader>
+      <div className={cn({ "p-5": Object.keys(errors).length > 0 && status === 401 })}>
+        {Object.keys(errors).length > 0 && status === 401 && (
+          <ConditionalAlert status={status} errors={errors} setStatus={setStatus} />
+        )}
       </div>
       <form className="p-5 text-white space-y-6" onSubmit={handleSubmit}>
         <Input

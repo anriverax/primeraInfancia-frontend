@@ -2,9 +2,11 @@ import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from 
 import { Users } from "lucide-react";
 import { groupColumns, useRenderGroupCell } from "./columns";
 import { GroupTableProps, IGroupColumnKey, IGroupTable } from "../../groupType";
+import { tableClassNames } from "@/shared/constants";
 
-const GroupTable = ({ groupList, deleteGroup }: GroupTableProps): React.JSX.Element => {
-  const renderGroupCell = useRenderGroupCell(deleteGroup);
+
+const GroupTable = ({ groupList, deleteGroup, onEditGroup }: GroupTableProps): React.JSX.Element => {
+  const renderGroupCell = useRenderGroupCell(deleteGroup, onEditGroup);
 
   return (
     <div className="space-y-4">
@@ -13,7 +15,7 @@ const GroupTable = ({ groupList, deleteGroup }: GroupTableProps): React.JSX.Elem
         <h2 className="text-lg font-semibold text-gray-900">Grupos</h2>
       </div>
 
-      <Table aria-label="Tabla para mostrar los grupos registradas">
+      <Table classNames={tableClassNames} aria-label="Tabla para mostrar los grupos registradas">
         <TableHeader columns={groupColumns}>
           {(groupCol) => <TableColumn key={groupCol.key}>{groupCol.label}</TableColumn>}
         </TableHeader>

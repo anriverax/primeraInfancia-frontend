@@ -5,12 +5,12 @@ import ZoneTable from "./table";
 import ZoneForm from "./zoneForm";
 
 const ZoneLayout = (): React.JSX.Element => {
-  const { isVisible, typeModal } = useZoneModalStore();
-  const { zonesList, deleteZone } = useZonesList();
+  const { isVisible, typeModal, toggleVisibility } = useZoneModalStore();
+  const { zonesList, onDeleteZone } = useZonesList();
 
   return (
     <>
-      <ZoneTable zonesList={zonesList} deleteZone={deleteZone} />
+      <ZoneTable zonesList={zonesList} onDeleteZone={onDeleteZone} onEditZone={toggleVisibility} />
       {isVisible && typeModal === "Z" && <ZoneForm />}
     </>
   );

@@ -5,8 +5,10 @@ import { FetchResponse } from "@/shared/types/globals";
 import { handleAxiosError, showToast } from "@/shared/utils/funtions";
 import { useGroupListStore } from "@/shared/hooks/store/useGroupListStore";
 import { GroupListResult, IGroupTable } from "../group/groupType";
+import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
 
 const useGroupsList = (): GroupListResult => {
+  const { zonesList } = useZoneListStore();
   const { groupList, setGroupsList } = useGroupListStore();
   const useRequest = useAxios(true);
 
@@ -30,7 +32,7 @@ const useGroupsList = (): GroupListResult => {
     return (): void => {
       isMounted = false;
     };
-  }, []);
+  }, [zonesList]);
 
   const deleteGroup = useCallback(async (groupId: number) => {
     try {
@@ -41,7 +43,7 @@ const useGroupsList = (): GroupListResult => {
 
       if (statusCode === HttpStatusCode.Ok) {
         showToast(String(message), "success");
-        setGroupsList(groupList.filter((group) => group.id !== groupId));
+        setGroupsList((prevZones: IGroupTable[]) => prevZones.filter((group) => group.id !== groupId));
       }
     } catch (error) {
       handleAxiosError(error, "grupos", "eliminar");
