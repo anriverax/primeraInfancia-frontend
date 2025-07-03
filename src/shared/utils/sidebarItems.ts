@@ -70,7 +70,7 @@ export const sidebarItems: SidebarItemType[] = [
   },
   {
     title: "Triple perfil",
-    path: "/admin",
+    path: "/triple-perfil",
     icon: Users,
     submenu: [
       {

@@ -1,14 +1,14 @@
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input, NumberInput, Select, SelectItem, Textarea } from "@heroui/react";
 import { Users } from "lucide-react";
-import { useGroupForm } from "../../hooks/useGroupForm";
+import { useGroupForm } from "../../hooks/group/useGroupForm";
 import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
 import { IPersonList } from "../groupType";
-import { useGroupSelectBox } from "../../hooks/useGroupSelectBox";
 import { ZoneInput } from "../../zone/zoneType";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 import { cn } from "@/shared/utils/tv";
 import { ZGModalHeader } from "../../zGModalHeader";
+import { useGroupSelectBox } from '../../hooks/group/useGroupSelectBox';
 
 const GroupForm = (): React.JSX.Element => {
   const { groupFormik, reset, data } = useGroupForm();
@@ -48,12 +48,7 @@ const GroupForm = (): React.JSX.Element => {
         />
         <Textarea
           {...getFieldProps("description")}
-          {...getTextAreaProps(
-            "Dirección",
-            "Ingrese su dirección",
-            touched.description,
-            errors.description
-          )}
+          {...getTextAreaProps("Descripción", "Descripción", touched.description, errors.description)}
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <NumberInput

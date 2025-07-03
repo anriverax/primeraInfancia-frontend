@@ -3,18 +3,10 @@ import { FormikHelpers, useFormik } from "formik";
 import { FetchResponse } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
-import { GroupFormResult, GroupInput, IGroup, IGroupTable } from "../group/groupType";
-import { groupShema } from "../group/groupValidation";
+import { GroupFormResult, GroupInput, IGroup, IGroupTable } from "../../group/groupType";
+import { groupShema } from "../../group/groupValidation";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 import { useGroupListStore } from "@/shared/hooks/store/useGroupListStore";
-
-const initGroupValues: GroupInput = {
-  name: "",
-  description: "",
-  memberCount: 0,
-  personId: 0,
-  zoneId: 0
-};
 
 const useGroupForm = (): GroupFormResult => {
   const { groupList, setGroupsList } = useGroupListStore();
@@ -22,11 +14,13 @@ const useGroupForm = (): GroupFormResult => {
   const useRequest = useAxios(true);
 
   /* eslint-disable  @typescript-eslint/explicit-function-return-type */
-  const getDataInit = () => {
-    const { ...otherData } = data;
-
-    return otherData;
-  };
+  const getDataInit = (): GroupInput => ({
+    name: data?.name ?? "",
+    description: data?.description ?? "",
+    memberCount: data?.memberCount ?? 0,
+    personId: data?.personId ?? 0,
+    zoneId: data?.zoneId ?? 0
+  });
   /* eslint-enable  @typescript-eslint/explicit-function-return-type */
   const handleSubmit = async (
     values: GroupInput,
@@ -69,7 +63,7 @@ const useGroupForm = (): GroupFormResult => {
 
   const groupFormik = useFormik({
     enableReinitialize: true,
-    initialValues: data ? getDataInit() : initGroupValues,
+    initialValues: getDataInit(),
     validationSchema: groupShema,
     validateOnBlur: true,
     validateOnChange: false,

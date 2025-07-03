@@ -3,10 +3,19 @@ import { Users } from "lucide-react";
 import { groupColumns, useRenderGroupCell } from "./columns";
 import { GroupTableProps, IGroupColumnKey, IGroupTable } from "../../groupType";
 import { tableClassNames } from "@/shared/constants";
-
+import { confirmDelete } from "@/shared/utils/funtions";
 
 const GroupTable = ({ groupList, deleteGroup, onEditGroup }: GroupTableProps): React.JSX.Element => {
-  const renderGroupCell = useRenderGroupCell(deleteGroup, onEditGroup);
+  const onConfirmDeleteZone = async (groupId: number): Promise<void> => {
+    const confirmed = await confirmDelete({
+      text: "Al eliminar el grupo, también se eliminarán los usuarios asociados a este."
+    });
+    if (confirmed) {
+      await deleteGroup(groupId);
+    }
+  };
+
+  const renderGroupCell = useRenderGroupCell(onConfirmDeleteZone, onEditGroup);
 
   return (
     <div className="space-y-4">

@@ -29,9 +29,7 @@ export type IGroupColumnKey = "name" | "description" | "count" | "zone" | "actio
 
 export interface IGroupTable extends Omit<GroupInput, "zoneId" | "personId"> {
   Zone?: ZoneInput;
-  Person?: {
-    id: number;
-  };
+  Person?: IPersonList;
 
   _count?: {
     GroupMember: number;

@@ -95,3 +95,8 @@ export async function confirmDelete(options?: { title?: string; text?: string })
 
   return result.isConfirmed;
 }
+
+export function getIdParam(queryId: string | string[] | undefined): number | undefined {
+  const idParam = Array.isArray(queryId) ? parseInt(queryId[0], 10) : parseInt(queryId ?? "", 10);
+  return isNaN(idParam) ? undefined : idParam;
+}

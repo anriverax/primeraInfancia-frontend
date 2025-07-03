@@ -1,8 +1,9 @@
 import { IColumns } from "@/shared/types/globals";
 import { GroupInput, IGroupColumnKey, IGroupTable } from "../../groupType";
-import { EditIcon, Trash2, Users } from "lucide-react";
+import { EditIcon, Eye, Trash2, Users } from "lucide-react";
 import { Tooltip } from "@heroui/react";
 import { useCallback } from "react";
+import Link from "next/link";
 
 export const groupColumns: IColumns<IGroupColumnKey>[] = [
   {
@@ -39,6 +40,13 @@ export const useRenderGroupCell = (
     };
 
     switch (columnKey) {
+      case "name":
+        return (
+          <div className="inline-flex flex-col items-start">
+            <span>{group.name}</span>
+            <span className="text-xs text-foreground-400">{group.description}</span>
+          </div>
+        );
       case "count":
         return (
           <span className="flex gap-2">
@@ -48,14 +56,22 @@ export const useRenderGroupCell = (
         );
       case "zone":
         return (
-          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-50 border-blue-500 border text-blue-700">
             {group.Zone?.name}
           </span>
         );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Edit user">
+            <Tooltip content="Detalle del grupo">
+              <Link
+                href={`./zonas-grupos/${encodeURIComponent(group.id!)}`}
+                className="text-lg text-default-400 cursor-pointer active:opacity-50"
+              >
+                <Eye className="h-4 w-4" />
+              </Link>
+            </Tooltip>
+            <Tooltip content="Editar grupo">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
                 onClick={() => onEditGroup("G", updateGroupData)}
@@ -63,7 +79,7 @@ export const useRenderGroupCell = (
                 <EditIcon className="h-4 w-4" />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
+            <Tooltip color="danger" content="Eliminar grupo">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
                 onClick={() => onDeleteGroup(group.id as number)}

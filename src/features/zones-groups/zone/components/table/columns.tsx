@@ -37,7 +37,7 @@ export const useRenderZoneCell = (
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Edit user">
+            <Tooltip content="Editar zona0">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
                 onClick={() => onEditZone("Z", zone)}
@@ -45,7 +45,7 @@ export const useRenderZoneCell = (
                 <EditIcon className="h-4 w-4" />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
+            <Tooltip color="danger" content="Eliminar zona">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
                 onClick={() => onConfirmDeleteZone(zone.id as number)}

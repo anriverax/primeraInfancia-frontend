@@ -4,7 +4,7 @@ import { AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import { handleAxiosError, showToast } from "@/shared/utils/funtions";
 import { useGroupListStore } from "@/shared/hooks/store/useGroupListStore";
-import { GroupListResult, IGroupTable } from "../group/groupType";
+import { GroupListResult, IGroupTable } from "../../group/groupType";
 import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
 
 const useGroupsList = (): GroupListResult => {

@@ -1,4 +1,3 @@
-import { Easing } from "framer-motion";
 import { ElementType, JSX } from "react";
 
 export interface SubMenuItem {
@@ -29,7 +28,7 @@ export interface MenuItemResult {
     };
     transition: {
       duration: number;
-      ease: Easing | Easing[] | undefined;
+      ease: any;
     };
     className: string;
   };

@@ -1,7 +1,7 @@
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 import GroupForm from "./groupForm";
 import GroupTable from "./table";
-import { useGroupsList } from "../../hooks/useGroupsList";
+import { useGroupsList } from "../../hooks/group/useGroupsList";
 
 const GroupLayout = (): React.JSX.Element => {
   const { isVisible, typeModal, toggleVisibility } = useZoneModalStore();

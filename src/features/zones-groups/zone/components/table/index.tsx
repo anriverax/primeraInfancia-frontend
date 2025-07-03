@@ -3,11 +3,10 @@ import { MapPin } from "lucide-react";
 import { useRenderZoneCell, zoneColumns } from "./columns";
 import { IZoneColumnKey, IZoneTable, ZoneTableProps } from "../../zoneType";
 import { tableClassNames } from "@/shared/constants";
-import Swal from "sweetalert2";
 import { confirmDelete } from "@/shared/utils/funtions";
 
 const ZoneTable = ({ zonesList, onDeleteZone, onEditZone }: ZoneTableProps): React.JSX.Element => {
-  const onConfirmDeleteZone = async (zoneId: number) => {
+  const onConfirmDeleteZone = async (zoneId: number): Promise<void> => {
     const confirmed = await confirmDelete({
       text: "Al eliminar la zona, también se eliminarán los grupos vinculados a ella."
     });
@@ -17,6 +16,7 @@ const ZoneTable = ({ zonesList, onDeleteZone, onEditZone }: ZoneTableProps): Rea
   };
 
   const renderZoneCell = useRenderZoneCell(onConfirmDeleteZone, onEditZone);
+
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
