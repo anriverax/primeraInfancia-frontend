@@ -17,7 +17,7 @@ function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
 
   return (
     <div className="relative flex h-dvh w-full bg-gray-50">
-      <Sidebar items={sidebarItems} logo={<Logo />} />
+      <Sidebar items={session?.permissions || []} logo={<Logo />} />
       <div className="relative flex h-full flex-1 flex-col ">
         <TopBar {...getUserData()} />
 

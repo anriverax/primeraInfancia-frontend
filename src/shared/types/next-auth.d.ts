@@ -2,29 +2,39 @@
 import { JWT } from "next-auth/jwt";
 
 // Extend the global scope
+export interface IToken {
+  accessToken: string;
+  refreshToken: string;
+}
+export interface IPermission {
+  menu: {
+    id: number;
+    title: string;
+    path: string;
+    icon: string;
+    parentId: number | null;
+    action: {
+      id: number;
+      name: string;
+    };
+  };
+}
 
+interface IUser {
+  role: string;
+  isVerified: boolean;
+  picture: string;
+  email: string | undefined | null;
+  name: string | undefined | null;
+}
 declare module "next-auth" {
-  interface User {
-    accessToken: string;
-    refreshToken: string;
-    user: {
-      role: string;
-      isVerified: boolean;
-      picture: string;
-      email: string | undefined | mull;
-      name: string | undefined | mull;
-    };
+  interface User extends IToken {
+    user: IUser;
+    permissions: IPermission[];
   }
-  interface Session {
-    accessToken: string;
-    refreshToken: string;
-    user: {
-      role: string;
-      isVerified: boolean;
-      picture: string;
-      email: string | undefined | mull;
-      name: string | undefined | mull;
-    };
+  interface Session extends IToken {
+    user: IUser;
+    permissions: IPermission[];
   }
 }
 
@@ -34,6 +44,7 @@ declare module "next-auth/jwt" {
     role: string;
     isVerified: boolean;
     picture: string;
+    permissions: IPermission[];
     /** OpenID ID Token */
   }
 }

@@ -74,7 +74,7 @@ export const authOptions: NextAuthOptions = {
         token.role = user.user?.role;
         token.isVerified = user.user?.isVerified;
         token.picture = user.user?.picture;
-        //         token.permissions = user.permissions;
+        token.permissions = user.permissions;
       } else if (session) {
         token.accessToken = session.accessToken ?? token.accessToken;
         token.refreshToken = session.refreshToken ?? token.refreshToken;
@@ -88,8 +88,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      //       session.permissions = token.permissions;
-
       session.user = {
         email: token.email,
         name: token.name,
@@ -97,6 +95,9 @@ export const authOptions: NextAuthOptions = {
         isVerified: token.isVerified,
         picture: token.picture
       };
+
+      session.permissions = token.permissions;
+
       return { ...session, accessToken: token.accessToken, refreshToken: token.refreshToken };
     },
     async redirect({ url, baseUrl }): Promise<string> {
