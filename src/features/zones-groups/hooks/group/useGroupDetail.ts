@@ -5,10 +5,15 @@ import { IGroupTable } from "../../group/groupType";
 import { handleAxiosError } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
-const useGroupDetail = (groupId: number) => {
+const useGroupDetail = (
+  groupId: number
+): {
+  groupDetail: IGroupTable | undefined;
+} => {
   const [groupDetail, setGroupDetail] = useState<IGroupTable>();
   const useRequest = useAxios(true);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
@@ -29,7 +34,7 @@ const useGroupDetail = (groupId: number) => {
       isMounted = false;
     };
   }, []);
-
+  /* eslint-enable react-hooks/exhaustive-deps */
   return { groupDetail };
 };
 

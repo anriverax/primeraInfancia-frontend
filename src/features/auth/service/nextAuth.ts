@@ -39,13 +39,7 @@ export const authOptions: NextAuthOptions = {
         const data = await res.json();
 
         if (data.statusCode != 200) throw new Error(data.message);
-        /**
- * Devuelve el usuario y los permisos
-          return {
-            ...data.data,
-            permissions: data.data.permissions,
-          };
- */
+        console.log(data.data);
         return data.data;
       }
     })

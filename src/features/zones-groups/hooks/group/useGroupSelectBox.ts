@@ -1,10 +1,10 @@
 import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
 import { handleAxiosError } from "@/shared/utils/funtions";
 import { useEffect, useState } from "react";
-import { GroupSelectBoxResult, IPersonList } from "../group/groupType";
 import { FetchResponse } from "@/shared/types/globals";
 import { AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
+import { GroupSelectBoxResult, IPersonList } from '../../group/groupType';
 
 const useGroupSelectBox = (): GroupSelectBoxResult => {
   const { zonesList } = useZoneListStore();

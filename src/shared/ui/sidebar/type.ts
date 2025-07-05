@@ -6,14 +6,7 @@ export interface SubMenuItem {
   icon?: React.ElementType;
 }
 
-export interface SidebarItemType {
-  title: string;
-  path: string;
-  icon: React.ElementType;
-  badge?: number;
-  submenu?: SubMenuItem[];
-}
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface MenuItemResult {
   hasSubmenu: boolean | undefined;
   isSubmenuOpen: boolean;
@@ -33,7 +26,7 @@ export interface MenuItemResult {
     className: string;
   };
   toggleSubmenu: (_path: string) => void;
-  /* eslint-disable @typescript-eslint/no-explicit-any */
+
   Icon: ElementType<any, keyof JSX.IntrinsicElements>;
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */

@@ -6,17 +6,15 @@ export interface IToken {
   accessToken: string;
   refreshToken: string;
 }
-export interface IPermission {
-  menu: {
+export interface IMenuPermission {
+  id: number;
+  title: string;
+  path: string;
+  icon: string;
+  parentId: number | null;
+  action: {
     id: number;
-    title: string;
-    path: string;
-    icon: string;
-    parentId: number | null;
-    action: {
-      id: number;
-      name: string;
-    };
+    name: string;
   };
 }
 
@@ -30,11 +28,11 @@ interface IUser {
 declare module "next-auth" {
   interface User extends IToken {
     user: IUser;
-    permissions: IPermission[];
+    permissions: IMenuPermission[];
   }
   interface Session extends IToken {
     user: IUser;
-    permissions: IPermission[];
+    permissions: IMenuPermission[];
   }
 }
 
@@ -44,7 +42,7 @@ declare module "next-auth/jwt" {
     role: string;
     isVerified: boolean;
     picture: string;
-    permissions: IPermission[];
+    permissions: IMenuPermission[];
     /** OpenID ID Token */
   }
 }

@@ -8,7 +8,7 @@ import { ZoneInput } from "../../zone/zoneType";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 import { cn } from "@/shared/utils/tv";
 import { ZGModalHeader } from "../../zGModalHeader";
-import { useGroupSelectBox } from '../../hooks/group/useGroupSelectBox';
+import { useGroupSelectBox } from "../../hooks/group/useGroupSelectBox";
 
 const GroupForm = (): React.JSX.Element => {
   const { groupFormik, reset, data } = useGroupForm();

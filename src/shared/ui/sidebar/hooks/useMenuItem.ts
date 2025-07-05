@@ -1,9 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
-import { SidebarItemType, MenuItemResult } from "../type";
+import { MenuItemResult } from "../type";
 import { usePathname } from "next/navigation";
+import { IMenuPermission } from "@/shared/types/next-auth";
+import * as Icons from "lucide-react";
 
 type UseMenuItemProps = {
-  item: SidebarItemType;
+  item: IMenuPermission;
   isMobile: boolean;
   isExtended: boolean;
 };
@@ -16,7 +18,7 @@ const useMenuItem = ({ item, isMobile, isExtended }: UseMenuItemProps): MenuItem
   const isActive = pathname.startsWith(item.path);
 
   const isSubmenuOpen = isExtended ? openSubmenus[item.path] : false;
-  const Icon = item.icon;
+  const Icon = Icons[item.icon as keyof typeof Icons] || Icons.HelpCircle;
 
   const isSubmenuActive = useMemo((): boolean => {
     if (hasSubmenu) {

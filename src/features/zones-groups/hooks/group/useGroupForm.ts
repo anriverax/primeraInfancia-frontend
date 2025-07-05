@@ -13,7 +13,6 @@ const useGroupForm = (): GroupFormResult => {
   const { data, reset } = useZoneModalStore();
   const useRequest = useAxios(true);
 
-  /* eslint-disable  @typescript-eslint/explicit-function-return-type */
   const getDataInit = (): GroupInput => ({
     name: data?.name ?? "",
     description: data?.description ?? "",
@@ -21,7 +20,7 @@ const useGroupForm = (): GroupFormResult => {
     personId: data?.personId ?? 0,
     zoneId: data?.zoneId ?? 0
   });
-  /* eslint-enable  @typescript-eslint/explicit-function-return-type */
+
   const handleSubmit = async (
     values: GroupInput,
     formikHelpers: FormikHelpers<IGroup>

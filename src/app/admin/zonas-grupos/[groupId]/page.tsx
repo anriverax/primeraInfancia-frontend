@@ -1,9 +1,9 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { Badge, BreadcrumbItem, Breadcrumbs, Card, CardHeader, Progress } from "@heroui/react";
+import { BreadcrumbItem, Breadcrumbs, Progress } from "@heroui/react";
 import { useGroupDetail } from "@/features/zones-groups/hooks/group/useGroupDetail";
-import { Calendar, MapPin, Users } from "lucide-react";
+import { MapPin, Users } from "lucide-react";
 
 const GroupDetailPage = (): React.JSX.Element => {
   const params = useParams();
@@ -62,10 +62,12 @@ const GroupDetailPage = (): React.JSX.Element => {
                     </span>
                   }
                 />
-                <p className="text-xs text-gray-500">
-                  {Math.round((groupDetail?._count?.GroupMember! / groupDetail?.memberCount!) * 100)}%
-                  ocupado
-                </p>
+                {groupDetail?._count ? (
+                  <p className="text-xs text-gray-500">
+                    {Math.round((groupDetail?._count?.GroupMember / groupDetail?.memberCount) * 100)}%
+                    ocupado
+                  </p>
+                ) : null}
               </div>
             </div>
           </div>
