@@ -6,7 +6,7 @@ import { tableClassNames } from "@/shared/constants";
 import { confirmDelete } from "@/shared/utils/funtions";
 
 const ZoneTable = ({ zonesList, onDeleteZone, onEditZone }: ZoneTableProps): React.JSX.Element => {
-  const onConfirmDeleteZone = async (zoneId: number): Promise<void> => {
+  const handleConfirmDeleteZone = async (zoneId: number): Promise<void> => {
     const confirmed = await confirmDelete({
       text: "Al eliminar la zona, también se eliminarán los grupos vinculados a ella."
     });
@@ -15,7 +15,7 @@ const ZoneTable = ({ zonesList, onDeleteZone, onEditZone }: ZoneTableProps): Rea
     }
   };
 
-  const renderZoneCell = useRenderZoneCell(onConfirmDeleteZone, onEditZone);
+  const renderZoneCell = useRenderZoneCell(handleConfirmDeleteZone, onEditZone);
 
   return (
     <div className="space-y-4">

@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
         const data = await res.json();
 
         if (data.statusCode != 200) throw new Error(data.message);
-        console.log(data.data);
+
         return data.data;
       }
     })
