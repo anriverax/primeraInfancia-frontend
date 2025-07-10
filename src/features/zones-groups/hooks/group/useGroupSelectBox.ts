@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FetchResponse } from "@/shared/types/globals";
 import { AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
-import { GroupSelectBoxResult, IPersonList } from '../../group/groupType';
+import { GroupSelectBoxResult, IPersonList } from "../../group/groupType";
 
 const useGroupSelectBox = (): GroupSelectBoxResult => {
   const { zonesList } = useZoneListStore();
