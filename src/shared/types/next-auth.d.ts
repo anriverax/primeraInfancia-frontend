@@ -12,10 +12,6 @@ export interface IMenuPermission {
   path: string;
   icon: string;
   parentId: number | null;
-  action: {
-    id: number;
-    name: string;
-  };
 }
 
 interface IUser {
@@ -28,11 +24,11 @@ interface IUser {
 declare module "next-auth" {
   interface User extends IToken {
     user: IUser;
-    permissions: IMenuPermission[];
+    permissions: string[];
   }
   interface Session extends IToken {
     user: IUser;
-    permissions: IMenuPermission[];
+    permissions: string[];
   }
 }
 
@@ -42,7 +38,15 @@ declare module "next-auth/jwt" {
     role: string;
     isVerified: boolean;
     picture: string;
-    permissions: IMenuPermission[];
+    permissions: string[];
     /** OpenID ID Token */
+  }
+}
+
+import "@tanstack/react-query";
+
+declare module "@tanstack/react-query" {
+  interface Register {
+    defaultError: AxiosError;
   }
 }

@@ -72,11 +72,11 @@ export function handleAxiosError(error: unknown, message: string, action: "obten
 
   const detail = isAxios ? error.response?.data || error.message : (error as Error).message || error;
 
-  if (isDev) {
-    /* eslint-disable no-console */
-    console.error(`${title} ${message}:`, detail);
-    /* eslint-enable no-console */
-  } else showToast(`${title} ${message}`, "danger");
+  /* eslint-disable no-console */
+  if (isDev) console.error(`${title} ${message}:`, detail);
+  /* eslint-enable no-console */
+
+  showToast(`${title} ${message}`, "danger");
 }
 
 export async function confirmDelete(options?: { title?: string; text?: string }): Promise<boolean> {
