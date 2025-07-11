@@ -6,16 +6,32 @@ import { cn } from "@/shared/utils/tv";
 import Link from "next/link";
 import { useMenuItem } from "../../hooks/useMenuItem";
 import { IMenuPermission } from "@/shared/types/next-auth";
+import SubmenuItem from "./submenuItem";
+import dynamic from "next/dynamic";
+
+const LucideIconRenderer = dynamic(
+  () => import("@/shared/ui/custom/lucideIcon").then((mod) => mod.LucideIconRenderer),
+  {
+    ssr: false
+  }
+);
 
 type MenuItemProps = { item: IMenuPermission; isMobile: boolean; isExtended: boolean };
 
 const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Element => {
-  const { hasSubmenu, isSubmenuOpen, isActive, isSubmenuActive, getMenuAnimation, toggleSubmenu, Icon } =
-    useMenuItem({
-      item,
-      isMobile,
-      isExtended
-    });
+  const {
+    hasSubmenu,
+    isSubmenuOpen,
+    isActive,
+    pathname,
+    isSubmenuActive,
+    getMenuAnimation,
+    toggleSubmenu
+  } = useMenuItem({
+    item,
+    isMobile,
+    isExtended
+  });
 
   return (
     <div key={item.id} className="relative">
@@ -36,7 +52,8 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
           }
         }}
       >
-        <Icon
+        <LucideIconRenderer
+          iconName={item.icon}
           className={cn("h-5 w-5 flex-shrink-0 text-gray-600", {
             "text-white": Boolean(isActive || isSubmenuActive)
           })}
@@ -61,7 +78,7 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
         </motion.div>
       </Link>
 
-      {/*<SubmenuItem isSubmenuOpen={isSubmenuOpen} submenu={item.submenu} pathname={pathname} />*/}
+      <SubmenuItem isSubmenuOpen={isSubmenuOpen} submenu={item.children} pathname={pathname} />
     </div>
   );
 };

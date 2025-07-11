@@ -8,15 +8,18 @@ import {
   DropdownSection
 } from "@heroui/react";
 import { memo } from "react";
-import { roleDisplayNames } from "@/shared/constants";
-import { TopBarProps } from "@/shared/types/globals";
+import { roleDisplayNames, TypeRole } from "@/shared/constants";
+import { useSession } from "next-auth/react";
 
-const UserAvatar = memo(({ name, avatar, role, email }: TopBarProps): React.JSX.Element => {
+const UserAvatar = memo((): React.JSX.Element => {
+  const { data: session } = useSession();
+  const { name, email, role, picture } = session!.user;
+
   return (
     <div className="flex items-center gap-4">
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
-          <Avatar isBordered as="button" className="transition-transform" src={avatar} />
+          <Avatar isBordered as="button" className="transition-transform" src={picture || ""} />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat" disabledKeys={["avatar", "rol"]}>
           <DropdownSection showDivider aria-label="Profile">
@@ -24,18 +27,18 @@ const UserAvatar = memo(({ name, avatar, role, email }: TopBarProps): React.JSX.
               <User
                 avatarProps={{
                   size: "sm",
-                  src: avatar
+                  src: picture || ""
                 }}
                 classNames={{
                   name: "text-default-600",
                   description: "text-default-500"
                 }}
-                description={email}
-                name={name}
+                description={email || ""}
+                name={name || ""}
               />
             </DropdownItem>
             <DropdownItem key="rol" className="text-blue-500 text-center">
-              {roleDisplayNames[role]}
+              {roleDisplayNames[role as TypeRole]}
             </DropdownItem>
           </DropdownSection>
 

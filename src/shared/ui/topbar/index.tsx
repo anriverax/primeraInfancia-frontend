@@ -1,11 +1,10 @@
 import { JSX, memo } from "react";
 import { DividerCustom } from "./partials/dividerCustom";
 import UserAvatar from "./partials/userAvatar";
-import { TopBarProps } from "@/shared/types/globals";
 import Image from "next/image";
 
 const TopBar = memo(
-  (props: TopBarProps): JSX.Element => (
+  (): JSX.Element => (
     <header className="flex items-center h-[58px] bg-white border-b border-gray-200 px-4 shrink-0">
       <div className="flex items-center justify-between w-full px-14 md:px-10 gap-4">
         <div className="flex items-center gap-2">
@@ -36,7 +35,7 @@ const TopBar = memo(
           </div>
         </div>
       </div>
-      <UserAvatar {...props} />
+      <UserAvatar />
     </header>
   )
 );

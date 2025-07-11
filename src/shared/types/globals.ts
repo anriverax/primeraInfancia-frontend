@@ -1,5 +1,4 @@
 import { FieldConfig, FieldInputProps, FormikErrors, FormikTouched } from "formik";
-import { TypeRole } from "../constants";
 
 export interface FetchResponse<T> {
   statusCode: number;
@@ -31,13 +30,6 @@ export interface FormikProps<T> {
 
   getFieldProps: (_nameOrOptions: string | FieldConfig<any>) => FieldInputProps<any>;
 }
-
-export type TopBarProps = {
-  name: string;
-  avatar: string;
-  role: TypeRole;
-  email: string;
-};
 
 export interface IColumns<T> {
   key: T;

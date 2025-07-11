@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from "react";
 import { MenuItemResult } from "../type";
 import { usePathname } from "next/navigation";
 import { IMenuPermission } from "@/shared/types/next-auth";
-import * as Icons from "lucide-react";
 
 type UseMenuItemProps = {
   item: IMenuPermission;
@@ -13,23 +12,22 @@ type UseMenuItemProps = {
 const useMenuItem = ({ item, isMobile, isExtended }: UseMenuItemProps): MenuItemResult => {
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
-  const hasSubmenu = item.submenu && item.submenu.length > 0;
+  const hasSubmenu = item.children && item.children.length > 0;
 
   const isActive = pathname.startsWith(item.path);
 
   const isSubmenuOpen = isExtended ? openSubmenus[item.path] : false;
-  const Icon = Icons[item.icon as keyof typeof Icons] || Icons.HelpCircle;
 
   const isSubmenuActive = useMemo((): boolean => {
     if (hasSubmenu) {
-      const result = item.submenu?.some(
+      const result = item.children?.some(
         (subItem) => pathname === subItem.path || pathname.includes(subItem.path)
       ) as boolean;
 
       return result;
     }
     return false;
-  }, [pathname, hasSubmenu, item.submenu]);
+  }, [pathname, hasSubmenu, item.children]);
 
   const getMenuAnimation = useCallback(
     () => ({
@@ -56,8 +54,7 @@ const useMenuItem = ({ item, isMobile, isExtended }: UseMenuItemProps): MenuItem
     pathname,
     isSubmenuActive,
     getMenuAnimation,
-    toggleSubmenu,
-    Icon
+    toggleSubmenu
   };
 };
 

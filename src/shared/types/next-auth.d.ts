@@ -12,6 +12,7 @@ export interface IMenuPermission {
   path: string;
   icon: string;
   parentId: number | null;
+  children?: IMenuPermission[];
 }
 
 interface IUser {

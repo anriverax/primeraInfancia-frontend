@@ -1,10 +1,28 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import ZoneLayout from "@/features/zones-groups/zone/components/zoneLayout";
+
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
-import GroupLayout from "@/features/zones-groups/group/components/groupLayout";
+
 import { MapPin, Users } from "lucide-react";
+
+import dynamic from "next/dynamic";
+
+const ZoneLayout = dynamic(
+  () => import("@/features/zones-groups/zone/components/zoneLayout").then((mod) => mod),
+  {
+    ssr: false,
+    loading: () => <p>Cargando zonas...</p>
+  }
+);
+
+const GroupLayout = dynamic(
+  () => import("@/features/zones-groups/group/components/groupLayout").then((mod) => mod),
+  {
+    ssr: false,
+    loading: () => <p>Cargando grupos...</p>
+  }
+);
 
 export default function ZonesGroupsPage(): React.JSX.Element {
   const { toggleVisibility } = useZoneModalStore();

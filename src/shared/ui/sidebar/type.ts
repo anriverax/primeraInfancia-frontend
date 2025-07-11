@@ -1,11 +1,3 @@
-import { ElementType, JSX } from "react";
-
-export interface SubMenuItem {
-  title: string;
-  path: string;
-  icon?: React.ElementType;
-}
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface MenuItemResult {
   hasSubmenu: boolean | undefined;
@@ -26,7 +18,5 @@ export interface MenuItemResult {
     className: string;
   };
   toggleSubmenu: (_path: string) => void;
-
-  Icon: ElementType<any, keyof JSX.IntrinsicElements>;
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */

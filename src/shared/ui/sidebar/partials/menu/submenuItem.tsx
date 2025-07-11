@@ -1,9 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { SubMenuItem } from "../../type";
 import { memo } from "react";
 import SubmenuLink from "./submenuLink";
+import { IMenuPermission } from "@/shared/types/next-auth";
 
-type SubmenuItemProps = { isSubmenuOpen: boolean; submenu: SubMenuItem[] | undefined; pathname: string };
+type SubmenuItemProps = {
+  isSubmenuOpen: boolean;
+  submenu: IMenuPermission[] | undefined;
+  pathname: string;
+};
 
 const SubmenuItem = memo(
   ({ isSubmenuOpen, submenu, pathname }: SubmenuItemProps): React.JSX.Element => (
@@ -17,7 +21,7 @@ const SubmenuItem = memo(
           className="overflow-hidden border-l-2 border-blue-200 bg-gray-50"
         >
           <div className="pl-5 pr-2 py-1 space-y-1">
-            {submenu.map((item: SubMenuItem) => {
+            {submenu.map((item: IMenuPermission) => {
               const isActive = pathname === item.path;
 
               return (
