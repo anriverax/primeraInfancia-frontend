@@ -24,7 +24,7 @@ function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
     "/catalogue/menuItems",
     !!session
   );
-
+  console.log(data);
   useEffect(() => {
     if (error && !hasHandledError.current) {
       hasHandledError.current = true;

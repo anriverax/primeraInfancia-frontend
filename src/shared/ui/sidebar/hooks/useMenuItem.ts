@@ -14,7 +14,7 @@ const useMenuItem = ({ item, isMobile, isExtended }: UseMenuItemProps): MenuItem
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
   const hasSubmenu = item.submenu && item.submenu.length > 0;
-  console.log(pathname);
+
   const isActive = pathname.startsWith(item.path);
 
   const isSubmenuOpen = isExtended ? openSubmenus[item.path] : false;

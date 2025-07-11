@@ -10,21 +10,13 @@ import { IMenuPermission } from "@/shared/types/next-auth";
 type MenuItemProps = { item: IMenuPermission; isMobile: boolean; isExtended: boolean };
 
 const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Element => {
-  const {
-    hasSubmenu,
-    isSubmenuOpen,
-    isActive,
-    pathname,
-    isSubmenuActive,
-    getMenuAnimation,
-    toggleSubmenu,
-    Icon
-  } = useMenuItem({
-    item,
-    isMobile,
-    isExtended
-  });
-  console.log("MenuItem ", pathname);
+  const { hasSubmenu, isSubmenuOpen, isActive, isSubmenuActive, getMenuAnimation, toggleSubmenu, Icon } =
+    useMenuItem({
+      item,
+      isMobile,
+      isExtended
+    });
+
   return (
     <div key={item.id} className="relative">
       <Link
