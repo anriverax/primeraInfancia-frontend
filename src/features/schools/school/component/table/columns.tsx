@@ -45,6 +45,20 @@ export const useRenderSchoolCell = (
             {school.District?.name}
           </span>
         );
+      case "phoneNumber":
+        return (`(+503) ${school.phoneNumber}`
+        );
+      case "actions":
+        return (
+          <div className="relative flex items-center gap-2">
+            <Link
+              href={`./centros-escolares/${encodeURIComponent(school.id!)}`}
+              className="text-lg text-default-400 cursor-pointer active:opacity-50"
+            >
+              <Eye className="h-4 w-4" />
+            </Link>
+          </div>
+        );
       default:
         const value = school[columnKey as keyof ISchoolTable];
         if (
