@@ -5,6 +5,8 @@ import SchoolDetailLayout from "@/features/schools/school/component/schoolDetail
 import { BreadcrumbItem, Breadcrumbs, Progress } from "@heroui/react";
 import { useSchoolDetail } from "@/features/schools/hooks/school/useSchoolDetail";
 import { Map, ShieldUser } from "lucide-react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 const SchoolDetailPage = (): React.JSX.Element => {
   const params = useParams();
@@ -52,6 +54,27 @@ const SchoolDetailPage = (): React.JSX.Element => {
           <div>
             <span className="text-gray-600">{schoolDetail?.coordenates}</span>
             {/* Add more location info as needed */}
+          </div>
+          <div style={{ height: "300px", width: "100%" }}>
+            {schoolDetail?.coordenates && (() => {
+              // Setup a coordinates 
+              const coordsArray = [13.6929,-89.2182] as [number, number];
+              return (
+                <MapContainer 
+                  center={coordsArray}
+                  zoom={15}
+                  style={{ height: "100%", width: "100%" }}
+                >
+                  <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  />
+                  <Marker position={coordsArray}>
+                    <Popup>Ubicación del centro escolar</Popup>
+                  </Marker>
+                </MapContainer>
+              );
+            })()}
           </div>
         </div>
       </div>
