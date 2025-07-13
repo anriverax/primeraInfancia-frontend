@@ -1,62 +1,26 @@
-import { Tooltip } from "@heroui/react";
-import { EditIcon, Trash2 } from "lucide-react";
+import { Link } from "@heroui/react";
+import { Eye } from "lucide-react";
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
-import { ISchoolColumnKey, ISchoolTable, SchoolInput } from "../../schoolType";
+import { ISchoolColumnKey, ISchoolTable } from "../../schoolType";
 
 export const schoolColumns: IColumns<ISchoolColumnKey>[] = [
   {
     key: "name",
     label: "Nombre"
   },
-  // {
-  //   key: "sector",
-  //   label: "Sector"
-  // },
   {
     key: "district",
     label: "Distrito"
   },
-  // {
-  //   key: "address",
-  //   label: "Address"
-  // },
   {
     key: "email",
     label: "Correo electrónico"
   },
-  // {
-  //   key: "coordenates",
-  //   label: "Coordenates"
-  // },
   {
     key: "phoneNumber",
     label: "Número telefónico"
   },
-  // {
-  //   key: "createdAt",
-  //   label: "Created at"
-  // },
-  // {
-  //   key: "updatedAt",
-  //   label: "Updated at"
-  // },
-  // {
-  //   key: "deletedAt",
-  //   label: "Deleted at"
-  // },
-  // {
-  //   key: "createdBy",
-  //   label: "Created by"
-  // },
-  // {
-  //   key: "updatedBy",
-  //   label: "Updated by"
-  // },
-  // {
-  //   key: "deletedBy",
-  //   label: "Deleted by"
-  // },
   {
     key: "actions",
     label: "Acciones"
@@ -72,9 +36,7 @@ export const useRenderSchoolCell = (
   _columnKey: ISchoolColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
   return useCallback((school: ISchoolTable, columnKey: ISchoolColumnKey) => {
-    //const cellValue = school[columnKey as keyof SchoolInput];
     let cellValue: string | number | React.JSX.Element | null | undefined;
-    //const { name, District, email, phoneNumber } = school;
 
     switch (columnKey) {
       case "district":
@@ -83,40 +45,19 @@ export const useRenderSchoolCell = (
             {school.District?.name}
           </span>
         );
-      case "actions":
-        return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="Editar zona0">
-              <span
-                className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                onClick={() => onEditSchool("Z", school)}
-              >
-                <EditIcon className="h-4 w-4" />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Eliminar zona">
-              <span
-                className="text-lg text-danger cursor-pointer active:opacity-50"
-                onClick={() => onConfirmDeleteSchool(school.id as number)}
-              >
-                <Trash2 className="h-4 w-4" />
-              </span>
-            </Tooltip>
-          </div>
-        );
       default:
-         const value = school[columnKey as keyof ISchoolTable];
-                if (
-                  typeof value === "string" ||
-                  typeof value === "number" ||
-                  value === null ||
-                  value === undefined
-                ) {
-                  cellValue = value;
-                } else {
-                  cellValue = "";
-                }
-                return cellValue;
+        const value = school[columnKey as keyof ISchoolTable];
+        if (
+          typeof value === "string" ||
+          typeof value === "number" ||
+          value === null ||
+          value === undefined
+        ) {
+          cellValue = value;
+        } else {
+          cellValue = "";
+        }
+        return cellValue;
     }
   }, []);
 };

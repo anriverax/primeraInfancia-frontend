@@ -20,6 +20,8 @@ const useSchoolsList = (): SchoolListResult => {
 
         if (isMounted) {
           const { data } = res.data;
+          
+          
           setSchoolsList(data);
         }
       } catch (error) {

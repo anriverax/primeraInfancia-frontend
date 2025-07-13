@@ -18,19 +18,14 @@ const SchoolTable = ({ schoolsList, onDeleteSchool, onEditSchool }: SchoolTableP
 
   return (
     <div className="space-y-4">
-      {/* <div className="flex items-center gap-2">
-        <School className="h-5 w-5 text-blue-500" />
-        <h2 className="text-lg font-semibold text-gray-900">zonas</h2>
-      </div> */}
-
       <Table classNames={tableClassNames} aria-label="Tabla para mostrar los centros escolares registrados">
-        <TableHeader columns={ schoolColumns }>
-          { (schoolCol) => <TableColumn key={ schoolCol.key }>{ schoolCol.label }</TableColumn> }
+        <TableHeader columns={schoolColumns}>
+          {(schoolCol) => <TableColumn key={schoolCol.key}>{schoolCol.label}</TableColumn>}
         </TableHeader>
-        <TableBody isLoading={ schoolsList.length === 0} items={ schoolsList }>
-          { (schoolItem: ISchoolTable) => (
-            <TableRow key={ schoolItem.id }>
-              { (schoolKey) => <TableCell>{ renderSchoolCell(schoolItem, schoolKey as ISchoolColumnKey) }</TableCell> }
+        <TableBody isLoading={schoolsList.length === 0} items={schoolsList}>
+          {(schoolItem: ISchoolTable) => (
+            <TableRow key={schoolItem.id}>
+              {(schoolKey) => <TableCell>{renderSchoolCell(schoolItem, schoolKey as ISchoolColumnKey)}</TableCell>}
             </TableRow>
           )}
         </TableBody>
