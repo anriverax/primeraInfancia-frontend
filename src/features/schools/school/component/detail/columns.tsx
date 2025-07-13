@@ -6,10 +6,6 @@ import { ISchoolDetailColumnKey, ISchoolDetailTable, SchoolInput } from "../../s
 
 export const schoolColumns: IColumns<ISchoolDetailColumnKey>[] = [
   {
-    key: "name",
-    label: "Nombre"
-  },
-  {
     key: "sector",
     label: "Sector"
   },
@@ -18,46 +14,18 @@ export const schoolColumns: IColumns<ISchoolDetailColumnKey>[] = [
     label: "Distrito"
   },
   {
-    key: "address",
-    label: "Address"
-  },
-  {
     key: "email",
     label: "Correo electrónico"
   },
-  {
-    key: "coordenates",
-    label: "Coordenates"
-  },
+
   {
     key: "phoneNumber",
     label: "Número telefónico"
   },
-  { key: "principalSchool", label: "Nombre del director" },
-  // {
-  //   key: "createdAt",
-  //   label: "Created at"
-  // },
-  // {
-  //   key: "updatedAt",
-  //   label: "Updated at"
-  // },
-  // {
-  //   key: "deletedAt",
-  //   label: "Deleted at"
-  // },
-  // {
-  //   key: "createdBy",
-  //   label: "Created by"
-  // },
-  // {
-  //   key: "updatedBy",
-  //   label: "Updated by"
-  // },
-  // {
-  //   key: "deletedBy",
-  //   label: "Deleted by"
-  // },
+  {
+    key: "principalSchool",
+    label: "Nombre del director"
+  },
   {
     key: "actions",
     label: "Acciones"
@@ -73,9 +41,7 @@ export const useRenderSchoolCell = (
   _columnKey: ISchoolDetailColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
   return useCallback((school: ISchoolDetailTable, columnKey: ISchoolDetailColumnKey) => {
-    //const cellValue = school[columnKey as keyof SchoolInput];
     let cellValue: string | number | React.JSX.Element | null | undefined;
-    //const { name, District, email, phoneNumber } = school;
 
     switch (columnKey) {
       case "district":
