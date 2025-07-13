@@ -24,8 +24,8 @@ const SchoolDetailPage = (): React.JSX.Element => {
       <div className="bg-white border-b border-gray-200 px-6 py-6 mt-6">
         <div className="flex items-center justify-between">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-gray-900">Información detallada con relación al centro escolar</h1>
-            <p className="text-gray-600">Ubicación, número de contacto y nombre del director.</p>
+            <h1 className="text-3xl font-bold text-gray-900">{schoolDetail?.name}</h1>
+            <p className="text-gray-600">{schoolDetail?.address}</p>
           </div>
           <div className="flex items-center gap-3"></div>
         </div>
