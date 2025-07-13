@@ -72,13 +72,15 @@ export const useRenderSchoolCell = (
   _columnKey: ISchoolColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
   return useCallback((school: ISchoolTable, columnKey: ISchoolColumnKey) => {
-    const cellValue = school[columnKey as keyof SchoolInput];
+    //const cellValue = school[columnKey as keyof SchoolInput];
+    let cellValue: string | number | React.JSX.Element | null | undefined;
+    //const { name, District, email, phoneNumber } = school;
 
     switch (columnKey) {
       case "district":
         return (
-          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-50 border-blue-500 border text-blue-700">
-            {school.district?.name}
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
+            {school.District?.name}
           </span>
         );
       case "actions":
@@ -103,7 +105,18 @@ export const useRenderSchoolCell = (
           </div>
         );
       default:
-        return cellValue;
+         const value = school[columnKey as keyof ISchoolTable];
+                if (
+                  typeof value === "string" ||
+                  typeof value === "number" ||
+                  value === null ||
+                  value === undefined
+                ) {
+                  cellValue = value;
+                } else {
+                  cellValue = "";
+                }
+                return cellValue;
     }
   }, []);
 };

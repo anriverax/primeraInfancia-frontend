@@ -2,7 +2,7 @@ import useAxios from "@/shared/hooks/useAxios";
 import { useCallback, useEffect } from "react";
 import { AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
-import { ISchoolTable, SchoolListResult } from  "../../schoolType"
+import { ISchoolTable, SchoolListResult } from  "../../school/schoolType"
 import { handleAxiosError } from "@/shared/utils/funtions";
 import { useSchoolListStore } from "@/shared/hooks/store/useSchoolListStore";
 import Swal from "sweetalert2";
@@ -23,7 +23,7 @@ const useSchoolsList = (): SchoolListResult => {
           setSchoolsList(data);
         }
       } catch (error) {
-        handleAxiosError(error, "zonas", "obtener");
+        handleAxiosError(error, "centro escolar", "obtener");
       }
     };
     fetchData();
@@ -47,10 +47,10 @@ const useSchoolsList = (): SchoolListResult => {
             text: String(message),
             icon: "success"
           });
-          setSchoolsList((prevSchools: ISchoolTable[]) => prevSchools.filter((school) => school.id !== id));
+          setSchoolsList((prevSchools: ISchoolTable[]) => prevSchools.filter((school) => school.id !== school.id));
         }
       } catch (error) {
-        handleAxiosError(error, "zonas", "eliminar");
+        handleAxiosError(error, "centro escolar", "eliminar");
       }
     },
     [schoolsList, setSchoolsList, useRequest]

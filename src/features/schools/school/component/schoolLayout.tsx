@@ -1,5 +1,5 @@
 import { useSchoolModalStore } from "@/shared/hooks/store/useSchoolModalStore";
-import { useSchoolsList } from "../hooks/school/useSchoolList"
+import { useSchoolsList } from "../../hooks/school/useSchoolList"
 
 import SchoolTable from "./table";
 // import SchoolForm from "./schoolForm";

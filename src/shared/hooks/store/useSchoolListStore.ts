@@ -1,4 +1,4 @@
-import { ISchoolTable } from "@/features/school/schoolType";
+import { ISchoolTable } from "@/features/schools/school/schoolType";
 import { create, StoreApi, UseBoundStore } from "zustand";
 
 type SchoolListStoreProps = {
