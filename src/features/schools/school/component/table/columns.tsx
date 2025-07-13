@@ -1,5 +1,4 @@
 import { Link } from "@heroui/react";
-import { Eye } from "lucide-react";
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
 import { ISchoolColumnKey, ISchoolTable } from "../../schoolType";
@@ -20,10 +19,6 @@ export const schoolColumns: IColumns<ISchoolColumnKey>[] = [
   {
     key: "phoneNumber",
     label: "Número telefónico"
-  },
-  {
-    key: "actions",
-    label: "Acciones"
   }
 ];
 
@@ -48,17 +43,7 @@ export const useRenderSchoolCell = (
       case "phoneNumber":
         return (`(+503) ${school.phoneNumber}`
         );
-      case "actions":
-        return (
-          <div className="relative flex items-center gap-2">
-            <Link
-              href={`./centros-escolares/${encodeURIComponent(school.id!)}`}
-              className="text-lg text-default-400 cursor-pointer active:opacity-50"
-            >
-              <Eye className="h-4 w-4" />
-            </Link>
-          </div>
-        );
+
       default:
         const value = school[columnKey as keyof ISchoolTable];
         if (

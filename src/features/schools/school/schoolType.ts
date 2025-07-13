@@ -32,8 +32,8 @@ export interface ISchoolDetailTable extends SchoolInput {
 
 export type ISchool = SchoolInput & AxiosMessage;
 
-export type ISchoolColumnKey = "name" | "district" | "email" | "phoneNumber" | "actions";
-export type ISchoolDetailColumnKey = "name" |"principalSchool"| "person"| "sector" | "address" | "district" | "coordenates" | "email" | "phoneNumber" | "actions";
+export type ISchoolColumnKey = "name" | "district" | "email" | "phoneNumber" ;
+export type ISchoolDetailColumnKey = "name" |"principalSchool"| "person"| "sector" | "address" | "district" | "coordenates" | "email" | "phoneNumber";
 
 export interface SchoolListResult {
   schoolsList: ISchoolTable[];
