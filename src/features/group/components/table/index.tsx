@@ -2,8 +2,8 @@ import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from 
 import { groupColumns, useRenderGroupCell } from "./columns";
 import { GroupTableProps, IGroupColumnKey, IGroupTable } from "../../groupType";
 import { tableClassNames } from "@/shared/constants";
-import { useGroupsList } from "@/features/zones-groups/hooks/group/useGroupsList";
 import { Pagination } from "@heroui/react";
+import { useGroupsList } from "../../hooks/useGroupsList";
 
 const GroupTable = ({ onEditGroup }: GroupTableProps): React.JSX.Element => {
   const { handleChangePage, groupList, meta, handleConfirmDeleteGroup } = useGroupsList();
@@ -26,16 +26,18 @@ const GroupTable = ({ onEditGroup }: GroupTableProps): React.JSX.Element => {
           )}
         </TableBody>
       </Table>
-      {meta && (
-        <Pagination
-          isCompact
-          showControls
-          initialPage={meta.currentPage}
-          variant="light"
-          total={meta.lastPage}
-          onChange={(e) => handleChangePage(e)}
-        />
-      )}
+      <div className="flex justify-center">
+        {meta && groupList.length > 10 && (
+          <Pagination
+            isCompact
+            showControls
+            initialPage={meta.currentPage}
+            variant="light"
+            total={meta.lastPage}
+            onChange={(e) => handleChangePage(e)}
+          />
+        )}
+      </div>
     </>
   );
 };

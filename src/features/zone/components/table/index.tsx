@@ -1,12 +1,12 @@
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/table";
 import { useRenderZoneCell, zoneColumns } from "./columns";
-import { IZoneColumnKey, IZoneTable, ZoneTableProps } from "../../zoneType";
+import { IZoneColumnKey, IZoneTable } from "../../zoneType";
 import { tableClassNames } from "@/shared/constants";
-import { useZonesList } from "@/features/zones-groups/hooks/useZonesList";
+import { useZonesList } from "@/features/zone/useZonesList";
 
-const ZoneTable = ({ onEditZone }: ZoneTableProps): React.JSX.Element => {
-  const { zonesList, handleConfirmDeleteZone } = useZonesList();
-  const renderZoneCell = useRenderZoneCell(handleConfirmDeleteZone, onEditZone);
+const ZoneTable = (): React.JSX.Element => {
+  const { zonesList } = useZonesList();
+  const renderZoneCell = useRenderZoneCell();
 
   return (
     <Table classNames={tableClassNames} aria-label="Tabla para mostrar las zonas registradas">

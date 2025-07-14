@@ -21,7 +21,7 @@ export const groupColumns: IColumns<IGroupColumnKey>[] = [
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderGroupCell = (
   onDeleteGroup: (_groupId: number, _groupName: string) => Promise<void>,
-  onEditGroup: (_form: "Z" | "G", _data?: any | null) => void
+  onEditGroup: (_data?: any | null) => void
 ): ((
   _group: IGroupTable,
   _columnKey: IGroupColumnKey
@@ -74,7 +74,7 @@ export const useRenderGroupCell = (
             <Tooltip content="Editar grupo">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                onClick={() => onEditGroup("G", updateGroupData)}
+                onClick={() => onEditGroup(updateGroupData)}
               >
                 <EditIcon className="h-4 w-4" />
               </span>

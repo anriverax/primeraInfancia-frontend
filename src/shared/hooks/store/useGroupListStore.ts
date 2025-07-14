@@ -1,4 +1,4 @@
-import { IGroupTable } from "@/features/zones-groups/group/groupType";
+import { IGroupTable } from "@/features/group/groupType";
 import { create, StoreApi, UseBoundStore } from "zustand";
 
 type GroupListStoreProps = {

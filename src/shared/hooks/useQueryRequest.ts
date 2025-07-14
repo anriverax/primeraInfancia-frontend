@@ -33,7 +33,7 @@ export const useQueryRequest = <T>(
     retry: false
   });
 
-  /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (error && !hasHandledError.current) {
       hasHandledError.current = true;
@@ -41,28 +41,30 @@ export const useQueryRequest = <T>(
     }
   }, [error]);
 
-  const handleDelete = useCallback(async (id: number) => {
-    try {
-      const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(
-        `${endpoint}/delete/${id}`
-      );
-      const { statusCode, message } = res.data;
+  const handleDelete = useCallback(
+    async (id: number) => {
+      try {
+        const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(
+          `${endpoint}/delete/${id}`
+        );
+        const { statusCode, message } = res.data;
 
-      if (statusCode === HttpStatusCode.Ok) {
-        Swal.fire({
-          title: "!Eliminado!",
-          text: String(message),
-          icon: "success"
-        });
+        if (statusCode === HttpStatusCode.Ok) {
+          Swal.fire({
+            title: "!Eliminado!",
+            text: String(message),
+            icon: "success"
+          });
 
-        // Update cached data manually
-        queryClient.invalidateQueries({ queryKey: [key] });
+          // Update cached data manually
+          queryClient.invalidateQueries({ queryKey: [key] });
+        }
+      } catch (error) {
+        handleAxiosError(error, description, "eliminar");
       }
-    } catch (error) {
-      handleAxiosError(error, description, "eliminar");
-    }
-  }, []);
-  /* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
+    },
+    [useRequest]
+  );
 
   const onConfirmDelete = async (id: number, info: string): Promise<boolean> => {
     const confirmed = await confirmDelete({

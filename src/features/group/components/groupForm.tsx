@@ -1,14 +1,14 @@
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input, NumberInput, Select, SelectItem, Textarea } from "@heroui/react";
 import { Users } from "lucide-react";
-import { useGroupForm } from "../../hooks/group/useGroupForm";
 import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
 import { IPersonList } from "../groupType";
 import { ZoneInput } from "../../zone/zoneType";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 import { cn } from "@/shared/utils/tv";
-import { ZGModalHeader } from "../../zGModalHeader";
-import { useGroupSelectBox } from "../../hooks/group/useGroupSelectBox";
+import { useGroupForm } from "../hooks/useGroupForm";
+import { useGroupSelectBox } from "../hooks/useGroupSelectBox";
+import { GModalHeader } from "./gModalHeader";
 
 const GroupForm = (): React.JSX.Element => {
   const { groupFormik, reset, data } = useGroupForm();
@@ -30,12 +30,12 @@ const GroupForm = (): React.JSX.Element => {
 
   return (
     <ModalLayout size="md">
-      <ZGModalHeader
+      <GModalHeader
         title={data ? "Editar grupo" : "Nuevo Grupo"}
         description="Complete la información del grupo"
       >
         <Users className="h-5 w-5" />
-      </ZGModalHeader>
+      </GModalHeader>
       <div className={cn({ "p-5": Object.keys(errors).length > 0 && status === 401 })}>
         {Object.keys(errors).length > 0 && status === 401 && (
           <ConditionalAlert status={status} errors={errors} setStatus={setStatus} />

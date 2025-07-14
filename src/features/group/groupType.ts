@@ -46,7 +46,15 @@ export interface GroupListResult {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface GroupTableProps {
-  onEditGroup: (_form: "Z" | "G", _data?: any | null) => void;
+  onEditGroup: (_data?: any | null) => void;
 }
 
+export interface GroupModalInput {
+  isVisible: boolean;
+  data?: any | null;
+}
+
+export interface GroupModalAction extends GroupModalInput {
+  toggleVisibility: (_data?: any | null) => void;
+}
 /* eslint-enable @typescript-eslint/no-explicit-any */

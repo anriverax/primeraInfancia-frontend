@@ -3,15 +3,15 @@ import { FormikHelpers, useFormik } from "formik";
 import { FetchResponse } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
-import { GroupFormResult, GroupInput, IGroup, IGroupTable } from "../../group/groupType";
-import { groupShema } from "../../group/groupValidation";
-import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
-import { useGroupListStore } from "@/shared/hooks/store/useGroupListStore";
+
+import { useGroupModalStore } from "@/shared/hooks/store/useGroupModalStore";
 import { useQueryClient } from "@tanstack/react-query";
+import { GroupFormResult, GroupInput, IGroup } from "../groupType";
+import { groupShema } from "../groupValidation";
 
 const useGroupForm = (): GroupFormResult => {
   const queryClient = useQueryClient();
-  const { data, reset } = useZoneModalStore();
+  const { data, reset } = useGroupModalStore();
   const useRequest = useAxios(true);
 
   const getDataInit = (): GroupInput => ({

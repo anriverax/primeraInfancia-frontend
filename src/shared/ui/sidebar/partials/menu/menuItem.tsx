@@ -40,9 +40,9 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
         className={cn(
           "flex items-center gap-3 text-gray-600 px-4 py-3 rounded-xl transition-all duration-200 ease-in-out relative cursor-pointer",
           {
-            "text-white bg-blue-500 shadow-lg font-bold": isActive || isSubmenuActive,
-            "shadow-blue-500/50": (isActive || isSubmenuActive) && !isSubmenuOpen,
-            "hover:bg-gray-100 hover:text-gray-900": !isActive && !isSubmenuActive
+            "text-white bg-blue-500 shadow-lg font-bold": isActive || isSubmenuActive, // when parent menu item or children menu item is active
+            "shadow-blue-500/50": (isActive || isSubmenuActive) && !isSubmenuOpen, // when parent menu item is active
+            "hover:bg-gray-100 bg-amber-500 hover:text-gray-900": !isActive && !isSubmenuActive // 
           }
         )}
         onClick={(e) => {

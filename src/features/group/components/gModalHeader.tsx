@@ -1,15 +1,15 @@
 import { PropsWithChildren } from "react";
 
-type ZGModalHeaderProps = {
+type GModalHeaderProps = {
   title: string;
   description?: string;
 };
 
-export const ZGModalHeader = ({
+export const GModalHeader = ({
   title,
   children,
   description
-}: PropsWithChildren<ZGModalHeaderProps>): React.JSX.Element => (
+}: PropsWithChildren<GModalHeaderProps>): React.JSX.Element => (
   <div className="bg-gradient-to-r rounded-t-large from-blue-600 to-blue-700 p-4 text-white">
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2">
