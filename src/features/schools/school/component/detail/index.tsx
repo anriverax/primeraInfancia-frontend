@@ -3,10 +3,11 @@ import { confirmDelete } from "@/shared/utils/funtions";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
 import { ISchoolDetailColumnKey, ISchoolDetailTable, SchoolDetailTableProps } from "../../schoolType";
 import { schoolColumns, useRenderSchoolCell } from "./columns";
+import { useRouter } from "next/navigation";
 
-const SchoolDetailTable = ({  schoolDetail, onDeleteSchool, onEditSchool }: SchoolDetailTableProps): React.JSX.Element => {
- // schoolDetail=[]
-  console.log(schoolDetail)
+const SchoolDetailTable = ({ schoolDetail, onDeleteSchool, onEditSchool }: SchoolDetailTableProps): React.JSX.Element => {
+  const router = useRouter();
+
   const handleConfirmDeleteSchool = async (schoolId: number): Promise<void> => {
     const confirmed = await confirmDelete({
       text: "¿Se encuentra seguro de quere eliminar el centro escolar?."
@@ -31,8 +32,16 @@ const SchoolDetailTable = ({  schoolDetail, onDeleteSchool, onEditSchool }: Scho
         </TableHeader>
         <TableBody isLoading={!schoolDetail} items={[schoolDetail]}>
           {(schoolItem: ISchoolDetailTable) => (
-            <TableRow key={schoolItem.id}>
-              {(schoolKey) => <TableCell>{renderSchoolCell(schoolItem, schoolKey as ISchoolDetailColumnKey)}</TableCell>}
+            <TableRow
+              key={schoolItem.id}
+              onClick={() => router.push(`/centros-escolares/${schoolItem.id}`)}
+              style={{ cursor: "pointer" }}
+            >
+              {(schoolKey) => (
+                <TableCell>
+                  {renderSchoolCell(schoolItem, schoolKey as ISchoolDetailColumnKey)}
+                </TableCell>
+              )}
             </TableRow>
           )}
         </TableBody>
