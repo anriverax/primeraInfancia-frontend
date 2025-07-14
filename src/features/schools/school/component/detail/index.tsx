@@ -3,10 +3,24 @@ import { confirmDelete } from "@/shared/utils/funtions";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
 import { ISchoolDetailColumnKey, ISchoolDetailTable, SchoolDetailTableProps } from "../../schoolType";
 import { schoolColumns, useRenderSchoolCell } from "./columns";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Modal } from "@heroui/react";
+import PersonForm from "./PersonForm";
+import axios from "axios";
 
 const SchoolDetailTable = ({ schoolDetail, onDeleteSchool, onEditSchool }: SchoolDetailTableProps): React.JSX.Element => {
-  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [person, setPerson] = useState<any>(null);
+
+  const handleOpenModal = async () => {
+    setOpen(true);
+    try {
+      const res = await axios.get("/person/2");
+      setPerson(res.data);
+    } catch (e) {
+      setPerson(null);
+    }
+  };
 
   const handleConfirmDeleteSchool = async (schoolId: number): Promise<void> => {
     const confirmed = await confirmDelete({
@@ -17,7 +31,7 @@ const SchoolDetailTable = ({ schoolDetail, onDeleteSchool, onEditSchool }: Schoo
     }
   };
 
-  const renderSchoolCell = useRenderSchoolCell(handleConfirmDeleteSchool, onEditSchool);
+  const renderSchoolCell = useRenderSchoolCell(handleOpenModal, onEditSchool);
 
   return (
     <div className="space-y-4">
@@ -34,8 +48,6 @@ const SchoolDetailTable = ({ schoolDetail, onDeleteSchool, onEditSchool }: Schoo
           {(schoolItem: ISchoolDetailTable) => (
             <TableRow
               key={schoolItem.id}
-              onClick={() => router.push(`/centros-escolares/${schoolItem.id}`)}
-              style={{ cursor: "pointer" }}
             >
               {(schoolKey) => (
                 <TableCell>
@@ -46,6 +58,9 @@ const SchoolDetailTable = ({ schoolDetail, onDeleteSchool, onEditSchool }: Schoo
           )}
         </TableBody>
       </Table>
+      <Modal open={open} onClose={() => setOpen(false)} title="Información del Director">
+        <PersonForm person={person} />
+      </Modal>
     </div>
   );
 };

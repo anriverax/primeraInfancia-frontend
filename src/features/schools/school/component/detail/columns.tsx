@@ -6,6 +6,10 @@ import { ISchoolDetailColumnKey, ISchoolDetailTable, SchoolInput } from "../../s
 
 export const schoolColumns: IColumns<ISchoolDetailColumnKey>[] = [
   {
+    key: "principalSchool",
+    label: "Nombre del director"
+  },
+  {
     key: "sector",
     label: "Sector"
   },
@@ -21,19 +25,12 @@ export const schoolColumns: IColumns<ISchoolDetailColumnKey>[] = [
   {
     key: "phoneNumber",
     label: "Número telefónico"
-  },
-  {
-    key: "principalSchool",
-    label: "Nombre del director"
-  },
-  {
-    key: "actions",
-    label: "Acciones"
   }
 ];
 
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderSchoolCell = (
+  onOpenDirectorModal: () => void,
   onConfirmDeleteSchool: (_schoolId: number) => void,
   onEditSchool: (_form: "Z" | "G", _data?: any | null) => void
 ): ((
@@ -50,26 +47,25 @@ export const useRenderSchoolCell = (
             {school.District?.name}
           </span>
         );
-      case "actions":
+      case "principalSchool":
         return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="Editar zona0">
-              <span
-                className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                onClick={() => onEditSchool("Z", school)}
-              >
-                <EditIcon className="h-4 w-4" />
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
+            onClick={onOpenDirectorModal}>
+            {Array.isArray(school?.PrincipalSchool) && school.PrincipalSchool.length > 0 ? (
+              <>
+                {school.PrincipalSchool[0]?.Person?.firstName}{" "}
+                {school.PrincipalSchool[0]?.Person?.lastName1}{" "}
+                {school.PrincipalSchool[0]?.Person?.lastName2}
+              </>
+            ) : (
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+                Sin director asignado
               </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Eliminar zona">
-              <span
-                className="text-lg text-danger cursor-pointer active:opacity-50"
-                onClick={() => onConfirmDeleteSchool(school.id as number)}
-              >
-                <Trash2 className="h-4 w-4" />
-              </span>
-            </Tooltip>
-          </div>
+            )}
+          </span>
+        );
+      case "phoneNumber":
+        return (`(+503) ${school.phoneNumber}`
         );
       default:
         const value = school[columnKey as keyof ISchoolDetailTable];

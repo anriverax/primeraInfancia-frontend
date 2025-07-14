@@ -31,53 +31,37 @@ const SchoolDetailPage = (): React.JSX.Element => {
         </div>
       </div>
       <div className="mt-6">   <SchoolDetailLayout /></div>
-
-
-      <div className="flex gap-6 mt-6 mb-6">
-        {/* Director Card */}
-        <div className="bg-white border border-blue-100 p-6 flex-1 max-w-xs">
-          <div className="flex items-center gap-2 bg-blue-50 text-blue-500 mb-4">
-            <ShieldUser className="h-5 w-5" />
-            <h3 className="text-2xl font-semibold">Director</h3>
-          </div>
-          <div>
-            <span className="text-gray-600">{schoolDetail?.PrincipalSchool?.firstName} - Nombre</span>
-            {/* Add more director info as needed */}
-          </div>
+      
+      {/* Ubicación Card */}
+      <div className="bg-white border border-blue-100 p-6 mt-6 h-auto" style={{ width: "100%" }}>
+        <div className="flex items-center gap-2 bg-blue-50 text-blue-500 mb-4">
+          <Map className="h-5 w-5" />
+          <h3 className="text-2xl font-semibold">Ubicación</h3>
         </div>
-        {/* Ubicación Card */}
-        <div className="bg-white border border-blue-100 p-6" style={{ width: "80%" }}>
-          <div className="flex items-center gap-2 bg-blue-50 text-blue-500 mb-4">
-            <Map className="h-5 w-5" />
-            <h3 className="text-2xl font-semibold">Ubicación</h3>
-          </div>
-          <div>
-            <span className="text-gray-600">{schoolDetail?.coordenates}</span>
-            {/* Add more location info as needed */}
-          </div>
-          <div style={{ height: "300px", width: "100%" }}>
-            {schoolDetail?.coordenates && (() => {
-              // Setup a coordinates 
-              const coordsArray = [13.6929,-89.2182] as [number, number];
-              return (
-                <MapContainer 
-                  center={coordsArray}
-                  zoom={15}
-                  style={{ height: "100%", width: "100%" }}
-                >
-                  <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  />
-                  <Marker position={coordsArray}>
-                    <Popup>Ubicación del centro escolar</Popup>
-                  </Marker>
-                </MapContainer>
-              );
-            })()}
-          </div>
+
+        <div style={{ height: "300px", width: "100%" }}>
+          {schoolDetail?.coordenates && (() => {
+            // Setup a coordinates 
+            const coordsArray = [13.6929, -89.2182] as [number, number];
+            return (
+              <MapContainer
+                center={coordsArray}
+                zoom={15}
+                style={{ height: "100%", width: "100%" }}
+              >
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                />
+                <Marker position={coordsArray}>
+                  <Popup>Ubicación del centro escolar</Popup>
+                </Marker>
+              </MapContainer>
+            );
+          })()}
         </div>
       </div>
+      {/* </div> */}
 
 
     </div >
