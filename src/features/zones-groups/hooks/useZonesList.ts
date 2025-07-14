@@ -1,62 +1,28 @@
-import useAxios from "@/shared/hooks/useAxios";
-import { useCallback, useEffect } from "react";
-import { AxiosResponse, HttpStatusCode } from "axios";
-import { FetchResponse } from "@/shared/types/globals";
+import { useCallback } from 'react';
 import { IZoneTable, ZoneListResult } from "../zone/zoneType";
-import { handleAxiosError } from "@/shared/utils/funtions";
-import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
-import Swal from "sweetalert2";
+import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 
 const useZonesList = (): ZoneListResult => {
-  const { zonesList, setZonesList } = useZoneListStore();
-  const useRequest = useAxios(true);
+  const {
+    queryClient,
+    data: zonesList,
+    onConfirmDelete
+  } = useQueryRequest<IZoneTable[]>("zones-list", "/zone", true, "zonas");
 
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    let isMounted = true;
-    const fetchData = async (): Promise<void> => {
-      try {
-        const res: AxiosResponse<FetchResponse<IZoneTable[]>> = await useRequest.get("/zone");
-
-        if (isMounted) {
-          const { data } = res.data;
-          setZonesList(data);
-        }
-      } catch (error) {
-        handleAxiosError(error, "zonas", "obtener");
-      }
-    };
-    fetchData();
-
-    return (): void => {
-      isMounted = false;
-    };
-  }, []);
-
-  const deleteZone = useCallback(
-    async (zoneId: number) => {
-      try {
-        const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(
-          `/zone/delete/${zoneId}`
-        );
-        const { statusCode, message } = res.data;
-
-        if (statusCode === HttpStatusCode.Ok) {
-          Swal.fire({
-            title: "!Eliminado!",
-            text: String(message),
-            icon: "success"
-          });
-          setZonesList((prevZones: IZoneTable[]) => prevZones.filter((zone) => zone.id !== zoneId));
-        }
-      } catch (error) {
-        handleAxiosError(error, "zonas", "eliminar");
+  const handleConfirmDeleteZone = useCallback(
+    async (zoneId: number): Promise<void> => {
+      const isOk = await onConfirmDelete(
+        zoneId,
+        "Al eliminar la zona, también se eliminarán los grupos vinculados a ella."
+      );
+      if (isOk) {
+        queryClient.invalidateQueries({ queryKey: ["groups-list"] });
       }
     },
-    [zonesList, setZonesList, useRequest]
+    [onConfirmDelete, queryClient] // ✅ dependencias reales
   );
-  /* eslint-enable react-hooks/exhaustive-deps */
-  return { zonesList, setZonesList, onDeleteZone: deleteZone };
+
+  return { zonesList: zonesList as IZoneTable[], handleConfirmDeleteZone };
 };
 
 export { useZonesList };

@@ -12,7 +12,7 @@ const ZoneForm = (): React.JSX.Element => {
   const { handleSubmit, touched, status, errors, setStatus, getFieldProps, isSubmitting } = zoneFormik;
 
   const { getInputProps } = useCustomFormFields();
-
+  console.log("ZoneForm");
   return (
     <ModalLayout size="md">
       <ZGModalHeader

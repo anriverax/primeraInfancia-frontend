@@ -6,6 +6,18 @@ export interface FetchResponse<T> {
   data: T;
 }
 
+export interface IPagination {
+  total: number;
+  currentPage: number;
+  perPage: number;
+  lastPage: number;
+  prev: number | null;
+  next: number | null;
+}
+
+export interface FetchResponseWithPagination<T> extends FetchResponse<T> {
+  meta: IPagination;
+}
 export interface AxiosMessage {
   axiosMessage?: string | string[];
 }

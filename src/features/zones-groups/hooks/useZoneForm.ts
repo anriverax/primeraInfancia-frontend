@@ -3,17 +3,17 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import { FormikHelpers, useFormik } from "formik";
 import { FetchResponse } from "@/shared/types/globals";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
-import { IZone, ZoneFormResult, ZoneInput } from "../zone/zoneType";
+import { IZone, IZoneTable, ZoneFormResult, ZoneInput } from "../zone/zoneType";
 import { zoneSchema } from "../zone/zoneValidation";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
-import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
+import { useQueryClient } from "@tanstack/react-query";
 
 const initZoneValues: ZoneInput = {
   name: ""
 };
 
 const useZoneForm = (): ZoneFormResult => {
-  const { zonesList, setZonesList } = useZoneListStore();
+  const queryClient = useQueryClient();
   const { data, reset } = useZoneModalStore();
   const useRequest = useAxios(true);
 
@@ -24,21 +24,13 @@ const useZoneForm = (): ZoneFormResult => {
         : await useRequest.post("/zone/create", values);
 
       const result = response.data;
-
       showToast(String(result.message), "success");
 
       if (result.statusCode === HttpStatusCode.Created || result.statusCode === HttpStatusCode.Ok) {
-        if (!data) {
-          formikHelpers.resetForm();
+        queryClient.invalidateQueries({ queryKey: ["zones-list"] });
 
-          const { id, name } = result.data;
-          setZonesList([...zonesList, { id, name }]);
-        } else {
-          setZonesList(
-            zonesList.map((zone: IZone) => (zone.id === data.id ? { ...zone, ...values } : zone))
-          );
-          reset();
-        }
+        if (!data) formikHelpers.resetForm();
+        else reset();
       }
     } catch (error) {
       handleFormikResponseError<IZone>(error as AxiosError, formikHelpers);

@@ -1,56 +1,25 @@
-import useAxios from "@/shared/hooks/useAxios";
-import { useCallback, useEffect } from "react";
-import { AxiosResponse, HttpStatusCode } from "axios";
-import { FetchResponse } from "@/shared/types/globals";
-import { handleAxiosError, showToast } from "@/shared/utils/funtions";
-import { useGroupListStore } from "@/shared/hooks/store/useGroupListStore";
+import { useState } from "react";
 import { GroupListResult, IGroupTable } from "../../group/groupType";
-import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
+import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 
 const useGroupsList = (): GroupListResult => {
-  const { zonesList } = useZoneListStore();
-  const { groupList, setGroupsList } = useGroupListStore();
-  const useRequest = useAxios(true);
+  const [page, setPage] = useState<number>(1);
+  const limit = 5;
 
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    let isMounted = true;
-    const fetchData = async (): Promise<void> => {
-      try {
-        const res: AxiosResponse<FetchResponse<IGroupTable[]>> = await useRequest.get("/group");
+  const {
+    data: groupList,
+    meta,
+    onConfirmDelete
+  } = useQueryRequest<IGroupTable[]>("groups-list", "/group", true, "grupos", page, limit);
 
-        if (isMounted) {
-          const { data } = res.data;
-          setGroupsList(data);
-        }
-      } catch (error) {
-        handleAxiosError(error, "grupos", "obtener");
-      }
-    };
-    fetchData();
+  const handleConfirmDeleteGroup = async (groupId: number, groupName: string): Promise<void> => {
+    await onConfirmDelete(
+      groupId,
+      `Al eliminar el grupo: ${groupName}, también se eliminarán los usuarios asociados a este.`
+    );
+  };
 
-    return (): void => {
-      isMounted = false;
-    };
-  }, [zonesList]);
-
-  const deleteGroup = useCallback(async (groupId: number) => {
-    try {
-      const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(
-        `/group/delete/${groupId}`
-      );
-      const { statusCode, message } = res.data;
-
-      if (statusCode === HttpStatusCode.Ok) {
-        showToast(String(message), "success");
-        setGroupsList((prevZones: IGroupTable[]) => prevZones.filter((group) => group.id !== groupId));
-      }
-    } catch (error) {
-      handleAxiosError(error, "grupos", "eliminar");
-    }
-  }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
-  return { groupList, setGroupsList, deleteGroup };
+  return { handleChangePage: setPage, groupList, meta, handleConfirmDeleteGroup };
 };
 
 export { useGroupsList };

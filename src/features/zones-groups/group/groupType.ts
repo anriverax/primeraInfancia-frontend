@@ -1,5 +1,6 @@
-import { AxiosMessage, FormikProps } from "@/shared/types/globals";
+import { AxiosMessage, FormikProps, IPagination } from "@/shared/types/globals";
 import { ZoneInput } from "../zone/zoneType";
+import { Dispatch, SetStateAction } from "react";
 
 export interface GroupInput extends ZoneInput {
   description?: string;
@@ -35,14 +36,16 @@ export interface IGroupTable extends Omit<GroupInput, "zoneId" | "personId"> {
     GroupMember: number;
   };
 }
+
 export interface GroupListResult {
+  handleChangePage: Dispatch<SetStateAction<number>>;
   groupList: IGroupTable[];
-  deleteGroup: (_groupId: number) => Promise<void>;
-  setGroupsList: (_groups: IGroupTable[]) => void;
+  meta: IPagination | undefined;
+  handleConfirmDeleteGroup: (_groupId: number, _groupName: string) => Promise<void>;
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface GroupTableProps extends Pick<GroupListResult, "groupList" | "deleteGroup"> {
+export interface GroupTableProps {
   onEditGroup: (_form: "Z" | "G", _data?: any | null) => void;
 }
 

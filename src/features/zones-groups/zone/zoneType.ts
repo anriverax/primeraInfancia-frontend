@@ -15,12 +15,11 @@ export type IZone = ZoneInput & AxiosMessage;
 export type IZoneColumnKey = "name" | "count" | "actions";
 export interface ZoneListResult {
   zonesList: IZoneTable[];
-  onDeleteZone: (_zoneId: number) => Promise<void>;
-  setZonesList: (_zones: IZoneTable[]) => void;
+  handleConfirmDeleteZone: (_zoneId: number) => Promise<void>;
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface ZoneTableProps extends Pick<ZoneListResult, "zonesList" | "onDeleteZone"> {
+export interface ZoneTableProps {
   onEditZone: (_form: "Z" | "G", _data?: any | null) => void;
 }
 

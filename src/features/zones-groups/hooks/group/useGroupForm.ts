@@ -7,9 +7,10 @@ import { GroupFormResult, GroupInput, IGroup, IGroupTable } from "../../group/gr
 import { groupShema } from "../../group/groupValidation";
 import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
 import { useGroupListStore } from "@/shared/hooks/store/useGroupListStore";
+import { useQueryClient } from "@tanstack/react-query";
 
 const useGroupForm = (): GroupFormResult => {
-  const { groupList, setGroupsList } = useGroupListStore();
+  const queryClient = useQueryClient();
   const { data, reset } = useZoneModalStore();
   const useRequest = useAxios(true);
 
@@ -35,25 +36,10 @@ const useGroupForm = (): GroupFormResult => {
       showToast(String(result.message), "success");
 
       if (result.statusCode === HttpStatusCode.Created || result.statusCode === HttpStatusCode.Ok) {
-        if (!data) {
-          setGroupsList([...groupList, { ...result.data }]);
-          formikHelpers.resetForm();
-        } else {
-          const { zoneId, personId, ...otherValues } = values;
-          setGroupsList(
-            groupList.map((group: IGroupTable) =>
-              group.id === data.id
-                ? {
-                    ...group,
-                    ...otherValues,
-                    Zone: { id: zoneId, name: group.Zone?.name || "" },
-                    Persone: { id: personId }
-                  }
-                : group
-            )
-          );
-          reset();
-        }
+        queryClient.invalidateQueries({ queryKey: ["groups-list"] });
+
+        if (!data) formikHelpers.resetForm();
+        else reset();
       }
     } catch (error) {
       handleFormikResponseError<IGroup>(error as AxiosError, formikHelpers);
