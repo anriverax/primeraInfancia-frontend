@@ -5,7 +5,7 @@ type GModalHeaderProps = {
   description?: string;
 };
 
-export const GModalHeader = ({
+export const ModalHeaderCustom = ({
   title,
   children,
   description

@@ -6,7 +6,11 @@ type ModalHeaderCustomProps = {
   icon: React.ReactNode;
 };
 
-const ModalHeaderCustom = ({ title, description, icon }: ModalHeaderCustomProps): React.JSX.Element => (
+const ModalRegisterHeader = ({
+  title,
+  description,
+  icon
+}: ModalHeaderCustomProps): React.JSX.Element => (
   <ModalHeader className="flex flex-col gap-1">
     <div className="flex justify-center mb-2">
       <div className="p-2 bg-gray-100 rounded-full">{icon}</div>
@@ -16,4 +20,4 @@ const ModalHeaderCustom = ({ title, description, icon }: ModalHeaderCustomProps)
   </ModalHeader>
 );
 
-export default ModalHeaderCustom;
+export default ModalRegisterHeader;

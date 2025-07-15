@@ -42,7 +42,7 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
           {
             "text-white bg-blue-500 shadow-lg font-bold": isActive || isSubmenuActive, // when parent menu item or children menu item is active
             "shadow-blue-500/50": (isActive || isSubmenuActive) && !isSubmenuOpen, // when parent menu item is active
-            "hover:bg-gray-100 bg-amber-500 hover:text-gray-900": !isActive && !isSubmenuActive // 
+            "hover:bg-gray-100 hover:text-gray-900": !isActive && !isSubmenuActive // when a menu item it not active
           }
         )}
         onClick={(e) => {

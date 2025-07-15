@@ -1,20 +1,20 @@
 "use client";
 
-import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
-import {
-  IModalComponent,
-  useModalRegistry
-} from "@/features/admin/components/modal/partials/layout/modalRegistry";
+import ModalLayout from "@/shared/ui/modal/modalLayout";
+import { IModalComponent, useModalRegistry } from "@/features/admin/components/modal/modalRegistry";
 import { useModalFormVisibleStore } from "@/shared/hooks/store/useModalFormVisibleStore";
-
 import { TransitionPanel } from "@/shared/ui/motionPrimitive/TransitionPanel";
 
-const ModalForms = (): React.JSX.Element => {
+type ModalFormsProps = {
+  isOpen: boolean;
+};
+
+const ModalForms = ({ isOpen }: ModalFormsProps): React.JSX.Element => {
   const { isFormVisible } = useModalFormVisibleStore();
   const { components } = useModalRegistry();
 
   return (
-    <ModalLayout size="md">
+    <ModalLayout size="md" isOpen={isOpen}>
       <TransitionPanel
         activeIndex={isFormVisible}
         transition={{ duration: 0.2, ease: "easeInOut" }}

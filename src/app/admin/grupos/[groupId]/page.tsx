@@ -2,8 +2,9 @@
 
 import { useParams } from "next/navigation";
 import { BreadcrumbItem, Breadcrumbs, Progress } from "@heroui/react";
-import { useGroupDetail } from "@/features/zones-groups/hooks/group/useGroupDetail";
+
 import { MapPin, Users } from "lucide-react";
+import { useGroupDetail } from "@/features/group/hooks/useGroupDetail";
 
 const GroupDetailPage = (): React.JSX.Element => {
   const params = useParams();
@@ -14,7 +15,7 @@ const GroupDetailPage = (): React.JSX.Element => {
     <div>
       <Breadcrumbs>
         <BreadcrumbItem>Dashboard</BreadcrumbItem>
-        <BreadcrumbItem>Zona y grupos</BreadcrumbItem>
+        <BreadcrumbItem>Grupos</BreadcrumbItem>
         <BreadcrumbItem>Detalle</BreadcrumbItem>
       </Breadcrumbs>
 

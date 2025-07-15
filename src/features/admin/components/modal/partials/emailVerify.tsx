@@ -1,5 +1,5 @@
 import { Button, InputOtp, ModalBody } from "@heroui/react";
-import ModalHeaderCustom from "../ModalHeaderCustom";
+import ModalRegisterHeader from "../modalRegisterHeader";
 import { MailCheck } from "lucide-react";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 import { useCodeVerify } from "@/features/admin/hooks/useCodeVerify";
@@ -11,7 +11,7 @@ const EmailVerify = (): React.JSX.Element => {
 
   return (
     <>
-      <ModalHeaderCustom
+      <ModalRegisterHeader
         title="Verificar correo electrónico"
         description="Introduce el código de 6 dígitos enviado a tu correo electrónico"
         icon={<MailCheck className="h-6 w-6 text-gray-600" />}

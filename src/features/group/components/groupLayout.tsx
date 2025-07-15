@@ -15,7 +15,7 @@ const GroupLayout = (): React.JSX.Element => {
   return (
     <div className="space-y-4">
       <GroupTable onEditGroup={toggleVisibility} />
-      {isVisible && <GroupForm />}
+      {isVisible && <GroupForm isOpen={isVisible} />}
     </div>
   );
 };

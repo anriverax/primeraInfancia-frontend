@@ -22,11 +22,11 @@ export interface IPersonList extends Pick<ZoneInput, "id"> {
 }
 
 export interface GroupSelectBoxResult {
-  zonesList: ZoneInput[];
+  zonesList: ZoneInput[] | [];
   personList: IPersonList[];
 }
 
-export type IGroupColumnKey = "name" | "description" | "count" | "zone" | "actions";
+export type IGroupColumnKey = "name" | "count" | "zone" | "actions";
 
 export interface IGroupTable extends Omit<GroupInput, "zoneId" | "personId"> {
   Zone?: ZoneInput;

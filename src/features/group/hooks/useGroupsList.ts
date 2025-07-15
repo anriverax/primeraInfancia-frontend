@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { GroupListResult, IGroupTable } from "../../../group/groupType";
+
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { GroupListResult, IGroupTable } from '../groupType';
 
 const useGroupsList = (): GroupListResult => {
   const [page, setPage] = useState<number>(1);

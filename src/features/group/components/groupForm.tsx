@@ -1,16 +1,19 @@
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input, NumberInput, Select, SelectItem, Textarea } from "@heroui/react";
 import { Users } from "lucide-react";
-import ModalLayout from "@/features/admin/components/modal/partials/layout/modalLayout";
+import ModalLayout from "@/shared/ui/modal/modalLayout";
 import { IPersonList } from "../groupType";
 import { ZoneInput } from "../../zone/zoneType";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 import { cn } from "@/shared/utils/tv";
 import { useGroupForm } from "../hooks/useGroupForm";
 import { useGroupSelectBox } from "../hooks/useGroupSelectBox";
-import { GModalHeader } from "./gModalHeader";
+import { ModalHeaderCustom } from "../../../shared/ui/modal/modalHeaderCustom";
 
-const GroupForm = (): React.JSX.Element => {
+type GroupFormProps = {
+  isOpen: boolean;
+};
+const GroupForm = ({ isOpen }: GroupFormProps): React.JSX.Element => {
   const { groupFormik, reset, data } = useGroupForm();
   const {
     values,
@@ -29,13 +32,13 @@ const GroupForm = (): React.JSX.Element => {
   const { getInputProps, getTextAreaProps, getSelectProps } = useCustomFormFields();
 
   return (
-    <ModalLayout size="md">
-      <GModalHeader
+    <ModalLayout size="md" isOpen={isOpen}>
+      <ModalHeaderCustom
         title={data ? "Editar grupo" : "Nuevo Grupo"}
         description="Complete la información del grupo"
       >
         <Users className="h-5 w-5" />
-      </GModalHeader>
+      </ModalHeaderCustom>
       <div className={cn({ "p-5": Object.keys(errors).length > 0 && status === 401 })}>
         {Object.keys(errors).length > 0 && status === 401 && (
           <ConditionalAlert status={status} errors={errors} setStatus={setStatus} />

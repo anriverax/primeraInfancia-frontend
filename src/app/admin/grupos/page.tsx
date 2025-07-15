@@ -18,8 +18,8 @@ export default function GroupsPage(): React.JSX.Element {
         <div className="flex gap-3">
           <Button
             startContent={<Users className="w-5 h-5" />}
-            color="secondary"
-            onPress={toggleVisibility}
+            color="primary"
+            onPress={() => toggleVisibility()}
           >
             Nueva Grupo
           </Button>

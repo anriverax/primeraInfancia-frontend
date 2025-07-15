@@ -10,7 +10,6 @@ export const groupColumns: IColumns<IGroupColumnKey>[] = [
     key: "name",
     label: "Nombre"
   },
-  { key: "description", label: "Grupos" },
   { key: "count", label: "Integrantes" },
   { key: "zone", label: "Zona" },
   {
@@ -65,7 +64,7 @@ export const useRenderGroupCell = (
           <div className="relative flex items-center gap-2">
             <Tooltip content="Detalle del grupo">
               <Link
-                href={`./zonas-grupos/${encodeURIComponent(group.id!)}`}
+                href={`./grupos/${encodeURIComponent(group.id!)}`}
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
               >
                 <Eye className="h-4 w-4" />

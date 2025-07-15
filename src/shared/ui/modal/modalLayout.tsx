@@ -1,19 +1,22 @@
 import { Modal, ModalContent, ModalVariantProps } from "@heroui/react";
 import { memo, PropsWithChildren } from "react";
 
-type ModalLayoutProps = Pick<ModalVariantProps, "size">;
+type ModalLayoutProps = Pick<ModalVariantProps, "size"> & {
+  isOpen: boolean;
+};
 
 const ModalLayout = memo(
-  ({ size, children }: PropsWithChildren<ModalLayoutProps>): React.JSX.Element => (
+  ({ size, isOpen, children }: PropsWithChildren<ModalLayoutProps>): React.JSX.Element => (
     <Modal
       scrollBehavior="inside"
       backdrop="blur"
-      defaultOpen={true}
+      defaultOpen={false}
       placement="center"
       isDismissable={false}
       isKeyboardDismissDisabled={false}
       hideCloseButton={true}
       size={size}
+      isOpen={isOpen}
       motionProps={{
         variants: {
           enter: {
