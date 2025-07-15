@@ -4,7 +4,7 @@ export interface MenuItemResult {
   isSubmenuOpen: boolean;
   isActive: boolean;
   pathname: string;
-  isSubmenuActive: boolean;
+
   getMenuAnimation: () => {
     initial: boolean;
     animate: {

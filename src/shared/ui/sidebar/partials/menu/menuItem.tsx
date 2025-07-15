@@ -8,6 +8,7 @@ import { useMenuItem } from "../../hooks/useMenuItem";
 import { IMenuPermission } from "@/shared/types/next-auth";
 import SubmenuItem from "./submenuItem";
 import dynamic from "next/dynamic";
+import { memo } from "react";
 
 const LucideIconRenderer = dynamic(
   () => import("@/shared/ui/custom/lucideIcon").then((mod) => mod.LucideIconRenderer),
@@ -18,20 +19,14 @@ const LucideIconRenderer = dynamic(
 
 type MenuItemProps = { item: IMenuPermission; isMobile: boolean; isExtended: boolean };
 
-const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Element => {
-  const {
-    hasSubmenu,
-    isSubmenuOpen,
-    isActive,
-    pathname,
-    isSubmenuActive,
-    getMenuAnimation,
-    toggleSubmenu
-  } = useMenuItem({
-    item,
-    isMobile,
-    isExtended
-  });
+const MenuItem = memo(({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Element => {
+  const { hasSubmenu, isSubmenuOpen, isActive, pathname, getMenuAnimation, toggleSubmenu } = useMenuItem(
+    {
+      item,
+      isMobile,
+      isExtended
+    }
+  );
 
   return (
     <div key={item.id} className="relative">
@@ -40,9 +35,9 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
         className={cn(
           "flex items-center gap-3 text-gray-600 px-4 py-3 rounded-xl transition-all duration-200 ease-in-out relative cursor-pointer",
           {
-            "text-white bg-blue-500 shadow-lg font-bold": isActive || isSubmenuActive, // when parent menu item or children menu item is active
-            "shadow-blue-500/50": (isActive || isSubmenuActive) && !isSubmenuOpen, // when parent menu item is active
-            "hover:bg-gray-100 hover:text-gray-900": !isActive && !isSubmenuActive // when a menu item it not active
+            "text-white bg-blue-500 shadow-lg font-bold": isActive, // when parent menu item or children menu item is active
+            "shadow-blue-500/50": isActive && !isSubmenuOpen, // when parent menu item is active
+            "hover:bg-gray-100 hover:text-gray-900": !isActive // when a menu item it not active
           }
         )}
         onClick={(e) => {
@@ -55,7 +50,7 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
         <LucideIconRenderer
           iconName={item.icon}
           className={cn("h-5 w-5 flex-shrink-0 text-gray-600", {
-            "text-white": Boolean(isActive || isSubmenuActive)
+            "text-white": Boolean(isActive)
           })}
         />
         <motion.div {...getMenuAnimation()}>
@@ -64,7 +59,7 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
           {hasSubmenu && (
             <ChevronDown
               className={cn("h-4 w-4 transition-transform ml-auto text-gray-600", {
-                "text-white": Boolean(isActive || isSubmenuActive) && !isSubmenuOpen,
+                "text-white": Boolean(isActive) && !isSubmenuOpen,
                 "rotate-180 text-white": isSubmenuOpen
               })}
             />
@@ -81,6 +76,7 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
       <SubmenuItem isSubmenuOpen={isSubmenuOpen} submenu={item.children} pathname={pathname} />
     </div>
   );
-};
+});
 
+MenuItem.displayName = "MemorizedMenuItem";
 export default MenuItem;

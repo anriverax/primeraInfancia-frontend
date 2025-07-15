@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MenuItemResult } from "../type";
 import { usePathname } from "next/navigation";
 import { IMenuPermission } from "@/shared/types/next-auth";
@@ -12,22 +12,12 @@ type UseMenuItemProps = {
 const useMenuItem = ({ item, isMobile, isExtended }: UseMenuItemProps): MenuItemResult => {
   const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({});
   const pathname = usePathname();
+  const prevPathnameRef = useRef<string>(pathname);
   const hasSubmenu = item.children && item.children.length > 0;
 
   const isActive = pathname.startsWith(item.path);
 
-  const isSubmenuOpen = isExtended ? openSubmenus[item.path] : false;
-
-  const isSubmenuActive = useMemo((): boolean => {
-    if (hasSubmenu) {
-      const result = item.children?.some(
-        (subItem) => pathname === subItem.path || pathname.includes(subItem.path)
-      ) as boolean;
-
-      return result;
-    }
-    return false;
-  }, [pathname, hasSubmenu, item.children]);
+  const isSubmenuOpen = isExtended ? openSubmenus[item.path] || false : false;
 
   const getMenuAnimation = useCallback(
     () => ({
@@ -47,12 +37,34 @@ const useMenuItem = ({ item, isMobile, isExtended }: UseMenuItemProps): MenuItem
     }));
   };
 
+  useEffect(() => {
+    const prevPathname = prevPathnameRef.current;
+
+    // Avoid running the effect on the first render
+    if (prevPathname === pathname) return;
+
+    prevPathnameRef.current = pathname;
+
+    if (!hasSubmenu || !openSubmenus[item.path]) return;
+
+    const isChildRoute = item.children?.some(
+      (subItem) => pathname === subItem.path || pathname.startsWith(subItem.path)
+    );
+
+    // If it is not a child of the submenu, close it.
+    if (!isChildRoute) {
+      setOpenSubmenus((prev) => ({
+        ...prev,
+        [item.path]: false
+      }));
+    }
+  }, [pathname, hasSubmenu, openSubmenus, item]);
+
   return {
     hasSubmenu,
     isSubmenuOpen,
     isActive,
     pathname,
-    isSubmenuActive,
     getMenuAnimation,
     toggleSubmenu
   };

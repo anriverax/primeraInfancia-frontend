@@ -20,7 +20,7 @@ export const useQueryRequest = <T>(
   const hasHandledError = useRef(false);
 
   const endpointWithPage = page && limit ? `${endpoint}?page=${page}&limit=${limit}` : endpoint;
-  console.log([key, page, limit]);
+
   const { data, error, isLoading, isError } = useQuery<{ data: T; meta: IPagination }>({
     queryKey: [key, page, limit],
     queryFn: async () => {

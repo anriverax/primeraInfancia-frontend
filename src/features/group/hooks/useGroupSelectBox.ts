@@ -1,13 +1,13 @@
 import { GroupSelectBoxResult, IPersonList } from "../groupType";
 import { useZonesList } from "@/features/zone/useZonesList";
-import { IZoneTable } from '@/features/zone/zoneType';
+import { IZoneTable } from "@/features/zone/zoneType";
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 
 const useGroupSelectBox = (): GroupSelectBoxResult => {
   const { zonesList } = useZonesList();
   const { data: personList } = useQueryRequest<IPersonList[]>(
     "persons-list-select",
-    "/catalogue/persons",
+    "/catalogue/persons/4",
     true,
     "personas"
   );
