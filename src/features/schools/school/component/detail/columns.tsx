@@ -2,84 +2,90 @@ import { Tooltip } from "@heroui/react";
 import { EditIcon, Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
-import { ISchoolDetailColumnKey, ISchoolDetailTable, SchoolInput } from "../../schoolType";
+import { IPersonSchoolDetailColumnKey, IPersonSchoolDetailTable, ISchoolDetailColumnKey, SchoolInput } from "../../schoolType";
 
 export const schoolColumns: IColumns<ISchoolDetailColumnKey>[] = [
   {
-    key: "principalSchool",
+    key: "firstName",
     label: "Nombre del director"
   },
   {
-    key: "sector",
-    label: "Sector"
-  },
-  {
-    key: "district",
-    label: "Distrito"
-  },
-  {
-    key: "email",
-    label: "Correo electrónico"
+    key: "dui",
+    label: "Número de DUI"
   },
 
   {
     key: "phoneNumber",
     label: "Número telefónico"
   }
+  ,{
+    key: "email",
+    label: "Correo electrónico"
+  },
+  {
+    key: "avatar",
+    label: "Avatar" 
+  }
 ];
 
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
-export const useRenderSchoolCell = (
-  onOpenDirectorModal: () => void,
-  onConfirmDeleteSchool: (_schoolId: number) => void,
-  onEditSchool: (_form: "Z" | "G", _data?: any | null) => void
+export const useRenderSchoolDetailCell = (
+  // onConfirmDeleteSchool: (_schoolId: number) => void,
+  // onEditSchool: (_form: "Z" | "G", _data?: any | null) => void
 ): ((
-  _school: ISchoolDetailTable,
+  _school: IPersonSchoolDetailTable,
   _columnKey: ISchoolDetailColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
-  return useCallback((school: ISchoolDetailTable, columnKey: ISchoolDetailColumnKey) => {
+  return useCallback((school: IPersonSchoolDetailTable, columnKey: ISchoolDetailColumnKey) => {
     let cellValue: string | number | React.JSX.Element | null | undefined;
 
     switch (columnKey) {
-      case "district":
-        return (
-          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
-            {school.District?.name}
-          </span>
-        );
-      case "principalSchool":
-        return (
-          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
-            onClick={onOpenDirectorModal}>
-            {Array.isArray(school?.PrincipalSchool) && school.PrincipalSchool.length > 0 ? (
-              <>
-                {school.PrincipalSchool[0]?.Person?.firstName}{" "}
-                {school.PrincipalSchool[0]?.Person?.lastName1}{" "}
-                {school.PrincipalSchool[0]?.Person?.lastName2}
-              </>
-            ) : (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
-                Sin director asignado
-              </span>
-            )}
-          </span>
-        );
+      // case "district":
+      //   return (
+      //     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
+      //       {school.District?.name}
+      //     </span>
+      //   );
+      // case "principalSchool":
+      //   return (
+      //     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
+      //       onClick={onOpenDirectorModal}>
+      //       {Array.isArray(school?.Person) && school.Person.length > 0 ? (
+      //         <>
+      //           {school.Person[0]?.firstName}{" "}
+      //           {school.Person[0]?.lastName1}{" "}
+      //           {school.Person[0]?.lastName2}
+      //         </>
+      //       ) : (
+      //         <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+      //           Sin director asignado
+      //         </span>
+      //       )}
+      //     </span>
+      //   );
+      case "firstName":
+        return school.PrincipalSchool?.[0]?.Person?.firstName + " " + school.PrincipalSchool?.[0].Person?.lastName1 + " " + school.PrincipalSchool?.[0].Person?.lastName2 || "";
+        case "dui":
+        return school.PrincipalSchool?.[0]?.Person?.dui || "";
+        case "email":
+        return school.PrincipalSchool?.[0]?.Person?.User?.email || "";
+          
       case "phoneNumber":
-        return (`(+503) ${school.phoneNumber}`
+        return (`(+503) ${school.PrincipalSchool?.[0]?.Person?.phoneNumber}`
         );
-      default:
-        const value = school[columnKey as keyof ISchoolDetailTable];
-        if (
-          typeof value === "string" ||
-          typeof value === "number" ||
-          value === null ||
-          value === undefined
-        ) {
-          cellValue = value;
-        } else {
-          cellValue = "";
-        }
-        return cellValue;
+      // default:
+      //   const value = school[columnKey as keyof IPersonSchoolDetailTable];
+      //   if (
+      //     typeof value === "string" ||
+      //     typeof value === "number" ||
+      //     value === null ||
+      //     value === undefined
+      //   ) {
+      //     cellValue = value;
+      //   } else {
+      //     cellValue = "";
+      //   }
+      //   return cellValue;
     }
   }, []);
 };

@@ -1,37 +1,21 @@
 import { tableClassNames } from "@/shared/constants";
 import { confirmDelete } from "@/shared/utils/funtions";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
-import { ISchoolDetailColumnKey, ISchoolDetailTable, SchoolDetailTableProps } from "../../schoolType";
-import { schoolColumns, useRenderSchoolCell } from "./columns";
-import { useState } from "react";
-import { Modal } from "@heroui/react";
-import PersonForm from "./PersonForm";
-import axios from "axios";
+import { IPersonSchoolDetailTable, ISchoolDetailTable, ISchoolDetailColumnKey, SchoolPersonDetailTableProps,  } from "../../schoolType";
+import { schoolColumns, useRenderSchoolDetailCell } from "./columns";
 
-const SchoolDetailTable = ({ schoolDetail, onDeleteSchool, onEditSchool }: SchoolDetailTableProps): React.JSX.Element => {
-  const [open, setOpen] = useState(false);
-  const [person, setPerson] = useState<any>(null);
+const SchoolDetailTable = ({ schoolsDetailsList }: SchoolPersonDetailTableProps): React.JSX.Element => {
 
-  const handleOpenModal = async () => {
-    setOpen(true);
-    try {
-      const res = await axios.get("/person/2");
-      setPerson(res.data);
-    } catch (e) {
-      setPerson(null);
-    }
-  };
+  // const handleConfirmDeleteSchool = async (schoolId: number): Promise<void> => {
+  //   const confirmed = await confirmDelete({
+  //     text: "¿Se encuentra seguro de quere eliminar el centro escolar?."
+  //   });
+  //   if (confirmed) {
+  //     await onDeleteSchool(schoolId);
+  //   }
+  // };
 
-  const handleConfirmDeleteSchool = async (schoolId: number): Promise<void> => {
-    const confirmed = await confirmDelete({
-      text: "¿Se encuentra seguro de quere eliminar el centro escolar?."
-    });
-    if (confirmed) {
-      await onDeleteSchool(schoolId);
-    }
-  };
-
-  const renderSchoolCell = useRenderSchoolCell(handleOpenModal, onEditSchool);
+  const renderSchoolCell = useRenderSchoolDetailCell();
 
   return (
     <div className="space-y-4">
@@ -44,7 +28,7 @@ const SchoolDetailTable = ({ schoolDetail, onDeleteSchool, onEditSchool }: Schoo
         <TableHeader columns={schoolColumns}>
           {(schoolCol) => <TableColumn key={schoolCol.key}>{schoolCol.label}</TableColumn>}
         </TableHeader>
-        <TableBody isLoading={!schoolDetail} items={[schoolDetail]}>
+        <TableBody isLoading={!schoolsDetailsList} items={schoolsDetailsList}>
           {(schoolItem: ISchoolDetailTable) => (
             <TableRow
               key={schoolItem.id}
@@ -58,9 +42,6 @@ const SchoolDetailTable = ({ schoolDetail, onDeleteSchool, onEditSchool }: Schoo
           )}
         </TableBody>
       </Table>
-      <Modal open={open} onClose={() => setOpen(false)} title="Información del Director">
-        <PersonForm person={person} />
-      </Modal>
     </div>
   );
 };

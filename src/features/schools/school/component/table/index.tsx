@@ -24,7 +24,7 @@ const SchoolTable = ({ schoolsList, onDeleteSchool, onEditSchool }: SchoolTableP
         <TableHeader columns={schoolColumns}>
           {(schoolCol) => <TableColumn key={schoolCol.key}>{schoolCol.label}</TableColumn>}
         </TableHeader>
-        <TableBody isLoading={schoolsList.length === 0} items={schoolsList}>
+        <TableBody isLoading={!schoolsList} items={schoolsList}>
           {(schoolItem: ISchoolTable) => (
             <TableRow key={schoolItem.id}    onClick={() => router.push(`centros-escolares/${schoolItem.id}`)}
               style={{ cursor: "pointer" }}>

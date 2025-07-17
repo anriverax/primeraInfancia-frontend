@@ -12,6 +12,17 @@ export interface SchoolInput {
   phoneNumber: string;
 }
 
+export interface PersonInput {
+  id?: number | null;
+  firstNamename: string;
+  lastName1?: string;
+  lastName2: number;
+  dui: string;
+  phoneNumber: string;
+  email: string;
+  avatar: string;
+}
+
 export interface ISchoolTable extends SchoolInput {
   District?: DistrictInput;
   _count?: {
@@ -19,21 +30,39 @@ export interface ISchoolTable extends SchoolInput {
   };
 }
 
-export interface ISchoolDetailTable extends SchoolInput {
+export interface ISchoolDetailTable extends PersonInput {
   District?: DistrictInput;
-  PrincipalSchool?: {
-    firstName: string;
-    lastName: string;
-  };
+  PrincipalSchool?: [
+    Person?: {
+      firstName: string;
+      lastName1: string;
+      lastName2: string;
+      email: string;
+      phoneNumber: string;
+    }]
   _count?: {
     Group: number;
   };
 }
 
+export interface IPersonSchoolDetailTable extends SchoolInput {
+  District?: DistrictInput;
+  PrincipalSchool?: [
+    Person?: {
+      firstName: string;
+      lastName1: string;
+      lastName2: string;
+      email: string;
+      phoneNumber: string;
+    }]
+}
+
 export type ISchool = SchoolInput & AxiosMessage;
 
-export type ISchoolColumnKey = "name" | "district" | "email" | "phoneNumber" |"actions";
-export type ISchoolDetailColumnKey = "name" |"principalSchool"| "person"| "sector" | "address" | "district" | "coordenates" | "email" | "phoneNumber";
+export type ISchoolColumnKey = "name" | "district" | "email" | "phoneNumber" | "actions";
+//export type ISchoolDetailColumnKey = "name" | "principalSchool" | "person" | "sector" | "address" | "district" | "coordenates" | "email" | "phoneNumber";
+export type ISchoolDetailColumnKey = "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber" | "Person" | "email" | "avatar";
+export type IPersonSchoolDetailColumnKey = "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber";
 
 export interface SchoolListResult {
   schoolsList: ISchoolTable[];
@@ -42,7 +71,13 @@ export interface SchoolListResult {
 }
 
 export interface SchoolDetailListResult {
-  schoolDetail: ISchoolDetailTable[];
+  schoolsDetailsList: ISchoolDetailTable[];
+  //onDeleteSchool: (_schoolId: number) => Promise<void>;
+  setSchoolsDetailsList: (_schools: ISchoolDetailTable[]) => void;
+}
+
+export interface SchoolPersonDetailListResult {
+  schoolPersonDetail: IPersonSchoolDetailTable[];
   onDeleteSchool: (_schoolId: number) => Promise<void>;
   setSchoolDetail: (_schools: ISchoolDetailTable[]) => void;
 }
@@ -52,7 +87,11 @@ export interface SchoolTableProps extends Pick<SchoolListResult, "schoolsList" |
   onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 
-export interface SchoolDetailTableProps extends Pick<SchoolDetailListResult, "schoolDetail" | "onDeleteSchool"> {
+export interface SchoolDetailTableProps extends Pick<SchoolDetailListResult, "schoolsDetailsList"> {
+  onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
+}
+
+export interface SchoolPersonDetailTableProps extends Pick<SchoolDetailListResult, "schoolsDetailsList" > {
   onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 

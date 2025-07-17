@@ -1,17 +1,16 @@
 import { FetchResponse } from "@/shared/types/globals";
 import { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
-import { ISchoolDetailTable } from "../../school/schoolType";
+import { useEffect } from "react";
+import { ISchoolDetailTable, SchoolDetailListResult } from "../../school/schoolType";
 import { handleAxiosError } from "@/shared/utils/funtions";
+import { useSchoolDetailListStore } from "@/shared/hooks/store/usePrincipalSchoolModalStore"
 import useAxios from "@/shared/hooks/useAxios";
 
 const useSchoolDetail = (
   schoolId: number
-): {
-  schoolDetail: ISchoolDetailTable | undefined;
-} => {
+): SchoolDetailListResult => {
 
-  const [schoolDetail, setSchoolDetail] = useState<ISchoolDetailTable>();
+  const { schoolsDetailsList, setSchoolsDetailsList } = useSchoolDetailListStore();
   const useRequest = useAxios(true);
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -23,7 +22,7 @@ const useSchoolDetail = (
 
         if (isMounted) {
           const { data } = res.data;
-          setSchoolDetail(data);
+          setSchoolsDetailsList([data]);
         }
       } catch (error) {
         handleAxiosError(error, "centro escolar", "obtener");
@@ -36,7 +35,7 @@ const useSchoolDetail = (
     };
   }, [schoolId]);
   /* eslint-enable react-hooks/exhaustive-deps */
-  return { schoolDetail };
+  return { schoolsDetailsList, setSchoolsDetailsList };
 };
 
 export { useSchoolDetail };
