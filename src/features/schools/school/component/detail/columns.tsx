@@ -18,13 +18,9 @@ export const schoolColumns: IColumns<ISchoolDetailColumnKey>[] = [
     key: "phoneNumber",
     label: "Número telefónico"
   }
-  ,{
+  , {
     key: "email",
     label: "Correo electrónico"
-  },
-  {
-    key: "avatar",
-    label: "Avatar" 
   }
 ];
 
@@ -64,14 +60,52 @@ export const useRenderSchoolDetailCell = (
       //     </span>
       //   );
       case "firstName":
-        return school.PrincipalSchool?.[0]?.Person?.firstName + " " + school.PrincipalSchool?.[0].Person?.lastName1 + " " + school.PrincipalSchool?.[0].Person?.lastName2 || "";
-        case "dui":
-        return school.PrincipalSchool?.[0]?.Person?.dui || "";
-        case "email":
-        return school.PrincipalSchool?.[0]?.Person?.User?.email || "";
-          
+        return (
+          Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
+            <>
+              {school?.PrincipalSchool?.[0]?.Person?.firstName + " " + school?.PrincipalSchool?.[0].Person?.lastName1 + " " + school?.PrincipalSchool?.[0].Person?.lastName2}
+            </>
+          ) : (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+              Sin personal asignado
+            </span>
+          )
+        );
+      //school?.PrincipalSchool?.[0]?.Person?.firstName + " " + school?.PrincipalSchool?.[0].Person?.lastName1 + " " + school?.PrincipalSchool?.[0].Person?.lastName2 || "";
+      case "dui":
+        return (
+          Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
+            <>{school.PrincipalSchool?.[0]?.Person?.dui}
+            </>
+          ) : (
+            <span>
+             N/A
+            </span>
+          )
+        );
+      case "email":
+        return (
+          Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
+            <>
+
+              {school.PrincipalSchool?.[0]?.Person?.User?.email}</>
+          ) : (
+            <span>
+              N/A
+            </span>
+          )
+        );
+
       case "phoneNumber":
-        return (`(+503) ${school.PrincipalSchool?.[0]?.Person?.phoneNumber}`
+        return (
+          Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
+            <>
+              {`(+503) ${school.PrincipalSchool?.[0]?.Person?.phoneNumber}`}</>
+          ) : (
+            <span>
+              N/A
+            </span>
+          )
         );
       // default:
       //   const value = school[columnKey as keyof IPersonSchoolDetailTable];

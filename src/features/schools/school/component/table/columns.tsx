@@ -21,11 +21,6 @@ export const schoolColumns: IColumns<ISchoolColumnKey>[] = [
     key: "phoneNumber",
     label: "Número telefónico"
   }
-  // ,
-  // {
-  //   key: "actions",
-  //   label: "Acciones"
-  // }
 ];
 
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */

@@ -20,7 +20,6 @@ export interface PersonInput {
   dui: string;
   phoneNumber: string;
   email: string;
-  avatar: string;
 }
 
 export interface ISchoolTable extends SchoolInput {
@@ -57,11 +56,15 @@ export interface IPersonSchoolDetailTable extends SchoolInput {
     }]
 }
 
+export interface ISchoolCoordenate {
+  parseCoordinates: [number, number];
+}
+
 export type ISchool = SchoolInput & AxiosMessage;
 
 export type ISchoolColumnKey = "name" | "district" | "email" | "phoneNumber" | "actions";
 //export type ISchoolDetailColumnKey = "name" | "principalSchool" | "person" | "sector" | "address" | "district" | "coordenates" | "email" | "phoneNumber";
-export type ISchoolDetailColumnKey = "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber" | "Person" | "email" | "avatar";
+export type ISchoolDetailColumnKey = "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber" | "Person" | "email" ;
 export type IPersonSchoolDetailColumnKey = "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber";
 
 export interface SchoolListResult {
@@ -82,6 +85,12 @@ export interface SchoolPersonDetailListResult {
   setSchoolDetail: (_schools: ISchoolDetailTable[]) => void;
 }
 
+export interface SchoolCoordenateResult {
+  schoolCoordenate: ISchoolCoordenate[];
+  //onDeleteSchool: (_schoolId: number) => Promise<void>;
+  setSchoolsDetailsList: (_schools: ISchoolCoordenate[]) => void;
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SchoolTableProps extends Pick<SchoolListResult, "schoolsList" | "onDeleteSchool"> {
   onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
@@ -91,7 +100,7 @@ export interface SchoolDetailTableProps extends Pick<SchoolDetailListResult, "sc
   onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 
-export interface SchoolPersonDetailTableProps extends Pick<SchoolDetailListResult, "schoolsDetailsList" > {
+export interface SchoolPersonDetailTableProps extends Pick<SchoolDetailListResult, "schoolsDetailsList"> {
   onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 

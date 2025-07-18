@@ -10,11 +10,6 @@ const SchoolDetailLayout = (): React.JSX.Element => {
   const schoolId = Number(params.schoolId);
   const { schoolsDetailsList } = useSchoolDetail(schoolId);
 
-
-  //const {principalPrincipalSchoolDetail } = usePrincipalSchoolDetail(schoolDetail?.PrincipalSchool[0].Person.id);
-
-  console.log(schoolsDetailsList,"###");
-
   return (
     <>
       <SchoolDetailTable
