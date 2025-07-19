@@ -13,6 +13,7 @@ const SchoolDetailPage = (): React.JSX.Element => {
   const params = useParams();
 
   const { schoolsDetailsList } = useSchoolDetail(Number(params.schoolId));
+console.log(schoolsDetailsList);
 
   if (!Array.isArray(schoolsDetailsList) || schoolsDetailsList.length === 0) {
     return (

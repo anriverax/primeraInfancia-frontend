@@ -5,7 +5,6 @@ import { IPersonSchoolDetailTable, ISchoolDetailTable, ISchoolDetailColumnKey, S
 import { schoolColumns, useRenderSchoolDetailCell } from "./columns";
 
 const SchoolDetailTable = ({ schoolsDetailsList }: SchoolPersonDetailTableProps): React.JSX.Element => {
-console.log(schoolsDetailsList.length, "### schoolsDetailsList length in SchoolDetailTable");
 
   const renderSchoolCell = useRenderSchoolDetailCell();
 
