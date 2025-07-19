@@ -53,7 +53,10 @@ export interface IPersonSchoolDetailTable extends SchoolInput {
       lastName2: string;
       email: string;
       phoneNumber: string;
-    }]
+    }];
+  TypePerson?: {
+    name: string
+  }
 }
 
 export interface ISchoolCoordenate {
@@ -64,7 +67,7 @@ export type ISchool = SchoolInput & AxiosMessage;
 
 export type ISchoolColumnKey = "name" | "district" | "email" | "phoneNumber" | "actions";
 //export type ISchoolDetailColumnKey = "name" | "principalSchool" | "person" | "sector" | "address" | "district" | "coordenates" | "email" | "phoneNumber";
-export type ISchoolDetailColumnKey = "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber" | "Person" | "email" ;
+export type ISchoolDetailColumnKey = "TypePerson" | "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber" | "Person" | "email";
 export type IPersonSchoolDetailColumnKey = "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber";
 
 export interface SchoolListResult {

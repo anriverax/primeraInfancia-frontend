@@ -2,23 +2,22 @@ import { Tooltip } from "@heroui/react";
 import { EditIcon, Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
-import { IPersonSchoolDetailColumnKey, IPersonSchoolDetailTable, ISchoolDetailColumnKey, SchoolInput } from "../../schoolType";
+import { IPersonSchoolDetailTable, ISchoolDetailColumnKey } from "../../schoolType";
 
 export const schoolColumns: IColumns<ISchoolDetailColumnKey>[] = [
   {
+    key: "TypePerson",
+    label: "Cargo"
+  }, {
     key: "firstName",
     label: "Nombre del director"
-  },
-  {
+  }, {
     key: "dui",
     label: "Número de DUI"
-  },
-
-  {
+  }, {
     key: "phoneNumber",
     label: "Número telefónico"
-  }
-  , {
+  }, {
     key: "email",
     label: "Correo electrónico"
   }
@@ -26,8 +25,6 @@ export const schoolColumns: IColumns<ISchoolDetailColumnKey>[] = [
 
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderSchoolDetailCell = (
-  // onConfirmDeleteSchool: (_schoolId: number) => void,
-  // onEditSchool: (_form: "Z" | "G", _data?: any | null) => void
 ): ((
   _school: IPersonSchoolDetailTable,
   _columnKey: ISchoolDetailColumnKey
@@ -36,29 +33,6 @@ export const useRenderSchoolDetailCell = (
     let cellValue: string | number | React.JSX.Element | null | undefined;
 
     switch (columnKey) {
-      // case "district":
-      //   return (
-      //     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
-      //       {school.District?.name}
-      //     </span>
-      //   );
-      // case "principalSchool":
-      //   return (
-      //     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
-      //       onClick={onOpenDirectorModal}>
-      //       {Array.isArray(school?.Person) && school.Person.length > 0 ? (
-      //         <>
-      //           {school.Person[0]?.firstName}{" "}
-      //           {school.Person[0]?.lastName1}{" "}
-      //           {school.Person[0]?.lastName2}
-      //         </>
-      //       ) : (
-      //         <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
-      //           Sin director asignado
-      //         </span>
-      //       )}
-      //     </span>
-      //   );
       case "firstName":
         return (
           Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
@@ -71,7 +45,6 @@ export const useRenderSchoolDetailCell = (
             </span>
           )
         );
-      //school?.PrincipalSchool?.[0]?.Person?.firstName + " " + school?.PrincipalSchool?.[0].Person?.lastName1 + " " + school?.PrincipalSchool?.[0].Person?.lastName2 || "";
       case "dui":
         return (
           Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
@@ -79,7 +52,7 @@ export const useRenderSchoolDetailCell = (
             </>
           ) : (
             <span>
-             N/A
+              N/A
             </span>
           )
         );
@@ -87,7 +60,6 @@ export const useRenderSchoolDetailCell = (
         return (
           Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
             <>
-
               {school.PrincipalSchool?.[0]?.Person?.User?.email}</>
           ) : (
             <span>
@@ -107,19 +79,34 @@ export const useRenderSchoolDetailCell = (
             </span>
           )
         );
-      // default:
-      //   const value = school[columnKey as keyof IPersonSchoolDetailTable];
-      //   if (
-      //     typeof value === "string" ||
-      //     typeof value === "number" ||
-      //     value === null ||
-      //     value === undefined
-      //   ) {
-      //     cellValue = value;
-      //   } else {
-      //     cellValue = "";
-      //   }
-      //   return cellValue;
+      case "TypePerson":
+        {
+          if (school.PrincipalSchool?.[0].Person?.TypePerson?.name.toLowerCase() == "director") {
+            return (
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                school.PrincipalSchool?.[0].Person?.TypePerson?.name
+              </span>
+            );
+          }
+          else {
+            return (
+              <>{school.PrincipalSchool?.[0].Person?.TypePerson?.name || "NA"}</>
+            );
+          }
+        }
+      default:
+        const value = school[columnKey as keyof IPersonSchoolDetailTable];
+        if (
+          typeof value === "string" ||
+          typeof value === "number" ||
+          value === null ||
+          value === undefined
+        ) {
+          cellValue = value;
+        } else {
+          cellValue = "";
+        }
+        return cellValue;
     }
   }, []);
 };
