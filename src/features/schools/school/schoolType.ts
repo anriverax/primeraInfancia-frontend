@@ -24,9 +24,14 @@ export interface PersonInput {
 
 export interface ISchoolTable extends SchoolInput {
   District?: DistrictInput;
-  _count?: {
-    Group: number;
-  };
+  PrincipalSchool?: [
+    Person?: {
+      firstName: string;
+      lastName1: string;
+      lastName2: string;
+      email: string;
+      phoneNumber: string;
+    }]
 }
 
 export interface ISchoolDetailTable extends PersonInput {

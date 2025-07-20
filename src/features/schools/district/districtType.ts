@@ -5,11 +5,8 @@ export interface DistrictInput {
   name: string;
 }
 
-export interface IDistrictTable extends DistrictInput {
-  _count?: {
-    Group: number;
-  };
-}
+export interface IDistrictTable extends DistrictInput { }
+
 export type IDistrict = DistrictInput & AxiosMessage;
 
 export type IDistrictColumnKey = "name" | "count" | "actions";
@@ -20,8 +17,7 @@ export interface DistrictListResult {
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface DistrictTableProps extends Pick<DistrictListResult, "districtsList" | "onDeleteDistrict"> {
-  onEditDistrict: (_form: "Z" | "G", _data?: any | null) => void;
+export interface DistrictTableProps extends Pick<DistrictListResult, "districtsList"> {
 }
 
 export interface DistrictModalInput {

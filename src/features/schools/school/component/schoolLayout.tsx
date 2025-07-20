@@ -6,11 +6,11 @@ import SchoolTable from "./table";
 
 const SchoolLayout = (): React.JSX.Element => {
   const { isVisible, typeModal, toggleVisibility } = useSchoolModalStore();
-  const { schoolsList, onDeleteSchool } = useSchoolsList();
+  const { schoolsList } = useSchoolsList();
 
   return (
     <>
-      <SchoolTable schoolsList={ schoolsList } onDeleteSchool={ onDeleteSchool } onEditSchool={toggleVisibility} />
+      <SchoolTable schoolsList={ schoolsList }  />
       {/* {isVisible && typeModal === "Z" && <SchoolForm />} */}
     </>
   );
