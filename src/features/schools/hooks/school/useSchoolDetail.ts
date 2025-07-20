@@ -22,22 +22,6 @@ const useSchoolDetail = (
 
         if (isMounted) {
           const { data } = res.data;
-          // console.log(data.PrincipalSchool, "antes");
-
-          // const newData = data?.PrincipalSchool?.sort((a, b) => {
-          //   //return a;
-          //   const firstPerson = (a?.firstName || '') + (a?.lastName1 || '') + (a?.lastName2 || "");
-          //   const secondPerson = (b?.firstName || '') + (b?.lastName1 || '') + (b?.lastName2 || "");
-          //   //return firstPerson.localeCompare(secondPerson);
-          //   if(firstPerson<secondPerson )
-          //   { return -1;}
-          //   if(firstPerson>secondPerson){
-          //     return 1;
-          //   }
-          //   return 0
-          // });
-          // console.log(newData, "despues");
-
           setSchoolsDetailsList([data]);
         }
       } catch (error) {
