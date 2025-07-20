@@ -2,10 +2,9 @@
 
 import { useParams } from "next/navigation";
 import SchoolDetailLayout from "@/features/schools/school/component/schoolDetailLayout";
-import { BreadcrumbItem, Breadcrumbs, Progress } from "@heroui/react";
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/react";
 import { useSchoolDetail } from "@/features/schools/hooks/school/useSchoolDetail";
 import { Map, Phone, Mail, House, MapPinHouse } from "lucide-react";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import SchoolMap from "@/features/schools/school/component/schoolMap"; //call dynamic import for SchoolMap
 
@@ -13,7 +12,6 @@ const SchoolDetailPage = (): React.JSX.Element => {
   const params = useParams();
 
   const { schoolsDetailsList } = useSchoolDetail(Number(params.schoolId));
-console.log(schoolsDetailsList);
 
   if (!Array.isArray(schoolsDetailsList) || schoolsDetailsList.length === 0) {
     return (
@@ -82,30 +80,6 @@ console.log(schoolsDetailsList);
           <Map className="h-5 w-5" />
           <h3 className="text-2xl font-semibold">Ubicación</h3>{schoolsDetailsList.coordenates}
         </div>
-
-        {/* <div style={{ height: "300px", width: "100%" }}>
-          {schoolsDetailsList[0].coordenates && (() => {
-            // Setup a coordinates 
-            ///const coordsArray =  [13.701285, -89.224431];
-            //const coordsArray = [13.722783, -89.215443];
-            const coordsArray = schoolsDetailsList[0].coordenates.split(",").map(coord => parseFloat(coord.trim()));
-            return (
-              <MapContainer
-                center={coordsArray}
-                zoom={19}
-                style={{ height: "100%", width: "100%" }}
-              >
-                <TileLayer
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                />
-                <Marker position={coordsArray}>
-                  <MapPinHouse>Ubicación del centro escolar </MapPinHouse>
-                </Marker>
-              </MapContainer>
-            );
-          })()}
-        </div> */}
 
         <SchoolMap coordinates={schoolsDetailsList[0].coordenates} />
       </div>

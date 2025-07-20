@@ -24,9 +24,14 @@ export interface PersonInput {
 
 export interface ISchoolTable extends SchoolInput {
   District?: DistrictInput;
-  _count?: {
-    Group: number;
-  };
+  PrincipalSchool?: [
+    Person?: {
+      firstName: string;
+      lastName1: string;
+      lastName2: string;
+      email: string;
+      phoneNumber: string;
+    }]
 }
 
 export interface ISchoolDetailTable extends PersonInput {
@@ -71,7 +76,6 @@ export type IPersonSchoolDetailColumnKey = "firstName" | "lastName1" | "lastName
 
 export interface SchoolListResult {
   schoolsList: ISchoolTable[];
-  // onDeleteSchool: (_schoolId: number) => Promise<void>;
   setSchoolsList: (_schools: ISchoolTable[]) => void;
 }
 
@@ -82,7 +86,6 @@ export interface SchoolDetailListResult {
 
 export interface SchoolPersonDetailListResult {
   schoolPersonDetail: IPersonSchoolDetailTable[];
-  // onDeleteSchool: (_schoolId: number) => Promise<void>;
   setSchoolDetail: (_schools: ISchoolDetailTable[]) => void;
 }
 
@@ -93,31 +96,16 @@ export interface SchoolCoordenateResult {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SchoolTableProps extends Pick<SchoolListResult, "schoolsList" > {
-  // onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 
 export interface SchoolDetailTableProps extends Pick<SchoolDetailListResult, "schoolsDetailsList"> {
-  // onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 
 export interface SchoolPersonDetailTableProps extends Pick<SchoolDetailListResult, "schoolsDetailsList"> {
-  // onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 
-export interface SchoolModalInput {
-  isVisible: boolean;
-  typeModal: "Z" | "G";
-  data?: any | null;
-}
+export interface SchoolModalInput {}
 
-export interface SchoolFormResult {
-  schoolFormik: FormikProps<ISchool>;
-  reset: () => void;
-  data: SchoolInput | null;
-}
-
-export interface SchoolModalAction extends SchoolModalInput {
-  toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
-}
+export interface SchoolModalAction extends SchoolModalInput {}
 
 /* eslint-enable @typescript-eslint/no-explicit-any */

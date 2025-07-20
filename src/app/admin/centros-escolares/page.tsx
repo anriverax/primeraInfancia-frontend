@@ -1,11 +1,9 @@
 "use client";
 
 import SchoolLayout from "@/features/schools/school/component/schoolLayout";
-import { useSchoolModalStore } from "@/shared/hooks/store/useSchoolModalStore";
 import { School } from "lucide-react";
 
 export default function SchoolsPage(): React.JSX.Element {
-  const { toggleVisibility } = useSchoolModalStore();
 
   return (
     <div className="space-y-8">
