@@ -14,7 +14,7 @@ export interface SchoolInput {
 
 export interface PersonInput {
   id?: number | null;
-  firstNamename: string;
+  firstName: string;
   lastName1?: string;
   lastName2: number;
   dui: string;
