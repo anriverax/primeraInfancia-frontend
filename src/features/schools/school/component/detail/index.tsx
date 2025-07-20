@@ -1,7 +1,6 @@
 import { tableClassNames } from "@/shared/constants";
-import { confirmDelete } from "@/shared/utils/funtions";
 import { Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@heroui/table";
-import { IPersonSchoolDetailTable, ISchoolDetailTable, ISchoolDetailColumnKey, SchoolPersonDetailTableProps, } from "../../schoolType";
+import { ISchoolDetailTable, ISchoolDetailColumnKey, SchoolPersonDetailTableProps, } from "../../schoolType";
 import { schoolColumns, useRenderSchoolDetailCell } from "./columns";
 
 const SchoolDetailTable = ({ schoolsDetailsList }: SchoolPersonDetailTableProps): React.JSX.Element => {
