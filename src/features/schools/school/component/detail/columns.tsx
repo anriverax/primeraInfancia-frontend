@@ -24,91 +24,66 @@ export const schoolColumns: IColumns<ISchoolDetailColumnKey>[] = [
 ];
 
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
-export const useRenderSchoolDetailCell = (
-): ((
+export const useRenderSchoolDetailCell = (): ((
   _school: IPersonSchoolDetailTable,
-  _columnKey: ISchoolDetailColumnKey
+  _columnKey: ISchoolDetailColumnKey,
 ) => string | number | undefined | null | React.JSX.Element) => {
   return useCallback((school: IPersonSchoolDetailTable, columnKey: ISchoolDetailColumnKey) => {
-    let cellValue: string | number | React.JSX.Element | null | undefined;
+    // Extract the validation logic
+    const hasPrincipal = Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0
+    const principal = hasPrincipal ? school.PrincipalSchool[0] : null
+    const person = principal?.Person
+
+    // Helper component for "not assigned" message
+    const NotAssignedBadge = () => (
+      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+        Sin personal asignado
+      </span>
+    )
+
+    // Helper component for N/A
+    const NotAvailable = () => <span>N/A</span>
 
     switch (columnKey) {
       case "firstName":
-        return (
-          Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
-            <>
-              {school?.PrincipalSchool?.[0]?.Person?.firstName + " " + school?.PrincipalSchool?.[0].Person?.lastName1 + " " + school?.PrincipalSchool?.[0].Person?.lastName2}
-            </>
-          ) : (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
-              Sin personal asignado
-            </span>
-          )
-        );
+        if (!hasPrincipal || !person) return <NotAvailable />
+        return <>{`${person.firstName} ${person.lastName1} ${person.lastName2}`.trim()}</>
+
       case "dui":
-        return (
-          Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
-            <>{school.PrincipalSchool?.[0]?.Person?.dui}
-            </>
-          ) : (
-            <span>
-              N/A
-            </span>
-          )
-        );
+        if (!hasPrincipal || !person) return <NotAvailable />
+        return <>{person.dui}</>
+
       case "email":
-        return (
-          Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
-            <>
-              {school.PrincipalSchool?.[0]?.Person?.User?.email}</>
-          ) : (
-            <span>
-              N/A
-            </span>
-          )
-        );
+        if (!hasPrincipal || !person) return <NotAvailable />
+        return <>{person.User?.email}</>
 
       case "phoneNumber":
-        return (
-          Array.isArray(school?.PrincipalSchool) && school?.PrincipalSchool.length > 0 ? (
-            <>
-              {`(+503) ${school.PrincipalSchool?.[0]?.Person?.phoneNumber}`}</>
-          ) : (
-            <span>
-              N/A
+        if (!hasPrincipal || !person) return <NotAvailable />
+        return <>{`(+503) ${person.phoneNumber}`}</>
+
+      case "TypePerson": {
+        if (!hasPrincipal || !person) return <NotAssignedBadge />
+
+        const typeName = person.TypePerson?.name
+        if (typeName?.toLowerCase() === "director") {
+          return (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+              {typeName}
             </span>
           )
-        );
-      case "TypePerson":
-        {
-          if (school.PrincipalSchool?.[0].Person?.TypePerson?.name.toLowerCase() == "director") {
-            return (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-                school.PrincipalSchool?.[0].Person?.TypePerson?.name
-              </span>
-            );
-          }
-          else {
-            return (
-              <>{school.PrincipalSchool?.[0].Person?.TypePerson?.name || "NA"}</>
-            );
-          }
         }
-      default:
-        const value = school[columnKey as keyof IPersonSchoolDetailTable];
-        if (
-          typeof value === "string" ||
-          typeof value === "number" ||
-          value === null ||
-          value === undefined
-        ) {
-          cellValue = value;
-        } else {
-          cellValue = "";
+        return <>{typeName || "NA"}</>
+      }
+
+      default: {
+        const value = school[columnKey as keyof IPersonSchoolDetailTable]
+        if (typeof value === "string" || typeof value === "number" || value === null || value === undefined) {
+          return value
         }
-        return cellValue;
+        return ""
+      }
     }
-  }, []);
-};
+  }, [])
+}
 
 /* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
