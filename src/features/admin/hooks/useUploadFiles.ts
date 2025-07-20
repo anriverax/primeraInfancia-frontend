@@ -1,4 +1,4 @@
-import { UploadFilesInput } from "../adminType";
+import { IUploadFiles, UploadFilesInput } from "../adminType";
 import { FormikHelpers, useFormik } from "formik";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
@@ -12,13 +12,13 @@ const initialFilesValues: UploadFilesInput = {
   avatar: null
 };
 
-const useUploadFiles = (): FormikProps<UploadFilesInput> => {
+const useUploadFiles = (): FormikProps<IUploadFiles> => {
   const useRequest = useAxios(true);
   const { setFormVisible } = useModalFormVisibleStore();
 
   const handleSubmit = async (
     values: UploadFilesInput,
-    formikHelpers: FormikHelpers<UploadFilesInput>
+    formikHelpers: FormikHelpers<IUploadFiles>
   ): Promise<void> => {
     const formData = new FormData();
 
@@ -36,7 +36,7 @@ const useUploadFiles = (): FormikProps<UploadFilesInput> => {
 
       if (filesResponse.data) setFormVisible(2);
     } catch (error) {
-      handleFormikResponseError<UploadFilesInput>(error as AxiosError, formikHelpers);
+      handleFormikResponseError<IUploadFiles>(error as AxiosError, formikHelpers);
     }
   };
 

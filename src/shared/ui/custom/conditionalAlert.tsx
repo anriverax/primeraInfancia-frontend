@@ -31,7 +31,7 @@ const ConditionalAlert = memo(
     const axiosError: string | string[] | undefined = errors ? errors.axiosMessage : undefined;
 
     return (
-      <div className="flex flex-col  justify-center items-center gap-4 mb-6">
+      <div className="flex flex-col justify-center items-center gap-4">
         <Alert color="danger" isVisible={isVisible} variant="flat" onClose={handleClose}>
           {typeof axiosError !== "string" && axiosError !== undefined ? (
             <ul className="list-disc ml-3">

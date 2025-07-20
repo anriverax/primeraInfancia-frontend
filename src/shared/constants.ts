@@ -28,33 +28,14 @@ export const breakpoints: {
 /* eslint-disable no-unused-vars */
 export enum TypeRole {
   ADMIN = "ADMIN",
-  USER = "USER",
-  FORMADOR = "FORMADOR",
-  MENTOR = "MENTOR",
-  TECNICO_APOYO = "TECNICO_APOYO",
-  ESTUDIANTE = "ESTUDIANTE"
+  USER = "USER"
 }
 /* eslint-enable no-unused-vars */
 export const roleDisplayNames: Record<TypeRole, string> = {
   [TypeRole.ADMIN]: "Administrador",
-  [TypeRole.USER]: "Usuario",
-  [TypeRole.FORMADOR]: "Formador",
-  [TypeRole.MENTOR]: "Mentor",
-  [TypeRole.TECNICO_APOYO]: "Técnico de Apoyo",
-  [TypeRole.ESTUDIANTE]: "Estudiante"
+  [TypeRole.USER]: "Usuario"
 };
 
-/* eslint-disable no-unused-vars*/
-export enum HttpStatusCode {
-  OK = 200,
-  CREATED = 201,
-  NO_CONTENT = 204,
-  BAD_REQUEST = 400,
-  UNAUTHORIZED = 401,
-  FORBIDDEN = 403,
-  NOT_FOUND = 404,
-  CONFLICT = 409,
-  INTERNAL_SERVER_ERROR = 500
-}
-
-/* eslint-enaable no-unused-vars*/
+export const tableClassNames: { th: string } = {
+  th: "bg-transparent text-bold text-sm text-black border-b border-divider"
+};

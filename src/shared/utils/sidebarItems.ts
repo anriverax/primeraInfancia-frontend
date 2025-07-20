@@ -1,32 +1,76 @@
 import {
-  BarChart,
   CircleUserRound,
   ContactRound,
-  CreditCard,
-  HelpCircle,
   Home,
-  LineChart,
-  MessageSquare,
   Package,
-  PieChart,
-  Settings,
-  ShieldCheck,
   SquareUserRound,
   User,
-  UserCog,
-  Users
+  Users,
+  CalendarCheck,
+  Calendar
 } from "lucide-react";
 import { SidebarItemType } from "../ui/sidebar/type";
 
 export const sidebarItems: SidebarItemType[] = [
   {
-    title: "Inicio",
+    title: "Dashboard",
     path: "/admin/dashboard",
     icon: Home
   },
   {
+    title: "Zonas y Grupos",
+    path: "/admin/zonas-grupos",
+    icon: Package
+  },
+  {
+    title: "Evaluaciones",
+    path: "/evaluaciones",
+    icon: CalendarCheck,
+    submenu: [
+      {
+        title: "Auto-evaluación",
+        path: "/evaluaciones/auto-evaluación"
+      },
+      {
+        title: "Portafolio",
+        path: "/evaluaciones/portafolio"
+      },
+      {
+        title: "Diagnostico",
+        path: "/evaluaciones/diagnostico"
+      }
+    ]
+  },
+  {
+    title: "Asistencia",
+    path: "/asistencia",
+    icon: Calendar,
+    submenu: [
+      {
+        title: "Talleres",
+        path: "/asistencia/talleres"
+      },
+      {
+        title: "Seminarios",
+        path: "/asistencia/seminarios"
+      },
+      {
+        title: "Comunidades de practica",
+        path: "/asistencia/comunidades-practica"
+      },
+      {
+        title: "Sesiones sincronicas",
+        path: "/asistencia/sesiones-sincronicas"
+      },
+      {
+        title: "Mentorias",
+        path: "/asistencia/mentorias"
+      }
+    ]
+  },
+  {
     title: "Triple perfil",
-    path: "/admin",
+    path: "/triple-perfil",
     icon: Users,
     submenu: [
       {
@@ -50,60 +94,5 @@ export const sidebarItems: SidebarItemType[] = [
     title: "Docentes",
     path: "/admin/docentes",
     icon: User
-  },
-  {
-    title: "Zonas y Grupos",
-    path: "/admin/zonas-grupos",
-    icon: Package
-  },
-  {
-    title: "Analytics",
-    path: "/admin/analytics",
-    icon: BarChart,
-    submenu: [
-      {
-        title: "Overview",
-        path: "/admin/dashboards",
-        icon: PieChart
-      },
-      {
-        title: "Reports",
-        path: "/analytics/reports",
-        icon: LineChart
-      },
-      {
-        title: "Revenue",
-        path: "/analytics/revenue",
-        icon: CreditCard
-      }
-    ]
-  },
-  {
-    title: "Messages",
-    path: "/messages",
-    icon: MessageSquare,
-    badge: 2
-  },
-  {
-    title: "Settings",
-    path: "/admin/settings",
-    icon: Settings,
-    submenu: [
-      {
-        title: "Profile",
-        path: "/settings/profile",
-        icon: UserCog
-      },
-      {
-        title: "Security",
-        path: "/settings/security",
-        icon: ShieldCheck
-      }
-    ]
-  },
-  {
-    title: "Help",
-    path: "/help",
-    icon: HelpCircle
   }
 ];

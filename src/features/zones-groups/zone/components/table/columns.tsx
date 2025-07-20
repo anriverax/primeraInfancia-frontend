@@ -1,56 +1,56 @@
 import { Tooltip } from "@heroui/react";
-import { EditIcon, EyeIcon, Trash2 } from "lucide-react";
+import { EditIcon, Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
-import { IZone, IZoneColumnKey } from "../../zoneType";
-import { useZoneModalStore } from "@/shared/hooks/store/useZoneModalStore";
+import { IZoneColumnKey, IZoneTable, ZoneInput } from "../../zoneType";
 
 export const zoneColumns: IColumns<IZoneColumnKey>[] = [
   {
     key: "name",
     label: "Nombre"
   },
+  { key: "count", label: "Grupos" },
   {
     key: "actions",
     label: "Acciones"
   }
 ];
 
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderZoneCell = (
-  deleteZone: (_zoneId: number) => Promise<void>
+  onConfirmDeleteZone: (_zoneId: number) => void,
+  onEditZone: (_form: "Z" | "G", _data?: any | null) => void
 ): ((
-  _zone: IZone,
+  _zone: IZoneTable,
   _columnKey: IZoneColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
-  const { toggleVisibility } = useZoneModalStore();
-
-  return useCallback((zone: IZone, columnKey: IZoneColumnKey) => {
-    const cellValue = zone[columnKey as keyof IZone];
+  return useCallback((zone: IZoneTable, columnKey: IZoneColumnKey) => {
+    const cellValue = zone[columnKey as keyof ZoneInput];
 
     switch (columnKey) {
+      case "count":
+        return (
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+            {zone._count?.Group} grupos
+          </span>
+        );
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Details">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EyeIcon />
-              </span>
-            </Tooltip>
-            <Tooltip content="Edit user">
+            <Tooltip content="Editar zona0">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                onClick={() => toggleVisibility("Z", zone)}
+                onClick={() => onEditZone("Z", zone)}
               >
-                <EditIcon />
+                <EditIcon className="h-4 w-4" />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
+            <Tooltip color="danger" content="Eliminar zona">
               <span
                 className="text-lg text-danger cursor-pointer active:opacity-50"
-                onClick={() => deleteZone(zone.id as number)}
+                onClick={() => onConfirmDeleteZone(zone.id as number)}
               >
-                <Trash2 />
+                <Trash2 className="h-4 w-4" />
               </span>
             </Tooltip>
           </div>
@@ -61,4 +61,4 @@ export const useRenderZoneCell = (
   }, []);
 };
 
-/* eslint-enable react-hooks/exhaustive-deps */
+/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */

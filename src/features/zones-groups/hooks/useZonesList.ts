@@ -1,14 +1,14 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { useCallback, useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
+import { useCallback, useEffect } from "react";
+import { AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
-import { HttpStatusCode } from "@/shared/constants";
-import { addToast } from "@heroui/react";
-import { IZone, ZoneListResponse } from "../zone/zoneType";
+import { IZoneTable, ZoneListResult } from "../zone/zoneType";
 import { handleAxiosError } from "@/shared/utils/funtions";
+import { useZoneListStore } from "@/shared/hooks/store/useZoneListStore";
+import Swal from "sweetalert2";
 
-const useZonesList = (): ZoneListResponse => {
-  const [zonesList, setZonesList] = useState<IZone[]>([]);
+const useZonesList = (): ZoneListResult => {
+  const { zonesList, setZonesList } = useZoneListStore();
   const useRequest = useAxios(true);
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -16,7 +16,7 @@ const useZonesList = (): ZoneListResponse => {
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
       try {
-        const res: AxiosResponse<FetchResponse<IZone[]>> = await useRequest.get("/zone");
+        const res: AxiosResponse<FetchResponse<IZoneTable[]>> = await useRequest.get("/zone");
 
         if (isMounted) {
           const { data } = res.data;
@@ -33,29 +33,30 @@ const useZonesList = (): ZoneListResponse => {
     };
   }, []);
 
-  const deleteZone = useCallback(async (zoneId: number) => {
-    try {
-      const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(`/zone/${zoneId}`);
-      const { statusCode, message } = res.data;
+  const deleteZone = useCallback(
+    async (zoneId: number) => {
+      try {
+        const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(
+          `/zone/delete/${zoneId}`
+        );
+        const { statusCode, message } = res.data;
 
-      if (statusCode === HttpStatusCode.OK) {
-        setZonesList((prev) => prev.filter((zone) => zone.id !== zoneId));
-
-        addToast({
-          title: message,
-          severity: "success",
-          variant: "bordered",
-          classNames: {
-            icon: "w-6 h-6 fill-current text-green-500"
-          }
-        });
+        if (statusCode === HttpStatusCode.Ok) {
+          Swal.fire({
+            title: "!Eliminado!",
+            text: String(message),
+            icon: "success"
+          });
+          setZonesList((prevZones: IZoneTable[]) => prevZones.filter((zone) => zone.id !== zoneId));
+        }
+      } catch (error) {
+        handleAxiosError(error, "zonas", "eliminar");
       }
-    } catch (error) {
-      handleAxiosError(error, "zonas", "eliminar");
-    }
-  }, []);
+    },
+    [zonesList, setZonesList, useRequest]
+  );
   /* eslint-enable react-hooks/exhaustive-deps */
-  return { zonesList, setZonesList, deleteZone };
+  return { zonesList, setZonesList, onDeleteZone: deleteZone };
 };
 
 export { useZonesList };

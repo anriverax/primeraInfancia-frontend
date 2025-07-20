@@ -2,13 +2,12 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import SubmenuItem from "./submenuItem";
-import { SidebarItemType } from "../../type";
 import { cn } from "@/shared/utils/tv";
 import Link from "next/link";
 import { useMenuItem } from "../../hooks/useMenuItem";
+import { IMenuPermission } from "@/shared/types/next-auth";
 
-type MenuItemProps = { item: SidebarItemType; isMobile: boolean; isExtended: boolean };
+type MenuItemProps = { item: IMenuPermission; isMobile: boolean; isExtended: boolean };
 
 const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Element => {
   const {
@@ -25,9 +24,9 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
     isMobile,
     isExtended
   });
-
+  console.log("MenuItem ", pathname);
   return (
-    <div key={item.path} className="relative">
+    <div key={item.id} className="relative">
       <Link
         href={!hasSubmenu ? item.path : "#"}
         className={cn(
@@ -62,15 +61,15 @@ const MenuItem = ({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Elem
             />
           )}
 
-          {item.badge && (
+          {/*item.badge && (
             <div className="ml-auto flex items-center justify-center w-5 h-5 text-xs font-medium text-blue-600 bg-gray-50 rounded-full">
               {item.badge}
             </div>
-          )}
+          )*/}
         </motion.div>
       </Link>
 
-      <SubmenuItem isSubmenuOpen={isSubmenuOpen} submenu={item.submenu} pathname={pathname} />
+      {/*<SubmenuItem isSubmenuOpen={isSubmenuOpen} submenu={item.submenu} pathname={pathname} />*/}
     </div>
   );
 };

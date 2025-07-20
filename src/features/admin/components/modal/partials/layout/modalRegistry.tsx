@@ -27,11 +27,11 @@ export interface IModalComponent {
   element: React.JSX.Element;
 }
 
-interface ModalRegistryResponse {
+interface ModalRegistryResult {
   components: IModalComponent[];
 }
 
-export const useModalRegistry = (): ModalRegistryResponse => {
+export const useModalRegistry = (): ModalRegistryResult => {
   const getActiveModals = (): IModalComponent[] => [
     { id: "verify", element: <EmailVerify /> },
     { id: "upload", element: <UploadFilesModal /> },

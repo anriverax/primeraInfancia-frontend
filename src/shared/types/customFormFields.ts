@@ -1,17 +1,18 @@
 import { DateValue } from "@internationalized/date";
-
-export interface InputProps {
-  type: string;
-  label: string;
-  isInvalid: boolean;
-  isRequired: boolean;
-  errorMessage: string | undefined;
+export interface ClassNamesProps {
   variant: "bordered";
   classNames: {
     inputWrapper: string;
     label: string;
     input: string;
   };
+}
+export interface InputProps extends ClassNamesProps {
+  type: string;
+  label: string;
+  isInvalid: boolean;
+  isRequired: boolean;
+  errorMessage: string | undefined;
 }
 
 export interface DateProps extends Pick<InputProps, "label" | "variant"> {
@@ -23,12 +24,16 @@ export interface DateProps extends Pick<InputProps, "label" | "variant"> {
   };
 }
 
-export interface TextAreaProps extends Pick<InputProps, "label" | "variant" | "classNames"> {
-  name: string;
+export interface TextAreaProps
+  extends Pick<
+    InputProps,
+    "label" | "variant" | "classNames" | "isRequired" | "isInvalid" | "errorMessage"
+  > {
   placeholder: string;
 }
 
-export interface SelectProps extends Pick<InputProps, "variant"> {
+export interface SelectProps
+  extends Pick<InputProps, "label" | "variant" | "isRequired" | "isInvalid" | "errorMessage"> {
   className: string;
   classNames: {
     trigger: string;
@@ -40,19 +45,33 @@ export interface SelectProps extends Pick<InputProps, "variant"> {
   isDisabled: boolean;
 }
 
-export interface CustomFormFieldsResponse {
+export interface CustomFormFieldsResult {
   getInputProps: (
     _type: string,
     _label: string,
-    _isInvalid: boolean | undefined,
-    _error: string | undefined
+    _touched: boolean | undefined,
+    _error: string | undefined,
+    _isRequired?: boolean
   ) => InputProps;
+  getTextAreaProps: (
+    _label: string,
+    _placeholder: string,
+    _touched: boolean | undefined,
+    _error: string | undefined,
+    _isRequired?: boolean
+  ) => TextAreaProps;
+  getSelectProps: (
+    _label: string,
+    _itemsLength: number,
+    _itemValue: number,
+    _touched: boolean | undefined,
+    _error: string | undefined,
+    _isRequired?: boolean
+  ) => SelectProps;
   getDateProps: (
     _value: DateValue | string | null,
     _name: string,
     _label: string,
     _description: string
   ) => DateProps;
-  getTextAreaProps: (_name: string, _label: string, _placeholder: string) => TextAreaProps;
-  getSelectProps: (_itemsLength: number, _itemValue: number) => SelectProps;
 }

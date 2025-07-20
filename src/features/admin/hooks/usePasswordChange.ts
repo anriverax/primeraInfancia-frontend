@@ -8,7 +8,7 @@ import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { useEffect } from "react";
 import { signOut } from "next-auth/react";
 import { LOGIN_REDIRECT_URL } from "@/shared/constants";
-import { ChangePasswordInput, UpdatedPasswordResponse } from "../adminType";
+import { ChangePasswordInput, IPasswordChange, UpdatedPasswordResponse } from "../adminType";
 
 const initialPasswordValues: ChangePasswordInput = {
   currentPassword: "",
@@ -16,13 +16,13 @@ const initialPasswordValues: ChangePasswordInput = {
   confirmNewPassword: ""
 };
 
-const usePasswordChange = (): FormikProps<ChangePasswordInput> => {
+const usePasswordChange = (): FormikProps<IPasswordChange> => {
   const useRequest = useAxios(true);
   const { formStatus, setFormStatus } = useUpdatedProfileStore();
 
   const handleSubmit = async (
     values: ChangePasswordInput,
-    formikHelpers: FormikHelpers<ChangePasswordInput>
+    formikHelpers: FormikHelpers<IPasswordChange>
   ): Promise<void> => {
     const encryptedCurrentPassword = encrypt(values.currentPassword);
     const encryptedNewPassword = encrypt(values.newPassword);
@@ -41,7 +41,7 @@ const usePasswordChange = (): FormikProps<ChangePasswordInput> => {
       if (result.data) setFormStatus({ isOk: true, msg: result.message as string });
     } catch (error) {
       // Handle login error.
-      handleFormikResponseError<ChangePasswordInput>(error as AxiosError, formikHelpers);
+      handleFormikResponseError<IPasswordChange>(error as AxiosError, formikHelpers);
     }
   };
 

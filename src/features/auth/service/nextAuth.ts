@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
         const data = await res.json();
 
         if (data.statusCode != 200) throw new Error(data.message);
-
+        console.log(data.data);
         return data.data;
       }
     })
@@ -68,6 +68,7 @@ export const authOptions: NextAuthOptions = {
         token.role = user.user?.role;
         token.isVerified = user.user?.isVerified;
         token.picture = user.user?.picture;
+        token.permissions = user.permissions;
       } else if (session) {
         token.accessToken = session.accessToken ?? token.accessToken;
         token.refreshToken = session.refreshToken ?? token.refreshToken;
@@ -88,6 +89,9 @@ export const authOptions: NextAuthOptions = {
         isVerified: token.isVerified,
         picture: token.picture
       };
+
+      session.permissions = token.permissions;
+
       return { ...session, accessToken: token.accessToken, refreshToken: token.refreshToken };
     },
     async redirect({ url, baseUrl }): Promise<string> {

@@ -1,14 +1,46 @@
 import { DateValue } from "@internationalized/date";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import {
   DateProps,
   InputProps,
   SelectProps,
   TextAreaProps,
-  CustomFormFieldsResponse
+  CustomFormFieldsResult,
+  ClassNamesProps
 } from "../types/customFormFields";
 
-const useCustomFormFields = (): CustomFormFieldsResponse => {
+const useCustomFormFields = (): CustomFormFieldsResult => {
+  const classNameProps = useMemo<ClassNamesProps>(
+    () => ({
+      variant: "bordered",
+      classNames: {
+        inputWrapper: "border data-[hover=true]:border-blue-500 group-data-[focus=true]:border-blue-500",
+        label: "group-data-[filled=true]:font-bold",
+        input: "text-gray-600"
+      }
+    }),
+    []
+  );
+
+  const getCommonFieldProps = (
+    label: string,
+    isRequired: boolean = true
+  ): { isRequired: boolean; label: string } => ({
+    isRequired,
+    label
+  });
+
+  const getValidationState = (
+    touched: boolean | undefined,
+    error: string | undefined
+  ): {
+    isInvalid: boolean;
+    errorMessage: string | undefined;
+  } => ({
+    isInvalid: !!(touched && error),
+    errorMessage: touched && error ? error : undefined
+  });
+
   const getInputProps = useCallback(
     (
       type: string,
@@ -16,24 +48,57 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
       touched: boolean | undefined,
       error: string | undefined,
       isRequired: boolean = true
-    ): InputProps =>
-      ({
-        isRequired,
-        type,
-        label,
-        variant: "bordered",
-        classNames: {
-          inputWrapper:
-            "border data-[hover=true]:border-blue-500 group-data-[focus=true]:border-blue-500",
-          label: "group-data-[filled=true]:font-bold",
-          input: "text-gray-600"
-        },
-        isInvalid: Boolean(touched && error),
-        errorMessage: touched ? error : undefined
-      }) as const,
+    ): InputProps => ({
+      ...getCommonFieldProps(label, isRequired),
+      type,
+      ...classNameProps,
+      ...getValidationState(touched, error)
+    }),
+    [classNameProps]
+  );
+
+  const getTextAreaProps = useCallback(
+    (
+      label: string,
+      placeholder: string,
+      touched: boolean | undefined,
+      error: string | undefined,
+      isRequired: boolean = true
+    ): TextAreaProps => ({
+      ...getCommonFieldProps(label, isRequired),
+      placeholder,
+      ...classNameProps,
+      ...getValidationState(touched, error)
+    }),
+    [classNameProps]
+  );
+
+  const getSelectProps = useCallback(
+    (
+      label: string,
+      itemsLength: number,
+      itemValue: number,
+      touched: boolean | undefined,
+      error: string | undefined,
+      isRequired: boolean = true
+    ): SelectProps => ({
+      ...getCommonFieldProps(label, isRequired),
+      variant: "bordered",
+      className: "w-full",
+      classNames: {
+        trigger:
+          "border data-[hover=true]:border-blue-500 data-[open=true]:border-blue-500 data-[focus=true]:border-blue-500",
+        label: "group-data-[filled=true]:font-bold",
+        value: "group-data-[has-value=true]:text-gray-600"
+      },
+      selectedKeys: [itemValue === 0 ? "" : itemValue.toString()],
+      isLoading: itemsLength === 0,
+      isDisabled: itemsLength === 0,
+      ...getValidationState(touched, error)
+    }),
     []
   );
-  /* eslint-disable*/
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const getDateProps = useCallback(
     (value: DateValue | string | null, name: string, label: string, description: string): DateProps =>
       ({
@@ -48,39 +113,7 @@ const useCustomFormFields = (): CustomFormFieldsResponse => {
       }) as const,
     []
   );
-
-  const getTextAreaProps = useCallback(
-    (name: string, label: string, placeholder: string): TextAreaProps => {
-      const { variant, classNames } = getInputProps("", label, false, undefined);
-
-      return {
-        name,
-        label,
-        placeholder,
-        variant,
-        classNames
-      };
-    },
-    []
-  );
-
-  const getSelectProps = useCallback(
-    (itemsLength: number, itemValue: number): SelectProps =>
-      ({
-        variant: "bordered",
-        className: "w-full",
-        classNames: {
-          trigger:
-            "border data-[hover=true]:border-blue-500 data-[open=true]:border-blue-500 data-[focus=true]:border-blue-500",
-          label: "group-data-[filled=true]:font-bold",
-          value: "group-data-[has-value=true]:text-gray-600"
-        },
-        selectedKeys: [itemValue === 0 ? "" : itemValue.toString()],
-        isLoading: itemsLength === 0,
-        isDisabled: itemsLength === 0
-      }) as const,
-    []
-  );
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   return { getInputProps, getDateProps, getTextAreaProps, getSelectProps };
 };
