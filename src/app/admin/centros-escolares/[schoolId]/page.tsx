@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import SchoolDetailLayout from "@/features/schools/school/component/schoolDetailLayout";
-import { BreadcrumbItem, Breadcrumbs, Progress } from "@heroui/react";
+import { BreadcrumbItem, Breadcrumbs } from "@heroui/react";
 import { useSchoolDetail } from "@/features/schools/hooks/school/useSchoolDetail";
 import { Map, Phone, Mail, House, MapPinHouse } from "lucide-react";
 import "leaflet/dist/leaflet.css";

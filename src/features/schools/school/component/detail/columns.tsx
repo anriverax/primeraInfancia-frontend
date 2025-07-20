@@ -1,5 +1,3 @@
-import { Tooltip } from "@heroui/react";
-import { EditIcon, Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
 import { IPersonSchoolDetailTable, ISchoolDetailColumnKey } from "../../schoolType";

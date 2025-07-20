@@ -62,12 +62,7 @@ interface EnhancedSchoolMapProps {
 }
 
 export default function EnhancedSchoolMap({
-  coordinates,
-  schoolName,
-  address,
-  email,
-  phoneNumber,
-  sector,
+  coordinates
 }: EnhancedSchoolMapProps) {
   const [mapReady, setMapReady] = useState(false)
 

@@ -1,6 +1,6 @@
 import useAxios from "@/shared/hooks/useAxios";
 import { useEffect } from "react";
-import { AxiosResponse, HttpStatusCode } from "axios";
+import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import { ISchoolTable, SchoolListResult } from "../../school/schoolType"
 import { handleAxiosError } from "@/shared/utils/funtions";

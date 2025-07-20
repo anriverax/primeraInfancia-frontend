@@ -92,22 +92,6 @@ export default function SchoolMap({ coordinates }: SchoolMapProps) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={parsedCoords} icon={schoolIcon}>
-          {/*<Popup maxWidth={300} className="custom-popup">
-            <div className="p-3 min-w-[250px]">
-               <h3 className="font-bold text-lg mb-2 text-gray-800">{schoolName || "School Location"}</h3>
-              {address && (
-                <div className="mb-3">
-                  <p className="text-sm font-medium text-gray-600 mb-1">Address:</p>
-                  <p className="text-sm text-gray-700">{address}</p>
-                </div>
-              )} 
-              <div className="border-t pt-2">
-                <p className="text-xs text-gray-500 font-medium">
-                  Coordenadas: {parsedCoords[0].toFixed(5)}, {parsedCoords[1].toFixed(5)}
-                </p>
-              </div>
-            </div>
-          </Popup>*/}
         </Marker>
       </MapContainer>
     </div>

@@ -25,8 +25,6 @@ export const schoolColumns: IColumns<ISchoolColumnKey>[] = [
 
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderSchoolCell = (
-  onConfirmDeleteSchool: (_schoolId: number) => void,
-  onEditSchool: (_form: "Z" | "G", _data?: any | null) => void
 ): ((
   _school: ISchoolTable,
   _columnKey: ISchoolColumnKey

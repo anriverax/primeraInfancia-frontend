@@ -104,20 +104,8 @@ export interface SchoolDetailTableProps extends Pick<SchoolDetailListResult, "sc
 export interface SchoolPersonDetailTableProps extends Pick<SchoolDetailListResult, "schoolsDetailsList"> {
 }
 
-export interface SchoolModalInput {
-  isVisible: boolean;
-  typeModal: "Z" | "G";
-  data?: any | null;
-}
+export interface SchoolModalInput {}
 
-export interface SchoolFormResult {
-  schoolFormik: FormikProps<ISchool>;
-  reset: () => void;
-  data: SchoolInput | null;
-}
-
-export interface SchoolModalAction extends SchoolModalInput {
-  toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
-}
+export interface SchoolModalAction extends SchoolModalInput {}
 
 /* eslint-enable @typescript-eslint/no-explicit-any */

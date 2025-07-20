@@ -2,21 +2,12 @@ import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from 
 import { useRenderSchoolCell, schoolColumns } from "./columns";
 import { ISchoolColumnKey, ISchoolTable, SchoolTableProps } from "../../schoolType";
 import { tableClassNames } from "@/shared/constants";
-import { confirmDelete } from "@/shared/utils/funtions";
 import { useRouter } from "next/navigation";
 
-const SchoolTable = ({ schoolsList, onDeleteSchool, onEditSchool }: SchoolTableProps): React.JSX.Element => {
+const SchoolTable = ({ schoolsList }: SchoolTableProps): React.JSX.Element => {
   const router = useRouter();
-  const handleConfirmDeleteSchool = async (schoolId: number): Promise<void> => {
-    const confirmed = await confirmDelete({
-      text: "¿Se encuentra seguro de quere eliminar el centro escolar?."
-    });
-    if (confirmed) {
-      await onDeleteSchool(schoolId);
-    }
-  };
 
-  const renderSchoolCell = useRenderSchoolCell(handleConfirmDeleteSchool, onEditSchool);
+  const renderSchoolCell = useRenderSchoolCell();
 
   return (
     <div className="space-y-4">
