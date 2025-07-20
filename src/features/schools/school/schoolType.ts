@@ -14,7 +14,7 @@ export interface SchoolInput {
 
 export interface PersonInput {
   id?: number | null;
-  firstNamename: string;
+  firstName: string;
   lastName1?: string;
   lastName2: number;
   dui: string;
@@ -66,45 +66,42 @@ export interface ISchoolCoordenate {
 export type ISchool = SchoolInput & AxiosMessage;
 
 export type ISchoolColumnKey = "name" | "district" | "email" | "phoneNumber" | "actions";
-//export type ISchoolDetailColumnKey = "name" | "principalSchool" | "person" | "sector" | "address" | "district" | "coordenates" | "email" | "phoneNumber";
 export type ISchoolDetailColumnKey = "TypePerson" | "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber" | "Person" | "email";
 export type IPersonSchoolDetailColumnKey = "firstName" | "lastName1" | "lastName2" | "dui" | "phoneNumber";
 
 export interface SchoolListResult {
   schoolsList: ISchoolTable[];
-  onDeleteSchool: (_schoolId: number) => Promise<void>;
+  // onDeleteSchool: (_schoolId: number) => Promise<void>;
   setSchoolsList: (_schools: ISchoolTable[]) => void;
 }
 
 export interface SchoolDetailListResult {
   schoolsDetailsList: ISchoolDetailTable[];
-  //onDeleteSchool: (_schoolId: number) => Promise<void>;
   setSchoolsDetailsList: (_schools: ISchoolDetailTable[]) => void;
 }
 
 export interface SchoolPersonDetailListResult {
   schoolPersonDetail: IPersonSchoolDetailTable[];
-  onDeleteSchool: (_schoolId: number) => Promise<void>;
+  // onDeleteSchool: (_schoolId: number) => Promise<void>;
   setSchoolDetail: (_schools: ISchoolDetailTable[]) => void;
 }
 
 export interface SchoolCoordenateResult {
   schoolCoordenate: ISchoolCoordenate[];
-  //onDeleteSchool: (_schoolId: number) => Promise<void>;
   setSchoolsDetailsList: (_schools: ISchoolCoordenate[]) => void;
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface SchoolTableProps extends Pick<SchoolListResult, "schoolsList" | "onDeleteSchool"> {
-  onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
+export interface SchoolTableProps extends Pick<SchoolListResult, "schoolsList" > {
+  // onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 
 export interface SchoolDetailTableProps extends Pick<SchoolDetailListResult, "schoolsDetailsList"> {
-  onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
+  // onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 
 export interface SchoolPersonDetailTableProps extends Pick<SchoolDetailListResult, "schoolsDetailsList"> {
-  onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
+  // onEditSchool: (_form: "Z" | "G", _data?: any | null) => void;
 }
 
 export interface SchoolModalInput {
