@@ -1,5 +1,5 @@
-import { useGroupFormModalStore } from "@/shared/hooks/store/useGroupFormModalStore";
 import dynamic from "next/dynamic";
+import { GroupInput } from "../groupType";
 
 const GroupTable = dynamic(() => import("./table").then((mod) => mod), {
   ssr: false
@@ -11,7 +11,7 @@ const GroupForm = dynamic(() => import("./groupForm").then((mod) => mod), {
 
 type GroupLayoutProps = {
   isOpen: boolean;
-  onEditGroup: (_data?: any | null) => void;
+  onEditGroup: (_data?: GroupInput | null) => void;
 };
 
 const GroupLayout = ({ isOpen, onEditGroup }: GroupLayoutProps): React.JSX.Element => (

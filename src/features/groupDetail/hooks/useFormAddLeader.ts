@@ -1,8 +1,11 @@
 import useAxios from "@/shared/hooks/useAxios";
 import { FormikHelpers, useFormik } from "formik";
-import { useQueryClient } from "@tanstack/react-query";
 import { number, object, ObjectSchema } from "yup";
-import { LeaderFormResult, LeaderInput } from "../groupDetailType";
+import { ILeader, LeaderFormResult, LeaderInput } from "../groupDetailType";
+import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
+import { FetchResponse } from "@/shared/types/globals";
+import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const leaderShema: ObjectSchema<{ trainerId: number }> = object({
   trainerId: number()
@@ -11,19 +14,34 @@ export const leaderShema: ObjectSchema<{ trainerId: number }> = object({
 });
 
 const useFormAddLeader = (groupId: number): LeaderFormResult => {
+  const queryClient = useQueryClient();
   const initialLeaderValues: LeaderInput = {
     trainerId: 0,
     groupId
   };
 
-  const queryClient = useQueryClient();
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
     values: LeaderInput,
     formikHelpers: FormikHelpers<LeaderInput>
   ): Promise<void> => {
-    alert("Formador agregado correctamente");
+    try {
+      const response: AxiosResponse<FetchResponse<ILeader>> = await useRequest.post(
+        "/group-leader/create",
+        values
+      );
+
+      const result = response.data;
+
+      showToast(String(result.message), "success");
+
+      if (result.statusCode === HttpStatusCode.Created) {
+        queryClient.invalidateQueries({ queryKey: [`group-detail-${values.groupId}`] });
+      }
+    } catch (error) {
+      handleFormikResponseError<ILeader>(error as AxiosError, formikHelpers);
+    }
   };
 
   const leaderFormik = useFormik({

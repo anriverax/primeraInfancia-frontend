@@ -1,9 +1,12 @@
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 import { PersonByTypePersonResult } from "../groupDetailType";
-// IPersonList
-const usePersonByTypePerson = (zoneId: number) => {
+
+const usePersonByTypePerson = (
+  zoneId: number,
+  groupId: number
+): { personList: PersonByTypePersonResult[] } => {
   const { data: personList } = useQueryRequest<PersonByTypePersonResult[]>(
-    "persons-list-select",
+    `persons-list-select-${zoneId}-${groupId}`,
     `/group-leader/typePerson/4/zoneId/${zoneId}`,
     true,
     "personas"

@@ -1,4 +1,4 @@
-import { IGroupTable } from "../groupType";
+import { IGroupTable } from "../../group/groupType";
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 
 const useGroupDetail = (
@@ -7,12 +7,12 @@ const useGroupDetail = (
   groupDetail: IGroupTable | undefined;
 } => {
   const { data: groupDetail } = useQueryRequest<IGroupTable>(
-    "group-detail",
+    `group-detail-${groupId}`, // Unique key for each group
     `/group/${groupId}`,
     true,
     "grupo"
   );
-
+  console.log("groupId:", groupId, "groupDetail:", groupDetail);
   return { groupDetail };
 };
 

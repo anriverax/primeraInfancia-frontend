@@ -1,5 +1,5 @@
 export interface ZoneInput {
-  id: number;
+  id?: number;
   name: string;
 }
 

@@ -13,7 +13,7 @@ const FormAddLeader = ({ zoneId, groupId }: FormAddLeaderProps): React.JSX.Eleme
   const { leaderFormik } = useFormAddLeader(groupId);
   const { values, touched, errors, handleSubmit, getFieldProps, isSubmitting } = leaderFormik;
 
-  const { personList } = usePersonByTypePerson(zoneId);
+  const { personList } = usePersonByTypePerson(zoneId, groupId);
   const { getSelectProps } = useCustomFormFields();
 
   return (

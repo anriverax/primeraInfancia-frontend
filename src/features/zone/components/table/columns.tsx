@@ -10,7 +10,6 @@ export const zoneColumns: IColumns<IZoneColumnKey>[] = [
   { key: "count", label: "Grupos" }
 ];
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export const useRenderZoneCell = (): ((
   _zone: IZoneTable,
   _columnKey: IZoneColumnKey
@@ -30,4 +29,3 @@ export const useRenderZoneCell = (): ((
     }
   }, []);
 };
-/* eslint-enable @typescript-eslint/no-explicit-any */

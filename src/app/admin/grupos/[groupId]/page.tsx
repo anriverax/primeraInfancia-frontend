@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import { BreadcrumbItem, Breadcrumbs, Card, CardBody, Tab, Tabs } from "@heroui/react";
 
-import { useGroupDetail } from "@/features/group/hooks/useGroupDetail";
+import { useGroupDetail } from "@/features/groupDetail/hooks/useGroupDetail";
 import { Key, useState } from "react";
 import GroupDetailInfo from "@/features/groupDetail/components/groupDetailInfo";
 
@@ -12,7 +12,7 @@ const GroupDetailPage = (): React.JSX.Element => {
   const params = useParams();
 
   const { groupDetail } = useGroupDetail(Number(params.groupId));
-  console.log(groupDetail);
+
   return (
     <div>
       <Breadcrumbs>

@@ -24,7 +24,9 @@ export type IGroupColumnKey = "name" | "count" | "zone" | "actions";
 
 export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
   Zone?: ZoneInput;
-  GroupLeader?: [{ Person: { id: true; firstName: true; lastName1: true; lastName2: true } }];
+  GroupLeader?: [
+    { Person: { id: true; firstName: true; lastName1: true; lastName2: true; fullName?: string } }
+  ];
   _count?: {
     Inscription: number;
   };
@@ -39,7 +41,7 @@ export interface GroupListResult {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface GroupTableProps {
-  onEditGroup: (_data?: any | null) => void;
+  onEditGroup: (_data?: GroupInput | null) => void;
 }
 
 export interface GroupFormModalInput {

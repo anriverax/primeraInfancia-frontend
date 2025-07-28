@@ -21,8 +21,13 @@ export const useQueryRequest = <T>(
 
   const endpointWithPage = page && limit ? `${endpoint}?page=${page}&limit=${limit}` : endpoint;
 
+  const queryKey: string | (string | number)[] = [key];
+  if (page !== undefined && limit !== undefined) {
+    queryKey.push(page, limit);
+  }
+
   const { data, error, isLoading, isError } = useQuery<{ data: T; meta: IPagination }>({
-    queryKey: [key, page, limit],
+    queryKey,
     queryFn: async () => {
       const res: AxiosResponse<FetchResponseWithPagination<T>> = await useRequest.get(endpointWithPage);
       const { data, meta } = res.data;

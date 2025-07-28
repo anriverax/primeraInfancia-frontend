@@ -36,7 +36,7 @@ const useGroupForm = (): GroupFormResult => {
 
       if (result.statusCode === HttpStatusCode.Created || result.statusCode === HttpStatusCode.Ok) {
         queryClient.invalidateQueries({ queryKey: ["groups-list"] });
-        queryClient.invalidateQueries({ queryKey: ["zones-list"] });
+
         if (!data) formikHelpers.resetForm();
         else reset();
       }
