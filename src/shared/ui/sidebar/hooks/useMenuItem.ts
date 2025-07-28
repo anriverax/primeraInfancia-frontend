@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MenuItemResult } from "../type";
 import { usePathname } from "next/navigation";
 import { IMenuPermission } from "@/shared/types/next-auth";

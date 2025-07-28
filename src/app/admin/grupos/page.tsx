@@ -1,12 +1,12 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import { useGroupModalStore } from "@/shared/hooks/store/useGroupModalStore";
 import { Users } from "lucide-react";
 import GroupLayout from "@/features/group/components/groupLayout";
+import { useGroupFormModalStore } from "@/shared/hooks/store/useGroupFormModalStore";
 
 export default function GroupsPage(): React.JSX.Element {
-  const { toggleVisibility } = useGroupModalStore();
+  const { isOpen, isOpenGroupFormModal } = useGroupFormModalStore();
 
   return (
     <div className="space-y-8">
@@ -19,13 +19,13 @@ export default function GroupsPage(): React.JSX.Element {
           <Button
             startContent={<Users className="w-5 h-5" />}
             color="primary"
-            onPress={() => toggleVisibility()}
+            onPress={() => isOpenGroupFormModal()}
           >
             Nueva Grupo
           </Button>
         </div>
       </div>
-      <GroupLayout />
+      <GroupLayout isOpen={isOpen} onEditGroup={isOpenGroupFormModal} />
     </div>
   );
 }

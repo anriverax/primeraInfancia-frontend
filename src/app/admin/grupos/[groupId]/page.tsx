@@ -5,13 +5,14 @@ import { BreadcrumbItem, Breadcrumbs, Card, CardBody, Tab, Tabs } from "@heroui/
 
 import { useGroupDetail } from "@/features/group/hooks/useGroupDetail";
 import { Key, useState } from "react";
+import GroupDetailInfo from "@/features/groupDetail/components/groupDetailInfo";
 
 const GroupDetailPage = (): React.JSX.Element => {
   const [selected, setSelected] = useState<Key>("photos");
   const params = useParams();
 
   const { groupDetail } = useGroupDetail(Number(params.groupId));
-
+  console.log(groupDetail);
   return (
     <div>
       <Breadcrumbs>
@@ -24,29 +25,30 @@ const GroupDetailPage = (): React.JSX.Element => {
       <div className="bg-white border border-gray-200 px-6 py-6 mt-6">
         <div className="flex items-center justify-between">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-gray-900">Asignación de Integrantes</h1>
-            <p className="text-gray-600">Gestiona los integrantes del grupo.</p>
+            <h1 className="text-3xl font-bold text-gray-900">Asignación de docentes</h1>
+            <p className="text-gray-600">Gestiona los docentes del grupo.</p>
           </div>
           <div className="flex items-center gap-3"></div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-4 xl:gap-6">
+        <GroupDetailInfo {...groupDetail!} />
         <div className="bg-white border border-gray-200 mt-6 col-span-3">
           <div className="p-6 flex items-center gap-2">
-            <h3 className="text-2xl text-black font-semibold">Gestión de Integrantes</h3>
+            <h3 className="text-2xl text-black font-semibold">Inscripción de docentes</h3>
           </div>
 
           <div className="p-6 space-y-4">
             <Tabs
+              fullWidth
               color="primary"
               aria-label="Options"
               selectedKey={selected as string}
-              onSelectionChange={setSelected}
               classNames={{
                 cursor: "group-data-[key=music]:bg-[#7828c9]"
               }}
-              fullWidth
+              onSelectionChange={setSelected}
             >
               <Tab key="photos" title="Estudiantes Asignados">
                 <Card>

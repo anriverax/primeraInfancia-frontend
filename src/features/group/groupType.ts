@@ -6,7 +6,6 @@ export interface GroupInput extends ZoneInput {
   description?: string;
   memberCount: number;
   zoneId: number;
-  personId: number;
 }
 
 export type IGroup = GroupInput & AxiosMessage;
@@ -17,23 +16,17 @@ export interface GroupFormResult {
   data: GroupInput | null;
 }
 
-export interface IPersonList extends Pick<ZoneInput, "id"> {
-  fullName: string;
-}
-
 export interface GroupSelectBoxResult {
   zonesList: ZoneInput[] | [];
-  personList: IPersonList[];
 }
 
 export type IGroupColumnKey = "name" | "count" | "zone" | "actions";
 
-export interface IGroupTable extends Omit<GroupInput, "zoneId" | "personId"> {
+export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
   Zone?: ZoneInput;
-  Person?: IPersonList;
-
+  GroupLeader?: [{ Person: { id: true; firstName: true; lastName1: true; lastName2: true } }];
   _count?: {
-    GroupMember: number;
+    Inscription: number;
   };
 }
 
@@ -49,12 +42,12 @@ export interface GroupTableProps {
   onEditGroup: (_data?: any | null) => void;
 }
 
-export interface GroupModalInput {
-  isVisible: boolean;
+export interface GroupFormModalInput {
+  isOpen: boolean;
   data?: any | null;
 }
 
-export interface GroupModalAction extends GroupModalInput {
-  toggleVisibility: (_data?: any | null) => void;
+export interface GroupFormModalAction extends GroupFormModalInput {
+  isOpenGroupFormModal: (_data?: any | null) => void;
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */

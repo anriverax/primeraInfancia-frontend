@@ -1,4 +1,4 @@
-import { useGroupModalStore } from "@/shared/hooks/store/useGroupModalStore";
+import { useGroupFormModalStore } from "@/shared/hooks/store/useGroupFormModalStore";
 import dynamic from "next/dynamic";
 
 const GroupTable = dynamic(() => import("./table").then((mod) => mod), {
@@ -9,15 +9,16 @@ const GroupForm = dynamic(() => import("./groupForm").then((mod) => mod), {
   ssr: false
 });
 
-const GroupLayout = (): React.JSX.Element => {
-  const { isVisible, toggleVisibility } = useGroupModalStore();
-
-  return (
-    <div className="space-y-4">
-      <GroupTable onEditGroup={toggleVisibility} />
-      {isVisible && <GroupForm isOpen={isVisible} />}
-    </div>
-  );
+type GroupLayoutProps = {
+  isOpen: boolean;
+  onEditGroup: (_data?: any | null) => void;
 };
+
+const GroupLayout = ({ isOpen, onEditGroup }: GroupLayoutProps): React.JSX.Element => (
+  <div className="space-y-4">
+    <GroupTable onEditGroup={onEditGroup} />
+    {isOpen && <GroupForm isOpen={isOpen} />}
+  </div>
+);
 
 export default GroupLayout;

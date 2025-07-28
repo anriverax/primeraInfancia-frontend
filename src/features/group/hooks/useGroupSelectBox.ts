@@ -1,20 +1,11 @@
-import { GroupSelectBoxResult, IPersonList } from "../groupType";
+import { GroupSelectBoxResult } from "../groupType";
 import { useZonesList } from "@/features/zone/useZonesList";
-import { IZoneTable } from "@/features/zone/zoneType";
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { IZoneTable, ZoneInput } from "@/features/zone/zoneType";
 
 const useGroupSelectBox = (): GroupSelectBoxResult => {
   const { zonesList } = useZonesList();
-  const { data: personList } = useQueryRequest<IPersonList[]>(
-    "persons-list-select",
-    "/catalogue/persons/4",
-    true,
-    "personas"
-  );
 
-  /* eslint-disable react-hooks/exhaustive-deps */
-
-  const getZones = () => {
+  const getZones = (): ZoneInput[] => {
     if (zonesList) {
       return zonesList.map((zone: IZoneTable) => ({
         id: zone.id,
@@ -25,8 +16,7 @@ const useGroupSelectBox = (): GroupSelectBoxResult => {
   };
 
   return {
-    zonesList: getZones(),
-    personList
+    zonesList: getZones()
   };
 };
 

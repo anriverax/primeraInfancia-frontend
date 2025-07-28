@@ -2,7 +2,6 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { Button, Input, NumberInput, Select, SelectItem, Textarea } from "@heroui/react";
 import { Users } from "lucide-react";
 import ModalLayout from "@/shared/ui/modal/modalLayout";
-import { IPersonList } from "../groupType";
 import { ZoneInput } from "../../zone/zoneType";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 import { cn } from "@/shared/utils/tv";
@@ -13,6 +12,7 @@ import { ModalHeaderCustom } from "../../../shared/ui/modal/modalHeaderCustom";
 type GroupFormProps = {
   isOpen: boolean;
 };
+
 const GroupForm = ({ isOpen }: GroupFormProps): React.JSX.Element => {
   const { groupFormik, reset, data } = useGroupForm();
   const {
@@ -27,7 +27,7 @@ const GroupForm = ({ isOpen }: GroupFormProps): React.JSX.Element => {
     setStatus
   } = groupFormik;
 
-  const { zonesList, personList } = useGroupSelectBox();
+  const { zonesList } = useGroupSelectBox();
 
   const { getInputProps, getTextAreaProps, getSelectProps } = useCustomFormFields();
 
@@ -68,27 +68,12 @@ const GroupForm = ({ isOpen }: GroupFormProps): React.JSX.Element => {
               "Seleccione una zona",
               zonesList ? zonesList.length : 0,
               values.zoneId,
-              touched.description,
-              errors.description
+              touched.zoneId,
+              errors.zoneId
             )}
             {...getFieldProps("zoneId")}
           >
             {(zone: ZoneInput) => <SelectItem key={zone.id}>{zone.name}</SelectItem>}
-          </Select>
-        </div>
-        <div>
-          <Select
-            items={personList ? personList : []}
-            {...getSelectProps(
-              "Responsable asignado",
-              personList ? personList.length : 0,
-              values.personId,
-              touched.description,
-              errors.description
-            )}
-            {...getFieldProps("personId")}
-          >
-            {(person: IPersonList) => <SelectItem key={person.id}>{person.fullName}</SelectItem>}
           </Select>
         </div>
         <div className="flex flex-row gap-2 py-4">

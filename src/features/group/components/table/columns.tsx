@@ -20,7 +20,7 @@ export const groupColumns: IColumns<IGroupColumnKey>[] = [
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderGroupCell = (
   onDeleteGroup: (_groupId: number, _groupName: string) => Promise<void>,
-  onEditGroup: (_data?: any | null) => void
+  isOpenGroupFormModal: (_data?: any | null) => void
 ): ((
   _group: IGroupTable,
   _columnKey: IGroupColumnKey
@@ -34,7 +34,6 @@ export const useRenderGroupCell = (
       name,
       description,
       memberCount,
-      personId: group.Person?.id || 0,
       zoneId: group.Zone?.id || 0
     };
 
@@ -50,7 +49,7 @@ export const useRenderGroupCell = (
         return (
           <span className="flex gap-2">
             <Users className="h-4 w-4" />
-            {group._count?.GroupMember}/{group.memberCount} integrantes
+            {group._count?.Inscription}/{group.memberCount} integrantes
           </span>
         );
       case "zone":
@@ -73,7 +72,7 @@ export const useRenderGroupCell = (
             <Tooltip content="Editar grupo">
               <span
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                onClick={() => onEditGroup(updateGroupData)}
+                onClick={() => isOpenGroupFormModal(updateGroupData)}
               >
                 <EditIcon className="h-4 w-4" />
               </span>
