@@ -19,19 +19,10 @@ const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => (
 
     <div className="p-6 space-y-4">
       <ul className="space-y-3">
-        <GroupListRender Icon={Users} label="Grupo" value={props.name} />
-        <GroupListRender
-          Icon={MapPin}
-          label="Zona"
-          value={props.Zone?.name}
-          classCss="bg-blue-50 border-blue-500 border text-blue-700"
-        />
+        <GroupListRender numList={1} value={props.name} />
+        <GroupListRender numList={2} value={props.Zone?.name} />
         {props.GroupLeader && props.GroupLeader.length > 0 ? (
-          <GroupListRender
-            Icon={GraduationCap}
-            label="Formador"
-            value={String(props.GroupLeader[0]?.Person?.fullName)}
-          />
+          <GroupListRender numList={3} value={String(props.GroupLeader[0]?.Person?.fullName)} />
         ) : (
           <li>
             {props.Zone && (
