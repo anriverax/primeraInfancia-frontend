@@ -5,29 +5,29 @@ import { IColumns } from "@/shared/types/globals";
 import { IModuleEvaluationColumnKey, IModuleEvaluationTable, ModuleEvaluationInput } from "../../moduleEvaluationType";
 
 export const moduleEvaluationColumns: IColumns<IModuleEvaluationColumnKey>[] = [
-    {
-    key: "grade",
-    label: "Nota"
+  {
+    key: "enrollmentId",
+    label: "Docente"
   },
   {
-    key: "comment",
-    label: "Comentarios"
-  },
-  {
-    key: "moduleProgressStatus",
-    label: "Estado de progreso del módulo"
+    key: "trainingModuleId",
+    label: "Módulo"
   },
   {
     key: "evaluationInstrumentId",
     label: "Instrumento de evaluación"
   },
   {
-    key: "enrollmentId",
-    label: "Docente"
+    key: "grade",
+    label: "Nota"
   },
   {
-    key:"trainingModuleId",
-    label:"Módulo"
+    key: "moduleProgressStatus",
+    label: "Estado de progreso del módulo"
+  },
+  {
+    key: "comment",
+    label: "Comentarios"
   }
 ];
 
@@ -41,25 +41,24 @@ export const useRenderModuleEvaluationCell = (
     const cellValue = moduleEvaluation[columnKey as keyof ModuleEvaluationInput];
 
     switch (columnKey) {
-       case "evaluationInstrumentId":
+      case "evaluationInstrumentId":
         return (
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
-            
+
             {moduleEvaluation?.evaluationInstrument?.instrumentName}
           </span>
         );
-        case "trainingModuleId":
+      case "trainingModuleId":
         return (
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
-            
+
             {moduleEvaluation?.TrainingModule?.moduleName}
           </span>
         );
-        case "enrollmentId":
+      case "enrollmentId":
         return (
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
-            
-            {moduleEvaluation?.enrollment?.personRole?.person?.firstName}
+            {moduleEvaluation?.enrollment?.personRole?.person?.firstName} {moduleEvaluation?.enrollment?.personRole?.person?.lastName1} {moduleEvaluation?.enrollment?.personRole?.person?.lastname2}
           </span>
         );
       default:
