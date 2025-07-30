@@ -1,19 +1,17 @@
 import { Button, Select, SelectItem } from "@heroui/react";
 import { PersonByTypePersonResult } from "../groupDetailType";
-import { usePersonByTypePerson } from "../hooks/usePersonByTypePerson";
 import { useFormAddLeader } from "../hooks/useFormAddLeader";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 
 interface FormAddLeaderProps {
-  zoneId: number;
+  personList: PersonByTypePersonResult[];
   groupId: number;
 }
 
-const FormAddLeader = ({ zoneId, groupId }: FormAddLeaderProps): React.JSX.Element => {
+const FormAddLeader = ({ personList, groupId }: FormAddLeaderProps): React.JSX.Element => {
   const { leaderFormik } = useFormAddLeader(groupId);
   const { values, touched, errors, handleSubmit, getFieldProps, isSubmitting } = leaderFormik;
 
-  const { personList } = usePersonByTypePerson(zoneId, groupId);
   const { getSelectProps } = useCustomFormFields();
 
   return (

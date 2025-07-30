@@ -60,7 +60,6 @@ export const useQueryRequest = <T>(
             text: String(message),
             icon: "success"
           });
-
           // Update cached data manually
           queryClient.invalidateQueries({ queryKey: [key] });
         }

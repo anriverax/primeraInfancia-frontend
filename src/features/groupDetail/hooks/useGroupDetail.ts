@@ -12,7 +12,7 @@ const useGroupDetail = (
     true,
     "grupo"
   );
-  console.log("groupId:", groupId, "groupDetail:", groupDetail);
+
   return { groupDetail };
 };
 

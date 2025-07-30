@@ -33,7 +33,7 @@ const GroupDetailPage = (): React.JSX.Element => {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-4 xl:gap-6">
-        <GroupDetailInfo {...groupDetail!} />
+        {groupDetail && <GroupDetailInfo {...groupDetail} />}
         <div className="bg-white border border-gray-200 mt-6 col-span-3">
           <div className="p-6 flex items-center gap-2">
             <h3 className="text-2xl text-black font-semibold">Inscripción de docentes</h3>
@@ -66,7 +66,7 @@ const GroupDetailPage = (): React.JSX.Element => {
                     ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                     cillum dolore eu fugiat nulla pariatur.
                   </CardBody>
-                </Card>{" "}
+                </Card>
                 <Card>
                   <CardBody>
                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex

@@ -25,7 +25,10 @@ export type IGroupColumnKey = "name" | "count" | "zone" | "actions";
 export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
   Zone?: ZoneInput;
   GroupLeader?: [
-    { Person: { id: true; firstName: true; lastName1: true; lastName2: true; fullName?: string } }
+    {
+      id: number;
+      Person: { id: true; firstName: true; lastName1: true; lastName2: true; fullName?: string };
+    }
   ];
   _count?: {
     Inscription: number;
