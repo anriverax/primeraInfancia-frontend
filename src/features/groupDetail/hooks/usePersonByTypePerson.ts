@@ -1,6 +1,5 @@
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 import { PersonByTypePersonResult } from "../groupDetailType";
-import { queryClient } from "@/shared/utils/reactQueryClient";
 
 const usePersonByTypePerson = (
   zoneId: number,

@@ -1,6 +1,5 @@
 import { cn } from "@/shared/utils/tv";
 import { Tooltip } from "@heroui/react";
-import { on } from "events";
 import { GraduationCap, LucideProps, MapPin, Users } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 

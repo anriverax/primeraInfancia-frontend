@@ -6,13 +6,6 @@ import { GroupListRender } from "./groupInfo";
 import FormAddLeader from "./formAddLeader";
 import { usePersonByTypePerson } from "../hooks/usePersonByTypePerson";
 
-type GroupDetailInfoProps = Omit<IGroupTable, "Zone"> & {
-  Zone: {
-    id: number;
-    name: string;
-  };
-};
-
 const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
   const { personList, handleConfirmDeleteLeader } = usePersonByTypePerson(
     props.Zone?.id as number,
