@@ -15,7 +15,7 @@ export interface IModuleReportTable extends ModuleReportInput {
 }
 export type IModuleReport = ModuleReportInput & AxiosMessage;
 
-export type IModuleReportColumnKey = "moduleScore" | "status" | "trainingModuleId" | "enrollmentId" | "createdBy" | "trainingModule" | "enrollment";
+export type IModuleReportColumnKey = "moduleScore" | "status" | "trainingModuleId" | "enrollmentId" | "createdBy" | "trainingModule" | "Enrollment";
 export interface ModuleReportListResult {
   moduleReportsList: IModuleReportTable[];
   setModuleReportsList: (_modulReports: IModuleReportTable[]) => void;

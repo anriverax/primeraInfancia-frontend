@@ -20,7 +20,6 @@ const useModuleReportsList = (): ModuleReportListResult => {
 
         if (isMounted) {
           const { data } = res.data;
-          console.log(data,"--88//");
           setModuleReportsList(data);
         }
       } catch (error) {

@@ -6,11 +6,11 @@ import { IModuleReportColumnKey, IModuleReportTable, ModuleReportInput } from ".
 
 export const moduleReportColumns: IColumns<IModuleReportColumnKey>[] = [
   {
-    key: "enrollmentId",
+    key: "Enrollment",
     label: "Docente"
   },
   {
-    key: "trainingModuleId",
+    key: "trainingModule",
     label: "Módulo"
   },
   {
@@ -36,17 +36,13 @@ export const useRenderModuleReportCell = (
       case "trainingModule":
         return (
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
-            {moduleReport.trainigModule?.moduleName}
+            {moduleReport?.trainingModule?.moduleName}
           </span>
         );
-      case "enrollment":
+      case "Enrollment":
         return (
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
-
-            {moduleReport?.enrollment?.Person?.firstName}
-            {moduleReport?.enrollment?.Person?.lastName1}
-            {moduleReport?.enrollment?.Person?.lastname2}
-
+            {moduleReport?.Enrollment?.personRole?.person?.firstName} {moduleReport?.Enrollment?.personRole?.person?.lastName1} {moduleReport?.Enrollment?.personRole?.person?.lastname2}
           </span>
         );
       default:
