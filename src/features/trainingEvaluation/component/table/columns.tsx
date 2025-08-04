@@ -1,0 +1,54 @@
+import { Tooltip } from "@heroui/react";
+import { EditIcon, Trash2 } from "lucide-react";
+import { useCallback } from "react";
+import { IColumns } from "@/shared/types/globals";
+import { ITrainingEvaluationColumnKey, ITrainingEvaluationTable, TrainingEvaluationInput } from "../../trainingEvaluationType";
+
+export const trainingEvaluationColumns: IColumns<ITrainingEvaluationColumnKey>[] = [
+  {
+    key: "enrollmentId",
+    label: "Docente"
+  },
+  {
+    key: "evaluationInstrumentId",
+    label: "Instrumento de evaluación"
+  },
+  {
+    key: "grade",
+    label: "Nota"
+  },
+  {
+    key: "comment",
+    label: "Comentario"
+  }
+];
+
+/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
+export const useRenderTrainingEvaluationCell = (
+): ((
+  _trainingEvaluation: ITrainingEvaluationTable,
+  _columnKey: ITrainingEvaluationColumnKey
+) => string | number | undefined | null | React.JSX.Element) => {
+  return useCallback((trainingEvaluation: ITrainingEvaluationTable, columnKey: ITrainingEvaluationColumnKey) => {
+    const cellValue = trainingEvaluation[columnKey as keyof TrainingEvaluationInput];
+
+    switch (columnKey) {
+      case "evaluationInstrumentId":
+        return (
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
+            {trainingEvaluation?.evaluationInstrument?.instrumentName}
+          </span>
+        );
+      case "enrollmentId":
+        return (
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
+            {trainingEvaluation?.enrollment?.personRole?.person?.firstName} {trainingEvaluation?.enrollment?.personRole?.person?.lastName1} {trainingEvaluation?.enrollment?.personRole?.person?.lastname2}
+          </span>
+        );
+      default:
+        return cellValue;
+    }
+  }, []);
+};
+
+/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
