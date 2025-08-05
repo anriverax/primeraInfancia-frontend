@@ -1,0 +1,40 @@
+import useAxios from "@/shared/hooks/useAxios";
+import { useCallback, useEffect } from "react";
+import { AxiosResponse, HttpStatusCode } from "axios";
+import { FetchResponse } from "@/shared/types/globals";
+import { ITrainingReportTable, TrainingReportListResult } from "../../trainingReportType";
+import { handleAxiosError } from "@/shared/utils/funtions";
+import { useTrainingReportListStore } from "@/shared/hooks/store/useTrainingReportListStore";
+import Swal from "sweetalert2";
+
+const useTrainingReportsList = (): TrainingReportListResult => {
+  const { trainingReportsList, setTrainingReportsList } = useTrainingReportListStore();
+  const useRequest = useAxios(true);
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    let isMounted = true;
+    const fetchData = async (): Promise<void> => {
+      try {
+        const res: AxiosResponse<FetchResponse<ITrainingReportTable[]>> = await useRequest.get("/trainingReport");
+
+        if (isMounted) {
+          const { data } = res.data;
+          setTrainingReportsList(data);
+        }
+      } catch (error) {
+        handleAxiosError(error, "zonas", "obtener");
+      }
+    };
+    fetchData();
+
+    return (): void => {
+      isMounted = false;
+    };
+  }, []);
+
+  /* eslint-enable react-hooks/exhaustive-deps */
+  return { trainingReportsList, setTrainingReportsList };
+};
+
+export { useTrainingReportsList };
