@@ -7,5 +7,4 @@ export interface TableWithPaginationResponse<T> {
   meta: IPagination | undefined;
   isLoading: boolean;
   isError: boolean;
-  onConfirmDelete: (_id: number, _info: string) => Promise<boolean>;
 }

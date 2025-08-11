@@ -1,10 +1,9 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { AxiosResponse, HttpStatusCode, isAxiosError } from "axios";
-import { FetchResponse, FetchResponseWithPagination, IPagination } from "../types/globals";
+import { AxiosResponse, isAxiosError } from "axios";
+import { FetchResponseWithPagination, IPagination } from "../types/globals";
 import useAxios from "./useAxios";
-import { useCallback, useEffect, useRef } from "react";
-import { confirmDelete, handleAxiosError } from "../utils/funtions";
-import Swal from "sweetalert2";
+import { useEffect, useRef } from "react";
+import { handleAxiosError } from "../utils/funtions";
 import { TableWithPaginationResponse } from "../types/pagination";
 
 export const useQueryRequest = <T>(
@@ -46,41 +45,5 @@ export const useQueryRequest = <T>(
     }
   }, [error]);
 
-  const handleDelete = useCallback(
-    async (id: number) => {
-      try {
-        const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(
-          `${endpoint}/delete/${id}`
-        );
-        const { statusCode, message } = res.data;
-
-        if (statusCode === HttpStatusCode.Ok) {
-          Swal.fire({
-            title: "!Eliminado!",
-            text: String(message),
-            icon: "success"
-          });
-          // Update cached data manually
-          queryClient.invalidateQueries({ queryKey: [key] });
-        }
-      } catch (error) {
-        handleAxiosError(error, description, "eliminar");
-      }
-    },
-    [useRequest]
-  );
-
-  const onConfirmDelete = async (id: number, info: string): Promise<boolean> => {
-    const confirmed = await confirmDelete({
-      text: info
-    });
-    if (confirmed) {
-      await handleDelete(id);
-      return true;
-    }
-
-    return false;
-  };
-
-  return { queryClient, data: data?.data as T, meta: data?.meta, isLoading, isError, onConfirmDelete };
+  return { queryClient, data: data?.data as T, meta: data?.meta, isLoading, isError };
 };

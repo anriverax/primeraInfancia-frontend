@@ -32,8 +32,8 @@ const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
             <GroupListRender
               numList={3}
               value={String(props.GroupLeader[0]?.Person?.fullName)}
-              onDeleteLeader={handleConfirmDeleteLeader}
               leaderId={props.GroupLeader[0].id}
+              onDeleteLeader={handleConfirmDeleteLeader}
             />
           ) : (
             <li>

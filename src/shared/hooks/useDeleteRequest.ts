@@ -6,13 +6,13 @@ import useAxios from "./useAxios";
 import { FetchResponse } from "../types/globals";
 
 type UseDeleteRequestReturn = {
-  onConfirmDelete: (id: number, info: string) => Promise<boolean>;
+  onConfirmDelete: (_id: number, _nfo: string) => Promise<boolean>;
 };
 
 export const useDeleteRequest = (
+  queryKey: string | (string | number)[],
   endpoint: string,
-  description: string,
-  queryKey: string
+  description: string
 ): UseDeleteRequestReturn => {
   const queryClient = useQueryClient();
   const useRequest = useAxios(true);

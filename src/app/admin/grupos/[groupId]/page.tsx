@@ -51,6 +51,17 @@ const GroupDetailPage = (): React.JSX.Element => {
               onSelectionChange={setSelected}
             >
               <Tab key="photos" title="Estudiantes Asignados">
+                {groupDetail?.Inscription && groupDetail.Inscription.length > 0
+                  ? groupDetail.Inscription.map((inscription) => (
+                      <Card key={inscription.id}>
+                        <CardBody>
+                          <p>
+                            {inscription.Person?.fullName} - {inscription.Person?.email}
+                          </p>
+                        </CardBody>
+                      </Card>
+                    ))
+                  : null}
                 <Card>
                   <CardBody>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor

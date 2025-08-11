@@ -22,6 +22,9 @@ export interface GroupSelectBoxResult {
 
 export type IGroupColumnKey = "name" | "count" | "zone" | "actions";
 
+export interface IPerson {
+  id: number;
+}
 export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
   Zone?: ZoneInput;
   GroupLeader?: [
@@ -30,6 +33,7 @@ export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
       Person: { id: true; firstName: true; lastName1: true; lastName2: true; fullName?: string };
     }
   ];
+  Inscription?: [];
   _count?: {
     Inscription: number;
   };

@@ -2,16 +2,22 @@ import { useState } from "react";
 
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 import { GroupListResult, IGroupTable } from "../groupType";
+import { useDeleteRequest } from "@/shared/hooks/useDeleteRequest";
 
 const useGroupsList = (): GroupListResult => {
   const [page, setPage] = useState<number>(1);
   const limit = 5;
 
-  const {
-    data: groupList,
-    meta,
-    onConfirmDelete
-  } = useQueryRequest<IGroupTable[]>("groups-list", "/group", true, "grupos", page, limit);
+  const { data: groupList, meta } = useQueryRequest<IGroupTable[]>(
+    "groups-list",
+    "/group",
+    true,
+    "grupos",
+    page,
+    limit
+  );
+
+  const { onConfirmDelete } = useDeleteRequest("groups-list", "/group", "grupo");
 
   const handleConfirmDeleteGroup = async (groupId: number, groupName: string): Promise<void> => {
     await onConfirmDelete(

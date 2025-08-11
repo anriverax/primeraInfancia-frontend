@@ -1,5 +1,6 @@
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 import { PersonByTypePersonResult } from "../groupDetailType";
+import { useDeleteRequest } from "@/shared/hooks/useDeleteRequest";
 
 const usePersonByTypePerson = (
   zoneId: number,
@@ -8,12 +9,13 @@ const usePersonByTypePerson = (
   personList: PersonByTypePersonResult[];
   handleConfirmDeleteLeader: (_leaderId: number) => Promise<void>;
 } => {
-  const { data: personList, onConfirmDelete } = useQueryRequest<PersonByTypePersonResult[]>(
+  const { data: personList } = useQueryRequest<PersonByTypePersonResult[]>(
     `persons-list-select-${zoneId}-${groupId}`,
     `/group-leader/typePerson/4/zoneId/${zoneId}`,
     true,
     "personas"
   );
+  const { onConfirmDelete } = useDeleteRequest(`group-detail-${groupId}`, "/group-leader", "personas");
 
   const handleConfirmDeleteLeader = async (leaderId: number): Promise<void> => {
     await onConfirmDelete(
