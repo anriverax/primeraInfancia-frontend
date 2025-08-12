@@ -23,17 +23,38 @@ export interface GroupSelectBoxResult {
 export type IGroupColumnKey = "name" | "count" | "zone" | "actions";
 
 export interface IPerson {
+  id: true;
+  fullName?: string;
+  phoneNumber?: string;
+}
+export interface IGroupPerson extends IPerson {
+  User: {
+    email: string;
+    avatar: string;
+  };
+  District?: {
+    Municipality: {
+      name: string;
+      Department: {
+        name: string;
+      };
+    };
+  };
+}
+export interface Inscription {
   id: number;
+  status: "Activo" | "Inactivo";
+  Person: IGroupPerson;
 }
 export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
   Zone?: ZoneInput;
   GroupLeader?: [
     {
       id: number;
-      Person: { id: true; firstName: true; lastName1: true; lastName2: true; fullName?: string };
+      Person: IPerson;
     }
   ];
-  Inscription?: [];
+  Inscription?: Inscription[];
   _count?: {
     Inscription: number;
   };
