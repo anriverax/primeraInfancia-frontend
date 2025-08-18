@@ -12,7 +12,7 @@ const EnrollmentTable = ({ enrollmentsList  }: EnrollmentTableProps): React.JSX.
     <div className="space-y-4">
       <div className="flex items-center gap-2">
         <MapPin className="h-5 w-5 text-blue-500" />
-        <h2 className="text-lg font-semibold text-gray-900">zonas</h2>
+        <h2 className="text-lg font-semibold text-gray-900">Listado</h2>
       </div>
 
       <Table classNames={tableClassNames} aria-label="Tabla para mostrar las zonas registradas">

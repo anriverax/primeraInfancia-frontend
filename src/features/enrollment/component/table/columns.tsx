@@ -7,19 +7,19 @@ import { IEnrollmentColumnKey, IEnrollmentTable, EnrollmentInput } from "../../e
 export const enrollmentColumns: IColumns<IEnrollmentColumnKey>[] = [
   {
     key: "teacherId",
-    label: "Teacher id"
+    label: "Docente"
   },
   {
     key: "groupId",
-    label: "Group id"
+    label: "grupo"
   },
   {
     key: "mentorId",
-    label: "Mentor id"
+    label: "Mentor"
   },
   {
     key: "administrativeStatus",
-    label: "Administrative status"
+    label: "Estado administrativo"
   }
 ];
 
@@ -32,6 +32,18 @@ export const useRenderEnrollmentCell = (): ((
     const cellValue = enrollment[columnKey as keyof EnrollmentInput];
 
     switch (columnKey) {
+      case "teacherId":
+        return (
+          <span>
+            {enrollment.personRole?.person?.firstName} {enrollment.personRole?.person?.lastName1} {enrollment.personRole?.person?.lastName2}
+          </span>
+        );
+        case "groupId":
+        return (
+          <span>
+            {enrollment.group.name}
+          </span>
+        );
       // case "count":
       //   return (
       //     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
