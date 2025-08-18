@@ -7,15 +7,15 @@ import { ITrainingReportColumnKey, ITrainingReportTable, TrainingReportInput } f
 export const trainingReportColumns: IColumns<ITrainingReportColumnKey>[] = [
  {
     key: "finalScore",
-    label: "Final score"
+    label: "Nota final"
   },
   {
     key: "status",
-    label: "Status"
+    label: "Estado"
   },
   {
     key: "remark",
-    label: "Remark"
+    label: "Comentarios"
   }
 ];
 
