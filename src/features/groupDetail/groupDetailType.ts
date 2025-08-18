@@ -13,5 +13,8 @@ export interface LeaderFormResult {
 
 export interface PersonByTypePersonResult {
   id: number;
-  fullName: string;
+  Person: {
+    id: number;
+    fullName: string;
+  };
 }

@@ -3,7 +3,6 @@ import { ZoneInput } from "../zone/zoneType";
 import { Dispatch, SetStateAction } from "react";
 
 export interface GroupInput extends ZoneInput {
-  description?: string;
   memberCount: number;
   zoneId: number;
 }
@@ -51,7 +50,9 @@ export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
   GroupLeader?: [
     {
       id: number;
-      Person: IPerson;
+      PersonRole: {
+        Person: IPerson;
+      };
     }
   ];
   Inscription?: Inscription[];

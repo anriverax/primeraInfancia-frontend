@@ -1,5 +1,5 @@
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import { Button, Input, NumberInput, Select, SelectItem, Textarea } from "@heroui/react";
+import { Button, Input, NumberInput, Select, SelectItem } from "@heroui/react";
 import { Users } from "lucide-react";
 import ModalLayout from "@/shared/ui/modal/modalLayout";
 import { ZoneInput } from "../../zone/zoneType";
@@ -48,10 +48,6 @@ const GroupForm = ({ isOpen }: GroupFormProps): React.JSX.Element => {
         <Input
           {...getFieldProps("name")}
           {...getInputProps("text", "Nombre del grupo", touched.name, errors.name)}
-        />
-        <Textarea
-          {...getFieldProps("description")}
-          {...getTextAreaProps("Descripción", "Descripción", touched.description, errors.description)}
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <NumberInput

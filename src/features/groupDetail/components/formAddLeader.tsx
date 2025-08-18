@@ -29,7 +29,7 @@ const FormAddLeader = ({ personList, groupId }: FormAddLeaderProps): React.JSX.E
           {...getFieldProps("trainerId")}
         >
           {(person: PersonByTypePersonResult) => (
-            <SelectItem key={person.id}>{person.fullName}</SelectItem>
+            <SelectItem key={person.id}>{person.Person.fullName}</SelectItem>
           )}
         </Select>
 

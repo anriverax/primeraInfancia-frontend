@@ -1,6 +1,5 @@
 import { Progress } from "@heroui/react";
 import { Info } from "lucide-react";
-import { cn } from "@/shared/utils/tv";
 import { IGroupTable } from "../../group/groupType";
 import { GroupListRender } from "./groupInfo";
 import FormAddLeader from "./formAddLeader";
@@ -13,12 +12,7 @@ const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
   );
 
   return (
-    <div
-      className={cn("bg-white border border-blue-100 mt-6", {
-        "max-h-[300px]": Array.isArray(props.GroupLeader) && props.GroupLeader.length > 0,
-        "max-h-[400px]": Array.isArray(props.GroupLeader) && !props.GroupLeader.length
-      })}
-    >
+    <div className="bg-white border border-blue-100 mt-6 max-h-[400px]">
       <div className="p-6 flex items-center gap-2 bg-blue-50 text-blue-500">
         <Info className="h-5 w-5" />
         <h3 className="text-2xl font-semibold">Información</h3>
@@ -31,7 +25,7 @@ const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
           {props.GroupLeader && props.GroupLeader.length > 0 ? (
             <GroupListRender
               numList={3}
-              value={String(props.GroupLeader[0]?.Person?.fullName)}
+              value={String(props.GroupLeader[0]?.PersonRole?.Person.fullName)}
               leaderId={props.GroupLeader[0].id}
               onDeleteLeader={handleConfirmDeleteLeader}
             />

@@ -7,7 +7,7 @@ import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { useGroupFormModalStore } from "@/shared/hooks/store/useGroupFormModalStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { GroupFormResult, GroupInput, IGroup } from "../groupType";
-import { groupShema } from "../groupValidation";
+import { groupSchema } from "../groupValidation";
 
 const useGroupForm = (): GroupFormResult => {
   const queryClient = useQueryClient();
@@ -16,7 +16,6 @@ const useGroupForm = (): GroupFormResult => {
 
   const getDataInit = (): GroupInput => ({
     name: data?.name ?? "",
-    description: data?.description ?? "",
     memberCount: data?.memberCount ?? 0,
     zoneId: data?.zoneId ?? 0
   });
@@ -48,7 +47,7 @@ const useGroupForm = (): GroupFormResult => {
   const groupFormik = useFormik({
     enableReinitialize: true,
     initialValues: getDataInit(),
-    validationSchema: groupShema,
+    validationSchema: groupSchema,
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: handleSubmit
