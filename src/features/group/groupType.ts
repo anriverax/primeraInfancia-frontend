@@ -1,4 +1,4 @@
-import { AxiosMessage, FormikProps, IPagination } from "@/shared/types/globals";
+import { AxiosMessage, FormikProps, IDistrictWithZone, IPagination, IPerson } from "@/shared/types/globals";
 import { ZoneInput } from "../zone/zoneType";
 import { Dispatch, SetStateAction } from "react";
 
@@ -21,24 +21,12 @@ export interface GroupSelectBoxResult {
 
 export type IGroupColumnKey = "name" | "count" | "zone" | "actions";
 
-export interface IPerson {
-  id: true;
-  fullName?: string;
-  phoneNumber?: string;
-}
 export interface IGroupPerson extends IPerson {
   User: {
     email: string;
     avatar: string;
   };
-  District?: {
-    Municipality: {
-      name: string;
-      Department: {
-        name: string;
-      };
-    };
-  };
+  District?: IDistrictWithZone;
 }
 export interface Inscription {
   id: number;

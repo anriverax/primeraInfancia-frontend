@@ -28,7 +28,7 @@ const useFormAddLeader = (groupId: number): LeaderFormResult => {
   ): Promise<void> => {
     try {
       const response: AxiosResponse<FetchResponse<ILeader>> = await useRequest.post(
-        "/group-leader/create",
+        "/assign-person/create",
         values
       );
 

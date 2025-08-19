@@ -17,6 +17,7 @@ import { useGroupDetail } from "@/features/groupDetail/hooks/useGroupDetail";
 import { Key, useState } from "react";
 import GroupDetailInfo from "@/features/groupDetail/components/groupDetailInfo";
 import { Mail, MapPin, Phone, UserMinus } from "lucide-react";
+import AvailableTeachers from "@/features/availableTeachers/components/availableTeachers";
 
 const GroupDetailPage = (): React.JSX.Element => {
   const [selected, setSelected] = useState<Key>("photos");
@@ -124,35 +125,8 @@ const GroupDetailPage = (): React.JSX.Element => {
                     ))
                   : null}
               </Tab>
-              <Tab key="music" title="Estudiantes Disponibles">
-                <Card>
-                  <CardBody>
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.
-                  </CardBody>
-                </Card>
-                <Card>
-                  <CardBody>
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.
-                  </CardBody>
-                </Card>{" "}
-                <Card>
-                  <CardBody>
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.
-                  </CardBody>
-                </Card>{" "}
-                <Card>
-                  <CardBody>
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.
-                  </CardBody>
-                </Card>
+              <Tab key="music" title="Docentes Disponibles">
+                <AvailableTeachers zoneId={groupDetail?.Zone?.id!} groupId={groupDetail?.id!} />
               </Tab>
             </Tabs>
           </div>

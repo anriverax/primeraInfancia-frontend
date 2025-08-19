@@ -47,3 +47,21 @@ export interface IColumns<T> {
   key: T;
   label: string;
 }
+
+export interface IPerson {
+  id: number;
+  fullName?: string;
+  phoneNumber?: string;
+}
+
+export interface IDistrictWithZone {
+  Municipality: {
+    name: string;
+    Department: {
+      name: string;
+      Zone: {
+        name: string;
+      };
+    };
+  };
+}

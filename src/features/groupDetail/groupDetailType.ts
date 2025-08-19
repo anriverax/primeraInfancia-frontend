@@ -18,3 +18,10 @@ export interface PersonByTypePersonResult {
     fullName: string;
   };
 }
+
+export interface ParticipantInput {
+  groupId: number;
+  typePersonId: number;
+  zoneId: number;
+  memberCount: number;
+}

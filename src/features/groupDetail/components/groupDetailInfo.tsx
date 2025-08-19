@@ -1,15 +1,26 @@
-import { Progress } from "@heroui/react";
+import { Button, Progress } from "@heroui/react";
 import { Info } from "lucide-react";
 import { IGroupTable } from "../../group/groupType";
 import { GroupListRender } from "./groupInfo";
 import FormAddLeader from "./formAddLeader";
 import { usePersonByTypePerson } from "../hooks/usePersonByTypePerson";
+import { useAssignParticipant } from "../hooks/useAssignParticipant";
+import { ParticipantInput } from "../groupDetailType";
 
 const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
   const { personList, handleConfirmDeleteLeader } = usePersonByTypePerson(
     props.Zone?.id as number,
     props.id as number
   );
+
+  const { handleSubmitAddParticipant } = useAssignParticipant();
+
+  const participantsData: ParticipantInput = {
+    groupId: props.id as number,
+    zoneId: props.Zone?.id as number,
+    typePersonId: 2,
+    memberCount: props.memberCount as number
+  };
 
   return (
     <div className="bg-white border border-blue-100 mt-6 max-h-[400px]">
@@ -47,7 +58,7 @@ const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
               value={props?._count?.Inscription}
               valueLabel={
                 <span>
-                  <span>450</span>/<span>{props?.memberCount}</span>
+                  <span>{props?._count?.Inscription}</span>/<span>{props?.memberCount}</span>
                 </span>
               }
             />
@@ -57,6 +68,11 @@ const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
               </p>
             ) : null}
           </div>
+        </div>
+        <div className="space-y-2">
+          <Button fullWidth color="primary" onPress={() => handleSubmitAddParticipant(participantsData)}>
+            Asignar Docentes
+          </Button>
         </div>
       </div>
     </div>
