@@ -1,4 +1,10 @@
-import { AxiosMessage, FormikProps, IDistrictWithZone, IPagination, IPerson } from "@/shared/types/globals";
+import {
+  AxiosMessage,
+  FormikProps,
+  IDistrictWithZone,
+  IPagination,
+  IPerson
+} from "@/shared/types/globals";
 import { ZoneInput } from "../zone/zoneType";
 import { Dispatch, SetStateAction } from "react";
 

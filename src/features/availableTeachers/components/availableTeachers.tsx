@@ -7,7 +7,7 @@ interface AvailableTeachersProps {
   groupId: number;
 }
 
-const AvailableTeachers = ({ zoneId, groupId }: AvailableTeachersProps) => {
+const AvailableTeachers = ({ zoneId, groupId }: AvailableTeachersProps): React.JSX.Element => {
   const { availableTeacherList, meta, handleChangePage } = useAvailableTeacher(
     zoneId as number,
     groupId as number
@@ -22,7 +22,7 @@ const AvailableTeachers = ({ zoneId, groupId }: AvailableTeachersProps) => {
                 <div className="flex items-center gap-6">
                   <Avatar
                     isBordered
-                    name={(() => {
+                    name={((): string => {
                       const names = teacher.fullName?.split(" ") ?? [];
                       if (names.length === 0) return "";
                       const first = names[0][0] ?? "";

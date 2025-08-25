@@ -17,7 +17,7 @@ export const useDeleteRequest = (
   const queryClient = useQueryClient();
   const useRequest = useAxios(true);
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: number): Promise<void> => {
     try {
       const res: AxiosResponse<FetchResponse<void>> = await useRequest.delete(
         `${endpoint}/delete/${id}`

@@ -73,7 +73,7 @@ const GroupDetailPage = (): React.JSX.Element => {
                           <div className="flex items-center gap-6">
                             <Avatar
                               isBordered
-                              name={(() => {
+                              name={((): string => {
                                 const names = inscription.Person?.fullName?.split(" ") ?? [];
                                 if (names.length === 0) return "";
                                 const first = names[0][0] ?? "";
@@ -126,7 +126,9 @@ const GroupDetailPage = (): React.JSX.Element => {
                   : null}
               </Tab>
               <Tab key="music" title="Docentes Disponibles">
-                <AvailableTeachers zoneId={groupDetail?.Zone?.id!} groupId={groupDetail?.id!} />
+                {groupDetail?.Zone?.id && groupDetail?.id ? (
+                  <AvailableTeachers zoneId={groupDetail.Zone.id} groupId={groupDetail.id} />
+                ) : null}
               </Tab>
             </Tabs>
           </div>

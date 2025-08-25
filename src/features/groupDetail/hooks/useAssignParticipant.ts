@@ -6,7 +6,7 @@ import { ParticipantInput } from "../groupDetailType";
 import { useQueryClient } from "@tanstack/react-query";
 
 const useAssignParticipant = (): {
-  handleSubmitAddParticipant: (values: ParticipantInput) => Promise<void>;
+  handleSubmitAddParticipant: (_values: ParticipantInput) => Promise<void>;
 } => {
   const useRequest = useAxios(true);
   const queryClient = useQueryClient();
