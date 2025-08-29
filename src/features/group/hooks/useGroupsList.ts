@@ -6,7 +6,7 @@ import { useDeleteRequest } from "@/shared/hooks/useDeleteRequest";
 
 const useGroupsList = (): GroupListResult => {
   const [page, setPage] = useState<number>(1);
-  const limit = 5;
+  const limit = 10;
 
   const { data: groupList, meta } = useQueryRequest<IGroupTable[]>(
     "groups-list",

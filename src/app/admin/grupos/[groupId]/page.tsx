@@ -126,8 +126,8 @@ const GroupDetailPage = (): React.JSX.Element => {
                   : null}
               </Tab>
               <Tab key="music" title="Docentes Disponibles">
-                {groupDetail?.Zone?.id && groupDetail?.id ? (
-                  <AvailableTeachers zoneId={groupDetail.Zone.id} groupId={groupDetail.id} />
+                {groupDetail?.Department?.id && groupDetail?.id ? (
+                  <AvailableTeachers zoneId={groupDetail.Department.id} groupId={groupDetail.id} />
                 ) : null}
               </Tab>
             </Tabs>

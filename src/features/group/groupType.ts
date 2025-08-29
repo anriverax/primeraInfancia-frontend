@@ -5,27 +5,21 @@ import {
   IPagination,
   IPerson
 } from "@/shared/types/globals";
-import { ZoneInput } from "../zone/zoneType";
+import { DepartmentInput, ZoneInput } from "../zone/zoneType";
 import { Dispatch, SetStateAction } from "react";
 
 export interface GroupInput extends ZoneInput {
   memberCount: number;
-  zoneId: number;
+  departmentId: number;
 }
 
 export type IGroup = GroupInput & AxiosMessage;
-
-export interface GroupFormResult {
-  groupFormik: FormikProps<IGroup>;
-  reset: () => void;
-  data: GroupInput | null;
-}
 
 export interface GroupSelectBoxResult {
   zonesList: ZoneInput[] | [];
 }
 
-export type IGroupColumnKey = "name" | "count" | "zone" | "actions";
+export type IGroupColumnKey = "name" | "count" | "department" | "actions";
 
 export interface IGroupPerson extends IPerson {
   User: {
@@ -40,7 +34,7 @@ export interface Inscription {
   Person: IGroupPerson;
 }
 export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
-  Zone?: ZoneInput;
+  Department: DepartmentInput;
   GroupLeader?: [
     {
       id: number;
@@ -63,9 +57,6 @@ export interface GroupListResult {
 }
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface GroupTableProps {
-  onEditGroup: (_data?: GroupInput | null) => void;
-}
 
 export interface GroupFormModalInput {
   isOpen: boolean;

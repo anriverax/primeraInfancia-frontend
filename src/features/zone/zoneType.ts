@@ -3,6 +3,8 @@ export interface ZoneInput {
   name: string;
 }
 
+export type DepartmentInput = ZoneInput;
+
 export interface IZoneTable extends ZoneInput {
   _count?: {
     Group: number;

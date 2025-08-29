@@ -1,14 +1,14 @@
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/table";
 import { groupColumns, useRenderGroupCell } from "./columns";
-import { GroupTableProps, IGroupColumnKey, IGroupTable } from "../../groupType";
+import { IGroupColumnKey, IGroupTable } from "../../groupType";
 import { tableClassNames } from "@/shared/constants";
 import { Pagination } from "@heroui/react";
 import { useGroupsList } from "../../hooks/useGroupsList";
 
-const GroupTable = ({ onEditGroup }: GroupTableProps): React.JSX.Element => {
+const GroupTable = (): React.JSX.Element => {
   const { handleChangePage, groupList, meta, handleConfirmDeleteGroup } = useGroupsList();
 
-  const renderGroupCell = useRenderGroupCell(handleConfirmDeleteGroup, onEditGroup);
+  const renderGroupCell = useRenderGroupCell(handleConfirmDeleteGroup);
 
   return (
     <>
@@ -27,7 +27,7 @@ const GroupTable = ({ onEditGroup }: GroupTableProps): React.JSX.Element => {
         </TableBody>
       </Table>
       <div className="flex justify-center">
-        {meta && groupList.length > 10 && (
+        {meta && groupList.length > 5 && (
           <Pagination
             isCompact
             showControls
