@@ -24,7 +24,7 @@ const GroupDetailPage = (): React.JSX.Element => {
   const params = useParams();
 
   const { groupDetail } = useGroupDetail(Number(params.groupId));
-
+  console.log(groupDetail);
   return (
     <div>
       <Breadcrumbs>
@@ -74,7 +74,7 @@ const GroupDetailPage = (): React.JSX.Element => {
                             <Avatar
                               isBordered
                               name={((): string => {
-                                const names = inscription.Person?.fullName?.split(" ") ?? [];
+                                const names = inscription.PersonRole.Person?.fullName?.split(" ") ?? [];
                                 if (names.length === 0) return "";
                                 const first = names[0][0] ?? "";
                                 const last = names[names.length - 1][0] ?? "";
@@ -85,19 +85,21 @@ const GroupDetailPage = (): React.JSX.Element => {
                               }}
                             />
                             <div>
-                              <h4 className="font-semibold">{inscription.Person?.fullName}</h4>
+                              <h4 className="font-semibold">
+                                {inscription.PersonRole.Person?.fullName}
+                              </h4>
                               <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
                                 <span className="flex items-center gap-1">
                                   <Mail className="inline-block h-3 w-3" />
-                                  {inscription.Person?.User?.email}
+                                  {inscription.PersonRole.Person?.User?.email}
                                 </span>
                                 <span className="flex items-center gap-1">
                                   <Phone className="inline-block ml-2 h-3 w-3" />
-                                  {inscription.Person?.phoneNumber}
+                                  {inscription.PersonRole.Person?.phoneNumber}
                                 </span>
                                 <span className="flex items-center gap-1">
                                   <MapPin className="inline-block ml-2 h-3 w-3" />
-                                  {`${inscription.Person?.District?.Municipality.Department.name} - ${inscription.Person?.District?.Municipality.name}`}
+                                  {`${inscription.PersonRole.Person?.WorkAssignment?.Municipality.Department.name} - ${inscription.PersonRole.Person?.WorkAssignment?.Municipality.name}`}
                                 </span>
                               </div>
                             </div>

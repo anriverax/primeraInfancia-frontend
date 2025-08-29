@@ -1,10 +1,4 @@
-import {
-  AxiosMessage,
-  FormikProps,
-  IDistrictWithZone,
-  IPagination,
-  IPerson
-} from "@/shared/types/globals";
+import { AxiosMessage, IDistrictWithZone, IPagination, IPerson } from "@/shared/types/globals";
 import { DepartmentInput, ZoneInput } from "../zone/zoneType";
 import { Dispatch, SetStateAction } from "react";
 
@@ -26,12 +20,12 @@ export interface IGroupPerson extends IPerson {
     email: string;
     avatar: string;
   };
-  District?: IDistrictWithZone;
+  WorkAssignment?: IDistrictWithZone;
 }
 export interface Inscription {
   id: number;
   status: "Activo" | "Inactivo";
-  Person: IGroupPerson;
+  PersonRole: { Person: IGroupPerson };
 }
 export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
   Department: DepartmentInput;
