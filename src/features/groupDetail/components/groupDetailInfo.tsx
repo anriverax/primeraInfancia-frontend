@@ -1,29 +1,11 @@
-import { Button, Progress } from "@heroui/react";
+import { Progress } from "@heroui/react";
 import { Info } from "lucide-react";
 import { IGroupTable } from "../../group/groupType";
 import { GroupListRender } from "./groupInfo";
-import FormAddLeader from "./formAddLeader";
-import { usePersonByTypePerson } from "../hooks/usePersonByTypePerson";
-import { useAssignParticipant } from "../hooks/useAssignParticipant";
-import { ParticipantInput } from "../groupDetailType";
 
 const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
-  const { personList, handleConfirmDeleteLeader } = usePersonByTypePerson(
-    props.Zone?.id as number,
-    props.id as number
-  );
-
-  const { handleSubmitAddParticipant } = useAssignParticipant();
-
-  const participantsData: ParticipantInput = {
-    groupId: props.id as number,
-    zoneId: props.Zone?.id as number,
-    typePersonId: 2,
-    memberCount: props.memberCount as number
-  };
-
   return (
-    <div className="bg-white border border-blue-100 mt-6 max-h-[400px]">
+    <div className="bg-white border border-blue-100 mt-6 max-h-[300px]">
       <div className="p-6 flex items-center gap-2 bg-blue-50 text-blue-500">
         <Info className="h-5 w-5" />
         <h3 className="text-2xl font-semibold">Información</h3>
@@ -32,19 +14,13 @@ const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
       <div className="p-6 space-y-4">
         <ul className="space-y-3">
           <GroupListRender numList={1} value={props.name} />
-          <GroupListRender numList={2} value={props.Zone?.name} />
+          <GroupListRender numList={2} value={props.Department?.name} />
           {props.GroupLeader && props.GroupLeader.length > 0 ? (
             <GroupListRender
               numList={3}
               value={String(props.GroupLeader[0]?.PersonRole?.Person.fullName)}
-              leaderId={props.GroupLeader[0].id}
-              onDeleteLeader={handleConfirmDeleteLeader}
             />
-          ) : (
-            <li>
-              {props.Zone && <FormAddLeader personList={personList} groupId={props.id as number} />}
-            </li>
-          )}
+          ) : null}
         </ul>
 
         <div className="space-y-2">
@@ -68,11 +44,6 @@ const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
               </p>
             ) : null}
           </div>
-        </div>
-        <div className="space-y-2">
-          <Button fullWidth color="primary" onPress={() => handleSubmitAddParticipant(participantsData)}>
-            Asignar Docentes
-          </Button>
         </div>
       </div>
     </div>

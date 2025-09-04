@@ -7,7 +7,8 @@ export const zoneColumns: IColumns<IZoneColumnKey>[] = [
     key: "name",
     label: "Nombre"
   },
-  { key: "count", label: "Grupos" }
+  { key: "department", label: "Departamentos" },
+  { key: "total", label: "Total" }
 ];
 
 export const useRenderZoneCell = (): ((
@@ -18,12 +19,14 @@ export const useRenderZoneCell = (): ((
     const cellValue = zone[columnKey as keyof ZoneInput];
 
     switch (columnKey) {
-      case "count":
+      case "department":
         return (
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
-            {zone._count?.Group} grupos
+            {zone.departmets}
           </span>
         );
+      case "total":
+        return <span>{`${zone.total} grupos`}</span>;
       default:
         return cellValue;
     }

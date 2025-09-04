@@ -6,9 +6,8 @@ export interface ZoneInput {
 export type DepartmentInput = ZoneInput;
 
 export interface IZoneTable extends ZoneInput {
-  _count?: {
-    Group: number;
-  };
+  departmets: string;
+  total: number;
 }
 
-export type IZoneColumnKey = "name" | "count" | "actions";
+export type IZoneColumnKey = "name" | "department" | "total";

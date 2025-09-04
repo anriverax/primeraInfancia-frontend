@@ -1,24 +1,16 @@
 import { cn } from "@/shared/utils/tv";
-import { Tooltip } from "@heroui/react";
 import { GraduationCap, LucideProps, MapPin, Users } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 type GroupListRenderProps = {
   numList: number;
   value: string | number | undefined;
-  onDeleteLeader?: (_leaderId: number) => Promise<void>;
-  leaderId?: number;
 };
 
-export const GroupListRender = ({
-  numList,
-  value,
-  onDeleteLeader,
-  leaderId
-}: GroupListRenderProps): React.JSX.Element => {
+export const GroupListRender = ({ numList, value }: GroupListRenderProps): React.JSX.Element => {
   const getLabel: Record<number, string> = {
     1: "Grupo",
-    2: "Zona",
+    2: "Departamento",
     3: "Formador"
   };
 
@@ -46,16 +38,6 @@ export const GroupListRender = ({
       >
         {value}
       </span>
-      {numList === 3 && onDeleteLeader && leaderId && (
-        <Tooltip className="capitalize" color="danger" content="Quitar formador">
-          <span
-            className="text-danger cursor-pointer select-none"
-            onClick={() => onDeleteLeader(leaderId)}
-          >
-            x
-          </span>
-        </Tooltip>
-      )}
     </li>
   );
 };

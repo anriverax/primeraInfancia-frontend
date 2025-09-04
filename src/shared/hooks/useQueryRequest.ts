@@ -34,7 +34,8 @@ export const useQueryRequest = <T>(
       return { data, meta };
     },
     enabled: start,
-    retry: false
+    retry: false,
+    placeholderData: (previousData) => previousData
   });
 
   /* eslint-disable react-hooks/exhaustive-deps */

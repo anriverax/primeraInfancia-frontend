@@ -1,22 +1,9 @@
-import { IColumns } from "@/shared/types/globals";
 import { IGroupColumnKey, IGroupTable } from "../../groupType";
 import { Eye, Trash2, Users } from "lucide-react";
 import { Tooltip } from "@heroui/react";
 import { useCallback } from "react";
 import Link from "next/link";
 
-export const groupColumns: IColumns<IGroupColumnKey>[] = [
-  {
-    key: "name",
-    label: "Nombre"
-  },
-  { key: "count", label: "Integrantes" },
-  { key: "department", label: "Departamento" },
-  {
-    key: "actions",
-    label: "Acciones"
-  }
-];
 /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderGroupCell = (
   onDeleteGroup: (_groupId: number, _groupName: string) => Promise<void>

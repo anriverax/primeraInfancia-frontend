@@ -1,4 +1,4 @@
-import { AxiosMessage, IDistrictWithZone, IPagination, IPerson } from "@/shared/types/globals";
+import { AxiosMessage, IColumns, IDistrictWithZone, IPagination, IPerson } from "@/shared/types/globals";
 import { DepartmentInput, ZoneInput } from "../zone/zoneType";
 import { Dispatch, SetStateAction } from "react";
 
@@ -8,10 +8,6 @@ export interface GroupInput extends ZoneInput {
 }
 
 export type IGroup = GroupInput & AxiosMessage;
-
-export interface GroupSelectBoxResult {
-  zonesList: ZoneInput[] | [];
-}
 
 export type IGroupColumnKey = "name" | "count" | "department" | "actions";
 
@@ -50,14 +46,8 @@ export interface GroupListResult {
   handleConfirmDeleteGroup: (_groupId: number, _groupName: string) => Promise<void>;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface GroupTableResult {
+  bottomContent: React.JSX.Element | null;
 
-export interface GroupFormModalInput {
-  isOpen: boolean;
-  data?: any | null;
+  headerColumns: IColumns<IGroupColumnKey>[];
 }
-
-export interface GroupFormModalAction extends GroupFormModalInput {
-  isOpenGroupFormModal: (_data?: any | null) => void;
-}
-/* eslint-enable @typescript-eslint/no-explicit-any */
