@@ -1,6 +1,6 @@
 import { Pagination } from "@heroui/react";
 import { Dispatch, SetStateAction, useCallback, useMemo } from "react";
-import { GroupTableResult, IGroupColumnKey } from "../groupType";
+import { GroupTableResult, IGroupColumnKey, IGroupTable } from "../groupType";
 import { IColumns, IPagination } from "@/shared/types/globals";
 
 const HEADER_COLUMNS: IColumns<IGroupColumnKey>[] = [
@@ -9,7 +9,7 @@ const HEADER_COLUMNS: IColumns<IGroupColumnKey>[] = [
     label: "Nombre"
   },
   { key: "count", label: "Integrantes" },
-  { key: "department", label: "Departamento" },
+  { key: "department", label: "Departamento", sortable: true },
   {
     key: "actions",
     label: "Acciones"
@@ -18,14 +18,18 @@ const HEADER_COLUMNS: IColumns<IGroupColumnKey>[] = [
 
 const useGroupTable = (
   meta: IPagination | undefined,
+  groupList: IGroupTable[],
   handleChangePage: Dispatch<SetStateAction<number>>
 ): GroupTableResult => {
-  const onChange = useCallback((e: any) => {
-    handleChangePage(e);
-  }, []);
+  const onChange = useCallback(
+    (e: number) => {
+      handleChangePage(e);
+    },
+    [handleChangePage]
+  );
 
   const bottomContent = useMemo(() => {
-    return meta ? (
+    return meta && groupList.length > 0 ? (
       <div className="flex w-full justify-center">
         <Pagination
           isCompact
@@ -37,7 +41,7 @@ const useGroupTable = (
         />
       </div>
     ) : null;
-  }, [meta, onChange]);
+  }, [meta, onChange, groupList]);
 
   return { bottomContent, headerColumns: HEADER_COLUMNS };
 };

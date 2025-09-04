@@ -24,7 +24,7 @@ export interface Inscription {
   PersonRole: { Person: IGroupPerson };
 }
 export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
-  Department: DepartmentInput;
+  department: string;
   GroupLeader?: [
     {
       id: number;

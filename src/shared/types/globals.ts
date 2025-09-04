@@ -46,6 +46,7 @@ export interface FormikProps<T> {
 export interface IColumns<T> {
   key: T;
   label: string;
+  sortable?: boolean;
 }
 
 export interface IPerson {

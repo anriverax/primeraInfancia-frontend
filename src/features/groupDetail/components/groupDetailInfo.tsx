@@ -5,7 +5,7 @@ import { GroupListRender } from "./groupInfo";
 
 const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
   return (
-    <div className="bg-white border border-blue-100 mt-6 max-h-[300px]">
+    <div className="bg-white border border-blue-100 mt-6">
       <div className="p-6 flex items-center gap-2 bg-blue-50 text-blue-500">
         <Info className="h-5 w-5" />
         <h3 className="text-2xl font-semibold">Información</h3>
@@ -14,7 +14,7 @@ const GroupDetailInfo = (props: IGroupTable): React.JSX.Element => {
       <div className="p-6 space-y-4">
         <ul className="space-y-3">
           <GroupListRender numList={1} value={props.name} />
-          <GroupListRender numList={2} value={props.Department?.name} />
+          <GroupListRender numList={2} value={props.department} />
           {props.GroupLeader && props.GroupLeader.length > 0 ? (
             <GroupListRender
               numList={3}
