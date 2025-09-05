@@ -1,44 +1,34 @@
-import { AxiosMessage, IColumns, IDistrictWithZone, IPagination, IPerson } from "@/shared/types/globals";
-import { DepartmentInput, ZoneInput } from "../zone/zoneType";
+import { IColumns, IPagination, IPerson } from "@/shared/types/globals";
+import { ZoneInput } from "../zone/zoneType";
 import { Dispatch, SetStateAction } from "react";
-
-export interface GroupInput extends ZoneInput {
-  memberCount: number;
-  departmentId: number;
-}
-
-export type IGroup = GroupInput & AxiosMessage;
 
 export type IGroupColumnKey = "name" | "count" | "department" | "actions";
 
-export interface IGroupPerson extends IPerson {
-  User: {
-    email: string;
-    avatar: string;
-  };
-  WorkAssignment?: IDistrictWithZone;
-}
+export type IMentor = IPerson & { assignedMunicipality: string };
 export interface Inscription {
   id: number;
   status: "Activo" | "Inactivo";
-  PersonRole: { Person: IGroupPerson };
+  teacher: IPerson & {
+    User: {
+      email: string;
+      avatar: string | null;
+    };
+    school: string;
+  };
 }
-export interface IGroupTable extends Omit<GroupInput, "zoneId"> {
+export interface IGroupTable extends ZoneInput {
+  memberCount: number;
   department: string;
-  GroupLeader?: [
-    {
-      id: number;
-      PersonRole: {
-        Person: IPerson;
-      };
-    }
-  ];
-  Inscription?: Inscription[];
+}
+
+export interface IGroupDetail extends IGroupTable {
+  leaders: IPerson & { assignedMunicipality: string };
+  inscriptionPerson: Inscription[];
+  mentors: IMentor[];
   _count?: {
     Inscription: number;
   };
 }
-
 export interface GroupListResult {
   handleChangePage: Dispatch<SetStateAction<number>>;
   groupList: IGroupTable[];

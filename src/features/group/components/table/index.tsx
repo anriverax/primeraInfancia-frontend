@@ -27,14 +27,8 @@ const GroupTable = (): React.JSX.Element => {
     if (!groupList || groupList.length === 0) return groupList;
 
     return groupList.sort((a: IGroupTable, b: IGroupTable) => {
-      console.log(
-        sortDescriptor.column,
-        a[sortDescriptor.column as keyof IGroupTable],
-        b[sortDescriptor.column as keyof IGroupTable]
-      );
       const first = a[sortDescriptor.column as keyof IGroupTable] as number;
       const second = b[sortDescriptor.column as keyof IGroupTable] as number;
-      console.log(first, second);
 
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
