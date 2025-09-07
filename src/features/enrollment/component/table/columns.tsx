@@ -11,7 +11,7 @@ export const enrollmentColumns: IColumns<IEnrollmentColumnKey>[] = [
   },
   {
     key: "groupId",
-    label: "grupo"
+    label: "Grupo"
   },
   {
     key: "mentorId",
