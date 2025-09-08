@@ -28,12 +28,18 @@ export const breakpoints: {
 /* eslint-disable no-unused-vars */
 export enum TypeRole {
   ADMIN = "ADMIN",
-  USER = "USER"
+  USER = "USER",
+  USER_FORMADOR = "USER_FORMADOR",
+  USER_MENTOR = "USER_MENTOR",
+  USER_TECNICO_APOYO = "USER_TECNICO_APOYO"
 }
 /* eslint-enable no-unused-vars */
 export const roleDisplayNames: Record<TypeRole, string> = {
   [TypeRole.ADMIN]: "Administrador",
-  [TypeRole.USER]: "Usuario"
+  [TypeRole.USER]: "Usuario",
+  [TypeRole.USER_FORMADOR]: "Formador",
+  [TypeRole.USER_MENTOR]: "Mentor",
+  [TypeRole.USER_TECNICO_APOYO]: "Técnico de apoyo"
 };
 
 export const tableClassNames: { th: string } = {

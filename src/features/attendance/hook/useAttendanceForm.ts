@@ -44,8 +44,10 @@ const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
         resultData.statusCode === HttpStatusCode.Created ||
         resultData.statusCode === HttpStatusCode.Ok
       ) {
-        console.log("resultData ", resultData);
+        /* eslint-disable @typescript-eslint/no-explicit-any */
         const newData: IAttendanceCreated = resultData.data as any;
+        /* eslint-enable @typescript-eslint/no-explicit-any */
+
         setDataAttendance(newData);
       }
     } catch (error) {
@@ -61,11 +63,11 @@ const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
     validateOnChange: false,
     onSubmit: handleSubmit
   });
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ["attendance-detail"] });
-    console.log("dataAttendance ", dataAttendance);
   }, [dataAttendance]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return formikAttendance;
 };

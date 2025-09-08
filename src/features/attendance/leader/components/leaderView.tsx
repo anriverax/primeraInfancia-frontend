@@ -15,6 +15,7 @@ const LeaderView = (): React.JSX.Element => {
   const { values, touched, errors, getFieldProps, handleSubmit } = formik;
   const { getSelectProps } = useCustomFormFields();
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   const attendanceDetails = useMemo(() => {
     if (attendance) {
       return (
@@ -40,7 +41,7 @@ const LeaderView = (): React.JSX.Element => {
               <li>
                 <p className="font-bold">Finalización de Jornada</p>
                 {attendance.checkOut ? (
-                  <span>{attendance.checkIn}</span>
+                  <span>{attendance.checkOut}</span>
                 ) : (
                   <Button fullWidth color="secondary" onPress={() => handleSubmit()}>
                     Finalizar Jornada
@@ -53,6 +54,7 @@ const LeaderView = (): React.JSX.Element => {
       );
     }
   }, [attendance, session]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-6">

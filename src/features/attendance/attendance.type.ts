@@ -24,3 +24,23 @@ export interface IAttendanceDetail {
   checkOut: string;
   Event: Pick<IEvent, "name">;
 }
+
+export interface IMentorAssignmentBox {
+  id: number;
+  fullName: string;
+}
+
+export interface IMentorAssignmentSchool {
+  code: number;
+  name: string;
+  coordenates: string;
+  location: string;
+}
+export interface IMentorAssignmentData extends IMentorAssignmentBox {
+  School: IMentorAssignmentSchool;
+}
+
+export interface IMentorAssignmentByUser {
+  selectBox: IMentorAssignmentBox[];
+  teachers: IMentorAssignmentData[];
+}

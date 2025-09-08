@@ -8,7 +8,7 @@ import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 const useAttendanceList = (): EventSelectBoxResult => {
   const [eventList, setEventList] = useState<IEvent[]>([]);
   const useRequest = useAxios(true);
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
@@ -28,7 +28,8 @@ const useAttendanceList = (): EventSelectBoxResult => {
     return (): void => {
       isMounted = false;
     };
-  }, []);
+  }, [eventList.length]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   const { data: attendance } = useQueryRequest<IAttendanceDetail>(
     "attendance-detail", // Unique key for each group

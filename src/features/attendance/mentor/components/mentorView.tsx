@@ -7,15 +7,17 @@ import { CheckCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 import ListTeacher from "./listTeacher";
+import { useMentor } from "../../hook/useMentor";
 
 const MentorView = (): React.JSX.Element => {
   const { eventList, attendance } = useAttendanceList();
   const formik = useAttendanceForm(attendance ? attendance.id : 0);
   const { data: session } = useSession();
-
+  useMentor();
   const { values, touched, errors, getFieldProps, handleSubmit } = formik;
   const { getSelectProps } = useCustomFormFields();
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   const attendanceDetails = useMemo(() => {
     if (attendance) {
       return (
@@ -52,6 +54,7 @@ const MentorView = (): React.JSX.Element => {
       );
     }
   }, [attendance, session]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-6">
@@ -90,7 +93,7 @@ const MentorView = (): React.JSX.Element => {
         </div>
       )}
       {attendanceDetails}
-      {attendance && <ListTeacher />}
+      {attendance && <ListTeacher attendance={attendance} />}
     </div>
   );
 };

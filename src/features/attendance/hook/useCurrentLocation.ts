@@ -1,5 +1,4 @@
 import { showToast } from "@/shared/utils/funtions";
-import { useState } from "react";
 
 interface LocationData {
   latitude: number;

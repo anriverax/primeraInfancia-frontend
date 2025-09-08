@@ -1,6 +1,7 @@
 "use client";
 import LeaderView from "@/features/attendance/leader/components/leaderView";
 import MentorView from "@/features/attendance/mentor/components/mentorView";
+import { TypeRole } from "@/shared/constants";
 import { useSession } from "next-auth/react";
 
 export default function AttendancePage(): React.JSX.Element {
@@ -13,8 +14,8 @@ export default function AttendancePage(): React.JSX.Element {
           <h2 className="text-2xl font-bold text-gray-900">📋 Control de Asistencia</h2>
         </div>
       </div>
-      {session?.user.role === "USER_FORMADOR" && <LeaderView />}
-      {session?.user.role === "USER_MENTOR" && <MentorView />}
+      {session?.user.role === TypeRole.USER_FORMADOR && <LeaderView />}
+      {session?.user.role === TypeRole.USER_MENTOR && <MentorView />}
     </div>
   );
 }

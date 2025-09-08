@@ -1,7 +1,7 @@
 // components/WithProtectedRoute.tsx
 "use client";
 
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 
