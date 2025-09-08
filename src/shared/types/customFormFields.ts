@@ -62,6 +62,7 @@ export interface CustomFormFieldsResult {
   ) => TextAreaProps;
   getSelectProps: (
     _label: string,
+    _placeholder: string,
     _itemsLength: number,
     _itemValue: number,
     _touched: boolean | undefined,

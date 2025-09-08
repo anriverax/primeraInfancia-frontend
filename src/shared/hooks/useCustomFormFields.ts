@@ -24,10 +24,12 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
 
   const getCommonFieldProps = (
     label: string,
-    isRequired: boolean = true
-  ): { isRequired: boolean; label: string } => ({
+    isRequired: boolean = true,
+    placeholder: string = ""
+  ): { isRequired: boolean; label: string; placeholder: string } => ({
     isRequired,
-    label
+    label,
+    placeholder
   });
 
   const getValidationState = (
@@ -76,13 +78,14 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
   const getSelectProps = useCallback(
     (
       label: string,
+      placeholder: string,
       itemsLength: number,
       itemValue: number,
       touched: boolean | undefined,
       error: string | undefined,
       isRequired: boolean = true
     ): SelectProps => ({
-      ...getCommonFieldProps(label, isRequired),
+      ...getCommonFieldProps(label, isRequired, placeholder),
       variant: "bordered",
       className: "w-full",
       classNames: {

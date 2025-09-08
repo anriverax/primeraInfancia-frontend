@@ -10,9 +10,11 @@ import {
 import { memo } from "react";
 import { roleDisplayNames, TypeRole } from "@/shared/constants";
 import { useSession } from "next-auth/react";
+import { useLogout } from "@/shared/hooks/useLogout";
 
 const UserAvatar = memo((): React.JSX.Element => {
   const { data: session } = useSession();
+  const { handleSignOut } = useLogout();
   const { name, email, role, picture } = session!.user;
 
   return (
@@ -46,7 +48,7 @@ const UserAvatar = memo((): React.JSX.Element => {
             <DropdownItem key="profile">Mi Perfil</DropdownItem>
           </DropdownSection>
           <DropdownSection aria-label="Logout">
-            <DropdownItem key="logout" color="danger">
+            <DropdownItem key="logout" color="danger" onClick={() => handleSignOut()}>
               Cerrar Sesión
             </DropdownItem>
           </DropdownSection>
