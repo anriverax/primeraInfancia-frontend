@@ -12,8 +12,9 @@ export interface EventSelectBoxResult {
 
 export interface AttendanceInput {
   eventId: number;
+  coordenates?: string;
 }
-
+export type IAttendanceCreated = Pick<IAttendanceDetail, "id" | "coordenates">;
 export type IAttendance = AttendanceInput & AxiosMessage;
 
 export interface IAttendanceDetail {

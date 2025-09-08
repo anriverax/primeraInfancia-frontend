@@ -1,6 +1,6 @@
 "use client";
 
-import { Logo } from "@/shared/ui/logo";
+import Logo from "@/shared/ui/logo";
 import Sidebar from "@/shared/ui/sidebar";
 import FormModal from "../../features/admin/components/modal/modalForms";
 import TopBar from "@/shared/ui/topbar";

@@ -5,6 +5,7 @@ import { queryClient } from "@/shared/utils/reactQueryClient";
 import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
+import React from "react";
 
 export function Providers({ children }: { children: React.ReactNode }): React.JSX.Element {
   return (

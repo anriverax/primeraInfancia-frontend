@@ -13,11 +13,21 @@ const ZoneTable = (): React.JSX.Element => {
       <TableHeader columns={zoneColumns}>
         {(zoneCol) => <TableColumn key={zoneCol.key}>{zoneCol.label}</TableColumn>}
       </TableHeader>
-      <TableBody isLoading={!zonesList} items={zonesList || []}>
-        {(zoneItem: IZoneTable) => (
-          <TableRow key={zoneItem.id}>
-            {(zoneKey) => <TableCell>{renderZoneCell(zoneItem, zoneKey as IZoneColumnKey)}</TableCell>}
+      <TableBody items={zonesList || []}>
+        {zonesList === undefined ? (
+          // Mientras no hay datos
+          <TableRow>
+            <TableCell colSpan={zoneColumns.length}>
+              <div className="py-6 text-center text-gray-500">Cargando zonas...</div>
+            </TableCell>
           </TableRow>
+        ) : (
+          // Cuando ya tienes datos
+          (zoneItem: IZoneTable) => (
+            <TableRow key={zoneItem.id}>
+              {(zoneKey) => <TableCell>{renderZoneCell(zoneItem, zoneKey as IZoneColumnKey)}</TableCell>}
+            </TableRow>
+          )
         )}
       </TableBody>
     </Table>

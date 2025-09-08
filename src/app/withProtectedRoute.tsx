@@ -31,6 +31,7 @@ const WithProtectedRoute = <P extends object>(WrappedComponent: React.ComponentT
 
     // Optional: Refresh the session when the tab becomes visible.
     // This ensures that the session is up to date if the user switches tabs and returns.
+    /*
     useEffect(() => {
       const visibilityHandler = (): void => {
         if (document.visibilityState === "visible") {
@@ -42,7 +43,7 @@ const WithProtectedRoute = <P extends object>(WrappedComponent: React.ComponentT
       };
       window.addEventListener("visibilitychange", visibilityHandler, false);
       return (): void => window.removeEventListener("visibilitychange", visibilityHandler, false);
-    }, [update, status]); // Añadir status como dependencia para evitar llamadas innecesarias
+    }, [update, status]);*/ // Añadir status como dependencia para evitar llamadas innecesarias
 
     // --- Handling of loading and unauthenticated state ---
     // If the session is loading, we can display a fallback UI.

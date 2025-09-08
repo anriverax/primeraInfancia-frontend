@@ -7,9 +7,9 @@ import { CheckCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 
-const LeaderView = () => {
-  const formik = useAttendanceForm();
+const LeaderView = (): React.JSX.Element => {
   const { eventList, attendance } = useAttendanceList();
+  const formik = useAttendanceForm(attendance ? attendance.id : 0);
   const { data: session } = useSession();
 
   const { values, touched, errors, getFieldProps, handleSubmit } = formik;
@@ -42,7 +42,7 @@ const LeaderView = () => {
                 {attendance.checkOut ? (
                   <span>{attendance.checkIn}</span>
                 ) : (
-                  <Button color="secondary" fullWidth type="submit">
+                  <Button fullWidth color="secondary" onPress={() => handleSubmit()}>
                     Finalizar Jornada
                   </Button>
                 )}
@@ -52,50 +52,43 @@ const LeaderView = () => {
         </div>
       );
     }
-  }, [attendance]);
+  }, [attendance, session]);
 
   return (
-    <div className="space-y-8">
-      <div className="flex w-full gap-3 justify-between">
-        <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-bold text-gray-900">📋 Control de Asistencia</h2>
+    <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-6">
+      {!attendance && (
+        <div className="flex justify-between">
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <Select
+              items={eventList ? eventList : []}
+              {...getSelectProps(
+                "Evento",
+                "Seleccione un evento",
+                eventList ? eventList.length : 0,
+                values.eventId,
+                touched.eventId,
+                errors.eventId
+              )}
+              {...getFieldProps("eventId")}
+              isDisabled={attendance ? true : false}
+            >
+              {eventList.map((event: IEvent) => (
+                <SelectItem key={event.id}>{event.name}</SelectItem>
+              ))}
+            </Select>
+            <Button
+              fullWidth
+              color="primary"
+              variant="shadow"
+              type="submit"
+              isDisabled={attendance ? true : false}
+            >
+              Iniciar jornada
+            </Button>
+          </form>
         </div>
-      </div>
-      <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-6">
-        {!attendance && (
-          <div className="flex justify-between">
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <Select
-                items={eventList ? eventList : []}
-                {...getSelectProps(
-                  "Evento",
-                  "Seleccione un evento",
-                  eventList ? eventList.length : 0,
-                  values.eventId,
-                  touched.eventId,
-                  errors.eventId
-                )}
-                {...getFieldProps("eventId")}
-                isDisabled={attendance ? true : false}
-              >
-                {eventList.map((event: IEvent) => (
-                  <SelectItem key={event.id}>{event.name}</SelectItem>
-                ))}
-              </Select>
-              <Button
-                color="primary"
-                fullWidth
-                variant="shadow"
-                type="submit"
-                isDisabled={attendance ? true : false}
-              >
-                Iniciar jornada
-              </Button>
-            </form>
-          </div>
-        )}
-        {attendanceDetails}
-      </div>
+      )}
+      {attendanceDetails}
     </div>
   );
 };
