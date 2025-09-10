@@ -5,8 +5,8 @@ type ModuleEvaluationModalProps = ModuleEvaluationModalAction & {
   reset: () => void;
 };
 
-export const useModuleEvaluationModalStore: UseBoundStore<StoreApi<ModuleEvaluationModalProps>> = create<ModuleEvaluationModalProps>()(
-  (set) => ({
+export const useModuleEvaluationModalStore: UseBoundStore<StoreApi<ModuleEvaluationModalProps>> =
+  create<ModuleEvaluationModalProps>()((set) => ({
     isVisible: false,
     typeModal: "Z",
     data: null,
@@ -22,5 +22,4 @@ export const useModuleEvaluationModalStore: UseBoundStore<StoreApi<ModuleEvaluat
         typeModal: "Z",
         data: null
       })
-  })
-);
+  }));

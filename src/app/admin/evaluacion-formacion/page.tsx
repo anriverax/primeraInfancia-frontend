@@ -1,11 +1,8 @@
 "use client";
 
 import TrainingEvaluationLayout from "@/features/trainingEvaluation/component/trainingEvaluationLayout";
-import { useTrainingEvaluationModalStore } from "@/shared/hooks/store/useTrainingEvaluationModalStore";
 
 export default function TrainingEvaluationsPage(): React.JSX.Element {
-  const { toggleVisibility } = useTrainingEvaluationModalStore();
-
   return (
     <div className="space-y-8">
       <div className="flex w-full gap-3 justify-between">

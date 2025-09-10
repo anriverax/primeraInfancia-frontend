@@ -1,4 +1,3 @@
-import { useEvaluationInstrumentModalStore } from "@/shared/hooks/store/useEvaluationInstrumentModalStore";
 import { useEvaluationInstrumentsList } from "../hooks/evaluationInstrument/useEvaluationInstrumentList";
 
 import EvaluationInstrumentTable from "./table";

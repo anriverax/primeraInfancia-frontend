@@ -1,11 +1,10 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { useCallback, useEffect } from "react";
-import { AxiosResponse, HttpStatusCode } from "axios";
+import { useEffect } from "react";
+import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import { IModuleEvaluationTable, ModuleEvaluationListResult } from "../../moduleEvaluationType";
 import { handleAxiosError } from "@/shared/utils/funtions";
 import { useModuleEvaluationListStore } from "@/shared/hooks/store/useModuleEvaluationListStore";
-import Swal from "sweetalert2";
 
 const useModuleEvaluationsList = (): ModuleEvaluationListResult => {
   const { moduleEvaluationsList, setModuleEvaluationsList } = useModuleEvaluationListStore();

@@ -1,6 +1,6 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { useCallback, useEffect } from "react";
-import { AxiosResponse, HttpStatusCode } from "axios";
+import { useEffect } from "react";
+import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import {
   IEvaluationInstrumentTable,
@@ -8,8 +8,6 @@ import {
 } from "../../evaluationInstrumentType";
 import { handleAxiosError } from "@/shared/utils/funtions";
 import { useEvaluationInstrumentListStore } from "@/shared/hooks/store/useEvaluationInstrumentListStore";
-
-import Swal from "sweetalert2";
 
 const useEvaluationInstrumentsList = (): EvaluationInstrumentListResult => {
   const { evaluationInstrumentsList, setEvaluationInstrumentsList } = useEvaluationInstrumentListStore();

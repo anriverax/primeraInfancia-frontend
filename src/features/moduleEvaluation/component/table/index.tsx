@@ -7,7 +7,6 @@ import {
   ModuleEvaluationTableProps
 } from "../../moduleEvaluationType";
 import { tableClassNames } from "@/shared/constants";
-import { confirmDelete } from "@/shared/utils/funtions";
 
 const ModuleEvaluationTable = ({
   moduleEvaluationsList

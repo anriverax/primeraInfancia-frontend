@@ -1,4 +1,3 @@
-import { useModuleReportModalStore } from "@/shared/hooks/store/useModuleReportModalStore";
 import { useModuleReportsList } from "../hooks/moduleReport/useModuleReportList";
 
 import ModuleReportTable from "./table";

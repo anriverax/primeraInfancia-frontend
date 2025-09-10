@@ -5,8 +5,8 @@ type TrainingReportModalProps = TrainingReportModalAction & {
   reset: () => void;
 };
 
-export const useTrainingReportModalStore: UseBoundStore<StoreApi<TrainingReportModalProps>> = create<TrainingReportModalProps>()(
-  (set) => ({
+export const useTrainingReportModalStore: UseBoundStore<StoreApi<TrainingReportModalProps>> =
+  create<TrainingReportModalProps>()((set) => ({
     isVisible: false,
     typeModal: "Z",
     data: null,
@@ -22,5 +22,4 @@ export const useTrainingReportModalStore: UseBoundStore<StoreApi<TrainingReportM
         typeModal: "Z",
         data: null
       })
-  })
-);
+  }));

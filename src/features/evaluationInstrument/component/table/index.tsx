@@ -7,7 +7,6 @@ import {
   EvaluationInstrumentTableProps
 } from "../../evaluationInstrumentType";
 import { tableClassNames } from "@/shared/constants";
-import { confirmDelete } from "@/shared/utils/funtions";
 
 const EvaluationInstrumentTable = ({
   evaluationInstrumentsList

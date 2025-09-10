@@ -1,11 +1,10 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { useCallback, useEffect } from "react";
-import { AxiosResponse, HttpStatusCode } from "axios";
+import { useEffect } from "react";
+import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import { IModuleReportTable, ModuleReportListResult } from "../../moduleReportType";
 import { handleAxiosError } from "@/shared/utils/funtions";
 import { useModuleReportListStore } from "@/shared/hooks/store/useModuleReportListStore";
-import Swal from "sweetalert2";
 
 const useModuleReportsList = (): ModuleReportListResult => {
   const { moduleReportsList, setModuleReportsList } = useModuleReportListStore();

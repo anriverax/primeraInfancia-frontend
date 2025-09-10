@@ -7,7 +7,6 @@ import {
   TrainingReportTableProps
 } from "../../trainingReportType";
 import { tableClassNames } from "@/shared/constants";
-import { confirmDelete } from "@/shared/utils/funtions";
 
 const TrainingReportTable = ({ trainingReportsList }: TrainingReportTableProps): React.JSX.Element => {
   const renderTrainingReportCell = useRenderTrainingReportCell();

@@ -5,8 +5,8 @@ type ModuleReportModalProps = ModuleReportModalAction & {
   reset: () => void;
 };
 
-export const useModuleReportModalStore: UseBoundStore<StoreApi<ModuleReportModalProps>> = create<ModuleReportModalProps>()(
-  (set) => ({
+export const useModuleReportModalStore: UseBoundStore<StoreApi<ModuleReportModalProps>> =
+  create<ModuleReportModalProps>()((set) => ({
     isVisible: false,
     typeModal: "Z",
     data: null,
@@ -22,5 +22,4 @@ export const useModuleReportModalStore: UseBoundStore<StoreApi<ModuleReportModal
         typeModal: "Z",
         data: null
       })
-  })
-);
+  }));

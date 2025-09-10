@@ -7,7 +7,6 @@ import {
   ModuleReportTableProps
 } from "../../moduleReportType";
 import { tableClassNames } from "@/shared/constants";
-import { confirmDelete } from "@/shared/utils/funtions";
 
 const ModuleReportTable = ({ moduleReportsList }: ModuleReportTableProps): React.JSX.Element => {
   const renderModuleReportCell = useRenderModuleReportCell();

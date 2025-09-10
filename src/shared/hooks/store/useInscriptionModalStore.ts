@@ -5,8 +5,8 @@ type EnrollmentModalProps = EnrollmentModalAction & {
   reset: () => void;
 };
 
-export const useEnrollmentModalStore: UseBoundStore<StoreApi<EnrollmentModalProps>> = create<EnrollmentModalProps>()(
-  (set) => ({
+export const useEnrollmentModalStore: UseBoundStore<StoreApi<EnrollmentModalProps>> =
+  create<EnrollmentModalProps>()((set) => ({
     isVisible: false,
     typeModal: "Z",
     data: null,
@@ -22,5 +22,4 @@ export const useEnrollmentModalStore: UseBoundStore<StoreApi<EnrollmentModalProp
         typeModal: "Z",
         data: null
       })
-  })
-);
+  }));

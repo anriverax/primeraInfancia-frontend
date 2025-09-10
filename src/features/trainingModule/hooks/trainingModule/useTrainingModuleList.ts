@@ -1,11 +1,10 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { useCallback, useEffect } from "react";
-import { AxiosResponse, HttpStatusCode } from "axios";
+import { useEffect } from "react";
+import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import { ITrainingModuleTable, TrainingModuleListResult } from "../../trainingModuleType";
 import { handleAxiosError } from "@/shared/utils/funtions";
 import { useTrainingModuleListStore } from "@/shared/hooks/store/useTrainingModuleListStore";
-import Swal from "sweetalert2";
 
 const useTrainingModulesList = (): TrainingModuleListResult => {
   const { trainingModulesList, setTrainingModulesList } = useTrainingModuleListStore();

@@ -7,7 +7,6 @@ import {
   TrainingModuleTableProps
 } from "../../trainingModuleType";
 import { tableClassNames } from "@/shared/constants";
-import { confirmDelete } from "@/shared/utils/funtions";
 
 const TrainingModuleTable = ({ trainingModulesList }: TrainingModuleTableProps): React.JSX.Element => {
   const renderTrainingModuleCell = useRenderTrainingModuleCell();

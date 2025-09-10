@@ -7,7 +7,6 @@ import {
   TrainingEvaluationTableProps
 } from "../../trainingEvaluationType";
 import { tableClassNames } from "@/shared/constants";
-import { confirmDelete } from "@/shared/utils/funtions";
 
 const TrainingEvaluationTable = ({
   trainingEvaluationsList

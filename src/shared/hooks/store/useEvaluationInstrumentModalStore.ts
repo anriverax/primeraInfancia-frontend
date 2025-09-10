@@ -5,8 +5,8 @@ type EvaluationInstrumentModalProps = EvaluationInstrumentModalAction & {
   reset: () => void;
 };
 
-export const useEvaluationInstrumentModalStore: UseBoundStore<StoreApi<EvaluationInstrumentModalProps>> = create<EvaluationInstrumentModalProps>()(
-  (set) => ({
+export const useEvaluationInstrumentModalStore: UseBoundStore<StoreApi<EvaluationInstrumentModalProps>> =
+  create<EvaluationInstrumentModalProps>()((set) => ({
     isVisible: false,
     typeModal: "Z",
     data: null,
@@ -22,5 +22,4 @@ export const useEvaluationInstrumentModalStore: UseBoundStore<StoreApi<Evaluatio
         typeModal: "Z",
         data: null
       })
-  })
-);
+  }));
