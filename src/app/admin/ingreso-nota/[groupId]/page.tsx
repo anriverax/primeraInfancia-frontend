@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useGroupDetail } from "@/features/groupDetail/hooks/useGroupDetail";
 import { useEvaluationInstrumentsList } from "@/features/evaluationInstrument/hooks/evaluationInstrument/useEvaluationInstrumentList";
+import { useTrainingModulesList } from "@/features/trainingModule/hooks/trainingModule/useTrainingModuleList"
 import { useMemo, useState } from "react";
 import {
   Input,
@@ -138,17 +139,35 @@ const estudiantes = {
   ]
 };
 
+interface GradeData {
+
+  inscriptionId: number
+
+  studentName: string
+
+  grade: number | null
+
+  observations: string
+
+}
+
 const GradePage = (): Promise<React.JSX.Element> => {
   const params = useParams();
 
   var { groupDetail } = useGroupDetail(Number(params.groupId));
   const { evaluationInstrumentsList } = useEvaluationInstrumentsList();
+  const { trainingModulesList } = useTrainingModulesList();
 
   const [notas, setNotas] = useState<any[]>([]);
   const [filtro, setFiltro] = useState("");
   const [instrumentoSeleccionado, setInstrumentoSeleccionado] = useState(new Set([]));
+  const [moduloSeleccionado, setModuloSeleccionado] = useState(new Set([]));
   const [mentorSeleccionado, setMentorSeleccionado] = useState(new Set([]));
   const [inscription, setInscription] = useState(new Set([]));
+  const [gradesData, setGradesData] = useState<Record<number, GradeData>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [instrumentName, setInstrumentName] = useState('');
+  const [moduleName, setModuleName] = useState('');
 
   const agregarNota = (estudianteId: number, materia: string, nota: number, observaciones: string) => {
     const nuevaNota = {
@@ -163,21 +182,11 @@ const GradePage = (): Promise<React.JSX.Element> => {
   };
   if (!groupDetail) groupDetail = estudiantes;
 
-  var estudiantesFiltrados = groupDetail?.inscriptionPerson.filter((student) =>
+  let estudiantesFiltrados = groupDetail?.inscriptionPerson.filter((student) =>
     student?.teacher?.fullName.toLowerCase().includes(filtro.toLowerCase())
   );
 
-  estudiantesFiltrados.sort((a, b) => {
-    const fullNameA = a.teacher?.fullName.toLowerCase() || "";
-    const fullNameB = b.teacher?.fullName.toLowerCase() || "";
-    if (fullNameA < fullNameB) {
-      return -1;
-    }
-    if (fullNameA > fullNameB) {
-      return 1;
-    }
-    return 0;
-  });
+  estudiantesFiltrados?.sort((a, b) => a.teacher.fullName?.localeCompare(b.teacher.fullName));
 
   if (!estudiantesFiltrados) estudiantesFiltrados = [];
 
@@ -193,7 +202,133 @@ const GradePage = (): Promise<React.JSX.Element> => {
     return estudiantesFiltrados.slice(start, end);
   }, [page, estudiantesFiltrados]);
 
-  //  const estudiantesFiltrados = groupDetail?.inscriptionPerson.filter((student)=> student?.teacher?.fullName.toLowerCase().includes(filtro.toLowerCase()));
+  const updateGradeData = (
+    inscriptionId: number,
+    studentName: string,
+    field: "grade" | "observations",
+    value: string | number,
+  ) => {
+    setGradesData((prev) => ({
+      ...prev,
+      [inscriptionId]: {
+        ...prev[inscriptionId],
+        inscriptionId,
+        studentName,
+        [field]: field === "grade" ? (value === "" ? null : Number(value)) : value,
+      },
+    }));
+  };
+
+  const submitAllGrades = async () => {
+    try {
+      setIsSubmitting(true)
+
+      // Create the payload object
+      // const payload = {
+      //   groupId: Number(params.groupId),
+      //   instrumentId: instrumentoSeleccionado || null,
+      //   moduleId: moduloSeleccionado || null,
+      //   mentorId: mentorSeleccionado || null,
+      //   grades: Object.values(gradesData).filter((grade) => grade.grade !== null || grade.observations.trim() !== ""),
+      //   submittedAt: new Date().toISOString(),
+      // }
+      const payload= Object.entries(gradesData)
+    // First, filter the entries based on your condition:
+    // a non-null grade OR non-empty observations (after trimming whitespace).
+    .filter(([inscriptionId, gradeData]) => 
+      gradeData.grade !== null || gradeData.observations.trim() !== ""
+    )
+    // Then, use map() to transform each filtered entry into the desired payload object.
+    .map(([inscriptionId, gradeData]) => ({
+      // Map the grade from the data object.
+      grade: gradeData.grade,
+
+      // Map the observations to the 'comment' property.
+      comment: gradeData.observations,
+
+      // This value must be provided from your application logic.
+      // We'll use a placeholder here for demonstration.
+      moduleProgressStatus: "COMPLETED",
+
+      // These values come from your form selections.
+      evaluationInstrumentId: [...instrumentoSeleccionado][0],
+      trainingModuleId: [...moduloSeleccionado][0],
+
+      // The inscriptionId comes directly from the key of the original object.
+      inscriptionId: Number(inscriptionId),
+    }));
+
+     // console.log("Submitting grades payload:", payload)
+
+      // Replace this URL with your actual endpoint
+      const response = await fetch("http://localhost:3001/api/module-evaluation/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const result = await response.json()
+      console.log("Grades submitted successfully:", result)
+
+      // Reset form after successful submission
+      setGradesData({})
+      alert("Notas enviadas exitosamente!")
+    } catch (error) {
+      console.error("Error submitting grades:", error)
+      alert("Error al enviar las notas. Por favor, intente nuevamente.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+
+  const handleEvaluationInstrumentChange = (keys) => {
+    setInstrumentoSeleccionado(keys);
+
+
+    // Convert the Set of keys to an array to get the first selected key
+    const selectedKey = Array.from(keys)[0];
+
+    // Find the instrument object from the list using the selected key
+    const selectedInstrument = evaluationInstrumentsList.find(
+      (instrument) => instrument.id === Number(selectedKey)
+    );
+
+    // Update the instrumentName state if an instrument is found
+    if (selectedInstrument) {
+      setInstrumentName(selectedInstrument.instrumentName);
+    } else {
+      // Clear the name if no instrument is selected
+      setInstrumentName('');
+    }
+  };
+
+  const handleTrainingModuleChange = (keys) => {
+    setModuloSeleccionado(keys);
+
+
+    // Convert the Set of keys to an array to get the first selected key
+    const selectedKey = Array.from(keys)[0];
+
+    // Find the instrument object from the list using the selected key
+    const selectedModule = trainingModulesList.find(
+      (module) => module.id === Number(selectedKey)
+    );
+
+    // Update the instrumentName state if an instrument is found
+    if (selectedModule) {
+      setModuleName(selectedModule.moduleName);
+    } else {
+      // Clear the name if no instrument is selected
+      setModuleName('');
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -223,13 +358,27 @@ const GradePage = (): Promise<React.JSX.Element> => {
                 placeholder="Seleccionar instrumento"
                 variant="bordered"
                 selectedKeys={instrumentoSeleccionado}
-                onSelectionChange={setInstrumentoSeleccionado}
+                onSelectionChange={handleEvaluationInstrumentChange}
               >
                 {evaluationInstrumentsList
                   ?.sort((a, b) => a.instrumentName.localeCompare(b.instrumentName))
                   ?.map((instrument) => (
                     <SelectItem key={instrument.id} textValue={instrument.instrumentName}>
                       {instrument.instrumentName}
+                    </SelectItem>
+                  ))}
+              </Select>
+              <Select
+                placeholder="Seleccionar módulo"
+                variant="bordered"
+                selectedKeys={moduloSeleccionado}
+                onSelectionChange={handleTrainingModuleChange}
+              >
+                {trainingModulesList
+                  ?.sort((a, b) => a.moduleName.localeCompare(b.moduleName))
+                  ?.map((trainingModule) => (
+                    <SelectItem key={trainingModule.id} textValue={trainingModule.moduleName}>
+                      {trainingModule.moduleName}
                     </SelectItem>
                   ))}
               </Select>
@@ -267,10 +416,16 @@ const GradePage = (): Promise<React.JSX.Element> => {
                 //     //?.sort((a, b) => a.teacher.fullName?.localeCompare(b.teacher.fullName))
                 //     ?.map((estudiante) => (
                 <Card key={estudiante.id} className="hover:border-primary transition-colors">
-                  <CardHeader className="pb-3">
+                  {/* <CardHeader className="pb-3">
                     <div className="flex items-center justify-between w-full">
                       <Chip color="success" variant="flat" size="sm">
                         <div className="font-bold">{estudiante.teacher.fullName}</div>
+                      </Chip>
+                      <Chip color="warning" variant="flat" size="sm">
+                        <div className="font-bold">{moduloSeleccionado}</div>
+                      </Chip>
+                      <Chip color="warning" variant="flat" size="sm">
+                        <div className="font-bold">{instrumentoSeleccionado}</div>
                       </Chip>
                     </div>
 
@@ -281,6 +436,42 @@ const GradePage = (): Promise<React.JSX.Element> => {
                         src="https://i.pravatar.cc/300?u=a042581f4e29026709d"
                       />
                     </Badge>
+                  </CardHeader> */}
+                  <CardHeader className="pb-3">
+                    {/* The updated parent div for the two-column layout */}
+                    <div className="flex flex-wrap w-full">
+                      {/* First column, first row: Badge with Avatar */}
+                      <div className="flex flex-col items-start w-1/2">
+                        <Badge color="primary">
+                          <Avatar
+                            radius="md"
+                            size="lg"
+                            src="https://i.pravatar.cc/300?u=a042581f4e29026709d"
+                          />
+                        </Badge>
+                      </div>
+                      {/* Second column, first row: Chip with instrumentoSeleccionado */}
+                      <div className="flex flex-col items-end w-1/2">
+                        {instrumentName && (
+                          <Chip color="warning" variant="flat" size="sm" className="mt-2">
+                            <div className="font-bold">{instrumentName}</div>
+                          </Chip>
+                        )}
+                      </div>
+                      {/* First column, second row: Chip with teacher's full name */}
+                      <div className="flex flex-col items-start w-1/2 pt-2">
+                        <Chip color="success" variant="flat" size="sm">
+                          <div className="font-bold">{estudiante.teacher.fullName}</div>
+                        </Chip>
+                      </div>
+                      {/* Second column, second row: Chip with moduloSeleccionado */}
+                      <div className="flex flex-col items-end w-1/2 pt-2">
+                        {moduleName && (
+                          <Chip color="warning" variant="flat" size="sm">
+                            <div className="font-bold  text-xs">{moduleName}</div>
+                          </Chip>)}
+                      </div>
+                    </div>
                   </CardHeader>
                   <Divider />
                   <CardBody className="space-y-4">
@@ -292,16 +483,43 @@ const GradePage = (): Promise<React.JSX.Element> => {
                       step="0.1"
                       placeholder="0.0"
                       variant="bordered"
+                      // value={gradesData[estudiante.id]?.grade?.toString() || ""}
+                      // onChange={(e) => updateGradeData(estudiante.id, estudiante.teacher.fullName, "grade", e.target.value
+                      // )}
+                      value={gradesData[estudiante.id]?.grade?.toString() || ""}
+                      // The onChange handler updates the state with the new value.
+                      onChange={(e) =>
+                        updateGradeData(
+                          estudiante.id,
+                          estudiante.teacher.fullName,
+                          "grade",
+                          e.target.value
+                        )
+                      }
                     />
                     <Textarea
                       label="Observaciones"
                       placeholder="Comentarios adicionales..."
                       minRows={2}
                       variant="bordered"
+                      // value={gradesData[estudiante.id]?.observations || ""}
+                      // onChange={(e) =>
+                      //   updateGradeData(estudiante.id, estudiante.teacher.fullName, "observations", e.target.value)
+                      // }
+                      value={gradesData[estudiante.id]?.observations || ""}
+                      // The onChange handler updates the state with the new value.
+                      onChange={(e) =>
+                        updateGradeData(
+                          estudiante.id,
+                          estudiante.teacher.fullName,
+                          "observations",
+                          e.target.value
+                        )
+                      }
                     />
-                    <Button color="primary" className="w-full" startContent={<SaveAll size={16} />}>
+                    {/* <Button color="primary" className="w-full" startContent={<SaveAll size={16} />}>
                       Guardar Nota
-                    </Button>
+                    </Button> */}
                     <Button color="secondary" className="w-full" startContent={<SaveAll size={16} />}>
                       Cancelar
                     </Button>
@@ -311,6 +529,17 @@ const GradePage = (): Promise<React.JSX.Element> => {
               ))}
             </div>
           </CardBody>
+          <div className="flex w-full gap-3 justify-center m-3">
+            <Button
+              color="primary"
+              startContent={<SaveAll size={16} />}
+              onClick={submitAllGrades}
+              isLoading={isSubmitting}
+              isDisabled={Object.keys(gradesData).length === 0}
+            >
+              {isSubmitting ? "Enviando..." : Object.keys(gradesData).length === 0 ? "Guardar" : Object.keys(gradesData).length === 1 ? `Guardar ${Object.keys(gradesData).length} registro` : `Guardar ${Object.keys(gradesData).length} registros`}
+            </Button>
+          </div>
         </Card>
         <div className="flex w-full justify-center py-6">
           <Pagination
