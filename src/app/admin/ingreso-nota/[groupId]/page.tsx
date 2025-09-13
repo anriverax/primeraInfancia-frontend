@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { useGroupDetail } from "@/features/groupDetail/hooks/useGroupDetail";
 import { useEvaluationInstrumentsList } from "@/features/evaluationInstrument/hooks/evaluationInstrument/useEvaluationInstrumentList";
+import { useGrade } from "@/features/grade/hooks/useGradeSave";
 import { useTrainingModulesList } from "@/features/trainingModule/hooks/trainingModule/useTrainingModuleList"
 import { useMemo, useState } from "react";
 import {
@@ -232,49 +233,54 @@ const GradePage = (): Promise<React.JSX.Element> => {
       //   grades: Object.values(gradesData).filter((grade) => grade.grade !== null || grade.observations.trim() !== ""),
       //   submittedAt: new Date().toISOString(),
       // }
-      const payload= Object.entries(gradesData)
-    // First, filter the entries based on your condition:
-    // a non-null grade OR non-empty observations (after trimming whitespace).
-    .filter(([inscriptionId, gradeData]) => 
-      gradeData.grade !== null || gradeData.observations.trim() !== ""
-    )
-    // Then, use map() to transform each filtered entry into the desired payload object.
-    .map(([inscriptionId, gradeData]) => ({
-      // Map the grade from the data object.
-      grade: gradeData.grade,
+      const payload = Object.entries(gradesData)
+        // First, filter the entries based on your condition:
+        // a non-null grade OR non-empty observations (after trimming whitespace).
+        .filter(([inscriptionId, gradeData]) =>
+          gradeData.grade !== null || gradeData.observations.trim() !== ""
+        )
+        // Then, use map() to transform each filtered entry into the desired payload object.
+        .map(([inscriptionId, gradeData]) => ({
+          // Map the grade from the data object.
+          grade: gradeData.grade,
 
-      // Map the observations to the 'comment' property.
-      comment: gradeData.observations,
+          // Map the observations to the 'comment' property.
+          comment: gradeData.observations,
 
-      // This value must be provided from your application logic.
-      // We'll use a placeholder here for demonstration.
-      moduleProgressStatus: "COMPLETED",
+          // This value must be provided from your application logic.
+          // We'll use a placeholder here for demonstration.
+          moduleProgressStatus: "COMPLETED",
 
-      // These values come from your form selections.
-      evaluationInstrumentId: [...instrumentoSeleccionado][0],
-      trainingModuleId: [...moduloSeleccionado][0],
+          // These values come from your form selections.
+          evaluationInstrumentId: [...instrumentoSeleccionado][0],
+          trainingModuleId: [...moduloSeleccionado][0],
 
-      // The inscriptionId comes directly from the key of the original object.
-      inscriptionId: Number(inscriptionId),
-    }));
+          // The inscriptionId comes directly from the key of the original object.
+          inscriptionId: Number(inscriptionId),
+        }));
 
-     // console.log("Submitting grades payload:", payload)
+      // console.log("Submitting grades payload:", payload)
 
       // Replace this URL with your actual endpoint
-      const response = await fetch("http://localhost:3001/api/module-evaluation/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+      request: async ({ tokens }) => {
+        const response = await fetch("http://localhost:3001/api/module-evaluation/create", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${tokens.access_token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        })
       }
+      //const { ok } = useGrade(payload[0]);
 
-      const result = await response.json()
-      console.log("Grades submitted successfully:", result)
+
+      // if (!ok) {
+      //   throw new Error(`HTTP error! status: ${response.status}`)
+      // }
+
+      // const result = await response.json()
+      console.log("Grades submitted successfully:", ok)
 
       // Reset form after successful submission
       setGradesData({})
