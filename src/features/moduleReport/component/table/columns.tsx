@@ -21,7 +21,6 @@ export const moduleReportColumns: IColumns<IModuleReportColumnKey>[] = [
   }
 ];
 
-/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderModuleReportCell = (): ((
   _moduleReport: IModuleReportTable,
   _columnKey: IModuleReportColumnKey
@@ -49,5 +48,3 @@ export const useRenderModuleReportCell = (): ((
     }
   }, []);
 };
-
-/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */

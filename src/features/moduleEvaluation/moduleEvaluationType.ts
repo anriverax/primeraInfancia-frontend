@@ -29,15 +29,18 @@ export interface ModuleEvaluationListResult {
   setModuleEvaluationsList: (_moduleEvaluations: IModuleEvaluationTable[]) => void;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface ModuleEvaluationTableProps
   extends Pick<ModuleEvaluationListResult, "moduleEvaluationsList"> {}
+/* eslint-enable @typescript-eslint/no-empty-object-type */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ModuleEvaluationModalInput {
   isVisible: boolean;
   typeModal: "Z" | "G";
   data?: any | null;
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export interface ModuleEvaluationFormResult {
   moduleEvaluationFormik: FormikProps<IModuleEvaluation>;
@@ -45,8 +48,8 @@ export interface ModuleEvaluationFormResult {
   data: ModuleEvaluationInput | null;
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ModuleEvaluationModalAction extends ModuleEvaluationModalInput {
   toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
 }
-
 /* eslint-enable @typescript-eslint/no-explicit-any */

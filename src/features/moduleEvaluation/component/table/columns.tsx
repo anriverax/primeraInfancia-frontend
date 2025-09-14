@@ -33,7 +33,6 @@ export const moduleEvaluationColumns: IColumns<IModuleEvaluationColumnKey>[] = [
   }
 ];
 
-/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderModuleEvaluationCell = (): ((
   _moduleEvaluation: IModuleEvaluationTable,
   _columnKey: IModuleEvaluationColumnKey
@@ -70,5 +69,3 @@ export const useRenderModuleEvaluationCell = (): ((
     []
   );
 };
-
-/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */

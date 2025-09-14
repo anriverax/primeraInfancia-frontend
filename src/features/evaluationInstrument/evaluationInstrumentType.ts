@@ -24,15 +24,18 @@ export interface EvaluationInstrumentListResult {
   setEvaluationInstrumentsList: (_evaluationInstruments: IEvaluationInstrumentTable[]) => void;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface EvaluationInstrumentTableProps
   extends Pick<EvaluationInstrumentListResult, "evaluationInstrumentsList"> {}
+/* eslint-enable @typescript-eslint/no-empty-object-type */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface EvaluationInstrumentModalInput {
   isVisible: boolean;
   typeModal: "Z" | "G";
   data?: any | null;
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export interface EvaluationInstrumentFormResult {
   evaluationInstrumentFormik: FormikProps<IEvaluationInstrument>;
@@ -40,8 +43,8 @@ export interface EvaluationInstrumentFormResult {
   data: EvaluationInstrumentInput | null;
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface EvaluationInstrumentModalAction extends EvaluationInstrumentModalInput {
   toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
 }
-
 /* eslint-enable @typescript-eslint/no-explicit-any */

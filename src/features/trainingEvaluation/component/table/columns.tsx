@@ -25,7 +25,6 @@ export const trainingEvaluationColumns: IColumns<ITrainingEvaluationColumnKey>[]
   }
 ];
 
-/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderTrainingEvaluationCell = (): ((
   _trainingEvaluation: ITrainingEvaluationTable,
   _columnKey: ITrainingEvaluationColumnKey
@@ -56,5 +55,3 @@ export const useRenderTrainingEvaluationCell = (): ((
     []
   );
 };
-
-/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */

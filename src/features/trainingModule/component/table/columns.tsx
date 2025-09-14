@@ -13,7 +13,6 @@ export const trainingModuleColumns: IColumns<ITrainingModuleColumnKey>[] = [
   }
 ];
 
-/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderTrainingModuleCell = (): ((
   _trainingModule: ITrainingModuleTable,
   _columnKey: ITrainingModuleColumnKey
@@ -27,5 +26,3 @@ export const useRenderTrainingModuleCell = (): ((
     }
   }, []);
 };
-
-/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */

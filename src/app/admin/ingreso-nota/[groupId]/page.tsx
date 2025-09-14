@@ -3,8 +3,7 @@
 import { useParams } from "next/navigation";
 import { useGroupDetail } from "@/features/groupDetail/hooks/useGroupDetail";
 import { useEvaluationInstrumentsList } from "@/features/evaluationInstrument/hooks/evaluationInstrument/useEvaluationInstrumentList";
-import { useGrade } from "@/features/grade/hooks/useGradeSave";
-import { useTrainingModulesList } from "@/features/trainingModule/hooks/trainingModule/useTrainingModuleList"
+import { useTrainingModulesList } from "@/features/trainingModule/hooks/trainingModule/useTrainingModuleList";
 import { useMemo, useState } from "react";
 import {
   Input,
@@ -141,21 +140,19 @@ const estudiantes = {
 };
 
 interface GradeData {
+  inscriptionId: number;
 
-  inscriptionId: number
+  studentName: string;
 
-  studentName: string
+  grade: number | null;
 
-  grade: number | null
-
-  observations: string
-
+  observations: string;
 }
 
 const GradePage = (): Promise<React.JSX.Element> => {
   const params = useParams();
 
-  var { groupDetail } = useGroupDetail(Number(params.groupId));
+  const { groupDetail } = useGroupDetail(Number(params.groupId));
   const { evaluationInstrumentsList } = useEvaluationInstrumentsList();
   const { trainingModulesList } = useTrainingModulesList();
 
@@ -164,11 +161,10 @@ const GradePage = (): Promise<React.JSX.Element> => {
   const [instrumentoSeleccionado, setInstrumentoSeleccionado] = useState(new Set([]));
   const [moduloSeleccionado, setModuloSeleccionado] = useState(new Set([]));
   const [mentorSeleccionado, setMentorSeleccionado] = useState(new Set([]));
-  const [inscription, setInscription] = useState(new Set([]));
-  const [gradesData, setGradesData] = useState<Record<number, GradeData>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [instrumentName, setInstrumentName] = useState('');
-  const [moduleName, setModuleName] = useState('');
+  const [gradesData, setGradesData] = useState<Record<number, GradeData>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [instrumentName, setInstrumentName] = useState("");
+  const [moduleName, setModuleName] = useState("");
 
   const agregarNota = (estudianteId: number, materia: string, nota: number, observaciones: string) => {
     const nuevaNota = {
@@ -207,7 +203,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
     inscriptionId: number,
     studentName: string,
     field: "grade" | "observations",
-    value: string | number,
+    value: string | number
   ) => {
     setGradesData((prev) => ({
       ...prev,
@@ -215,14 +211,14 @@ const GradePage = (): Promise<React.JSX.Element> => {
         ...prev[inscriptionId],
         inscriptionId,
         studentName,
-        [field]: field === "grade" ? (value === "" ? null : Number(value)) : value,
-      },
+        [field]: field === "grade" ? (value === "" ? null : Number(value)) : value
+      }
     }));
   };
 
   const submitAllGrades = async () => {
     try {
-      setIsSubmitting(true)
+      setIsSubmitting(true);
 
       // Create the payload object
       // const payload = {
@@ -236,8 +232,9 @@ const GradePage = (): Promise<React.JSX.Element> => {
       const payload = Object.entries(gradesData)
         // First, filter the entries based on your condition:
         // a non-null grade OR non-empty observations (after trimming whitespace).
-        .filter(([inscriptionId, gradeData]) =>
-          gradeData.grade !== null || gradeData.observations.trim() !== ""
+        .filter(
+          ([inscriptionId, gradeData]) =>
+            gradeData.grade !== null || gradeData.observations.trim() !== ""
         )
         // Then, use map() to transform each filtered entry into the desired payload object.
         .map(([inscriptionId, gradeData]) => ({
@@ -256,7 +253,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
           trainingModuleId: [...moduloSeleccionado][0],
 
           // The inscriptionId comes directly from the key of the original object.
-          inscriptionId: Number(inscriptionId),
+          inscriptionId: Number(inscriptionId)
         }));
 
       // console.log("Submitting grades payload:", payload)
@@ -267,36 +264,33 @@ const GradePage = (): Promise<React.JSX.Element> => {
           method: "POST",
           headers: {
             Authorization: `Bearer ${tokens.access_token}`,
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify(payload),
-        })
-      }
+          body: JSON.stringify(payload)
+        });
+      };
       //const { ok } = useGrade(payload[0]);
-
 
       // if (!ok) {
       //   throw new Error(`HTTP error! status: ${response.status}`)
       // }
 
       // const result = await response.json()
-      console.log("Grades submitted successfully:", ok)
+      console.log("Grades submitted successfully:", ok);
 
       // Reset form after successful submission
-      setGradesData({})
-      alert("Notas enviadas exitosamente!")
+      setGradesData({});
+      alert("Notas enviadas exitosamente!");
     } catch (error) {
-      console.error("Error submitting grades:", error)
-      alert("Error al enviar las notas. Por favor, intente nuevamente.")
+      console.error("Error submitting grades:", error);
+      alert("Error al enviar las notas. Por favor, intente nuevamente.");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
-
+  };
 
   const handleEvaluationInstrumentChange = (keys) => {
     setInstrumentoSeleccionado(keys);
-
 
     // Convert the Set of keys to an array to get the first selected key
     const selectedKey = Array.from(keys)[0];
@@ -311,28 +305,25 @@ const GradePage = (): Promise<React.JSX.Element> => {
       setInstrumentName(selectedInstrument.instrumentName);
     } else {
       // Clear the name if no instrument is selected
-      setInstrumentName('');
+      setInstrumentName("");
     }
   };
 
   const handleTrainingModuleChange = (keys) => {
     setModuloSeleccionado(keys);
 
-
     // Convert the Set of keys to an array to get the first selected key
     const selectedKey = Array.from(keys)[0];
 
     // Find the instrument object from the list using the selected key
-    const selectedModule = trainingModulesList.find(
-      (module) => module.id === Number(selectedKey)
-    );
+    const selectedModule = trainingModulesList.find((module) => module.id === Number(selectedKey));
 
     // Update the instrumentName state if an instrument is found
     if (selectedModule) {
       setModuleName(selectedModule.moduleName);
     } else {
       // Clear the name if no instrument is selected
-      setModuleName('');
+      setModuleName("");
     }
   };
 
@@ -475,7 +466,8 @@ const GradePage = (): Promise<React.JSX.Element> => {
                         {moduleName && (
                           <Chip color="warning" variant="flat" size="sm">
                             <div className="font-bold  text-xs">{moduleName}</div>
-                          </Chip>)}
+                          </Chip>
+                        )}
                       </div>
                     </div>
                   </CardHeader>
@@ -543,7 +535,13 @@ const GradePage = (): Promise<React.JSX.Element> => {
               isLoading={isSubmitting}
               isDisabled={Object.keys(gradesData).length === 0}
             >
-              {isSubmitting ? "Enviando..." : Object.keys(gradesData).length === 0 ? "Guardar" : Object.keys(gradesData).length === 1 ? `Guardar ${Object.keys(gradesData).length} registro` : `Guardar ${Object.keys(gradesData).length} registros`}
+              {isSubmitting
+                ? "Enviando..."
+                : Object.keys(gradesData).length === 0
+                  ? "Guardar"
+                  : Object.keys(gradesData).length === 1
+                    ? `Guardar ${Object.keys(gradesData).length} registro`
+                    : `Guardar ${Object.keys(gradesData).length} registros`}
             </Button>
           </div>
         </Card>

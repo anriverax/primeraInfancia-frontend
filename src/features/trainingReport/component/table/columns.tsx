@@ -23,7 +23,6 @@ export const trainingReportColumns: IColumns<ITrainingReportColumnKey>[] = [
   }
 ];
 
-/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderTrainingReportCell = (): ((
   _trainingReport: ITrainingReportTable,
   _columnKey: ITrainingReportColumnKey
@@ -64,5 +63,3 @@ export const useRenderTrainingReportCell = (): ((
     }
   }, []);
 };
-
-/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */

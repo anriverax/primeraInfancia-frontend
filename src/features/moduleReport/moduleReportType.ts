@@ -28,14 +28,17 @@ export interface ModuleReportListResult {
   setModuleReportsList: (_modulReports: IModuleReportTable[]) => void;
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface ModuleReportTableProps extends Pick<ModuleReportListResult, "moduleReportsList"> {}
+/* eslint-enable @typescript-eslint/no-empty-object-type */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ModuleReportModalInput {
   isVisible: boolean;
   typeModal: "Z" | "G";
   data?: any | null;
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export interface ModuleReportFormResult {
   moduleReportFormik: FormikProps<IModuleReport>;
@@ -43,8 +46,8 @@ export interface ModuleReportFormResult {
   data: ModuleReportInput | null;
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ModuleReportModalAction extends ModuleReportModalInput {
   toggleVisibility: (_form: "Z" | "G", _data?: any | null) => void;
 }
-
 /* eslint-enable @typescript-eslint/no-explicit-any */

@@ -21,7 +21,6 @@ export const evaluationInstrumentColumns: IColumns<IEvaluationInstrumentColumnKe
   }
 ];
 
-/* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
 export const useRenderEvaluationInstrumentCell = (): ((
   _evaluationInstrument: IEvaluationInstrumentTable,
   _columnKey: IEvaluationInstrumentColumnKey
@@ -38,5 +37,3 @@ export const useRenderEvaluationInstrumentCell = (): ((
     []
   );
 };
-
-/* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/no-explicit-any */
