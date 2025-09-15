@@ -7,7 +7,7 @@ interface LocationData {
   timestamp: number;
 }
 
-const useCurrentLocation = () => {
+const useCurrentLocation = (): (() => Promise<LocationData>) => {
   const getCurrentLocation = (): Promise<LocationData> => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {

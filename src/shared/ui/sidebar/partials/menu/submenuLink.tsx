@@ -32,7 +32,7 @@ const SubmenuLink = memo(
         }
       )}
     >
-      {item.icon !== "" && (
+      {item.icon !== null && (
         <LucideIconRenderer
           iconName={item.icon}
           className={cn("h-4 w-4 text-gray-600", {

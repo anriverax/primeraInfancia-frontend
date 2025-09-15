@@ -2,7 +2,7 @@ import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from 
 import { useRenderZoneCell, zoneColumns } from "./columns";
 import { IZoneColumnKey, IZoneTable } from "../../zoneType";
 import { tableClassNames } from "@/shared/constants";
-import { useZonesList } from "@/features/zone/useZonesList";
+import { useZonesList } from "../../useZonesList";
 
 const ZoneTable = (): React.JSX.Element => {
   const { zonesList } = useZonesList();

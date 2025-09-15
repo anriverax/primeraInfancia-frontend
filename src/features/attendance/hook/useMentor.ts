@@ -14,7 +14,12 @@ const useMentor = (): {
     teachers: []
   });
 
-  const splitDistance = (distance: string) => {
+  const splitDistance = (
+    distance: string
+  ): {
+    lat: number;
+    lng: number;
+  } => {
     const d = distance.split(",");
     return { lat: parseFloat(d[0]), lng: parseFloat(d[1]) };
   };
@@ -56,7 +61,7 @@ const useMentor = (): {
     return (): void => {
       isMounted = false;
     };
-  }, []);
+  }, [mentorAssignment.selectBox.length, mentorAssignment.teachers.length]);
 
   return { mentorAssignment, calculateDistance };
 };

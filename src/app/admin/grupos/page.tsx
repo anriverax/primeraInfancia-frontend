@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 const GroupTable = dynamic(() => import("@/features/group/components/table").then((mod) => mod), {
   ssr: false
 });
+
 export default function GroupsPage(): React.JSX.Element {
   return (
     <div className="space-y-8">

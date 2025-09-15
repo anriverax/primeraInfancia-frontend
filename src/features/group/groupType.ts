@@ -1,6 +1,6 @@
 import { IColumns, IPagination, IPerson } from "@/shared/types/globals";
-import { ZoneInput } from "../zone/zoneType";
 import { Dispatch, SetStateAction } from "react";
+import { ZoneInput } from "../catalogue/zone/zoneType";
 
 export type IGroupColumnKey = "name" | "count" | "department" | "actions";
 
