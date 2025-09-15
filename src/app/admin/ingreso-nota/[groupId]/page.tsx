@@ -152,7 +152,7 @@ interface GradeData {
 const GradePage = (): Promise<React.JSX.Element> => {
   const params = useParams();
 
-  const { groupDetail } = useGroupDetail(Number(params.groupId));
+  let { groupDetail } = useGroupDetail(Number(params.groupId));
   const { evaluationInstrumentsList } = useEvaluationInstrumentsList();
   const { trainingModulesList } = useTrainingModulesList();
 
