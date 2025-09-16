@@ -1,7 +1,6 @@
-"use client"
+"use client";
 
-import { FormikHelpers, useFormik } from "formik";
-import { Calendar1, FileText, Users, Target, CheckCircle, PenTool, Home } from "lucide-react";
+import { FileText } from "lucide-react";
 import { Button, Input } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
@@ -23,15 +22,20 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
           <FileText className="w-8 h-8 text-secondary" />
         </div>
         <h1 className="text-4xl font-bold text-left">Anexo 3</h1>
-        <h2 className="text-4xl font-bold text-left">Registro de planificación y retroalimentación: plan de mejora</h2>
+        <h2 className="text-4xl font-bold text-left">
+          Registro de planificación y retroalimentación: plan de mejora
+        </h2>
         <p className="text-xl text-muted-foreground text-justify">
-          Dado el número de docentes que tendrán que acompañar, se recomienda llevar un
-          registro de las actuaciones llevadas a término en cada sesión.
+          Dado el número de docentes que tendrán que acompañar, se recomienda llevar un registro de las
+          actuaciones llevadas a término en cada sesión.
         </p>
       </div>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
-        <p className="text-xl text-muted-foreground text-justify">Registro de planificación y retroalimentación</p><br />
+        <p className="text-xl text-muted-foreground text-justify">
+          Registro de planificación y retroalimentación
+        </p>
+        <br />
         <p className="text-xl text-muted-foreground text-justify">I. DATOS GENERALES</p>
         <Input
           {...getFieldProps("teacherName")}
@@ -53,12 +57,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
         />
         <Input
           {...getFieldProps("schoolName")}
-          {...getInputProps(
-            "schoolName",
-            "Centro Educativo",
-            touched.schoolName,
-            errors.schoolName
-          )}
+          {...getInputProps("schoolName", "Centro Educativo", touched.schoolName, errors.schoolName)}
         />
 
         <Input
@@ -93,12 +92,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
         <p className="text-xl text-muted-foreground text-justify">III. ÁREAS PRIORITARIAS DE TRABAJO</p>
         <Input
           {...getFieldProps("workArea")}
-          {...getInputProps(
-            "workArea",
-            "Área de trabajo",
-            touched.workArea,
-            errors.workArea
-          )}
+          {...getInputProps("workArea", "Área de trabajo", touched.workArea, errors.workArea)}
         />
         <Input
           {...getFieldProps("justification")}
@@ -119,56 +113,29 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
           )}
         />
 
-        <p className="text-xl text-muted-foreground text-justify">IV. ACTIVIDADES PLANIFICADAS
-        </p>
+        <p className="text-xl text-muted-foreground text-justify">IV. ACTIVIDADES PLANIFICADAS</p>
         <Input
           {...getFieldProps("plannedDate")}
-          {...getInputProps(
-            "plannedDate",
-            "Fecha",
-            touched.plannedDate,
-            errors.plannedDate
-          )}
+          {...getInputProps("plannedDate", "Fecha", touched.plannedDate, errors.plannedDate)}
         />
         <Input
           {...getFieldProps("activity")}
-          {...getInputProps(
-            "activity",
-            "Actividad",
-            touched.activity,
-            errors.activity
-          )}
+          {...getInputProps("activity", "Actividad", touched.activity, errors.activity)}
         />
         <Input
           {...getFieldProps("mode")}
-          {...getInputProps(
-            "mode",
-            "Modalidad",
-            touched.mode,
-            errors.mode
-          )}
+          {...getInputProps("mode", "Modalidad", touched.mode, errors.mode)}
         />
         <Input
           {...getFieldProps("responsible")}
-          {...getInputProps(
-            "responsible",
-            "Responsable",
-            touched.responsible,
-            errors.responsible
-          )}
+          {...getInputProps("responsible", "Responsable", touched.responsible, errors.responsible)}
         />
 
         <Input
           {...getFieldProps("observations")}
-          {...getInputProps(
-            "observations",
-            "Observaciones",
-            touched.observations,
-            errors.observations
-          )}
+          {...getInputProps("observations", "Observaciones", touched.observations, errors.observations)}
         />
-        <p className="text-xl text-muted-foreground text-justify">V. ESTRATEGIAS DE ACOMPAÑAMIENTO
-        </p>
+        <p className="text-xl text-muted-foreground text-justify">V. ESTRATEGIAS DE ACOMPAÑAMIENTO</p>
         <Input
           {...getFieldProps("classrromObservations")}
           {...getInputProps(
@@ -225,16 +192,10 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
         />
         <Input
           {...getFieldProps("other")}
-          {...getInputProps(
-            "other",
-            "Otras:",
-            touched.other,
-            errors.other
-          )}
+          {...getInputProps("other", "Otras:", touched.other, errors.other)}
         />
 
-        <p className="text-xl text-muted-foreground text-justify">VI. RECURSOS NECESARIOS
-        </p>
+        <p className="text-xl text-muted-foreground text-justify">VI. RECURSOS NECESARIOS</p>
         <Input
           {...getFieldProps("resourceList")}
           {...getInputProps(
@@ -244,7 +205,8 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
             errors.resourceList
           )}
         />
-        <p className="text-xl text-muted-foreground text-justify">VII. CRITERIOS DE SEGUIMIENTO Y EVALUACIÓN
+        <p className="text-xl text-muted-foreground text-justify">
+          VII. CRITERIOS DE SEGUIMIENTO Y EVALUACIÓN
         </p>
         <Input
           {...getFieldProps("expectedIndicators")}
@@ -264,8 +226,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
             errors.reviewFrecuency
           )}
         />
-        <p className="text-xl text-muted-foreground text-justify">Evidencias que recopilar:
-        </p>
+        <p className="text-xl text-muted-foreground text-justify">Evidencias que recopilar:</p>
         <Input
           {...getFieldProps("adjustedPlan")}
           {...getInputProps(
@@ -295,12 +256,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
         />
         <Input
           {...getFieldProps("otherEvidence")}
-          {...getInputProps(
-            "otherEvidence",
-            "Otros:",
-            touched.otherEvidence,
-            errors.otherEvidence
-          )}
+          {...getInputProps("otherEvidence", "Otros:", touched.otherEvidence, errors.otherEvidence)}
         />
 
         <Input
@@ -312,7 +268,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
             errors.improveAspects
           )}
         />
-          <Input
+        <Input
           {...getFieldProps("proposals")}
           {...getInputProps(
             "proposals",
@@ -327,7 +283,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
           </Button>
         </div>
       </form>
-    </div >
+    </div>
   );
 };
 export default Attachment3Form;
