@@ -1,0 +1,20 @@
+"use client";
+
+import AppendixCard from "@/features/mentoring/components/appendixCard";
+import { ListTodo } from "lucide-react";
+
+export default function MentoringPage(): React.JSX.Element {
+  return (
+    <div className="space-y-8">
+      <div className="flex w-full gap-3 justify-between">
+        <div className="flex items-center gap-2">
+          <ListTodo className="h-5 w-5 text-blue-500" />
+          <h2 className="text-2xl font-bold text-gray-900">Mentoria</h2>
+        </div>
+      </div>
+      <div className="space-y-4">
+        <AppendixCard />
+      </div>
+    </div>
+  );
+}

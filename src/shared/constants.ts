@@ -43,5 +43,5 @@ export const roleDisplayNames: Record<TypeRole, string> = {
 };
 
 export const tableClassNames: { th: string } = {
-  th: "bg-transparent text-bold text-sm text-black border-b border-divider"
+  th: " text-bold text-sm text-black bg-blue-50"
 };

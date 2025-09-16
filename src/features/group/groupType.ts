@@ -19,15 +19,15 @@ export interface Inscription {
 export interface IGroupTable extends ZoneInput {
   memberCount: number;
   department: string;
+  _count?: {
+    Inscription: number;
+  };
 }
 
 export interface IGroupDetail extends IGroupTable {
   leaders: IPerson & { assignedMunicipality: string };
   inscriptionPerson: Inscription[];
   mentors: IMentor[];
-  _count?: {
-    Inscription: number;
-  };
 }
 export interface GroupListResult {
   handleChangePage: Dispatch<SetStateAction<number>>;

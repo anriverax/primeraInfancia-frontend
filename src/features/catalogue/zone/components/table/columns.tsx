@@ -26,7 +26,7 @@ export const useRenderZoneCell = (): ((
           </span>
         );
       case "total":
-        return <span>{`${zone.total} grupos`}</span>;
+        return <span className="font-bold">{`${zone.total} grupos`}</span>;
       default:
         return cellValue;
     }

@@ -41,6 +41,7 @@ const useMentor = (): {
     return R * c;
   };
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
@@ -62,6 +63,7 @@ const useMentor = (): {
       isMounted = false;
     };
   }, [mentorAssignment.selectBox.length, mentorAssignment.teachers.length]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return { mentorAssignment, calculateDistance };
 };
