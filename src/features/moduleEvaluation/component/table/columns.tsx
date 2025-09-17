@@ -54,6 +54,12 @@ export const useRenderModuleEvaluationCell = (): ((
               {moduleEvaluation?.TrainingModule?.moduleName}
             </span>
           );
+        case "inscriptionId":
+          return (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
+              {moduleEvaluation?.Inscription?.PersonRole?.Person?.firstName} {moduleEvaluation?.Inscription?.PersonRole?.Person?.lastName1} {moduleEvaluation?.Inscription?.PersonRole?.Person?.lastname2}
+            </span>
+          );
         case "enrollmentId":
           return (
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">

@@ -21,6 +21,10 @@ import {
 } from "@heroui/react";
 import { UserRoundSearch, SaveAll, ShieldPlus, Info } from "lucide-react";
 import { Select, SelectItem } from "@heroui/select";
+import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
+import { FetchResponse } from "@/shared/types/globals";
+import useAxios from "@/shared/hooks/useAxios";
+import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 
 const estudiantes = {
   inscriptionPerson: [
@@ -146,17 +150,18 @@ interface GradeData {
 
   grade: number | null;
 
-  observations: string;
+  comment: string;
+
+  moduleProgressStatus: string;
 }
 
 const GradePage = (): Promise<React.JSX.Element> => {
   const params = useParams();
+  const useRequest = useAxios(true);
 
   let { groupDetail } = useGroupDetail(Number(params.groupId));
   const { evaluationInstrumentsList } = useEvaluationInstrumentsList();
   const { trainingModulesList } = useTrainingModulesList();
-
-  const [notas, setNotas] = useState<any[]>([]);
   const [filtro, setFiltro] = useState("");
   const [instrumentoSeleccionado, setInstrumentoSeleccionado] = useState(new Set([]));
   const [moduloSeleccionado, setModuloSeleccionado] = useState(new Set([]));
@@ -166,17 +171,6 @@ const GradePage = (): Promise<React.JSX.Element> => {
   const [instrumentName, setInstrumentName] = useState("");
   const [moduleName, setModuleName] = useState("");
 
-  const agregarNota = (estudianteId: number, materia: string, nota: number, observaciones: string) => {
-    const nuevaNota = {
-      id: Date.now(),
-      estudianteId,
-      materia,
-      nota,
-      observaciones,
-      fecha: new Date().toLocaleDateString()
-    };
-    setNotas([...notas, nuevaNota]);
-  };
   if (!groupDetail) groupDetail = estudiantes;
 
   let estudiantesFiltrados = groupDetail?.inscriptionPerson.filter((student) =>
@@ -202,7 +196,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
   const updateGradeData = (
     inscriptionId: number,
     studentName: string,
-    field: "grade" | "observations",
+    field: "grade" | "comment",
     value: string | number
   ) => {
     setGradesData((prev) => ({
@@ -220,33 +214,21 @@ const GradePage = (): Promise<React.JSX.Element> => {
     try {
       setIsSubmitting(true);
 
-      // Create the payload object
-      // const payload = {
-      //   groupId: Number(params.groupId),
-      //   instrumentId: instrumentoSeleccionado || null,
-      //   moduleId: moduloSeleccionado || null,
-      //   mentorId: mentorSeleccionado || null,
-      //   grades: Object.values(gradesData).filter((grade) => grade.grade !== null || grade.observations.trim() !== ""),
-      //   submittedAt: new Date().toISOString(),
-      // }
       const payload = Object.entries(gradesData)
         // First, filter the entries based on your condition:
-        // a non-null grade OR non-empty observations (after trimming whitespace).
-        .filter(
-          ([inscriptionId, gradeData]) =>
-            gradeData.grade !== null || gradeData.observations.trim() !== ""
-        )
+        // a non-null grade OR non-empty comment (after trimming whitespace).
+        .filter(([gradeData]) => gradeData.grade !== null || gradeData.comment.trim() !== "")
         // Then, use map() to transform each filtered entry into the desired payload object.
         .map(([inscriptionId, gradeData]) => ({
           // Map the grade from the data object.
           grade: gradeData.grade,
 
-          // Map the observations to the 'comment' property.
-          comment: gradeData.observations,
+          // Map the comment to the 'comment' property.
+          comment: gradeData.comment,
 
           // This value must be provided from your application logic.
           // We'll use a placeholder here for demonstration.
-          moduleProgressStatus: "COMPLETED",
+          moduleProgressStatus: "Activo",
 
           // These values come from your form selections.
           evaluationInstrumentId: [...instrumentoSeleccionado][0],
@@ -256,19 +238,37 @@ const GradePage = (): Promise<React.JSX.Element> => {
           inscriptionId: Number(inscriptionId)
         }));
 
-      // console.log("Submitting grades payload:", payload)
-
       // Replace this URL with your actual endpoint
-      request: async ({ tokens }) => {
-        const response = await fetch("http://localhost:3001/api/module-evaluation/create", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${tokens.access_token}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-      };
+      payload.map(async (item) => {
+        try {
+          let url = "";
+          if (item.evaluationInstrumentId == 1 || item.evaluationInstrumentId == 2)
+            url = "/module-evaluation/create";
+          else {
+            url = "/training-evaluation/create";
+            delete item.moduleProgressStatus;
+            delete item.trainingModuleId;
+          }
+
+          const res: AxiosResponse<FetchResponse<GradeData>> = await useRequest.post(url, item);
+
+          const resultData = res.data;
+
+          showToast(String(resultData.message), "success");
+
+          if (
+            resultData.statusCode === HttpStatusCode.Created ||
+            resultData.statusCode === HttpStatusCode.Ok
+          ) {
+            // /* eslint-disable @typescript-eslint/no-explicit-any */
+            // const newData: IAttendanceCreated = resultData.data as any;
+            // /* eslint-enable @typescript-eslint/no-explicit-any */
+            // setDataAttendance(newData);
+          }
+        } catch (error) {
+          handleFormikResponseError<IAttachment1Input>(error as AxiosError, formikHelpers!);
+        }
+      });
       //const { ok } = useGrade(payload[0]);
 
       // if (!ok) {
@@ -282,8 +282,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
       setGradesData({});
       alert("Notas enviadas exitosamente!");
     } catch (error) {
-      console.error("Error submitting grades:", error);
-      alert("Error al enviar las notas. Por favor, intente nuevamente.");
+      
     } finally {
       setIsSubmitting(false);
     }
@@ -500,17 +499,17 @@ const GradePage = (): Promise<React.JSX.Element> => {
                       placeholder="Comentarios adicionales..."
                       minRows={2}
                       variant="bordered"
-                      // value={gradesData[estudiante.id]?.observations || ""}
+                      // value={gradesData[estudiante.id]?.comment || ""}
                       // onChange={(e) =>
-                      //   updateGradeData(estudiante.id, estudiante.teacher.fullName, "observations", e.target.value)
+                      //   updateGradeData(estudiante.id, estudiante.teacher.fullName, "comment", e.target.value)
                       // }
-                      value={gradesData[estudiante.id]?.observations || ""}
+                      value={gradesData[estudiante.id]?.comment || ""}
                       // The onChange handler updates the state with the new value.
                       onChange={(e) =>
                         updateGradeData(
                           estudiante.id,
                           estudiante.teacher.fullName,
-                          "observations",
+                          "comment",
                           e.target.value
                         )
                       }
