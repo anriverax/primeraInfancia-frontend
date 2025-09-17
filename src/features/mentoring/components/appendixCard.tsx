@@ -1,5 +1,6 @@
 import { Eye, FileText, Users, BookOpen, ClipboardCheck, BarChart3, Target } from "lucide-react";
 import { Button, Card, CardBody } from "@heroui/react";
+import Link from "next/link";
 
 const attachmentList = [
   {
@@ -108,7 +109,13 @@ const AppendixCard = (): React.JSX.Element => {
                   </div>
                 </div>
                 <div className="flex justify-center text">
-                  <Button fullWidth color="primary" variant="shadow">
+                  <Button
+                    as={Link}
+                    href={`/admin/mentoria/${item.id}`}
+                    fullWidth
+                    color="primary"
+                    variant="shadow"
+                  >
                     Visualizar
                   </Button>
                 </div>
