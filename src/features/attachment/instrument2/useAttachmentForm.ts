@@ -7,9 +7,6 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Attachment2Input = {
-  fullName: "",
-  schoolName: "",
-  departmentMunicipality: "",
   educationalLevelServed: "",
   childrenAge: "",
   yearsExperiencie: "",
@@ -38,9 +35,6 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
     values: Attachment2Input,
     formikHelpers: FormikHelpers<IAttachment2Input>
   ): Promise<void> => {
-    const fullNameField = values.fullName;
-    const schoolNameField = values.schoolName;
-    const departmentMunicipalityField = values.departmentMunicipality;
     const educationalLevelServedField = values.educationalLevelServed;
     const childrenAgeField = values.childrenAge;
     const yearsExperiencieField = values.yearsExperiencie;
@@ -63,27 +57,6 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
 
     const nameField = "Anexo 2";
     const data = [
-      {
-        name: nameField,
-        textQuestion: "Nombre completo",
-        textAnswer: fullNameField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Centro Educativo",
-        textAnswer: schoolNameField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Departamento/Municipio",
-        textAnswer: departmentMunicipalityField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
       {
         name: nameField,
         textQuestion: "Nivel educativo que atiende",
@@ -220,6 +193,7 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
       }
     ];
 
+    let countItem = 0;
     data.map(async (item) => {
       try {
         const res: AxiosResponse<FetchResponse<IAttachment2Input>> = await useRequest.post(
@@ -228,8 +202,9 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
         );
 
         const resultData = res.data;
-
-        showToast(String(resultData.message), "success");
+        countItem++;
+        if (resultData.statusCode === 201 && countItem == data.length)
+          showToast(String(resultData.message), "success");
 
         if (
           resultData.statusCode === HttpStatusCode.Created ||

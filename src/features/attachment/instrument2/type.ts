@@ -1,9 +1,6 @@
 import { AxiosMessage } from "@/shared/types/globals";
 
 export interface Attachment2Input {
-  fullName: string;
-  schoolName: string;
-  departmentMunicipality: string;
   educationalLevelServed: string;
   childrenAge: string;
   yearsExperiencie: string;

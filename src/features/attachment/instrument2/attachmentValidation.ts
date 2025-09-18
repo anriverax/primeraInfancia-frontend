@@ -4,9 +4,6 @@ import { validationMessages } from "@/shared/constants";
 import { stringField } from "@/shared/utils/funtions";
 
 export const attachment2Schema: ObjectSchema<Attachment2Input> = object({
-  fullName: stringField(validationMessages.required),
-  schoolName: stringField(validationMessages.required),
-  departmentMunicipality: stringField(validationMessages.required),
   educationalLevelServed: stringField(validationMessages.required),
   childrenAge: stringField(validationMessages.required),
   yearsExperiencie: stringField(validationMessages.required),
