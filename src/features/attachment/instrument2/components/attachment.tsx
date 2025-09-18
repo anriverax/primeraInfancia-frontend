@@ -1,7 +1,7 @@
 "use client";
 
 import { FileText } from "lucide-react";
-import { Button, Input, Card, CardHeader, CardBody, RadioGroup, Radio, Textarea ,Select, SelectItem} from "@heroui/react";
+import { Button, Input, Card, CardBody, RadioGroup, Radio, Textarea, Select, SelectItem } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { IAttachment2Input } from "../type";
@@ -39,19 +39,19 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
           <div className="inline-flex items-center justify-center w-16 h-16 bg-secondary/10 rounded-full mb-4">
             <FileText className="w-8 h-8 text-secondary" />
           </div>
-          <h1 className="text-4xl font-bold text-left">Anexo 2</h1>
-          <h2 className="text-4xl font-bold text-left">Formulario inicial</h2>
-          <p className="text-xl">
+          <h1 className="text-4xl font-bold text-center">Anexo 2</h1>
+          <h2 className="text-4xl font-bold text-center">Formulario inicial</h2>
+          <p className="text-xl text-justify">
             Un formulario inicial ayuda a establecer un primer vínculo.
           </p>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardHeader className="pb-6">
-              <p className="text-xl">I. Datos generales del docente</p>
-            </CardHeader>
-            <CardBody className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
+              <h3 className="pb-6">
+                <p className="text-xl">I. Datos generales del docente</p>
+              </h3>
               <div className="space-y-3">
                 <Input
                   {...getFieldProps("educationalLevelServed")}
@@ -72,7 +72,8 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                     touched.childrenAge,
                     errors.childrenAge
                   )}
-                /></div>
+                />
+              </div>
               <div className="space-y-3">
                 <Select
                   items={experienceList}
@@ -87,16 +88,18 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                   {(item) => <SelectItem>{item.label}</SelectItem>}
                 </Select>
               </div>
-            </CardBody>
+              {/* </CardBody>
           </Card>
 
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardHeader className="pb-6">
-              <p className="text-xl">
-                II. Formación y actualización profesional
-              </p>
-            </CardHeader>
-            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
+            <h3 className="pb-6"> */}
+              <h3>
+                <p className="text-xl">
+                  II. Formación y actualización profesional
+                </p>
+              </h3>
+              {/* </h3>
+            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8"> */}
               <div className="space-y-3">
                 <Select
                   items={initialTrainingList}
@@ -132,17 +135,18 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                     touched.hasRecentlyParticipatedDetail,
                     errors.hasRecentlyParticipatedDetail
                   )}
-                /></div>
-            </CardBody>
+                />
+              </div>
+              {/* </CardBody>
           </Card>
 
-          <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardHeader className="pb-6">
-              <p className="text-xl">
-                III. Autopercepción de la práctica docente
-              </p>
-            </CardHeader>
-            <CardBody className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">*/}
+              <h3 className="pb-6">
+                <p className="text-xl">
+                  III. Autopercepción de la práctica docente
+                </p>
+              </h3>
+              {/*  <CardBody className="grid grid-cols-1 md:grid-cols-2 gap-8"> */}
               <div className="space-y-3">
                 <Select
                   items={levelOfPracticeList}
@@ -247,16 +251,16 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                   {...getInputProps("others", "Otros", touched.others, errors.others)}
                 />
               </div>
-            </CardBody>
+              {/* </CardBody>
           </Card>
 
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardHeader className="pb-6">
+            <h3 className="pb-6"> */}
               <p className="text-xl">
                 IV. Áreas de interés o mejora identificadas por el docente
               </p>
-            </CardHeader>
-            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
+              {/* </h3>
+            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8"> */}
               <div className="space-y-3">
                 <Input
                   {...getFieldProps("aspectsImprove")}
@@ -279,14 +283,14 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                   )}
                 />
               </div>
-            </CardBody>
+              {/* </CardBody>
           </Card>
 
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardHeader className="pb-6">
+            <h3 className="pb-6"> */}
               <p className="text-xl">V. Expectativas del acompañamiento </p>
-            </CardHeader>
-            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
+              {/* </h3>
+            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8"> */}
               <div className="space-y-3">
                 <Input
                   {...getFieldProps("whatExpect")}
@@ -309,16 +313,16 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                   )}
                 />
               </div>
-            </CardBody>
+              {/* </CardBody>
           </Card>
 
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardHeader className="pb-6">
+            <h3 className="pb-6"> */}
               <p className="text-xl">
                 VI. Observaciones del personal mentor
               </p>
-            </CardHeader>
-            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
+              {/* </h3>
+            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8"> */}
               <div className="space-y-3">
                 <Textarea
                   {...getFieldProps("mentorObservations")}
@@ -333,7 +337,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
             </CardBody>
           </Card>
 
-            <div className="mt-8">
+          <div className="mt-8">
             <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
               Enviar
             </Button>
