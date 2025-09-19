@@ -7,11 +7,6 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Attachment1Input = {
-  applicationDate: "",
-  schoolName: "",
-  departmentMunicipality: "",
-  teacherName: "",
-  mentorName: "",
   startDate: "",
   finishDate: "",
   frequencyOfEncounters: "",
@@ -26,11 +21,6 @@ const useAttachment1Form = (): FormikProps<IAttachment1Input> => {
     values: Attachment1Input,
     formikHelpers: FormikHelpers<IAttachment1Input>
   ): Promise<void> => {
-    const applicationDateField = values.applicationDate;
-    const schoolNameField = values.schoolName;
-    const departmentMunicipalityField = values.departmentMunicipality;
-    const teacherNameField = values.teacherName;
-    const mentorNameField = values.mentorName;
     const startDateField = values.startDate;
     const finishDateField = values.finishDate;
     const frequencyOfEncountersField = values.frequencyOfEncounters;
@@ -39,41 +29,6 @@ const useAttachment1Form = (): FormikProps<IAttachment1Input> => {
 
     const nameField = "Anexo 1";
     const data = [
-      {
-        name: nameField,
-        textQuestion: "Fecha",
-        textAnswer: applicationDateField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Centro Educativo",
-        textAnswer: schoolNameField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Departamento/Municipio",
-        textAnswer: departmentMunicipalityField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Nombre docente",
-        textAnswer: teacherNameField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Nombre mentor",
-        textAnswer: mentorNameField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
       {
         name: nameField,
         textQuestion: "Fecha de inicio del acompañamiento",
