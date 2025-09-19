@@ -6,7 +6,7 @@ import { Select, SelectItem } from "@heroui/react";
 
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
-import { IAttachment2Input } from '../../mentoringType';
+import { IAttachment2Input } from "../../mentoringType";
 
 export const dataList = [
   { name: "experiencie", key: "Menos de un año", label: "Menos de un año" },

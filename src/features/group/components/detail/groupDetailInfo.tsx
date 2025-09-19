@@ -4,7 +4,7 @@ import { IGroupDetail } from "../../group/groupType";
 import { GroupListRender } from "./groupInfo";
 
 const GroupDetailInfo = (props: IGroupDetail): React.JSX.Element => (
-  <div className="bg-white border border-blue-100 mt-6">
+  <div className="bg-white border border-blue-100 mt-6 shadow-md rounded-lg">
     <div className="p-6 flex items-center gap-2 bg-blue-50 text-blue-500">
       <Info className="h-5 w-5" />
       <h3 className="text-2xl font-semibold">Información</h3>

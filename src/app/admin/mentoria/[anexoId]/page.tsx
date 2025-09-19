@@ -3,9 +3,9 @@
 import Attachment1Form from "@/features/mentoring/components/attachment/attachment1Form";
 import Attachment2Form from "@/features/mentoring/components/attachment/attachment2Form";
 import Attachment3Form from "@/features/mentoring/components/attachment/attachment3Form";
-import { useAttachment1Form } from '@/features/mentoring/hooks/useAttachment1Form';
-import { useAttachment2Form } from '@/features/mentoring/hooks/useAttachment2Form';
-import { useAttachment3Form } from '@/features/mentoring/hooks/useAttachment3Form';
+import { useAttachment1Form } from "@/features/mentoring/hooks/useAttachment1Form";
+import { useAttachment2Form } from "@/features/mentoring/hooks/useAttachment2Form";
+import { useAttachment3Form } from "@/features/mentoring/hooks/useAttachment3Form";
 import { useParams } from "next/navigation";
 
 const AttachmentDetailPage = (): React.JSX.Element => {

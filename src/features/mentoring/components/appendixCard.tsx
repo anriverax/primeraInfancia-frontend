@@ -110,9 +110,9 @@ const AppendixCard = (): React.JSX.Element => {
                 </div>
                 <div className="flex justify-center text">
                   <Button
+                    fullWidth
                     as={Link}
                     href={`/admin/mentoria/${item.id}`}
-                    fullWidth
                     color="primary"
                     variant="shadow"
                   >

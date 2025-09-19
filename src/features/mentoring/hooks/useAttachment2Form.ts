@@ -3,8 +3,8 @@ import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
-import { Attachment2Input, IAttachment2Input } from '../mentoringType';
-import { attachment2Schema } from '../validations/attachment2Validation';
+import { Attachment2Input, IAttachment2Input } from "../mentoringType";
+import { attachment2Schema } from "../validations/attachment2Validation";
 
 const initialValues: Attachment2Input = {
   fullName: "",

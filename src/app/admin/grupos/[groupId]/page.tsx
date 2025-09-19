@@ -2,9 +2,9 @@
 
 import { useParams } from "next/navigation";
 import { BreadcrumbItem, Breadcrumbs } from "@heroui/react";
-import { useGroupDetail } from "@/features/groupDetail/hooks/useGroupDetail";
-import GroupDetailInfo from "@/features/groupDetail/components/groupDetailInfo";
 import ListTeachers from "@/features/group/components/detail/listTeachers";
+import { useGroupDetail } from "@/features/group/hooks/useGroupDetail";
+import GroupDetailInfo from "@/features/group/components/detail/groupDetailInfo";
 
 const GroupDetailPage = (): React.JSX.Element => {
   const params = useParams();

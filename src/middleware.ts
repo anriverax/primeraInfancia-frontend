@@ -8,7 +8,7 @@ export function middleware(request: NextRequest): NextResponse<unknown> {
 
   // If you are authenticated and try to go to /auth, redirect to dashboard
   if (isAuthenticated && isAuthRoute) {
-    return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+    return NextResponse.redirect(new URL("/admin/dashboard/participantes", request.url));
   }
 
   // If you are not authenticated and try to go to a protected route
