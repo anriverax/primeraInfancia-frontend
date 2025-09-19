@@ -5,6 +5,7 @@ import { Button, Input, Card, CardBody, RadioGroup, Radio, Textarea, Select, Sel
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { IAttachment2Input } from "../type";
+import Link from "next/link";
 
 export const dataList = [
   { name: "experiencie", key: "Menos de un año", label: "Menos de un año" },
@@ -315,8 +316,11 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
             </CardBody>
           </Card>
 
-          <div className="mt-8">
-            <Button type="submit" color="primary" isLoading={isSubmitting}>
+          <div className="flex space-x-4 mt-8">
+            <Button type="button" color="secondary" as={Link} href="/admin/mentoria" className="flex-1 py3 px-6" >
+              Regresar
+            </Button>
+            <Button type="submit" color="primary" isLoading={isSubmitting} className="flex-1 py3 px-6">
               Enviar
             </Button>
           </div>
