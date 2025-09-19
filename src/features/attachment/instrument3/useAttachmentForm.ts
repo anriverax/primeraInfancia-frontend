@@ -7,10 +7,6 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Attachment3Input = {
-  teacherName: "",
-  mentorName: "",
-  schoolName: "",
-  departmentMunicipality: "",
   startDate: "",
   goalList: "",
   workArea: "",
@@ -46,10 +42,6 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
     values: Attachment3Input,
     formikHelpers: FormikHelpers<IAttachment3Input>
   ): Promise<void> => {
-    const teacherNameField = values.teacherName;
-    const mentorNameField = values.mentorName;
-    const schoolNameField = values.schoolName;
-    const departmentMunicipalityField = values.departmentMunicipality;
     const startDateField = values.startDate;
     const goalListField = values.goalList;
     const workAreaField = values.workArea;
@@ -79,41 +71,6 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
 
     const nameField = "Anexo 3";
     const data = [
-      {
-        name: nameField,
-        textQuestion: "Nombre del personal docente acompañado",
-        textAnswer: teacherNameField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Nombre del personal mentor:",
-        textAnswer: mentorNameField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Centro Educativo",
-        textAnswer: schoolNameField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Departamento/Municipio",
-        textAnswer: departmentMunicipalityField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Fecha de inicio del acompañamiento",
-        textAnswer: mentorNameField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
       {
         name: nameField,
         textQuestion: "Fecha de inicio del acompañamiento",

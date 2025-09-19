@@ -47,7 +47,7 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
         <form className="space-y-6" onSubmit={handleOkSubmit}>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
-              <h3 className="pg-6">
+              <h3 className="pb-6">
                 <p className="text-xl text-justify">III. Duración de la mentoría</p>
               </h3>
               <Input

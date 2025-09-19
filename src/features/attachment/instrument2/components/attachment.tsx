@@ -100,7 +100,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                 </Select>
               </div>
               <h3>
-                <p className="text-xl">
+                <p className="text-xl text-justify">
                   II. Formación y actualización profesional
                 </p>
               </h3>
@@ -142,7 +142,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                 />
               </div>
               <h3 className="pb-6">
-                <p className="text-xl">
+                <p className="text-xl text-justify">
                   III. Autopercepción de la práctica docente
                 </p>
               </h3>
@@ -250,7 +250,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                   {...getInputProps("others", "Otros", touched.others, errors.others)}
                 />
               </div>
-              <p className="text-xl">
+              <p className="text-xl text-justify">
                 IV. Áreas de interés o mejora identificadas por el docente
               </p>
               <div className="space-y-3">
@@ -275,7 +275,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                   )}
                 />
               </div>
-              <p className="text-xl">V. Expectativas del acompañamiento </p>
+              <p className="text-xl text-justify">V. Expectativas del acompañamiento </p>
               <div className="space-y-3">
                 <Input
                   {...getFieldProps("whatExpect")}
@@ -298,7 +298,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                   )}
                 />
               </div>
-              <p className="text-xl">
+              <p className="text-xl text-justify">
                 VI. Observaciones del personal mentor
               </p>
               <div className="space-y-3">

@@ -1,10 +1,6 @@
 import { AxiosMessage } from "@/shared/types/globals";
 
 export interface Attachment3Input {
-  teacherName: string;
-  mentorName: string;
-  schoolName: string;
-  departmentMunicipality: string;
   startDate: string;
   goalList: string;
   workArea: string;
