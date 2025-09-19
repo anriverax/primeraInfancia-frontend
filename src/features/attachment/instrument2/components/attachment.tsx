@@ -1,7 +1,7 @@
 "use client";
 
 import { FileText } from "lucide-react";
-import { Button, Input, Card, CardBody, RadioGroup, Radio, Textarea, Select, SelectItem } from "@heroui/react";
+import { Button, Input, Card, CardBody, RadioGroup, Radio, Textarea, Select, SelectItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { IAttachment2Input } from "../type";
@@ -29,8 +29,19 @@ type Attachment2FormProps = {
 
 const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
   const { getInputProps } = useCustomFormFields();
+
+  const handleOkSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    onOpen()
+  }
+
+  const handleConfirmSubmit = () => {
+    handleSubmit()
+    onOpenChange()
+  }
   return (
     <div className="flex justify-center">
       <div className="w-3/4 space-y-8">
@@ -46,11 +57,11 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
           </p>
         </div>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleOkSubmit}>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
               <h3 className="pb-6">
-                <p className="text-xl">I. Datos generales del docente</p>
+                <p className="text-xl text-justify">I. Datos generales del docente</p>
               </h3>
               <div className="space-y-3">
                 <Input
@@ -305,11 +316,33 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
           </Card>
 
           <div className="mt-8">
-            <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
+            <Button type="submit" color="primary" isLoading={isSubmitting}>
               Enviar
             </Button>
           </div>
         </form>
+
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">Confirmar envío</ModalHeader>
+                <ModalBody>
+                  <p>¿Está seguro de que desea enviar el formulario inicial?</p>
+                  <p className="text-sm text-gray-600">Una vez enviado, no podrá realizar modificaciones.</p>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    Cancelar
+                  </Button>
+                  <Button color="primary" onPress={handleConfirmSubmit} isLoading={isSubmitting}>
+                    Enviar
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </div>
     </div>
 
