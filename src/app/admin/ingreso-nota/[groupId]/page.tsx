@@ -282,7 +282,6 @@ const GradePage = (): Promise<React.JSX.Element> => {
       setGradesData({});
       alert("Notas enviadas exitosamente!");
     } catch (error) {
-      
     } finally {
       setIsSubmitting(false);
     }

@@ -1,33 +1,48 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { FileText } from "lucide-react"
-import { Button, Input, Card, CardBody, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react"
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields"
-import type { FormikProps } from "@/shared/types/globals"
-import type { IAttachment1Input } from "../type"
+import { FileText } from "lucide-react";
+import {
+  Button,
+  Input,
+  Card,
+  CardBody,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure
+} from "@heroui/react";
+import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import type { FormikProps } from "@/shared/types/globals";
+import type { IAttachment1Input } from "../type";
 import Link from "next/link";
 
 type Attachment1FormProps = {
-  formik: FormikProps<IAttachment1Input>
-}
+  formik: FormikProps<IAttachment1Input>;
+};
 
 const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element => {
-  const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const { getInputProps } = useCustomFormFields()
+  const { getInputProps } = useCustomFormFields();
 
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onOpen()
-  }
+    e.preventDefault();
+    onOpen();
+  };
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
-    handleSubmit()
-    onOpenChange()
-  }
+    handleSubmit();
+    onOpenChange();
+  };
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
   return (
     <div className="flex justify-center">
@@ -40,8 +55,8 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
           <h1 className="text-4xl font-bold text-center">Anexo 1</h1>
           <h2 className="text-4xl font-bold text-center">Acuerdo de mentoría</h2>
           <p className="text-xl text-justify">
-            El acuerdo de mentoría es un instrumento que ayuda a definir la relación entre mentor o mentora y docente. Es
-            importante que se explique y se firme en la primera sesión.
+            El acuerdo de mentoría es un instrumento que ayuda a definir la relación entre mentor o
+            mentora y docente. Es importante que se explique y se firme en la primera sesión.
           </p>
         </div>
 
@@ -53,11 +68,21 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
               </h3>
               <Input
                 {...getFieldProps("startDate")}
-                {...getInputProps("startDate", "Fecha de inicio de acompañamiento", touched.startDate, errors.startDate)}
+                {...getInputProps(
+                  "startDate",
+                  "Fecha de inicio de acompañamiento",
+                  touched.startDate,
+                  errors.startDate
+                )}
               />
               <Input
                 {...getFieldProps("finishDate")}
-                {...getInputProps("finishDate", "Feha estimada de cierre", touched.finishDate, errors.finishDate)}
+                {...getInputProps(
+                  "finishDate",
+                  "Feha estimada de cierre",
+                  touched.finishDate,
+                  errors.finishDate
+                )}
               />
               <Input
                 {...getFieldProps("frequencyOfEncounters")}
@@ -65,7 +90,7 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
                   "frequencyOfEncounters",
                   "Frecuencia estimada de encuentros",
                   touched.frequencyOfEncounters,
-                  errors.frequencyOfEncounters,
+                  errors.frequencyOfEncounters
                 )}
               />
               <h3>
@@ -79,7 +104,9 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
                   <li>Colaborar en la elaboración del plan de mejora profesional.</li>
                   <li>Asistir puntualmente a las reuniones y encuentros programados.</li>
                   <li>Mantener una actitud respetuosa, propositiva y receptiva.</li>
-                  <li>Compartir evidencias y docuemntos que contribuyan al seguimiento de mi proceso.</li>
+                  <li>
+                    Compartir evidencias y docuemntos que contribuyan al seguimiento de mi proceso.
+                  </li>
                 </ol>
               </p>
               <Input
@@ -88,7 +115,7 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
                   "teacherSignature",
                   "Firma del/la docente acompañado/a:",
                   touched.teacherSignature,
-                  errors.teacherSignature,
+                  errors.teacherSignature
                 )}
               />
               <h3>
@@ -110,7 +137,7 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
                   "mentorSignature",
                   "Firma del/la docente acompañado/a:",
                   touched.mentorSignature,
-                  errors.mentorSignature,
+                  errors.mentorSignature
                 )}
               />
               <h3>
@@ -119,7 +146,10 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
               <p>
                 Ambas partes nos comprometemos a:
                 <ol>
-                  <li>Establecer una relación profesional basada en el respeto, la honestidad y la colaboración.</li>
+                  <li>
+                    Establecer una relación profesional basada en el respeto, la honestidad y la
+                    colaboración.
+                  </li>
                   <li>Revisar periódicamente los avances y realizar ajustes si es necesario.</li>
                   <li>Cuidar la confidencialidad de la información compartida durante el proceso.</li>
                 </ol>
@@ -127,12 +157,21 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
               <h3>
                 <p className="text-xl text-justify">VII. Seguimiento</p>
               </h3>
-              <p>Estos acuerdos podrán ser revisados y actualizados de común acuerdo según las necesidades del proceso.</p>
+              <p>
+                Estos acuerdos podrán ser revisados y actualizados de común acuerdo según las necesidades
+                del proceso.
+              </p>
             </CardBody>
           </Card>
 
           <div className="flex space-x-4 mt-8">
-            <Button type="button" color="secondary" as={Link} href="/admin/mentoria" className="flex-1 py3 px-6" >
+            <Button
+              type="button"
+              color="secondary"
+              as={Link}
+              href="/admin/mentoria"
+              className="flex-1 py3 px-6"
+            >
               Regresar
             </Button>
             <Button type="submit" color="primary" isLoading={isSubmitting} className="flex-1 py3 px-6">
@@ -148,13 +187,16 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
                 <ModalHeader className="flex flex-col gap-1">Confirmar envío</ModalHeader>
                 <ModalBody>
                   <p>¿Está seguro de que desea enviar el acuerdo de mentoría?</p>
-                  <p className="text-sm text-gray-600">Una vez enviado, no podrá realizar modificaciones.</p>
+                  <p className="text-sm text-gray-600">
+                    Una vez enviado, no podrá realizar modificaciones.
+                  </p>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancelar
                   </Button>
-                  <Button color="primary" onPress={handleConfirmSubmit} isLoading={isSubmitting}>
+                  <Button color="primary" isLoading={isSubmitting} onPress={handleConfirmSubmit}>
+                    {" "}
                     Enviar
                   </Button>
                 </ModalFooter>
@@ -164,7 +206,6 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
         </Modal>
       </div>
     </div>
-  )
-}
-export default Attachment1Form
-
+  );
+};
+export default Attachment1Form;

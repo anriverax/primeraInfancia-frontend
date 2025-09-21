@@ -7,12 +7,12 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Attachment7Input = {
-  startDate: '',
-  finishDate: '',
-  descriptionMentoringProcess: '',
-  achievements: '',
-  areaImprovement: '',
-  improvedNextCohort: '',
+  startDate: "",
+  finishDate: "",
+  descriptionMentoringProcess: "",
+  achievements: "",
+  areaImprovement: "",
+  improvedNextCohort: ""
 };
 
 const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
@@ -47,7 +47,8 @@ const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
       },
       {
         name: nameField,
-        textQuestion: "Descripción breve del proceso de acompañamiento llevado a cabo, actividades realizadas, frecuencia de encuentros y estrategias utilizadas.",
+        textQuestion:
+          "Descripción breve del proceso de acompañamiento llevado a cabo, actividades realizadas, frecuencia de encuentros y estrategias utilizadas.",
         textAnswer: descriptionMentoringProcessField,
         teacherRoleId: 1,
         mentorRoleId: 2
@@ -61,7 +62,8 @@ const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
       },
       {
         name: nameField,
-        textQuestion: "Identificación de las áreas que aún necesitan mejora en el proceso de mentoría y en la práctica docente de los acompañados",
+        textQuestion:
+          "Identificación de las áreas que aún necesitan mejora en el proceso de mentoría y en la práctica docente de los acompañados",
         textAnswer: areaImprovementField,
         teacherRoleId: 1,
         mentorRoleId: 2

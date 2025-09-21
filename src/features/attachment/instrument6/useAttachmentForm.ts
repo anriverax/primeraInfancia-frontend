@@ -15,7 +15,7 @@ const initialValues: Attachment6Input = {
   teacherStrengths: "",
   mentorsReflections: "",
   supportNeeds: "",
-  accompanimentBeenRecorded: "",
+  accompanimentBeenRecorded: ""
 };
 
 const useAttachment6Form = (): FormikProps<IAttachment6Input> => {

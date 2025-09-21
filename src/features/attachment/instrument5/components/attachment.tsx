@@ -1,7 +1,18 @@
 "use client";
 
 import { FileText } from "lucide-react";
-import { Button, Input, Card, CardBody, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react";
+import {
+  Button,
+  Input,
+  Card,
+  CardBody,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure
+} from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { IAttachment5Input } from "../type";
@@ -13,19 +24,16 @@ type Attachment5FormProps = {
 
 const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { isOpen, onOpenChange } = useDisclosure();
 
-  const { getInputProps } = useCustomFormFields()
+  const { getInputProps } = useCustomFormFields();
 
-  const handleOkSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onOpen()
-  }
-
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
-    handleSubmit()
-    onOpenChange()
-  }
+    handleSubmit();
+    onOpenChange();
+  };
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
   return (
     <div className="flex justify-center">
@@ -38,7 +46,10 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
           <h1 className="text-4xl font-bold text-center">Anexo 5</h1>
           <h2 className="text-4xl font-bold text-center">Cuaderno de mentoría</h2>
           <p className="text-xl text-muted-foreground text-justify">
-            Una herramienta muy útil es disponer de un cuaderno de mentoría, donde se anote el proceso que se va generando entre mentor y mentorado. Pues en ciertos momentos puede ser conveniente rescatar reflexiones suscitadas en sesiones anteriores, especialmente interesante cuando se ha de elaborar el informe final.
+            Una herramienta muy útil es disponer de un cuaderno de mentoría, donde se anote el proceso
+            que se va generando entre mentor y mentorado. Pues en ciertos momentos puede ser conveniente
+            rescatar reflexiones suscitadas en sesiones anteriores, especialmente interesante cuando se
+            ha de elaborar el informe final.
           </p>
         </div>
 
@@ -46,15 +57,27 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
               <h3 className="pb-6">
-                <p className="text-xl text-muted-foreground text-justify">Sección A. Reflexión del docente en la visita:</p>
+                <p className="text-xl text-muted-foreground text-justify">
+                  Sección A. Reflexión del docente en la visita:
+                </p>
               </h3>
               <Input
                 {...getFieldProps("mentorObserve")}
-                {...getInputProps("mentorObserve", "¿Qué me interesa que observe mi mentor/a?", touched.mentorObserve, errors.mentorObserve)}
+                {...getInputProps(
+                  "mentorObserve",
+                  "¿Qué me interesa que observe mi mentor/a?",
+                  touched.mentorObserve,
+                  errors.mentorObserve
+                )}
               />
               <Input
                 {...getFieldProps("challengeClassroom")}
-                {...getInputProps("challengeClassroom", "¿Qué dificultades recientes ha tenido en el aula?", touched.challengeClassroom, errors.challengeClassroom)}
+                {...getInputProps(
+                  "challengeClassroom",
+                  "¿Qué dificultades recientes ha tenido en el aula?",
+                  touched.challengeClassroom,
+                  errors.challengeClassroom
+                )}
               />
               <Input
                 {...getFieldProps("emotionalManagment")}
@@ -184,7 +207,13 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
           </Card>
 
           <div className="flex space-x-4 mt-8">
-            <Button type="button" color="secondary" as={Link} href="/admin/mentoria" className="flex-1 py3 px-6" >
+            <Button
+              type="button"
+              color="secondary"
+              as={Link}
+              href="/admin/mentoria"
+              className="flex-1 py3 px-6"
+            >
               Regresar
             </Button>
             <Button type="submit" color="primary" isLoading={isSubmitting} className="flex-1 py3 px-6">
@@ -199,13 +228,15 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
                 <ModalHeader className="flex flex-col gap-1">Confirmar envío</ModalHeader>
                 <ModalBody>
                   <p>¿Está seguro de que desea enviar el acuerdo de mentoría?</p>
-                  <p className="text-sm text-gray-600">Una vez enviado, no podrá realizar modificaciones.</p>
+                  <p className="text-sm text-gray-600">
+                    Una vez enviado, no podrá realizar modificaciones.
+                  </p>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancelar
                   </Button>
-                  <Button color="primary" onPress={handleConfirmSubmit} isLoading={isSubmitting}>
+                  <Button color="primary" isLoading={isSubmitting} onPress={handleConfirmSubmit}>
                     Enviar
                   </Button>
                 </ModalFooter>

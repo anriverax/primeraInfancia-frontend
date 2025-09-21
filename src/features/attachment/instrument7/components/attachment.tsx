@@ -23,7 +23,11 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
         </div>
         <h1 className="text-4xl font-bold text-left">Anexo 7</h1>
         <h2 className="text-4xl font-bold text-left">
-          Informe final de personal mentor que entrega al personal técnico de apoyo. La coordinación entre los tres perfiles es un aspecto necesario para el éxito de este proyecto. Si bien la comunicación suele darse de forma espontánea y a lo largo del proceso, es conveniente que se elabore un informe final del proceso en el que se recoja el trabajo realizado y las posibles mejoras de todo el proceso.
+          Informe final de personal mentor que entrega al personal técnico de apoyo. La coordinación
+          entre los tres perfiles es un aspecto necesario para el éxito de este proyecto. Si bien la
+          comunicación suele darse de forma espontánea y a lo largo del proceso, es conveniente que se
+          elabore un informe final del proceso en el que se recoja el trabajo realizado y las posibles
+          mejoras de todo el proceso.
         </h2>
       </div>
 
@@ -56,14 +60,14 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
         </p>
         <Input
           {...getFieldProps("descriptionMentoringProcess")}
-          {...getInputProps("descriptionMentoringProcess",
+          {...getInputProps(
+            "descriptionMentoringProcess",
             "Descripción breve del proceso de acompañamiento llevado a cabo, actividades realizadas, frecuencia de encuentros y estrategias utilizadas.",
             touched.descriptionMentoringProcess,
-            errors.descriptionMentoringProcess)}
+            errors.descriptionMentoringProcess
+          )}
         />
-        <p className="text-xl text-muted-foreground text-justify">
-          III. Logros alcanzados
-        </p>
+        <p className="text-xl text-muted-foreground text-justify">III. Logros alcanzados</p>
         <Input
           {...getFieldProps("achievements")}
           {...getInputProps(
@@ -73,9 +77,7 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
             errors.achievements
           )}
         />
-        <p className="text-xl text-muted-foreground text-justify">
-          IV. Áreas de mejora
-        </p>
+        <p className="text-xl text-muted-foreground text-justify">IV. Áreas de mejora</p>
         <Input
           {...getFieldProps("areaImprovement")}
           {...getInputProps(
@@ -86,8 +88,10 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
           )}
         />
         <p className="text-xl text-muted-foreground text-justify">
-          V. Recomendaciones para el seguimiento<br />
-          Sugerencias para continuar con el desarrollo del docente, incluyendo posibles estrategias a implementar en la siguiente cohorte.
+          V. Recomendaciones para el seguimiento
+          <br />
+          Sugerencias para continuar con el desarrollo del docente, incluyendo posibles estrategias a
+          implementar en la siguiente cohorte.
         </p>
         <Input
           {...getFieldProps("improvedNextCohort")}

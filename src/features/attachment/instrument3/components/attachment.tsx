@@ -1,7 +1,18 @@
 "use client";
 
 import { FileText } from "lucide-react";
-import { Button, Input, Card, CardBody, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react";
+import {
+  Button,
+  Input,
+  Card,
+  CardBody,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure
+} from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { IAttachment3Input } from "../type";
@@ -13,19 +24,23 @@ type Attachment3FormProps = {
 
 const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { getInputProps } = useCustomFormFields();
 
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onOpen()
-  }
+    e.preventDefault();
+    onOpen();
+  };
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
-    handleSubmit()
-    onOpenChange()
-  }
+    handleSubmit();
+    onOpenChange();
+  };
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
   return (
     <div className="flex justify-center">
       <div className="w-3/4 space-y-8">
@@ -118,7 +133,12 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
 
               <Input
                 {...getFieldProps("observations")}
-                {...getInputProps("observations", "Observaciones", touched.observations, errors.observations)}
+                {...getInputProps(
+                  "observations",
+                  "Observaciones",
+                  touched.observations,
+                  errors.observations
+                )}
               />
               <h3 className="pb-6">
                 <p className="text-xl text-justify">V. ESTRATEGIAS DE ACOMPAÑAMIENTO</p>
@@ -194,9 +214,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                 )}
               />
               <h3 className="pb-6">
-                <p className="text-xl text-justify">
-                  VII. CRITERIOS DE SEGUIMIENTO Y EVALUACIÓN
-                </p>
+                <p className="text-xl text-justify">VII. CRITERIOS DE SEGUIMIENTO Y EVALUACIÓN</p>
               </h3>
               <Input
                 {...getFieldProps("expectedIndicators")}
@@ -248,7 +266,12 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
               />
               <Input
                 {...getFieldProps("otherEvidence")}
-                {...getInputProps("otherEvidence", "Otros:", touched.otherEvidence, errors.otherEvidence)}
+                {...getInputProps(
+                  "otherEvidence",
+                  "Otros:",
+                  touched.otherEvidence,
+                  errors.otherEvidence
+                )}
               />
 
               <Input
@@ -273,7 +296,13 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
           </Card>
 
           <div className="flex space-x-4 mt-8">
-            <Button type="button" color="secondary" as={Link} href="/admin/mentoria" className="flex-1 py3 px-6" >
+            <Button
+              type="button"
+              color="secondary"
+              as={Link}
+              href="/admin/mentoria"
+              className="flex-1 py3 px-6"
+            >
               Regresar
             </Button>
             <Button type="submit" color="primary" isLoading={isSubmitting} className="flex-1 py3 px-6">
@@ -288,14 +317,18 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
               <>
                 <ModalHeader className="flex flex-col gap-1">Confirmar envío</ModalHeader>
                 <ModalBody>
-                  <p>¿Está seguro de que desea enviar el registro de planificación y retroalimentación?</p>
-                  <p className="text-sm text-gray-600">Una vez enviado, no podrá realizar modificaciones.</p>
+                  <p>
+                    ¿Está seguro de que desea enviar el registro de planificación y retroalimentación?
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Una vez enviado, no podrá realizar modificaciones.
+                  </p>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancelar
                   </Button>
-                  <Button color="primary" onPress={handleConfirmSubmit} isLoading={isSubmitting}>
+                  <Button color="primary" isLoading={isSubmitting} onPress={handleConfirmSubmit}>
                     Enviar
                   </Button>
                 </ModalFooter>

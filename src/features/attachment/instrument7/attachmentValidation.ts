@@ -9,5 +9,5 @@ export const attachment7Schema: ObjectSchema<Attachment7Input> = object({
   descriptionMentoringProcess: stringField(validationMessages.required),
   achievements: stringField(validationMessages.required),
   areaImprovement: stringField(validationMessages.required),
-  improvedNextCohort: stringField(validationMessages.required),
+  improvedNextCohort: stringField(validationMessages.required)
 });

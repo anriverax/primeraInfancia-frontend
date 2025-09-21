@@ -17,5 +17,5 @@ export const attachment5Schema: ObjectSchema<Attachment5Input> = object({
   improvementNextSession: stringField(validationMessages.required),
   changesTeachingStaff: stringField(validationMessages.required),
   evidenceObserved: stringField(validationMessages.required),
-  mentorRecommendations: stringField(validationMessages.required),
+  mentorRecommendations: stringField(validationMessages.required)
 });

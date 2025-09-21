@@ -6,7 +6,7 @@ export interface Attachment5Input {
   emotionalManagment: string;
   whatImprove: string;
   practiceHighlights: string;
-  emotionalBond:string;
+  emotionalBond: string;
   identifiedPotentials: string;
   dilemmansObserved: string;
   questionsDidWeAsk: string;

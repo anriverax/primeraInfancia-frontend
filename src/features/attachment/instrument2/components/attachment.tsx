@@ -1,7 +1,23 @@
 "use client";
 
 import { FileText } from "lucide-react";
-import { Button, Input, Card, CardBody, RadioGroup, Radio, Textarea, Select, SelectItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@heroui/react";
+import {
+  Button,
+  Input,
+  Card,
+  CardBody,
+  RadioGroup,
+  Radio,
+  Textarea,
+  Select,
+  SelectItem,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure
+} from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { IAttachment2Input } from "../type";
@@ -17,7 +33,7 @@ export const dataList = [
   { name: "initialTraining", key: "Otros", label: "Otros" },
   { name: "levelOfPractice", key: "Necesito apoyo", label: "Necesito apoyo" },
   { name: "levelOfPractice", key: "En desarrollo", label: "En desarrollo" },
-  { name: "levelOfPractice", key: "Me siento competente", label: "Me siento competente" },
+  { name: "levelOfPractice", key: "Me siento competente", label: "Me siento competente" }
 ];
 
 const experienceList = dataList.filter((item) => item.name === "experiencie");
@@ -30,19 +46,23 @@ type Attachment2FormProps = {
 
 const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
-  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { getInputProps } = useCustomFormFields();
 
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onOpen()
-  }
+    e.preventDefault();
+    onOpen();
+  };
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
-    handleSubmit()
-    onOpenChange()
-  }
+    handleSubmit();
+    onOpenChange();
+  };
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
   return (
     <div className="flex justify-center">
       <div className="w-3/4 space-y-8">
@@ -101,9 +121,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                 </Select>
               </div>
               <h3>
-                <p className="text-xl text-justify">
-                  II. Formación y actualización profesional
-                </p>
+                <p className="text-xl text-justify">II. Formación y actualización profesional</p>
               </h3>
               <div className="space-y-3">
                 <Select
@@ -120,13 +138,15 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                 </Select>
               </div>
               <div className="space-y-3">
-                <RadioGroup {...getFieldProps("hasRecentlyParticipated")}
+                <RadioGroup
+                  {...getFieldProps("hasRecentlyParticipated")}
                   {...getInputProps(
                     "hasRecentlyParticipated",
                     "¿Ha participado recientemente en procesos de formación continua?",
                     touched.hasRecentlyParticipated,
                     errors.hasRecentlyParticipated
-                  )}>
+                  )}
+                >
                   <Radio value="Sí">Sí</Radio>
                   <Radio value="No">No</Radio>
                 </RadioGroup>
@@ -143,9 +163,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                 />
               </div>
               <h3 className="pb-6">
-                <p className="text-xl text-justify">
-                  III. Autopercepción de la práctica docente
-                </p>
+                <p className="text-xl text-justify">III. Autopercepción de la práctica docente</p>
               </h3>
               <div className="space-y-3">
                 <Select
@@ -299,9 +317,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                   )}
                 />
               </div>
-              <p className="text-xl text-justify">
-                VI. Observaciones del personal mentor
-              </p>
+              <p className="text-xl text-justify">VI. Observaciones del personal mentor</p>
               <div className="space-y-3">
                 <Textarea
                   {...getFieldProps("mentorObservations")}
@@ -317,7 +333,13 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
           </Card>
 
           <div className="flex space-x-4 mt-8">
-            <Button type="button" color="secondary" as={Link} href="/admin/mentoria" className="flex-1 py3 px-6" >
+            <Button
+              type="button"
+              color="secondary"
+              as={Link}
+              href="/admin/mentoria"
+              className="flex-1 py3 px-6"
+            >
               Regresar
             </Button>
             <Button type="submit" color="primary" isLoading={isSubmitting} className="flex-1 py3 px-6">
@@ -333,13 +355,15 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                 <ModalHeader className="flex flex-col gap-1">Confirmar envío</ModalHeader>
                 <ModalBody>
                   <p>¿Está seguro de que desea enviar el formulario inicial?</p>
-                  <p className="text-sm text-gray-600">Una vez enviado, no podrá realizar modificaciones.</p>
+                  <p className="text-sm text-gray-600">
+                    Una vez enviado, no podrá realizar modificaciones.
+                  </p>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancelar
                   </Button>
-                  <Button color="primary" onPress={handleConfirmSubmit} isLoading={isSubmitting}>
+                  <Button color="primary" isLoading={isSubmitting} onPress={handleConfirmSubmit}>
                     Enviar
                   </Button>
                 </ModalFooter>
@@ -349,7 +373,6 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
         </Modal>
       </div>
     </div>
-
   );
 };
 export default Attachment2Form;

@@ -23,16 +23,19 @@ const Attachment6Form = ({ formik }: Attachment6FormProps): React.JSX.Element =>
         </div>
         <h1 className="text-4xl font-bold text-left">Anexo 6</h1>
         <h2 className="text-4xl font-bold text-left">
-          Una herramienta muy útil es disponer de un registro de las visitas que se llevan a término, tanto para el menotr, que le ayuda a saber cómo evoluciona el docente en cada momento, como para el propio docente, que sin querer puede tener creencias limitantes que no le permitan ver sus avances, y al tener un marco de seguimiento se le puede demostrar su evoluación.
+          Una herramienta muy útil es disponer de un registro de las visitas que se llevan a término,
+          tanto para el menotr, que le ayuda a saber cómo evoluciona el docente en cada momento, como
+          para el propio docente, que sin querer puede tener creencias limitantes que no le permitan ver
+          sus avances, y al tener un marco de seguimiento se le puede demostrar su evoluación.
         </h2>
       </div>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
-        <p className="text-xl text-muted-foreground text-justify">
-          Registro de visitas y seguimiento
-        </p>
+        <p className="text-xl text-muted-foreground text-justify">Registro de visitas y seguimiento</p>
         <br />
-        <p className="text-xl text-muted-foreground text-justify">Módulo, docente observado, fecha de sesión:</p>
+        <p className="text-xl text-muted-foreground text-justify">
+          Módulo, docente observado, fecha de sesión:
+        </p>
         <Input
           {...getFieldProps("objectiveSessionMet")}
           {...getInputProps(
@@ -53,10 +56,12 @@ const Attachment6Form = ({ formik }: Attachment6FormProps): React.JSX.Element =>
         />
         <Input
           {...getFieldProps("feedbackBeenGiven")}
-          {...getInputProps("feedbackBeenGiven",
+          {...getInputProps(
+            "feedbackBeenGiven",
             "¿Se ha dado retroalimentación clara y aplicable?",
             touched.feedbackBeenGiven,
-            errors.feedbackBeenGiven)}
+            errors.feedbackBeenGiven
+          )}
         />
 
         <Input
@@ -106,10 +111,12 @@ const Attachment6Form = ({ formik }: Attachment6FormProps): React.JSX.Element =>
         />
         <Input
           {...getFieldProps("accompanimentBeenRecorded")}
-          {...getInputProps("accompanimentBeenRecorded",
+          {...getInputProps(
+            "accompanimentBeenRecorded",
             "¿Se ha registrado el proceso de acompañamiento?",
             touched.accompanimentBeenRecorded,
-            errors.accompanimentBeenRecorded)}
+            errors.accompanimentBeenRecorded
+          )}
         />
         <div className="mt-8">
           <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
