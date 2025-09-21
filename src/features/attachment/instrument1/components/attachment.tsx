@@ -7,6 +7,7 @@ import { Button, Input, Card, CardBody, Modal, ModalContent, ModalHeader, ModalB
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields"
 import type { FormikProps } from "@/shared/types/globals"
 import type { IAttachment1Input } from "../type"
+import Link from "next/link";
 
 type Attachment1FormProps = {
   formik: FormikProps<IAttachment1Input>
@@ -129,8 +130,12 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
               <p>Estos acuerdos podrán ser revisados y actualizados de común acuerdo según las necesidades del proceso.</p>
             </CardBody>
           </Card>
-          <div className="mt-8">
-            <Button type="submit" color="primary" isLoading={isSubmitting}>
+
+          <div className="flex space-x-4 mt-8">
+            <Button type="button" color="secondary" as={Link} href="/admin/mentoria" className="flex-1 py3 px-6" >
+              Regresar
+            </Button>
+            <Button type="submit" color="primary" isLoading={isSubmitting} className="flex-1 py3 px-6">
               Enviar
             </Button>
           </div>
