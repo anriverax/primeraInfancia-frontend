@@ -34,7 +34,7 @@ const attachmentList = [
     color: "bg-green-50 text-green-700 border-green-200"
   },
   {
-    id: 4,
+    id: 5,
     attachmentName: "Anexo 5",
     title: "Cuaderno de mentoría",
     phase: "Al finalizar la formación",
@@ -44,7 +44,7 @@ const attachmentList = [
     color: "bg-green-50 text-green-700 border-green-200"
   },
   {
-    id: 5,
+    id: 6,
     attachmentName: "Anexo 6",
     title: "Registro de visitas y seguimiento",
     phase: "Al finalizar la formación",
@@ -54,7 +54,7 @@ const attachmentList = [
     color: "bg-green-50 text-green-700 border-green-200"
   },
   {
-    id: 6,
+    id: 7,
     attachmentName: "Anexo 7",
     title: "Informe final de mentor que entrega al personal técnico de apoyo",
     phase: "Al finalizar la formación",
@@ -64,7 +64,7 @@ const attachmentList = [
     color: "bg-green-50 text-green-700 border-green-200"
   },
   {
-    id: 7,
+    id: 8,
     attachmentName: "Anexo 8",
     title:
       "Guía de observación y medición del grado de implementación del diseño curricular para la transformación de las prácticas docentes en la aulas de primera infancia de El Salvador",
