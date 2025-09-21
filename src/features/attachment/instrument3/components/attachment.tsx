@@ -5,6 +5,7 @@ import { Button, Input, Card, CardBody, Modal, ModalContent, ModalHeader, ModalB
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { IAttachment3Input } from "../type";
+import Link from "next/link";
 
 type Attachment3FormProps = {
   formik: FormikProps<IAttachment3Input>;
@@ -270,8 +271,12 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
               />
             </CardBody>
           </Card>
-          <div className="mt-8">
-            <Button type="submit" color="primary" isLoading={isSubmitting}>
+
+          <div className="flex space-x-4 mt-8">
+            <Button type="button" color="secondary" as={Link} href="/admin/mentoria" className="flex-1 py3 px-6" >
+              Regresar
+            </Button>
+            <Button type="submit" color="primary" isLoading={isSubmitting} className="flex-1 py3 px-6">
               Enviar
             </Button>
           </div>

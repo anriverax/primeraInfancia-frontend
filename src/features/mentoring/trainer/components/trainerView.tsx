@@ -1,5 +1,6 @@
 import { Eye, FileText, Users, BookOpen, ClipboardCheck, BarChart3, Target } from "lucide-react";
 import { Button, Card, CardBody } from "@heroui/react";
+import Link from "next/link";
 
 const attachmentList = [
   {
@@ -110,6 +111,8 @@ const TrainerView = (): React.JSX.Element => {
                 <div className="flex justify-center text">
                   <Button
                     color="primary"
+                    as={Link}
+                    href={`/admin/mentoria/${item.id}`}
                     className="w-3xs hover:bg-accent/90 text-accent-foreground font-medium transition-colors"
                     size="sm"
                   >
