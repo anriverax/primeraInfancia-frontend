@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { FileText } from "lucide-react";
+import { FileText, Save, StepBack } from "lucide-react";
 import {
   Button,
   Input,
@@ -165,16 +165,22 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
           </Card>
 
           <div className="flex space-x-4 mt-8">
+            {/* <div className="flex justify-center text"> */}
             <Button
-              type="button"
               color="secondary"
+              variant="shadow"
+              type="button"
+
               as={Link}
               href="/admin/mentoria"
-              className="flex-1 py3 px-6"
+              startContent={<StepBack />}
             >
               Regresar
             </Button>
-            <Button type="submit" color="primary" isLoading={isSubmitting} className="flex-1 py3 px-6">
+            <Button
+              color="primary" variant="shadow" type="submit"
+              isLoading={isSubmitting}
+              startContent={<Save />} >
               Enviar
             </Button>
           </div>
