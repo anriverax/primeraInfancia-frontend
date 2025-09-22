@@ -25,11 +25,11 @@ const AttachmentDetailPage = (): React.JSX.Element => {
   const formikAttachment7 = useAttachment7Form();
   return (
     <>
-      {Number(params.anexoId) === 1 && <Attachment1Form formik={formikAttachment1} />}
+      {Number(params.anexoId) === 2 && <Attachment1Form formik={formikAttachment1} />}
 
-      {Number(params.anexoId) === 2 && <Attachment2Form formik={formikAttachment2} />}
+      {Number(params.anexoId) === 3 && <Attachment2Form formik={formikAttachment2} />}
 
-      {Number(params.anexoId) === 3 && <Attachment3Form formik={formikAttachment3} />}
+      {Number(params.anexoId) === 4 && <Attachment3Form formik={formikAttachment3} />}
 
       {Number(params.anexoId) === 5 && <Attachment5Form formik={formikAttachment5} />}
 
