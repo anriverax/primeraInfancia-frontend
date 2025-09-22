@@ -11,8 +11,15 @@ type AppendixDetailListStoreProps = {
 export const useAppendixDetailListStore: UseBoundStore<StoreApi<AppendixDetailListStoreProps>> =
   create<AppendixDetailListStoreProps>()((set) => ({
     appendixDetailsList: [],
-    setAppendixDetailsList: (appendixDetail: IAppendixDetailTable[] | ((_prev: IAppendixDetailTable[]) => IAppendixDetailTable[])) =>
+    setAppendixDetailsList: (
+      appendixDetail:
+        | IAppendixDetailTable[]
+        | ((_prev: IAppendixDetailTable[]) => IAppendixDetailTable[])
+    ) =>
       set((state) => ({
-        appendixDetailsList: typeof appendixDetail === "function" ? appendixDetail(state.appendixDetailsList) : appendixDetail
+        appendixDetailsList:
+          typeof appendixDetail === "function"
+            ? appendixDetail(state.appendixDetailsList)
+            : appendixDetail
       }))
   }));

@@ -11,7 +11,7 @@ export interface SectionInput {
   title: string;
   summary: string;
   orderBy: number;
-  Question: QuestionInput[]
+  Question: QuestionInput[];
 }
 
 export interface QuestionInput {

@@ -15,7 +15,8 @@ const useAppendixDetailsList = (): AppendixDetailListResult => {
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
       try {
-        const res: AxiosResponse<FetchResponse<IAppendixDetailTable[]>> = await useRequest.get("/appendix/detail/2");
+        const res: AxiosResponse<FetchResponse<IAppendixDetailTable[]>> =
+          await useRequest.get("/appendix/detail/2");
 
         if (isMounted) {
           const { data } = res.data;

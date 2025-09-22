@@ -2,7 +2,7 @@ import { Button, Card, CardBody } from "@heroui/react";
 import Link from "next/link";
 import useAxios from "@/shared/hooks/useAxios";
 import { useAppendixList } from "@/features/attachment/hooks/appendix/useAppendixList";
-import { Eye, FileText, Users, BookOpen, ClipboardCheck, BarChart3, Target } from "lucide-react";
+import { Eye } from "lucide-react";
 import TrainerDetailView from "./detailView";
 import dynamic from "next/dynamic";
 
@@ -19,11 +19,10 @@ const TrainerView = (): React.JSX.Element => {
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
-      return text.substring(0, maxLength) + '...';
+      return text.substring(0, maxLength) + "...";
     }
     return text;
   };
-
 
   return (
     <div className="flex items-center gap-2">
@@ -49,17 +48,16 @@ const TrainerView = (): React.JSX.Element => {
 
                   <div className="flex items-start gap-3 mb-4">
                     <div className={`p-2 rounded-lg shrink-0 ${item.color}`}>
-                      <LucideIconRenderer
-                        iconName={item.iconName}
-                        className="h-5 w-5 text-accent"
-                      />
+                      <LucideIconRenderer iconName={item.iconName} className="h-5 w-5 text-accent" />
                       {/* <IconComponent className="w-5 h-5 " /> */}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-card-foreground text-balance leading-tight mb-2">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{truncateText(item.description, 94)}</p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {truncateText(item.description, 94)}
+                      </p>
                     </div>
                   </div>
                   <div className="flex justify-center text">
@@ -71,7 +69,9 @@ const TrainerView = (): React.JSX.Element => {
                       as={Link}
                       href={`/admin/mentoria/${item.id}`}
                       startContent={<Eye />}
-                    >Visualizar</Button>
+                    >
+                      Visualizar
+                    </Button>
                   </div>
                 </CardBody>
               </Card>

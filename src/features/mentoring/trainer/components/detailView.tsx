@@ -1,5 +1,6 @@
 import {
-  Button, Card,
+  Button,
+  Card,
   CardBody,
   Modal,
   ModalContent,
@@ -46,15 +47,12 @@ const TrainerDetailView = (): React.JSX.Element => {
           </div>
           <h1 className="text-4xl font-bold text-center">{appendixDetailsList?.title}</h1>
           <h2 className="text-4xl font-bold text-center">{appendixDetailsList?.subTitle}</h2>
-          <p className="text-xl text-justify">
-            {appendixDetailsList?.description}
-          </p>
+          <p className="text-xl text-justify">{appendixDetailsList?.description}</p>
         </div>
 
-        <form className="space-y-6" >
+        <form className="space-y-6">
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
-
               {appendixDetailsList?.Section?.map((section, index) => (
                 <div key={index}>
                   <h3 className="pb-6">
@@ -62,14 +60,14 @@ const TrainerDetailView = (): React.JSX.Element => {
                   </h3>
                   {/* If there's a summary, render it as well */}
                   {section.summary && (
-                    <p className="text-lg text-justify" dangerouslySetInnerHTML={{ __html: section.summary }} />
+                    <p
+                      className="text-lg text-justify"
+                      dangerouslySetInnerHTML={{ __html: section.summary }}
+                    />
                   )}
                   {/* You can also iterate through the section.Question array here if needed */}
                 </div>
               ))}
-
-
-
             </CardBody>
           </Card>
 
