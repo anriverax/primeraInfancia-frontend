@@ -65,6 +65,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
                 <p className="text-xl text-muted-foreground text-justify">
                   A. Desarrollo y Aprendizaje Activos. Currículo integrado</p>
               </h3>
+              <h4>Aprendizaje significativo</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("startDate")}
@@ -77,6 +78,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Enfoque constructivista</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -89,6 +91,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Respeto a las características individuales e inclusión educativa</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -113,6 +116,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Juego como estrategia pedagógica</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -125,6 +129,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Ambientes, espacios y materiales</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -154,7 +159,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
                 {...getFieldProps("finishDate")}
                 {...getInputProps(
                   "finishDate",
-                  `El docente organiza las zonas de desarrollo y aprendizaje de manera que cumplan con características mínimas: activas, participativas, situadas que promuevan la experimentación, el juego, la exploración y favorecedoras del desarrollo y el aprendizaje integral de las niñas y los niños de Primera Infancia`,
+                  "El docente organiza las zonas de desarrollo y aprendizaje de manera que cumplan con características mínimas: activas, participativas, situadas que promuevan la experimentación, el juego, la exploración y favorecedoras del desarrollo y el aprendizaje integral de las niñas y los niños de Primera Infancia",
                   touched.finishDate,
                   errors.finishDate
                 )}
@@ -197,6 +202,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Motricidad y expresión emocional</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -209,6 +215,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>nstalaciones de interacción entre iguales y los objetos</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -245,6 +252,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Estrategias pedagógicas pertinentes</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -317,6 +325,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Rutinas y organización (pág 92)</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -353,6 +362,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Rutinas y organización</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -389,6 +399,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Planificación y evaluación</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -465,6 +476,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
                 <p className="text-xl text-muted-foreground text-justify">
                   B. Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.</p>
               </h3>
+              <h4>Ambiente de aprendizaje. Cuidado cariñoso y sensible</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -513,6 +525,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Comunicación positiva, atención y respeto</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -573,6 +586,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Desarrollo socioemocional, colaboración y valores</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -601,6 +615,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
                 <p className="text-xl text-muted-foreground text-justify">
                   C. Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.</p>
               </h3>
+              <h4>Integración de las familias en los procesos de desarrollo y aprendizaje</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -649,6 +664,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Acompañamiento docente a las familias</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -673,6 +689,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Partición del docente en el modelo de Atención Integral</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -689,8 +706,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
                 <p className="text-xl text-muted-foreground text-justify">
                   D. Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos.</p>
               </h3>
-
-
+              <h4>Trabajo cooperativo y en equipo</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -763,6 +779,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
+              <h4>Aula y recursos virtuales</h4>
               <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
@@ -787,7 +804,20 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
-               <Select
+              <h4>Aula y recursos virtuales</h4>
+              <Select
+                items={dataList}
+                {...getFieldProps("finishDate")}
+                {...getInputProps(
+                  "finishDate",
+                  "El docente utiliza recursos tecnológicos adaptados a la Primera Infancia.",
+                  touched.finishDate,
+                  errors.finishDate
+                )}
+              >
+                {(item) => <SelectItem>{item.label}</SelectItem>}
+              </Select>
+              <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
                 {...getInputProps(

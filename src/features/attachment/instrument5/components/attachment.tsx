@@ -44,13 +44,7 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
             <FileText className="w-8 h-8 text-secondary" />
           </div>
           <h1 className="text-4xl font-bold text-center">Anexo 5</h1>
-          <h2 className="text-4xl font-bold text-center">Cuaderno de mentoría</h2>
-          <p className="text-xl text-muted-foreground text-justify">
-            Una herramienta muy útil es disponer de un cuaderno de mentoría, donde se anote el proceso
-            que se va generando entre mentor y mentorado. Pues en ciertos momentos puede ser conveniente
-            rescatar reflexiones suscitadas en sesiones anteriores, especialmente interesante cuando se
-            ha de elaborar el informe final.
-          </p>
+          <h2 className="text-4xl font-bold text-center">Cuaderno de mentoría. Informe reflexivo del proceso</h2>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -74,7 +68,7 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
                 {...getFieldProps("challengeClassroom")}
                 {...getInputProps(
                   "challengeClassroom",
-                  "¿Qué dificultades recientes ha tenido en el aula?",
+                  "¿Qué dificultades recientes he tenido en el aula?",
                   touched.challengeClassroom,
                   errors.challengeClassroom
                 )}

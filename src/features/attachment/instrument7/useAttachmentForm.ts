@@ -12,6 +12,7 @@ const initialValues: Attachment7Input = {
   descriptionMentoringProcess: "",
   achievements: "",
   areaImprovement: "",
+  suggestionTeacher:"",
   improvedNextCohort: ""
 };
 
@@ -27,6 +28,7 @@ const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
     const descriptionMentoringProcessField = values.descriptionMentoringProcess;
     const achievementsField = values.achievements;
     const areaImprovementField = values.areaImprovement;
+    const suggestionTeacherField = values.suggestionTeacher;
     const improvedNextCohortField = values.improvedNextCohort;
 
     const nameField = "Anexo 7";
@@ -65,6 +67,13 @@ const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
         textQuestion:
           "Identificación de las áreas que aún necesitan mejora en el proceso de mentoría y en la práctica docente de los acompañados",
         textAnswer: areaImprovementField,
+        teacherRoleId: 1,
+        mentorRoleId: 2
+      },
+        {
+        name: nameField,
+        textQuestion: "Sugerencias para continuar con el desarrollo del docente, incluyendo posibles estrategias a implementar en la siguiente cohorte.",
+        textAnswer: suggestionTeacherField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },

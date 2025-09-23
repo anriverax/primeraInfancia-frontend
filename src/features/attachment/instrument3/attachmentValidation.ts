@@ -19,6 +19,7 @@ export const attachment3Schema: ObjectSchema<Attachment3Input> = object({
   responsible: stringField(validationMessages.required),
   observations: stringField(validationMessages.required),
   classrromObservations: stringField(validationMessages.required),
+  observationRoutine: stringField(validationMessages.required),
   dialoguedFeedback: stringField(validationMessages.required),
   modelingPractices: stringField(validationMessages.required),
   coPlanningActivities: stringField(validationMessages.required),

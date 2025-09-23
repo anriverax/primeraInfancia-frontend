@@ -43,10 +43,7 @@ const Attachment6Form = ({ formik }: Attachment6FormProps): React.JSX.Element =>
           </div>
           <h1 className="text-4xl font-bold text-center">Anexo 6</h1>
           <h2 className="text-4xl font-bold text-center">
-            Una herramienta muy útil es disponer de un registro de las visitas que se llevan a término,
-            tanto para el menotr, que le ayuda a saber cómo evoluciona el docente en cada momento, como
-            para el propio docente, que sin querer puede tener creencias limitantes que no le permitan ver
-            sus avances, y al tener un marco de seguimiento se le puede demostrar su evoluación.
+           Registro de visitas y seguimiento.
           </h2>
         </div>
 

@@ -43,11 +43,7 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
           </div>
           <h1 className="text-4xl font-bold text-center">Anexo 7</h1>
           <h2 className="text-4xl font-bold text-center">
-            Informe final de personal mentor que entrega al personal técnico de apoyo. La coordinación
-            entre los tres perfiles es un aspecto necesario para el éxito de este proyecto. Si bien la
-            comunicación suele darse de forma espontánea y a lo largo del proceso, es conveniente que se
-            elabore un informe final del proceso en el que se recoja el trabajo realizado y las posibles
-            mejoras de todo el proceso.
+            Informe final de personal mentor que entrega al personal técnico de apoyo.
           </h2>
         </div>
 
@@ -120,16 +116,22 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
               <h3 className="pb-6">
                 <p className="text-xl text-muted-foreground text-justify">
                   V. Recomendaciones para el seguimiento
-                  <br />
-                  Sugerencias para continuar con el desarrollo del docente, incluyendo posibles estrategias a
-                  implementar en la siguiente cohorte.
                 </p>
               </h3>
+              <Input
+                {...getFieldProps("suggestionTeacher")}
+                {...getInputProps(
+                  "suggestionTeacher",
+                  "Sugerencias para continuar con el desarrollo del docente, incluyendo posibles estrategias a implementar en la siguiente cohorte.",
+                  touched.suggestionTeacher,
+                  errors.suggestionTeacher
+                )}
+              />
               <Input
                 {...getFieldProps("improvedNextCohort")}
                 {...getInputProps(
                   "improvedNextCohort",
-                  "¿Qué aspectos se han de mejorar en la mentoría para la siguiente cohorte?",
+                  "VI ¿Qué aspectos se han de mejorar en la mentoría para la siguiente cohorte?",
                   touched.improvedNextCohort,
                   errors.improvedNextCohort
                 )}

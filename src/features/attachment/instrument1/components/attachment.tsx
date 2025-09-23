@@ -70,7 +70,7 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
                 {...getFieldProps("startDate")}
                 {...getInputProps(
                   "startDate",
-                  "Fecha de inicio de acompañamiento",
+                  "Fecha de inicio del acompañamiento",
                   touched.startDate,
                   errors.startDate
                 )}
@@ -99,13 +99,13 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
               <p className="text-xl text-justify">
                 Me comprometo a:
                 <ol>
-                  <li>Participar activamente en las actividades de mentoria acordadas.</li>
+                  <li>Participar activamente en las actividades de mentoría acordadas.</li>
                   <li>Abir mi práctica a la observación, la reflexión y la retroalimentación.</li>
-                  <li>Colaborar en la elaboración del plan de mejora profesional.</li>
+                  <li>Colaborar en la elaboración del plan de mejora continua profesional.</li>
                   <li>Asistir puntualmente a las reuniones y encuentros programados.</li>
                   <li>Mantener una actitud respetuosa, propositiva y receptiva.</li>
                   <li>
-                    Compartir evidencias y docuemntos que contribuyan al seguimiento de mi proceso.
+                    Compartir evidencias y documentos que contribuyan al seguimiento de mi proceso.
                   </li>
                 </ol>
               </p>
@@ -126,9 +126,10 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
                 <li>Acompañar el proceso con respeto, confidencialidad y actitud de escucha.</li>
                 <li>Generar un ambiente de confianza y apoyo profesional.</li>
                 <li>Brindar orientación opoprtuna, contextualizada y constructiva.</li>
-                <li>Planificar junto con el/la docente el proceso de mejora.</li>
+                <li>Planificar junto con el/la docente el proceso de mejora continua.</li>
                 <li>Sistematizar y documentar los avances del proceso.</li>
                 <li>Promover la autonomía y el desarrollo profesional del/la docente.</li>
+                <li>Asistir puntualmente a las reuniones y encuentros programados.</li>
               </ol>
 
               <Input

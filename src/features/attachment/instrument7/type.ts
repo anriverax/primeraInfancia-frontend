@@ -6,6 +6,7 @@ export interface Attachment7Input {
   descriptionMentoringProcess: string;
   achievements: string;
   areaImprovement: string;
+  suggestionTeacher: string;
   improvedNextCohort: string;
 }
 

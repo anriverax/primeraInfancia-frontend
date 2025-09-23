@@ -51,12 +51,8 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
           </div>
           <h1 className="text-4xl font-bold text-center">Anexo 3</h1>
           <h2 className="text-4xl font-bold text-center">
-            Registro de planificación y retroalimentación: plan de mejora
+            Registro de planificación y retroalimentación
           </h2>
-          <p className="text-xl text-justify">
-            Dado el número de docentes que tendrán que acompañar, se recomienda llevar un registro de las
-            actuaciones llevadas a término en cada sesión.
-          </p>
         </div>
 
         <form className="space-y-6" onSubmit={handleOkSubmit}>
@@ -147,9 +143,18 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                 {...getFieldProps("classrromObservations")}
                 {...getInputProps(
                   "classrromObservations",
-                  "Observación de clases",
+                  "Observación de experiencia de desarrollo y aprendizaje de clases",
                   touched.classrromObservations,
                   errors.classrromObservations
+                )}
+              />
+              <Input
+                {...getFieldProps("observationRoutine")}
+                {...getInputProps(
+                  "observationRoutine",
+                  "Observación de la rutina",
+                  touched.observationRoutine,
+                  errors.observationRoutine
                 )}
               />
               <Input

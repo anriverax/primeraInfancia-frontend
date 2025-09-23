@@ -165,13 +165,14 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
               <h3 className="pb-6">
                 <p className="text-xl text-justify">III. Autopercepción de la práctica docente</p>
               </h3>
+              <h4>Aspecto de la práctica</h4>
               <div className="space-y-3">
                 <Select
                   items={levelOfPracticeList}
                   {...getFieldProps("knowledgeChildDevelopment")}
                   {...getInputProps(
                     "knowledgeChildDevelopment",
-                    "Conocimiento del desarrollo infantil",
+                    "Conocimiento del desarrollo infantil en la Primera Infancia",
                     touched.knowledgeChildDevelopment,
                     errors.knowledgeChildDevelopment
                   )}

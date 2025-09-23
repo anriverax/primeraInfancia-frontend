@@ -18,6 +18,7 @@ const initialValues: Attachment3Input = {
   responsible: "",
   observations: "",
   classrromObservations: "",
+  observationRoutine: "",
   dialoguedFeedback: "",
   modelingPractices: "",
   coPlanningActivities: "",
@@ -53,6 +54,7 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
     const responsibleField = values.responsible;
     const observationsField = values.observations;
     const classrromObservationsField = values.classrromObservations;
+    const observationRoutineField = values.observationRoutine;
     const dialoguedFeedbackField = values.dialoguedFeedback;
     const modelingPracticesField = values.modelingPractices;
     const coPlanningActivitiesField = values.coPlanningActivities;
@@ -145,6 +147,13 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
         name: nameField,
         textQuestion: "Observación de clases",
         textAnswer: classrromObservationsField,
+        teacherRoleId: 1,
+        mentorRoleId: 2
+      },
+      {
+        name: nameField,
+        textQuestion: "Observación de la rutina",
+        textAnswer: observationRoutineField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
