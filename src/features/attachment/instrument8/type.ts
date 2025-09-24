@@ -1,6 +1,6 @@
 import { AxiosMessage } from "@/shared/types/globals";
 
-export interface Attachment7Input {
+export interface Attachment8Input {
   connectsDevelopmental: string;
   revisitsKnowledge: string;
   promotesParticipation: string;
@@ -37,30 +37,30 @@ export interface Attachment7Input {
   affectiveLearningEnvironment: string;
   offersOportunities: string;
   welcomingAndSafe: string;
-  displaysPositiveAttitudes:string;
-  positiveLanguageFeedback:string;
-  respectfullyAndLovingly:string;
-  pedagogicalPractices:string;
-  respondsOfNeeds:string;
-  promotesAttitudes:string;
-  teamworkClassroom:string;
-  promotesFreeExpression:string;
-  promotesFamilyParticipation:string;
-  listenAndRespect:string;
-  showReceptiveAttitude:string;
-  familiesSomeActivity:string;
-  accountFamilyContext:string;
-  communicationMechanism:string;
-  comprehensiveModel:string;
-  setsGoals:string;
-  selfEvaluates:string;
-  seekContinuousImprovment:string;
-  activitiesWorkshop:string;
-  agreementOfPlanning:string;
-  manageVirtualClassroom:string;
-  googleDriveDocs:string;
-  technologicalResources:string;
-  usesAudiovisualEquipment:string;
+  displaysPositiveAttitudes: string;
+  positiveLanguageFeedback: string;
+  respectfullyAndLovingly: string;
+  pedagogicalPractices: string;
+  respondsOfNeeds: string;
+  promotesAttitudes: string;
+  teamworkClassroom: string;
+  promotesFreeExpression: string;
+  promotesFamilyParticipation: string;
+  listenAndRespect: string;
+  showReceptiveAttitude: string;
+  familiesSomeActivity: string;
+  accountFamilyContext: string;
+  communicationMechanism: string;
+  comprehensiveModel: string;
+  setsGoals: string;
+  selfEvaluates: string;
+  seekContinuousImprovment: string;
+  activitiesWorkshop: string;
+  agreementOfPlanning: string;
+  manageVirtualClassroom: string;
+  googleDriveDocs: string;
+  technologicalResources: string;
+  usesAudiovisualEquipment: string;
 }
 
-export type IAttachment7Input = Attachment7Input & AxiosMessage;
+export type IAttachment8Input = Attachment8Input & AxiosMessage;

@@ -15,7 +15,7 @@ import {
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
-import { IAttachment7Input } from "../type";
+import { IAttachment8Input } from "../type";
 import Link from "next/link";
 
 export const dataList = [
@@ -26,14 +26,21 @@ export const dataList = [
 ];
 
 type Attachment8FormProps = {
-  formik: FormikProps<IAttachment7Input>;
+  formik: FormikProps<IAttachment8Input>;
 };
 
 const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
-  const { isOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { getInputProps } = useCustomFormFields();
+
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
+  const handleOkSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onOpen();
+  };
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
@@ -58,7 +65,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
           </h2>
         </div>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleOkSubmit}>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
               <h3 className="pb-6">
@@ -68,12 +75,12 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Aprendizaje significativo</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("startDate")}
+                {...getFieldProps("connectsDevelopmental")}
                 {...getInputProps(
-                  "startDate",
-                  `El docente vincula las experiencias de desarrollo y aprendizaje con situaciones cotidianas de las niñas y los niños de Primera Infancia.`,
-                  touched.startDate,
-                  errors.startDate
+                  "connectsDevelopmental",
+                  "El docente vincula las experiencias de desarrollo y aprendizaje con situaciones cotidianas de las niñas y los niños de Primera Infancia.",
+                  touched.connectsDevelopmental,
+                  errors.connectsDevelopmental
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -81,12 +88,12 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Enfoque constructivista</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("revisitsKnowledge")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente retoma los conocimientos previos de las niñas y los niños de Primera Infancia en la construcción de nuevos aprendizajes.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "revisitsKnowledge",
+                  "El docente retoma los conocimientos previos de las niñas y los niños de Primera Infancia en la construcción de nuevos aprendizajes.",
+                  touched.revisitsKnowledge,
+                  errors.revisitsKnowledge
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -94,24 +101,24 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Respeto a las características individuales e inclusión educativa</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("promotesParticipation")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente promueve la participación y el aprendizaje de todas las niñas y los niños del aula respetando sus características individuales.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "promotesParticipation",
+                  "El docente promueve la participación y el aprendizaje de todas las niñas y los niños del aula respetando sus características individuales.",
+                  touched.promotesParticipation,
+                  errors.promotesParticipation
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("intentionallyControls")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente intenciona los procesos de desarrollo y aprendizaje de todas las niñas y los niños de Primera Infancia en el aula y lo hace con respeto a su ritmo e intereses.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "intentionallyControls",
+                  "El docente intenciona los procesos de desarrollo y aprendizaje de todas las niñas y los niños de Primera Infancia en el aula y lo hace con respeto a su ritmo e intereses.",
+                  touched.intentionallyControls,
+                  errors.intentionallyControls
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -119,12 +126,12 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Juego como estrategia pedagógica</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("integratesPlay")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente reconoce e integra el juego como elemento natural para el desarrollo y aprendizaje.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "integratesPlay",
+                  "El docente reconoce e integra el juego como elemento natural para el desarrollo y aprendizaje.",
+                  touched.integratesPlay,
+                  errors.integratesPlay
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -132,72 +139,72 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Ambientes, espacios y materiales</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("createsSafeCreative")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente crea espacios seguros, creativos y acogedores en el aula que favorecen la libre expresión y el juego.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "createsSafeCreative",
+                  "El docente crea espacios seguros, creativos y acogedores en el aula que favorecen la libre expresión y el juego.",
+                  touched.createsSafeCreative,
+                  errors.createsSafeCreative
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("recognizesImportance")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente reconoce la importancia de la ambientación de los espacios del aula de Primera Infancia de acuerdo a los objetivos didácticos de la planificación`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "recognizesImportance",
+                  "El docente reconoce la importancia de la ambientación de los espacios del aula de Primera Infancia de acuerdo a los objetivos didácticos de la planificación",
+                  touched.recognizesImportance,
+                  errors.recognizesImportance
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("organizesDevelopment")}
                 {...getInputProps(
-                  "finishDate",
+                  "organizesDevelopment",
                   "El docente organiza las zonas de desarrollo y aprendizaje de manera que cumplan con características mínimas: activas, participativas, situadas que promuevan la experimentación, el juego, la exploración y favorecedoras del desarrollo y el aprendizaje integral de las niñas y los niños de Primera Infancia",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.organizesDevelopment,
+                  errors.organizesDevelopment
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("selectSafe")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente selecciona materiales y recursos didácticos seguros, accesibles, variados teniendo en cuenta los intereses y características individuales de las niñas y niños del aula.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "selectSafe",
+                  "El docente selecciona materiales y recursos didácticos seguros, accesibles, variados teniendo en cuenta los intereses y características individuales de las niñas y niños del aula.",
+                  touched.selectSafe,
+                  errors.selectSafe
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("enrichesAndReviews")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente enriquece y renueva las zonas de desarrollo y aprendizaje según las planificaciones considerando que cada zona tenga la capacidad para ser utilizada por 6 niñas o niños de Primera Infancia.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "enrichesAndReviews",
+                  "El docente enriquece y renueva las zonas de desarrollo y aprendizaje según las planificaciones considerando que cada zona tenga la capacidad para ser utilizada por 6 niñas o niños de Primera Infancia.",
+                  touched.enrichesAndReviews,
+                  errors.enrichesAndReviews
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("includePromotes")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente Incluye, promueve, y acompañamiento la rotación libre entre las zonas de desarrollo y aprendizaje instaladas en el aula. Algunos ejemplos de zona según el marco curricular pueden ser: zona de lectura, Zona de expresión gráfica, plástica y visual , zona de pensamiento lógico y matemática, sensoriomotora (página 107)`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "includePromotes",
+                  "El docente Incluye, promueve, y acompañamiento la rotación libre entre las zonas de desarrollo y aprendizaje instaladas en el aula. Algunos ejemplos de zona según el marco curricular pueden ser: zona de lectura, Zona de expresión gráfica, plástica y visual , zona de pensamiento lógico y matemática, sensoriomotora (página 107)",
+                  touched.includePromotes,
+                  errors.includePromotes
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -205,49 +212,49 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Motricidad y expresión emocional</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("plansActivities")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente planifica actividades que favorecen el desarrollo integral físico y emocional.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "plansActivities",
+                  "El docente planifica actividades que favorecen el desarrollo integral físico y emocional.",
+                  touched.plansActivities,
+                  errors.plansActivities
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
-              <h4>nstalaciones de interacción entre iguales y los objetos</h4>
+              <h4>Instalaciones de interacción entre iguales y los objetos</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("selectAndOrganizes")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente selecciona y organiza materiales para facilitar la libre interacción entre pares, en pequeños o grandes grupos o trabajo individual.`,
-                  touched.finishDate,
-                  errors.finishDate
-                )}
-              >
-                {(item) => <SelectItem>{item.label}</SelectItem>}
-              </Select>
-              <Select
-                items={dataList}
-                {...getFieldProps("finishDate")}
-                {...getInputProps(
-                  "finishDate",
-                  `El docente promueve la expresión de emociones a través de diferentes formas de expresión.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "selectAndOrganizes",
+                  "El docente selecciona y organiza materiales para facilitar la libre interacción entre pares, en pequeños o grandes grupos o trabajo individual.",
+                  touched.selectAndOrganizes,
+                  errors.selectAndOrganizes
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("promotesExpression")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente acompañará desde la observación, la escucha y la mediación, realizando preguntas que profundicen el pensamiento o brindando apoyos cuando se requiera a las niñas y los niños de Primera Infancia.(107)`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "promotesExpression",
+                  "El docente promueve la expresión de emociones a través de diferentes formas de expresión.",
+                  touched.promotesExpression,
+                  errors.promotesExpression
+                )}
+              >
+                {(item) => <SelectItem>{item.label}</SelectItem>}
+              </Select>
+              <Select
+                items={dataList}
+                {...getFieldProps("willAssist")}
+                {...getInputProps(
+                  "willAssist",
+                  "El docente acompañará desde la observación, la escucha y la mediación, realizando preguntas que profundicen el pensamiento o brindando apoyos cuando se requiera a las niñas y los niños de Primera Infancia.(107)",
+                  touched.willAssist,
+                  errors.willAssist
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -255,72 +262,72 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Estrategias pedagógicas pertinentes</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("knowsAndUses")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente conoce y utiliza estrategias pedagógicas pertinentes para la primera infancia: abordadas en la formación: talleres pedagógicos , proyectos, zonas de desarrollo y aprendizaje y asamblea.(96)`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "knowsAndUses",
+                  "El docente conoce y utiliza estrategias pedagógicas pertinentes para la primera infancia: abordadas en la formación: talleres pedagógicos , proyectos, zonas de desarrollo y aprendizaje y asamblea.(96)",
+                  touched.knowsAndUses,
+                  errors.knowsAndUses
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("adaptsPedagogical")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente ajusta las estrategias pedagógicas orientadas por el marco curricular a la naturaleza de la niñas y los niños de Primera Infancia, favoreciendo el desarrollo integral y la promoción de aprendizajes pertinentes y significativos`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "adaptsPedagogical",
+                  "El docente ajusta las estrategias pedagógicas orientadas por el marco curricular a la naturaleza de la niñas y los niños de Primera Infancia, favoreciendo el desarrollo integral y la promoción de aprendizajes pertinentes y significativos",
+                  touched.adaptsPedagogical,
+                  errors.adaptsPedagogical
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("revelantPedagogical")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente integra la estrategia pedagógica pertinente de talleres en su aula de acuerdo a las edades de su grupo, con una frecuencia que puede ser diaria con una duración de 30 a 60 minutos o de acuerdo a las necesidades e interese de las niñas y niños de Primera Infancia`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "revelantPedagogical",
+                  "El docente integra la estrategia pedagógica pertinente de talleres en su aula de acuerdo a las edades de su grupo, con una frecuencia que puede ser diaria con una duración de 30 a 60 minutos o de acuerdo a las necesidades e interese de las niñas y niños de Primera Infancia",
+                  touched.revelantPedagogical,
+                  errors.revelantPedagogical
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("integratesRelevantPedagogical")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente integra la estrategia pedagógica pertinente de proyecto en su aula de acuerdo a las edades e intereses genuinos de su grupo con una frecuencia que puede ser diaria con una duración de 40 a 50 minutos, donde se vincule la vida cotidiana y la educación`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "integratesRelevantPedagogical",
+                  "El docente integra la estrategia pedagógica pertinente de proyecto en su aula de acuerdo a las edades e intereses genuinos de su grupo con una frecuencia que puede ser diaria con una duración de 40 a 50 minutos, donde se vincule la vida cotidiana y la educación",
+                  touched.integratesRelevantPedagogical,
+                  errors.integratesRelevantPedagogical
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("integratesPedagogicalStrategy")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente integra la estrategia pedagógica pertinente de asamblea al inicio o al final de la jornada, donde se promueve el pensamiento crítico la deliberación colectiva y la construcción de acuerdos retomando los momentos para su desarrollo (apertura, propósito, conversación abierta y cierre) con una frecuencia que puede ser diaria con una duración de 20 a 50 minutos`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "integratesPedagogicalStrategy",
+                  "El docente integra la estrategia pedagógica pertinente de asamblea al inicio o al final de la jornada, donde se promueve el pensamiento crítico la deliberación colectiva y la construcción de acuerdos retomando los momentos para su desarrollo (apertura, propósito, conversación abierta y cierre) con una frecuencia que puede ser diaria con una duración de 20 a 50 minutos",
+                  touched.integratesPedagogicalStrategy,
+                  errors.integratesPedagogicalStrategy
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("usesDifferentTypes")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente utiliza distintos tipos de agrupamientos (individual, grupos pequeños o grandes), según las distintas estrategias pedagógicas pertinentes planificadas en la rutina de desarrollo y aprendizaje`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "usesDifferentTypes",
+                  "El docente utiliza distintos tipos de agrupamientos (individual, grupos pequeños o grandes), según las distintas estrategias pedagógicas pertinentes planificadas en la rutina de desarrollo y aprendizaje",
+                  touched.usesDifferentTypes,
+                  errors.usesDifferentTypes
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -328,36 +335,36 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Rutinas y organización (pág 92)</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("takesCaresOf")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente cuida, anticipa y planifica las transiciones entre momentos y rutinas.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "takesCaresOf",
+                  "El docente cuida, anticipa y planifica las transiciones entre momentos y rutinas.",
+                  touched.takesCaresOf,
+                  errors.takesCaresOf
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("organizesDayRoutines")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente organiza las rutinas de la jornada con criterios de estabilidad, flexibilidad y secuencialidad.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "organizesDayRoutines",
+                  "El docente organiza las rutinas de la jornada con criterios de estabilidad, flexibilidad y secuencialidad.",
+                  touched.organizesDayRoutines,
+                  errors.organizesDayRoutines
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("usesTools")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente utiliza herramientas que facilitan a las niñas y los niños la anticipación de la secuencia de las rutinas del día.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "usesTools",
+                  "El docente utiliza herramientas que facilitan a las niñas y los niños la anticipación de la secuencia de las rutinas del día.",
+                  touched.usesTools,
+                  errors.usesTools
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -365,36 +372,36 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Rutinas y organización</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("respondsBasicNeeds")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente responde a necesidades básicas (aseo, comida y descanso), afectivas, educativas y de interacción social a través de la organización del tiempo de acuerdo a la secuencia de rutinas.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "respondsBasicNeeds",
+                  "El docente responde a necesidades básicas (aseo, comida y descanso), afectivas, educativas y de interacción social a través de la organización del tiempo de acuerdo a la secuencia de rutinas.",
+                  touched.respondsBasicNeeds,
+                  errors.respondsBasicNeeds
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("takesCriterion")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente tiene en cuenta el criterio de flexibilidad en la organización de la rutina y respeta los intereses y características individuales de las niñas y los niños de Primera Infancia.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "takesCriterion",
+                  "El docente tiene en cuenta el criterio de flexibilidad en la organización de la rutina y respeta los intereses y características individuales de las niñas y los niños de Primera Infancia.",
+                  touched.takesCriterion,
+                  errors.takesCriterion
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("organizesDayTime")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente organiza el tiempo de la jornada con rutinas claras, coherentes y adecuadas a los procesos de desarrollo y aprendizaje de la Primera Infancia.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "organizesDayTime",
+                  "El docente organiza el tiempo de la jornada con rutinas claras, coherentes y adecuadas a los procesos de desarrollo y aprendizaje de la Primera Infancia.",
+                  touched.organizesDayTime,
+                  errors.organizesDayTime
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -402,72 +409,72 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Planificación y evaluación</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("considerKeyElements")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente considera en su planificación los elementos clave del diseño pedagógico: objetivos, recursos, rutinas y tiempos, estrategias pedagógicas pertinentes, los agrupamientos diferentes de niñas y niños, la evaluación y los reajustes derivados de ella.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "considerKeyElements",
+                  "El docente considera en su planificación los elementos clave del diseño pedagógico: objetivos, recursos, rutinas y tiempos, estrategias pedagógicas pertinentes, los agrupamientos diferentes de niñas y niños, la evaluación y los reajustes derivados de ella.",
+                  touched.considerKeyElements,
+                  errors.considerKeyElements
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("involvesFamilies")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente involucra a las familias en la planificación educativa.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "involvesFamilies",
+                  "El docente involucra a las familias en la planificación educativa.",
+                  touched.involvesFamilies,
+                  errors.involvesFamilies
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("usesVarietyTools")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente utiliza herramientas de evaluación variadas y pertinentes (observaciones, registros, anecdotarios, recursos audiovisuales)`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "usesVarietyTools",
+                  "El docente utiliza herramientas de evaluación variadas y pertinentes (observaciones, registros, anecdotarios, recursos audiovisuales)",
+                  touched.usesVarietyTools,
+                  errors.usesVarietyTools
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("recordAndDocument")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente registra y documenta las observaciones sobre las niñas y los niños del aula de Primera Infancia, tanto en las actividades individuales como en las grupales. `,
-                  touched.finishDate,
-                  errors.finishDate
+                  "recordAndDocument",
+                  "El docente registra y documenta las observaciones sobre las niñas y los niños del aula de Primera Infancia, tanto en las actividades individuales como en las grupales. ",
+                  touched.recordAndDocument,
+                  errors.recordAndDocument
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("plansAccountPrinciple")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente planifica teniendo en cuenta el principio de flexibilidad, adaptándose a los intereses del grupo y prioriza enfoques inclusivos y participativos.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "plansAccountPrinciple",
+                  "El docente planifica teniendo en cuenta el principio de flexibilidad, adaptándose a los intereses del grupo y prioriza enfoques inclusivos y participativos.",
+                  touched.plansAccountPrinciple,
+                  errors.plansAccountPrinciple
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("characteristicsAgeGroup")}
                 {...getInputProps(
-                  "finishDate",
-                  `El docente evalúa para acompañar las niñas y los niños de Primera Infancia de acuerdo a sus características socioeducativas y grupo etario.`,
-                  touched.finishDate,
-                  errors.finishDate
+                  "characteristicsAgeGroup",
+                  "El docente evalúa para acompañar las niñas y los niños de Primera Infancia de acuerdo a sus características socioeducativas y grupo etario.",
+                  touched.characteristicsAgeGroup,
+                  errors.characteristicsAgeGroup
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -479,48 +486,48 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Ambiente de aprendizaje. Cuidado cariñoso y sensible</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("affectiveLearningEnvironment")}
                 {...getInputProps(
-                  "finishDate",
+                  "affectiveLearningEnvironment",
                   "El docente establece ambientes de aprendizaje afectivos, que reconocen las características individuales de las niñas y los niños de Primera Infancia y promueve la interacción de calidad.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.affectiveLearningEnvironment,
+                  errors.affectiveLearningEnvironment
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("offersOportunities")}
                 {...getInputProps(
-                  "finishDate",
+                  "offersOportunities",
                   "El docente ofrece oportunidades a las niñas y los niños para asumir responsabilidades en el aula, adecuadas a su edad, fomentando su autonomía.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.offersOportunities,
+                  errors.offersOportunities
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("welcomingAndSafe")}
                 {...getInputProps(
-                  "finishDate",
+                  "welcomingAndSafe",
                   "El docente crea un ambiente acogedor y seguro que hace que las niñas y los niños de Primera Infancia disfruten en el aula.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.welcomingAndSafe,
+                  errors.welcomingAndSafe
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("displaysPositiveAttitudes")}
                 {...getInputProps(
-                  "finishDate",
+                  "displaysPositiveAttitudes",
                   "El docente muestra actitudes positivas y genera ambientes seguros en las rutinas de desarrollo y aprendizaje de las niñas y los niños de Primera Infancia.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.displaysPositiveAttitudes,
+                  errors.displaysPositiveAttitudes
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -528,60 +535,60 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Comunicación positiva, atención y respeto</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("positiveLanguageFeedback")}
                 {...getInputProps(
-                  "finishDate",
+                  "positiveLanguageFeedback",
                   "El docente usa lenguaje positivo para dar retroalimentación a las niñas y los niños de Primera Infancia, reforzando su desarrollo, autoestima y autonomía",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.positiveLanguageFeedback,
+                  errors.positiveLanguageFeedback
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("respectfullyAndLovingly")}
                 {...getInputProps(
-                  "finishDate",
+                  "respectfullyAndLovingly",
                   "El docente trata respetuosamente y con cariño a todas las niñas y los niños del aula de Primera Infancia.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.respectfullyAndLovingly,
+                  errors.respectfullyAndLovingly
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("pedagogicalPractices")}
                 {...getInputProps(
-                  "finishDate",
+                  "pedagogicalPractices",
                   "El docente realiza sus prácticas pedagógicas a partir de la escucha atenta de los intereses de las niñas y niños de Primera Infancia.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.pedagogicalPractices,
+                  errors.pedagogicalPractices
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("respondsOfNeeds")}
                 {...getInputProps(
-                  "finishDate",
+                  "respondsOfNeeds",
                   "El docente da respuesta a las necesidades de las niñas y los niños del aula de Primera Infancia.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.respondsOfNeeds,
+                  errors.respondsOfNeeds
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("promotesAttitudes")}
                 {...getInputProps(
-                  "finishDate",
+                  "promotesAttitudes",
                   "El docente promueve entre las niñas y los niños actitudes como la empatía en la resolución de conflictos.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.promotesAttitudes,
+                  errors.promotesAttitudes
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -589,24 +596,24 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Desarrollo socioemocional, colaboración y valores</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("teamworkClassroom")}
                 {...getInputProps(
-                  "finishDate",
+                  "teamworkClassroom",
                   "El docente fomenta el trabajo en equipo en el aula para compartir ideas y lograr un objetivo común.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.teamworkClassroom,
+                  errors.teamworkClassroom
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("promotesFreeExpression")}
                 {...getInputProps(
-                  "finishDate",
+                  "promotesFreeExpression",
                   "El docente promueve la libre expresión de opiniones e intereses en las niñas y los niños del aula de Primera Infancia.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.promotesFreeExpression,
+                  errors.promotesFreeExpression
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -618,48 +625,48 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Integración de las familias en los procesos de desarrollo y aprendizaje</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("promotesFamilyParticipation")}
                 {...getInputProps(
-                  "finishDate",
+                  "promotesFamilyParticipation",
                   "El docente promueve la participación de las familias en el aula o el centro escolar en acciones puntuales que favorezcan el desarrollo y aprendizaje de las niñas y niños de Primera Infancia.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.promotesFamilyParticipation,
+                  errors.promotesFamilyParticipation
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("listenAndRespect")}
                 {...getInputProps(
-                  "finishDate",
+                  "listenAndRespect",
                   "El docente escucha y respeta la opinión de las familias.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.listenAndRespect,
+                  errors.listenAndRespect
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("showReceptiveAttitude")}
                 {...getInputProps(
-                  "finishDate",
+                  "showReceptiveAttitude",
                   "El docente muestra una actitud receptiva a las propuestas de las familias para colaborar en el aula.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.showReceptiveAttitude,
+                  errors.showReceptiveAttitude
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("familiesSomeActivity")}
                 {...getInputProps(
-                  "finishDate",
+                  "familiesSomeActivity",
                   "El docente incluye a las familias en alguna actividad facilitando su colaboración y espacios donde realizarla.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.familiesSomeActivity,
+                  errors.familiesSomeActivity
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -667,24 +674,24 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Acompañamiento docente a las familias</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("accountFamilyContext")}
                 {...getInputProps(
-                  "finishDate",
+                  "accountFamilyContext",
                   "El docente tiene en cuenta el contexto social y familiar de las niñas y los niños de Primera Infancia, para favorecer su desarrollo y aprendizaje.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.accountFamilyContext,
+                  errors.accountFamilyContext
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("communicationMechanism")}
                 {...getInputProps(
-                  "finishDate",
+                  "communicationMechanism",
                   "El docente implementa mecanismo de comunicación con las familias para informar el progreso de las niñas y niños de primera infancia, como: informes escritos, cuaderno viajero, u otras",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.communicationMechanism,
+                  errors.communicationMechanism
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -692,12 +699,12 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Partición del docente en el modelo de Atención Integral</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("comprehensiveModel")}
                 {...getInputProps(
-                  "finishDate",
+                  "comprehensiveModel",
                   "El docente realiza prácticas pedagógicas en el aula basadas en el modelo de Atención Integral a la Primera Infancia.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.comprehensiveModel,
+                  errors.comprehensiveModel
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -709,65 +716,65 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <h4>Trabajo cooperativo y en equipo</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("setsGoals")}
                 {...getInputProps(
-                  "finishDate",
+                  "setsGoals",
                   "El docente se marca metas y objetivos realistas, razonables y alcanzables en colaboración con el resto del cuerpo docente de su centro escolar.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.setsGoals,
+                  errors.setsGoals
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("selfEvaluates")}
                 {...getInputProps(
-                  "finishDate",
+                  "selfEvaluates",
                   "El docente se autoevalúa respecto de su labor en el aula y la propia planificación",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.selfEvaluates,
+                  errors.selfEvaluates
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("seekContinuousImprovment")}
                 {...getInputProps(
-                  "finishDate",
-                  "",
-                  touched.finishDate,
-                  errors.finishDate
-                )}
-              >
-                {(item) => <SelectItem>{item.label}</SelectItem>}
-              </Select>
-              <Select
-                items={dataList}
-                {...getFieldProps("finishDate")}
-                {...getInputProps(
-                  "finishDate",
+                  "seekContinuousImprovment",
                   "El docente evalúa con el resto del cuerpo docente para buscar la mejora continua en su práctica docente",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.seekContinuousImprovment,
+                  errors.seekContinuousImprovment
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("activitiesWorkshop")}
                 {...getInputProps(
-                  "finishDate",
-                  "El docente planifica actividades, talleres o proyectos que le permiten compartir su práctica con otros docentes y otras aulas.",
-                  touched.finishDate,
-                  errors.finishDate
+                  "activitiesWorkshop",
+                  "El docente planifica actividades, talleres o proyectos que le permiten compartir su práctica con otros docentes y otras aulas",
+                  touched.activitiesWorkshop,
+                  errors.activitiesWorkshop
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
+                items={dataList}
+                {...getFieldProps("agreementOfPlanning")}
+                {...getInputProps(
+                  "agreementOfPlanning",
+                  "El docente tiene conciencia de equipo y llega a acuerdos sobre cómo planificar, el diseño de ambientes de las aulas o el uso de materiales",
+                  touched.agreementOfPlanning,
+                  errors.agreementOfPlanning
+                )}
+              >
+                {(item) => <SelectItem>{item.label}</SelectItem>}
+              </Select>
+              {/* <Select
                 items={dataList}
                 {...getFieldProps("finishDate")}
                 {...getInputProps(
@@ -778,53 +785,53 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
-              </Select>
+              </Select> */}
               <h4>Aula y recursos virtuales</h4>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("manageVirtualClassroom")}
                 {...getInputProps(
-                  "finishDate",
+                  "manageVirtualClassroom",
                   "El docente gestiona el aula virtual",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.manageVirtualClassroom,
+                  errors.manageVirtualClassroom
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("googleDriveDocs")}
                 {...getInputProps(
-                  "finishDate",
+                  "googleDriveDocs",
                   "El docente usa Google Drive y Google Docs para crear materiales.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.googleDriveDocs,
+                  errors.googleDriveDocs
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
-              <h4>Aula y recursos virtuales</h4>
+              {/* <h4>Aula y recursos virtuales</h4> */}
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("technologicalResources")}
                 {...getInputProps(
-                  "finishDate",
+                  "technologicalResources",
                   "El docente utiliza recursos tecnológicos adaptados a la Primera Infancia.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.technologicalResources,
+                  errors.technologicalResources
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
               </Select>
               <Select
                 items={dataList}
-                {...getFieldProps("finishDate")}
+                {...getFieldProps("usesAudiovisualEquipment")}
                 {...getInputProps(
-                  "finishDate",
+                  "usesAudiovisualEquipment",
                   "El docente usa significativamente audiovisuales (grabadoras de sonido, cámaras fotográficas) con las niñas y niños de Primera Infancia.",
-                  touched.finishDate,
-                  errors.finishDate
+                  touched.usesAudiovisualEquipment,
+                  errors.usesAudiovisualEquipment
                 )}
               >
                 {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -860,7 +867,7 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               <>
                 <ModalHeader className="flex flex-col gap-1">Confirmar envío</ModalHeader>
                 <ModalBody>
-                  <p>¿Está seguro de que desea enviar el acuerdo de mentoría?</p>
+                  <p>¿Está seguro de que desea enviar el la guía de observación?</p>
                   <p className="text-sm text-gray-600">
                     Una vez enviado, no podrá realizar modificaciones.
                   </p>

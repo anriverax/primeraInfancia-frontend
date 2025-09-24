@@ -75,11 +75,12 @@ const TrainerView = (): React.JSX.Element => {
                   </div>
                 </CardBody>
               </Card>
-              {/* <TrainerDetailView /> */}
+              
             </>
           );
         })}
       </div>
+      <TrainerDetailView />
     </div>
   );
 };
