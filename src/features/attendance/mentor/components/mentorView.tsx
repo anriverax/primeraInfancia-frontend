@@ -1,4 +1,4 @@
-import { Button, Select, SelectItem } from "@heroui/react";
+import { Button, RadioGroup, Radio, Select, SelectItem } from "@heroui/react";
 import { useAttendanceList } from "../../hook/useAttendanceList";
 import { IEvent } from "../../attendance.type";
 import { useAttendanceForm } from "../../hook/useAttendanceForm";
@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 import ListTeacher from "./listTeacher";
 import { useMentor } from "../../hook/useMentor";
+import { AttendanceEnum } from "@/shared/constants";
 
 const MentorView = (): React.JSX.Element => {
   const { eventList, attendance } = useAttendanceList();
@@ -57,39 +58,82 @@ const MentorView = (): React.JSX.Element => {
   /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-6">
+    <div className="flex justify-center xl:gap-6">
       {!attendance && (
-        <div className="flex justify-between">
-          <div className="border border-gray-200 p-6 bg-white">
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <Select
-                items={eventList ? eventList : []}
-                {...getSelectProps(
-                  "Evento",
-                  "Seleccione un evento",
-                  eventList ? eventList.length : 0,
-                  values.eventId,
-                  touched.eventId,
-                  errors.eventId
-                )}
-                {...getFieldProps("eventId")}
-                isDisabled={attendance ? true : false}
-              >
-                {eventList.map((event: IEvent) => (
-                  <SelectItem key={event.id}>{event.name}</SelectItem>
-                ))}
-              </Select>
-              <Button
-                fullWidth
-                color="primary"
-                variant="shadow"
-                type="submit"
-                isDisabled={attendance ? true : false}
-              >
-                Iniciar jornada
-              </Button>
-            </form>
-          </div>
+        <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-1/2">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <Select
+              items={eventList ? eventList : []}
+              {...getSelectProps(
+                "Evento",
+                "Seleccione un evento",
+                eventList ? eventList.length : 0,
+                values.eventId,
+                touched.eventId,
+                errors.eventId
+              )}
+              {...getFieldProps("eventId")}
+              isDisabled={attendance ? true : false}
+            >
+              {eventList.map((event: IEvent) => (
+                <SelectItem key={event.id}>{event.name}</SelectItem>
+              ))}
+            </Select>
+            <Select
+              items={eventList ? eventList : []}
+              {...getSelectProps(
+                "Evento",
+                "Seleccione un evento",
+                eventList ? eventList.length : 0,
+                values.eventId,
+                touched.eventId,
+                errors.eventId
+              )}
+              {...getFieldProps("eventId")}
+              isDisabled={attendance ? true : false}
+            >
+              {eventList.map((event: IEvent) => (
+                <SelectItem key={event.id}>{event.name}</SelectItem>
+              ))}
+            </Select>
+            <RadioGroup label="Seleccione una opción" orientation="horizontal">
+              <Radio value={AttendanceEnum.PRESENTE} color="primary">
+                {AttendanceEnum.PRESENTE}
+              </Radio>
+              <Radio value={AttendanceEnum.PERMISO} color="secondary">
+                {AttendanceEnum.PERMISO}
+              </Radio>
+              <Radio value={AttendanceEnum.AUSENTE} color="danger">
+                {AttendanceEnum.AUSENTE}
+              </Radio>
+            </RadioGroup>
+            <Select
+              items={eventList ? eventList : []}
+              {...getSelectProps(
+                "Evento",
+                "Seleccione un evento",
+                eventList ? eventList.length : 0,
+                values.eventId,
+                touched.eventId,
+                errors.eventId
+              )}
+              {...getFieldProps("eventId")}
+              isDisabled={attendance ? true : false}
+            >
+              {eventList.map((event: IEvent) => (
+                <SelectItem key={event.id}>{event.name}</SelectItem>
+              ))}
+            </Select>
+            <Button
+              fullWidth
+              color="primary"
+              variant="shadow"
+              type="submit"
+              isDisabled={attendance ? true : false}
+            >
+              Iniciar jornada
+            </Button>
+          </form>
         </div>
       )}
       {attendanceDetails}

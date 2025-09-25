@@ -45,3 +45,8 @@ export const roleDisplayNames: Record<TypeRole, string> = {
 export const tableClassNames: { th: string } = {
   th: " text-bold text-sm text-black bg-blue-50"
 };
+/* eslint-disable no-unused-vars */
+export enum AttendanceEnum {
+  PRESENTE = "PRESENTE",
+  AUSENTE = "AUSENTE"
+}

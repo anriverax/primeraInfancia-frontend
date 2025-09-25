@@ -9,7 +9,7 @@ import {
   Legend,
   LabelList
 } from "recharts";
-import CardLayoutDashboard from "../cardLayoutDashboard";
+import CardLayoutDashboard from '../../cardLayoutDashboard';
 
 interface DataItem {
   department: string;

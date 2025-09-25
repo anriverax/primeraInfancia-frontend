@@ -1,19 +1,20 @@
+import { IGroupCount } from "@/features/dashboard/dashboardType";
 import { Progress } from "@heroui/react";
-import CardLayoutDashboard from "../cardLayoutDashboard";
+import CardLayoutDashboard from "../../cardLayoutDashboard";
 
 interface SexProps {
-  dataSex: { sex: string; count: number }[];
+  dataSex: IGroupCount[];
   total: number;
 }
 
 const Sex = ({ dataSex, total }: SexProps): React.JSX.Element => {
   const getName = (d: string) => {
-    if (d === "M") return "Hombres";
+    if (d === "H") return "Hombres";
     return "Mujeres";
   };
 
   return (
-    <CardLayoutDashboard title="Docentes - Sexo">
+    <CardLayoutDashboard title="Sexo de los docentes">
       <Progress
         classNames={{
           base: "max-w-md",
@@ -30,7 +31,7 @@ const Sex = ({ dataSex, total }: SexProps): React.JSX.Element => {
               <span
                 className={`w-[15px] h-[5px] rounded-lg ${index === 1 ? "bg-primary-500" : "bg-secondary-500"}`}
               ></span>
-              <div>{getName(s.sex)}</div>
+              <div>{getName(s.label)}</div>
               <div className="text-gray-400 text-right w-full">{s.count}</div>
             </div>
           </li>

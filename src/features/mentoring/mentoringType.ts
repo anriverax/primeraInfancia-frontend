@@ -1,78 +1,57 @@
-import { AxiosMessage } from "@/shared/types/globals";
-
-export interface Attachment1Input {
-  applicationDate: string;
-  schoolName: string;
-  departmentMunicipality: string;
-  teacherName: string;
-  mentorName: string;
-  startDate: string;
-  finishDate: string;
-  frequencyOfEncounters: string;
-  teacherSignature: string;
-  mentorSignature: string;
+export interface AppendixDetailInput {
+  id?: null;
+  title: string;
+  subTitle: string;
+  description: number;
+  Section: SectionInput[];
 }
 
-export type IAttachment1Input = Attachment1Input & AxiosMessage;
-
-export interface Attachment2Input {
-  fullName: string;
-  schoolName: string;
-  departmentMunicipality: string;
-  educationalLevelServed: string;
-  childrenAge: string;
-  yearsExperiencie: string;
-  initialTraining: string;
-  hasRecentlyParticipated: string;
-  hasRecentlyParticipatedDetail: string;
-  knowledgeChildDevelopment: string;
-  planningLearningExperiences: string;
-  attentionEducationalInclusion: string;
-  gameExplorationStrategies: string;
-  assessmentLearning: string;
-  relationshipFamilies: string;
-  managementEducationalEnvironment: string;
-  others: string;
-  aspectsImprove: string;
-  challengesAtClassroom: string;
-  whatExpect: string;
-  anythingElse: string;
-  mentorObservations: string;
+export interface SectionInput {
+  id?: null;
+  title: string;
+  summary: string;
+  orderBy: number;
+  Question: QuestionInput[];
 }
 
-export type IAttachment2Input = Attachment2Input & AxiosMessage;
-
-export interface Attachment3Input {
-  teacherName: string;
-  mentorName: string;
-  schoolName: string;
-  departmentMunicipality: string;
-  startDate: string;
-  goalList: string;
-  workArea: string;
-  justification: string;
-  priorityLevel: string;
-  plannedDate: string;
-  activity: string;
-  mode: string;
-  responsible: string;
-  observations: string;
-  classrromObservations: string;
-  dialoguedFeedback: string;
-  modelingPractices: string;
-  coPlanningActivities: string;
-  portfolioReview: string;
-  analysisEvidence: string;
-  other: string;
-  resourceList: string;
-  expectedIndicators: string;
-  reviewFrecuency: string;
-  adjustedPlan: string;
-  teachingPortfolio: string;
-  observationRecords: string;
-  otherEvidence: string;
-  improveAspects: string;
-  proposals: string;
+export interface QuestionInput {
+  id?: null;
+  text: string;
+  questionType: string;
+  orderBy: number;
+  subSection: string;
+  isRequired: boolean;
 }
 
-export type IAttachment3Input = Attachment3Input & AxiosMessage;
+export interface IAppendixDetailTable extends AppendixDetailInput {
+  _count?: {
+    Group: number;
+  };
+}
+
+export interface AppendixDetailListResult {
+  appendixDetailsList: IAppendixDetailTable[];
+  setAppendixDetailsList: (_appendixDetails: IAppendixDetailTable[]) => void;
+}
+
+export interface AppendixInput {
+  id?: null;
+  instrumentName: string;
+  periodicity: string;
+  percentage: number;
+}
+
+export interface IAppendixTable {
+  id: number;
+  title: string;
+  subTitle: string;
+  description: string;
+  periodicity: string;
+  iconName: string;
+  color: string;
+}
+
+export interface AppendixListResult {
+  appendixsList: IAppendixTable[];
+  setAppendixsList: (_appendixs: IAppendixTable[]) => void;
+}

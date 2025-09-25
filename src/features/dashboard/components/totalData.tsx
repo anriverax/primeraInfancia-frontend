@@ -12,12 +12,12 @@ const TotalData = ({ totalSchool, totalTeacher }: TotalDataProps) => {
     {
       title: "Total - Centros Educativos",
       count: totalSchool,
-      icon: <School2 className="w-5 h-5 text-white" />
+      icon: <School2 className="w-5 h-5 text-success-600" />
     },
     {
       title: "Total - Docentes",
       count: totalTeacher,
-      icon: <Users className="w-5 h-5 text-white" />
+      icon: <Users className="w-5 h-5 text-warning-600" />
     }
   ];
 
@@ -29,8 +29,8 @@ const TotalData = ({ totalSchool, totalTeacher }: TotalDataProps) => {
             <div>
               <div
                 className={cn("p-2 rounded-lg shrink-0", {
-                  "bg-success-300": index === 0,
-                  "bg-warning-300": index === 1
+                  "bg-success-100": index === 0,
+                  "bg-warning-100": index === 1
                 })}
               >
                 {item.icon}

@@ -1,17 +1,18 @@
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/table";
 import { careerColumns, useRenderCareerCell } from "./columns";
-import { ICareerColumnKey, ICareerTable } from "../../dashboardType";
-import CardLayoutDashboard from "../cardLayoutDashboard";
+import { ICareerColumnKey, IGroupCount } from '@/features/dashboard/dashboardType';
+import CardLayoutDashboard from '../../cardLayoutDashboard';
 
 type CareerTableProps = {
-  careerData: ICareerTable[];
+  title: string;
+  careerData: IGroupCount[];
 };
 
-const CareerTable = ({ careerData }: CareerTableProps): React.JSX.Element => {
+const CareerTable = ({ title, careerData }: CareerTableProps): React.JSX.Element => {
   const renderCareerCell = useRenderCareerCell();
 
   return (
-    <CardLayoutDashboard title="Nivel Académico - Docentes" clsCard="w-1/2">
+    <CardLayoutDashboard title={title} clsCard="w-1/2">
       <Table
         shadow="none"
         classNames={{
@@ -19,14 +20,14 @@ const CareerTable = ({ careerData }: CareerTableProps): React.JSX.Element => {
           tr: "border border-gray-100",
           td: "border border-gray-100"
         }}
-        aria-label="Tabla para mostrar las carreras registradas"
+        aria-label="Tabla para mostrar las estadisticas"
       >
         <TableHeader columns={careerColumns}>
           {(careerCol) => <TableColumn key={careerCol.key}>{careerCol.label}</TableColumn>}
         </TableHeader>
         <TableBody isLoading={!careerData} items={careerData || []}>
-          {(careerItem: ICareerTable) => (
-            <TableRow key={careerItem.career}>
+          {(careerItem: IGroupCount) => (
+            <TableRow key={careerItem.label}>
               {(careerKey) => (
                 <TableCell>{renderCareerCell(careerItem, careerKey as ICareerColumnKey)}</TableCell>
               )}

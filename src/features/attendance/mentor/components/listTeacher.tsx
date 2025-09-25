@@ -1,4 +1,4 @@
-import { Alert, Autocomplete, AutocompleteItem } from "@heroui/react";
+import { Alert, Autocomplete, AutocompleteItem, Chip, Select, SelectItem } from "@heroui/react";
 import { Info, SearchIcon } from "lucide-react";
 import { useMentor } from "../../hook/useMentor";
 import { IAttendanceDetail, IMentorAssignmentBox } from "../../attendance.type";
@@ -14,7 +14,7 @@ const ListTeacher = ({ attendance }: ListTeacherProps): React.JSX.Element => {
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const selectedTeacher = mentorAssignment.teachers.find((m) => m.id === parseInt(key as any));
-  /* eslint-enable @typescript-eslint/no-explicit-any */
+
   return (
     <div className="bg-white border border-gray-200">
       <div className="p-6 space-y-6">
@@ -47,6 +47,41 @@ const ListTeacher = ({ attendance }: ListTeacherProps): React.JSX.Element => {
             )}
           </Autocomplete>
         </div>
+        <Select
+          classNames={{
+            trigger: "min-h-12 py-2"
+          }}
+          isMultiline={true}
+          items={mentorAssignment.selectBox}
+          label="Seleccionar docentes"
+          placeholder="Select a user"
+          renderValue={(items) => {
+            return (
+              <div className="flex flex-wrap gap-2">
+                {items.map((item: any) => {
+                  console.log(item);
+                  return (
+                    <Chip key={item.key} variant="shadow" color="primary">
+                      {item.data.fullName}
+                    </Chip>
+                  );
+                })}
+              </div>
+            );
+          }}
+          selectionMode="multiple"
+          variant="bordered"
+        >
+          {(user) => (
+            <SelectItem key={user.id} textValue={user.fullName}>
+              <div className="flex gap-2 items-center">
+                <div className="flex flex-col">
+                  <span className="text-small">{user.fullName}</span>
+                </div>
+              </div>
+            </SelectItem>
+          )}
+        </Select>
         <p className="font-bold">Datos de referencia del Centro Escolar</p>
         {selectedTeacher && (
           <ul className="space-y-4 grid grid-cols-2">

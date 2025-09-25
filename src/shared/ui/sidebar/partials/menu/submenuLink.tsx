@@ -32,14 +32,15 @@ const SubmenuLink = memo(
         }
       )}
     >
-      {item.icon !== null && (
-        <LucideIconRenderer
-          iconName={item.icon}
-          className={cn("h-4 w-4 text-gray-600", {
-            "text-blue-600 font-bold": isActive && isSubmenuOpen
-          })}
-        />
-      )}
+      {item.icon !== null ||
+        (item.icon !== "" && (
+          <LucideIconRenderer
+            iconName={item.icon}
+            className={cn("h-4 w-4 text-gray-600", {
+              "text-blue-600 font-bold": isActive && isSubmenuOpen
+            })}
+          />
+        ))}
       <span>{item.title}</span>
     </Link>
   )

@@ -19,7 +19,6 @@ const useDashboardParticipant = (): {
 
         if (isMounted) {
           const { data } = res;
-          console.log(" data ", res);
           setSchoolFilters(data);
         }
       } catch (error) {

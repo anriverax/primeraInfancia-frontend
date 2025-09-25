@@ -1,0 +1,39 @@
+import useAxios from "@/shared/hooks/useAxios";
+import { handleAxiosError } from "@/shared/utils/funtions";
+import { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
+import { IMentoringFiltersResponse } from "../dashboardType";
+
+const useDashboardMentoring = (): {
+  mentoringFilters: IMentoringFiltersResponse | undefined;
+} => {
+  const [mentoringFilters, setMentoringFilters] = useState<IMentoringFiltersResponse | undefined>();
+  const useRequest = useAxios(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = async (): Promise<void> => {
+      try {
+        const res: AxiosResponse<IMentoringFiltersResponse> =
+          await useRequest.get("/dashboard/mentoring");
+
+        if (isMounted) {
+          const { data } = res;
+          setMentoringFilters(data);
+        }
+      } catch (error) {
+        handleAxiosError(error, "listado de informes de seguimiento", "obtener");
+      }
+    };
+    if (!mentoringFilters) fetchData();
+
+    return (): void => {
+      isMounted = false;
+    };
+  }, [mentoringFilters]);
+
+  return { mentoringFilters };
+};
+
+export { useDashboardMentoring };

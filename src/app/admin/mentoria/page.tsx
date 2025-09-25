@@ -1,6 +1,6 @@
 "use client";
 
-import AppendixCard from "@/features/mentoring/components/appendixCard";
+import TrainerView from "@/features/mentoring/components/trainerView";
 import { ListTodo } from "lucide-react";
 
 export default function MentoringPage(): React.JSX.Element {
@@ -13,7 +13,7 @@ export default function MentoringPage(): React.JSX.Element {
         </div>
       </div>
       <div className="space-y-4">
-        <AppendixCard />
+        <TrainerView />
       </div>
     </div>
   );

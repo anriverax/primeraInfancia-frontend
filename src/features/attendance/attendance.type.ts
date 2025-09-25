@@ -1,5 +1,15 @@
+import { AttendanceEnum } from "@/shared/constants";
 import { AxiosMessage } from "@/shared/types/globals";
 
+export interface IAttendanceTable {
+  id?: number;
+  Event: {
+    name: string;
+  };
+  checkIn: string;
+  checkOut: string;
+  status: AttendanceEnum;
+}
 export interface IEvent {
   id: number;
   name: string;

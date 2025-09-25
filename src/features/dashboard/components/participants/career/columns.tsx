@@ -1,21 +1,21 @@
+import { ICareerColumnKey, IGroupCount } from '@/features/dashboard/dashboardType';
 import { IColumns } from "@/shared/types/globals";
-import { ICareerColumnKey, ICareerTable } from "../../dashboardType";
 import { useCallback } from "react";
 
 export const careerColumns: IColumns<ICareerColumnKey>[] = [
   {
-    key: "career",
+    key: "label",
     label: "Carrera"
   },
   { key: "count", label: "Total" }
 ];
 
 export const useRenderCareerCell = (): ((
-  _career: ICareerTable,
+  _career: IGroupCount,
   _columnKey: ICareerColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
-  return useCallback((career: ICareerTable, columnKey: ICareerColumnKey) => {
-    const cellValue = career[columnKey as keyof ICareerTable];
+  return useCallback((career: IGroupCount, columnKey: ICareerColumnKey) => {
+    const cellValue = career[columnKey as keyof IGroupCount];
 
     switch (columnKey) {
       case "count":
