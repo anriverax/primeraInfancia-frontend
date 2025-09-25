@@ -12,7 +12,7 @@ const initialValues: Attachment7Input = {
   descriptionMentoringProcess: "",
   achievements: "",
   areaImprovement: "",
-  suggestionTeacher:"",
+  suggestionTeacher: "",
   improvedNextCohort: ""
 };
 
@@ -70,9 +70,10 @@ const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
         teacherRoleId: 1,
         mentorRoleId: 2
       },
-        {
+      {
         name: nameField,
-        textQuestion: "Sugerencias para continuar con el desarrollo del docente, incluyendo posibles estrategias a implementar en la siguiente cohorte.",
+        textQuestion:
+          "Sugerencias para continuar con el desarrollo del docente, incluyendo posibles estrategias a implementar en la siguiente cohorte.",
         textAnswer: suggestionTeacherField,
         teacherRoleId: 1,
         mentorRoleId: 2

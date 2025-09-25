@@ -339,7 +339,6 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
               color="secondary"
               variant="shadow"
               type="button"
-
               as={Link}
               href="/admin/mentoria"
               startContent={<StepBack />}
@@ -347,9 +346,12 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
               Regresar
             </Button>
             <Button
-              color="primary" variant="shadow" type="submit"
+              color="primary"
+              variant="shadow"
+              type="submit"
               isLoading={isSubmitting}
-              startContent={<Save />} >
+              startContent={<Save />}
+            >
               Enviar
             </Button>
           </div>

@@ -2,7 +2,9 @@
 
 import { FileText, Save, StepBack } from "lucide-react";
 import {
-  Button, Input, Card,
+  Button,
+  Input,
+  Card,
   CardBody,
   Modal,
   ModalContent,
@@ -22,7 +24,7 @@ export const dataList = [
   { name: "option", key: "Nunca", label: "Nunca" },
   { name: "option", key: "A veces", label: "A veces" },
   { name: "option", key: "Muy frecuentemente", label: "Muy frecuentemente" },
-  { name: "option", key: "Siempre", label: "Siempre" },
+  { name: "option", key: "Siempre", label: "Siempre" }
 ];
 
 type Attachment8FormProps = {
@@ -59,9 +61,8 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
           </div>
           <h1 className="text-4xl font-bold text-center">Anexo 8</h1>
           <h2 className="text-4xl font-bold text-center">
-            GUÍA DE OBSERVACIÓN Y MEDICIÓN DEL GRADO DE IMPLEMENTACIÓN DEL
-            DISEÑO CURRICULAR PARA LA TRANSFORMACIÓN DE LAS PRÁCTICAS
-            DOCENTES EN LAS AULAS DE PRIMERA INFANCIA DE EL SALVADOR
+            GUÍA DE OBSERVACIÓN Y MEDICIÓN DEL GRADO DE IMPLEMENTACIÓN DEL DISEÑO CURRICULAR PARA LA
+            TRANSFORMACIÓN DE LAS PRÁCTICAS DOCENTES EN LAS AULAS DE PRIMERA INFANCIA DE EL SALVADOR
           </h2>
         </div>
 
@@ -70,7 +71,8 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
               <h3 className="pb-6">
                 <p className="text-xl text-muted-foreground text-justify">
-                  A. Desarrollo y Aprendizaje Activos. Currículo integrado</p>
+                  A. Desarrollo y Aprendizaje Activos. Currículo integrado
+                </p>
               </h3>
               <h4>Aprendizaje significativo</h4>
               <Select
@@ -481,7 +483,9 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               </Select>
               <h3 className="pb-6">
                 <p className="text-xl text-muted-foreground text-justify">
-                  B. Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.</p>
+                  B. Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera
+                  Infancia.
+                </p>
               </h3>
               <h4>Ambiente de aprendizaje. Cuidado cariñoso y sensible</h4>
               <Select
@@ -620,7 +624,9 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               </Select>
               <h3 className="pb-6">
                 <p className="text-xl text-muted-foreground text-justify">
-                  C. Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.</p>
+                  C. Integración de las familias en los procesos de desarrollo y aprendizaje.
+                  Acompañamiento docente a las familias.
+                </p>
               </h3>
               <h4>Integración de las familias en los procesos de desarrollo y aprendizaje</h4>
               <Select
@@ -711,7 +717,9 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               </Select>
               <h3 className="pb-6">
                 <p className="text-xl text-muted-foreground text-justify">
-                  D. Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos.</p>
+                  D. Trabajo cooperativo y en equipo de los docentes. Utilización de recursos
+                  tecnológicos.
+                </p>
               </h3>
               <h4>Trabajo cooperativo y en equipo</h4>
               <Select
@@ -845,7 +853,6 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               color="secondary"
               variant="shadow"
               type="button"
-
               as={Link}
               href="/admin/mentoria"
               startContent={<StepBack />}
@@ -853,9 +860,12 @@ const Attachment8Form = ({ formik }: Attachment8FormProps): React.JSX.Element =>
               Regresar
             </Button>
             <Button
-              color="primary" variant="shadow" type="submit"
+              color="primary"
+              variant="shadow"
+              type="submit"
               isLoading={isSubmitting}
-              startContent={<Save />} >
+              startContent={<Save />}
+            >
               Enviar
             </Button>
           </div>

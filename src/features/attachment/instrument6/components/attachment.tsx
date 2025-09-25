@@ -2,7 +2,9 @@
 
 import { FileText, Save, StepBack } from "lucide-react";
 import {
-  Button, Input, Card,
+  Button,
+  Input,
+  Card,
   CardBody,
   Modal,
   ModalContent,
@@ -42,16 +44,16 @@ const Attachment6Form = ({ formik }: Attachment6FormProps): React.JSX.Element =>
             <FileText className="w-8 h-8 text-secondary" />
           </div>
           <h1 className="text-4xl font-bold text-center">Anexo 6</h1>
-          <h2 className="text-4xl font-bold text-center">
-           Registro de visitas y seguimiento.
-          </h2>
+          <h2 className="text-4xl font-bold text-center">Registro de visitas y seguimiento.</h2>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
               <h3 className="pb-6">
-                <p className="text-xl text-muted-foreground text-justify">Registro de visitas y seguimiento</p>
+                <p className="text-xl text-muted-foreground text-justify">
+                  Registro de visitas y seguimiento
+                </p>
                 <br />
                 <p className="text-xl text-muted-foreground text-justify">
                   Módulo, docente observado, fecha de sesión:
@@ -147,7 +149,6 @@ const Attachment6Form = ({ formik }: Attachment6FormProps): React.JSX.Element =>
               color="secondary"
               variant="shadow"
               type="button"
-
               as={Link}
               href="/admin/mentoria"
               startContent={<StepBack />}
@@ -155,9 +156,12 @@ const Attachment6Form = ({ formik }: Attachment6FormProps): React.JSX.Element =>
               Regresar
             </Button>
             <Button
-              color="primary" variant="shadow" type="submit"
+              color="primary"
+              variant="shadow"
+              type="submit"
               isLoading={isSubmitting}
-              startContent={<Save />} >
+              startContent={<Save />}
+            >
               Enviar
             </Button>
           </div>
@@ -185,8 +189,8 @@ const Attachment6Form = ({ formik }: Attachment6FormProps): React.JSX.Element =>
             )}
           </ModalContent>
         </Modal>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 export default Attachment6Form;

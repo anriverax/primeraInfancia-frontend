@@ -2,7 +2,7 @@ import { object, ObjectSchema } from "yup";
 import { SignInInput } from "./type";
 import { validationMessages } from "@/shared/constants";
 import { regex } from "@/shared/types/regex-validation";
-import { stringField } from "@/shared/utils/funtions";
+import { dateField, stringField } from "@/shared/utils/funtions";
 
 export const signInSchema: ObjectSchema<SignInInput> = object({
   email: stringField(validationMessages.required)
@@ -11,5 +11,7 @@ export const signInSchema: ObjectSchema<SignInInput> = object({
   passwd: stringField(validationMessages.required).min(
     8,
     "La contraseña debe tener al menos 8 caracteres"
-  )
+  ),
+  newValueDate: dateField(validationMessages.required)
+
 });

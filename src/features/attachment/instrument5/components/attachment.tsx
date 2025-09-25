@@ -44,7 +44,9 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
             <FileText className="w-8 h-8 text-secondary" />
           </div>
           <h1 className="text-4xl font-bold text-center">Anexo 5</h1>
-          <h2 className="text-4xl font-bold text-center">Cuaderno de mentoría. Informe reflexivo del proceso</h2>
+          <h2 className="text-4xl font-bold text-center">
+            Cuaderno de mentoría. Informe reflexivo del proceso
+          </h2>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
@@ -206,7 +208,6 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
               color="secondary"
               variant="shadow"
               type="button"
-
               as={Link}
               href="/admin/mentoria"
               startContent={<StepBack />}
@@ -214,9 +215,12 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
               Regresar
             </Button>
             <Button
-              color="primary" variant="shadow" type="submit"
+              color="primary"
+              variant="shadow"
+              type="submit"
               isLoading={isSubmitting}
-              startContent={<Save />} >
+              startContent={<Save />}
+            >
               Enviar
             </Button>
           </div>

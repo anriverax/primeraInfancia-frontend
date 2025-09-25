@@ -1,5 +1,5 @@
 import { User, Lock } from "lucide-react";
-import { Button, Input } from "@heroui/react";
+import { Button, Input, DatePicker } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { ISignIn } from "../type";
@@ -11,7 +11,7 @@ type SignInFormProps = {
 const SignInForm = ({ formik }: SignInFormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
 
-  const { getInputProps } = useCustomFormFields();
+  const { getInputProps, getDateProps } = useCustomFormFields();
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -26,12 +26,20 @@ const SignInForm = ({ formik }: SignInFormProps): React.JSX.Element => {
         {...getInputProps("password", "Contraseña", touched.passwd, errors.passwd)}
         endContent={<Lock size={18} className="text-gray-400" />}
       />
-
+      <DatePicker 
+      {...getFieldProps("newValueDate")}
+      {...getDateProps("newValueDate", "Fecha de Nacimiento", touched?.newValueDate, errors.newValueDate)} />
       <div className="mt-8">
         <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
           Iniciar Sesión
         </Button>
       </div>
+      {/* 
+      <div className="mt-8">
+        <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
+          Iniciar Sesión
+        </Button>
+      </div> */}
     </form>
   );
 };

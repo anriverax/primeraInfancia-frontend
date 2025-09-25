@@ -4,6 +4,7 @@ import { MemoExoticComponent } from "react";
 export interface SignInInput {
   email: string;
   passwd: string;
+  newValueDate: Date;
 }
 
 export type ISignIn = SignInInput & AxiosMessage;

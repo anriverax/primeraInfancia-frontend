@@ -64,5 +64,5 @@ export const attachment8Schema: ObjectSchema<Attachment8Input> = object({
   manageVirtualClassroom: stringField(validationMessages.required),
   googleDriveDocs: stringField(validationMessages.required),
   technologicalResources: stringField(validationMessages.required),
-  usesAudiovisualEquipment: stringField(validationMessages.required),
+  usesAudiovisualEquipment: stringField(validationMessages.required)
 });

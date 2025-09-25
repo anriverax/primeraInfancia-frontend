@@ -2,7 +2,9 @@
 
 import { FileText, Save, StepBack } from "lucide-react";
 import {
-  Button, Input, Card,
+  Button,
+  Input,
+  Card,
   CardBody,
   Modal,
   ModalContent,
@@ -54,8 +56,7 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
                 Informe final de personal mentor que entrega al persona técnico de apoyo
               </p>
               <h3 className="pb-6">
-                <p className="text-xl text-muted-foreground text-justify">
-                  I. Datos Generales:</p>
+                <p className="text-xl text-muted-foreground text-justify">I. Datos Generales:</p>
               </h3>
               <Input
                 {...getFieldProps("startDate")}
@@ -136,7 +137,6 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
                   errors.improvedNextCohort
                 )}
               />
-
             </CardBody>
           </Card>
 
@@ -146,7 +146,6 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
               color="secondary"
               variant="shadow"
               type="button"
-
               as={Link}
               href="/admin/mentoria"
               startContent={<StepBack />}
@@ -154,9 +153,12 @@ const Attachment7Form = ({ formik }: Attachment7FormProps): React.JSX.Element =>
               Regresar
             </Button>
             <Button
-              color="primary" variant="shadow" type="submit"
+              color="primary"
+              variant="shadow"
+              type="submit"
               isLoading={isSubmitting}
-              startContent={<Save />} >
+              startContent={<Save />}
+            >
               Enviar
             </Button>
           </div>
