@@ -10,8 +10,7 @@ const DashboardPage = (): React.JSX.Element => {
       <h1 className="font-bold text-4xl text-primary-500 mb-6 text-center">Sistema de información</h1>
       <div className="space-y-2">
         <p className="text-lg">
-          Este sistema ha sido diseñado para{" "}
-          <b>almacenar, gestionar y consultar notas ó asistencia</b>,
+          Este sistema ha sido diseñado para <b>almacenar, gestionar y consultar notas ó asistencia</b>,
           garantizando la organización y el acceso oportuno a la información.
         </p>
         <p>

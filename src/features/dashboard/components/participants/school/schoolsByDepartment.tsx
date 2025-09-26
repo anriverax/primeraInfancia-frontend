@@ -49,13 +49,7 @@ const SchoolsByDepartment = ({ data }: Props): React.JSX.Element => (
           >
             <LabelList dataKey="school" position="right" />
           </Bar>
-          <Bar
-            barSize={10}
-            dataKey="teacher"
-            fill="#6eaaf1"
-            name="Cuerpo docente"
-            radius={[0, 6, 6, 0]}
-          >
+          <Bar barSize={10} dataKey="teacher" fill="#6eaaf1" name="Cuerpo docente" radius={[0, 6, 6, 0]}>
             <LabelList dataKey="teacher" position="right" />
           </Bar>
         </BarChart>
