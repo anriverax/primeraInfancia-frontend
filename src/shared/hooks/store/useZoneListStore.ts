@@ -1,4 +1,4 @@
-import { IZoneTable } from "@/features/zone/zoneType";
+import { IZoneTable } from '@/features/catalogue/zone/zoneType';
 import { create, StoreApi, UseBoundStore } from "zustand";
 
 type ZoneListStoreProps = {

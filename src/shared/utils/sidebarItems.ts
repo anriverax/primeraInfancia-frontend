@@ -7,7 +7,7 @@ import {
   User,
   Users,
   CalendarCheck,
-  Calendar
+  Calendar,
 } from "lucide-react";
 import { SidebarItemType } from "../ui/sidebar/type";
 

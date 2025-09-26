@@ -1,3 +1,10 @@
+import { IMenuPermission } from "@/shared/types/next-auth";
+
+export interface SidebarItemType extends Pick<IMenuPermission, "title" | "path"> {
+  icon?: React.ElementType;
+  submenu?: Omit<SidebarItemType, "submenu">[];
+}
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface MenuItemResult {
   hasSubmenu: boolean | undefined;

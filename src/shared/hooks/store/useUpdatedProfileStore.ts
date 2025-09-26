@@ -17,7 +17,7 @@ export const useUpdatedProfileStore = create<UpdatedProfileProps>()(
   persist(
     (set) => ({
       formStatus: UpdatedProfileData,
-      setFormStatus: (data): void =>
+      setFormStatus: (data) =>
         set((state) => ({
           formStatus: { ...state.formStatus, ...data }
         }))
