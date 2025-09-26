@@ -1,5 +1,5 @@
 import { IGroupColumnKey, IGroupTable } from "../../groupType";
-import { Eye, Trash2, Users } from "lucide-react";
+import { Eye, Trash2, Users,GraduationCap } from "lucide-react";
 import { Tooltip } from "@heroui/react";
 import { useCallback } from "react";
 import Link from "next/link";
@@ -37,6 +37,14 @@ export const useRenderGroupCell = (
         case "actions":
           return (
             <div className="relative flex items-center gap-2">
+               <Tooltip content="Ingreso de notas">
+                <Link
+                  href={`./ingreso-nota/lote/${encodeURIComponent(group.id!)}`}
+                  className="text-lg text-default-400 cursor-pointer active:opacity-50"
+                >
+                  <GraduationCap className="h-4 w-4" />
+                </Link>
+              </Tooltip>
               <Tooltip content="Detalle del grupo">
                 <Link
                   href={`./grupos/${encodeURIComponent(group.id!)}`}

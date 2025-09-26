@@ -40,7 +40,7 @@ export const useRenderTrainingEvaluationCell = (): ((
               {trainingEvaluation?.EvaluationInstrument?.instrumentName}
             </span>
           );
-        case "enrollmentId":
+        case "inscriptionId":
           return (
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
               {trainingEvaluation?.Inscription?.PersonRole?.Person?.firstName}{" "}
