@@ -6,11 +6,10 @@ import { useDashboardParticipant } from "@/features/dashboard/hook/useDashboardP
 import TotalData from "@/features/dashboard/components/totalData";
 
 import PieChartLayout from "@/features/dashboard/components/pieChartLayout";
-import Sex from '@/features/dashboard/components/participants/teacher/sex';
-import AgeChart from '@/features/dashboard/components/participants/teacher/birthday';
-import { Nip } from '@/features/dashboard/components/participants/teacher/nip';
-import CareerTable from '@/features/dashboard/components/participants/career/careerTable';
-import { TeacherStatus } from '@/features/dashboard/components/participants/teacher/teacherStatus';
+import Sex from "@/features/dashboard/components/participants/teacher/sex";
+import AgeChart from "@/features/dashboard/components/participants/teacher/birthday";
+import CareerTable from "@/features/dashboard/components/participants/career/careerTable";
+import { TeacherStatus } from "@/features/dashboard/components/participants/teacher/teacherStatus";
 
 const DashboardParticipantsPage = (): React.JSX.Element => {
   const { schoolFilters } = useDashboardParticipant();
@@ -20,7 +19,7 @@ const DashboardParticipantsPage = (): React.JSX.Element => {
       {schoolFilters && (
         <>
           <div className="grid grid-cols-4 gap-12 h-auto">
-            <SchoolsBy title="Centros Escolares por zonas" data={schoolFilters.zone} />
+            <SchoolsBy title="Centros educativos por zonas" data={schoolFilters.zone} />
             <Sex dataSex={schoolFilters.sex} total={schoolFilters.total.teacher.active} />
             <TotalData
               totalSchool={schoolFilters.total.school}
@@ -29,12 +28,12 @@ const DashboardParticipantsPage = (): React.JSX.Element => {
             <div className="space-y-6 h-full">
               <TeacherStatus
                 num={schoolFilters.total.teacher.active}
-                title="Docentes Activos"
+                title="Cuerpo docente activos"
                 style={{ base: "bg-success/30", text: "text-success-800" }}
               />
               <TeacherStatus
                 num={schoolFilters.total.teacher.inactive}
-                title="Docentes Inactivos"
+                title="Cuerpo docente inactivos"
                 style={{ base: "bg-danger/30", text: "text-danger-800" }}
               />
             </div>
@@ -42,21 +41,20 @@ const DashboardParticipantsPage = (): React.JSX.Element => {
           <div className="flex my-12 gap-12">
             <SchoolsByDepartmentChart data={schoolFilters.department} />
             <div className="w-[25%] space-y-3">
-              <Nip nip={schoolFilters.nip} />
               <AgeChart data={schoolFilters.ages} />
             </div>
           </div>
           <div className="my-12 flex gap-12">
-            <CareerTable title="Nivel académico de los docentes" careerData={schoolFilters.career} />
+            <CareerTable title="Nivel académico del cuerpo docente" careerData={schoolFilters.career} />
             <CareerTable
-              title="Nivel educativo en el que imparte clases el docente"
+              title="Cuerpo docente por secciones"
               careerData={schoolFilters.educationalLevel}
             />
           </div>
           <div className="my-12 ">
             <PieChartLayout
               data={schoolFilters.experience}
-              title="Tiempo de servicio del docente"
+              title="Tiempo de servicio del cuerpo docente"
               height="h-[450px]"
             />
           </div>

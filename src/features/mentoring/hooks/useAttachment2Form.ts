@@ -3,10 +3,11 @@ import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
-import { Attachment2Input, IAttachment2Input } from "../mentoringType";
-import { attachment2Schema } from "../validations/attachment2Validation";
 
-const initialValues: Attachment2Input = {
+import { attachment2Schema } from "../validations/attachment2Validation";
+import { IAttachment2Input } from "@/features/attachment/instrument2/type";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const initialValues: any = {
   fullName: "",
   schoolName: "",
   departmentMunicipality: "",
@@ -35,7 +36,7 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
-    values: Attachment2Input,
+    values: any,
     formikHelpers: FormikHelpers<IAttachment2Input>
   ): Promise<void> => {
     const fullNameField = values.fullName;

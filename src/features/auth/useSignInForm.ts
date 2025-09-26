@@ -20,8 +20,6 @@ const useSignInForm = (): FormikProps<ISignIn> => {
     res: SignInResponse | undefined,
     formikHelpers: FormikHelpers<ISignIn>
   ): void => {
-    console.log(res);
-    alert(res);
     if (res && res.status !== 200) {
       formikHelpers.setFieldError("axiosMessage", res?.error as string);
       formikHelpers.setStatus(res?.status);

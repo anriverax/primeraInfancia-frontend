@@ -14,7 +14,7 @@ const Sex = ({ dataSex, total }: SexProps): React.JSX.Element => {
   };
 
   return (
-    <CardLayoutDashboard title="Sexo de los docentes">
+    <CardLayoutDashboard title="Cuerpo docente">
       <Progress
         classNames={{
           base: "max-w-md",

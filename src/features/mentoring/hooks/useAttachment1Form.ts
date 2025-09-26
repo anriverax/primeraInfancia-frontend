@@ -3,10 +3,10 @@ import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
-import { Attachment1Input, IAttachment1Input } from "../mentoringType";
 import { attachment1Schema } from "../validations/attachment1Validation";
-
-const initialValues: Attachment1Input = {
+import { IAttachment1Input } from "@/features/attachment/instrument1/type";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const initialValues: any = {
   applicationDate: "",
   schoolName: "",
   departmentMunicipality: "",
@@ -19,11 +19,11 @@ const initialValues: Attachment1Input = {
   mentorSignature: ""
 };
 
-const useAttachment1Form = (): FormikProps<IAttachment1Input> => {
+const useAttachment1Form = (): FormikProps<any> => {
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
-    values: Attachment1Input,
+    values: any,
     formikHelpers: FormikHelpers<IAttachment1Input>
   ): Promise<void> => {
     const applicationDateField = values.applicationDate;

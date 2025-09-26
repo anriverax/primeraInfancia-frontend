@@ -4,7 +4,7 @@ const Title = memo(
   (): React.JSX.Element => (
     <div className="flex items-center mb-12">
       <div className="w-8 h-8 bg-white rounded-md mr-2"></div>
-      <span className="text-xl font-semibold">Formación Primera Infáncia</span>
+      <span className="text-xl font-semibold">Formación Primera Infancia</span>
     </div>
   )
 );
@@ -12,9 +12,9 @@ const Title = memo(
 const Greeting = memo(
   (): React.JSX.Element => (
     <div className="text-center mb-8">
-      <h1 className="text-3xl font-bold mb-4">Bienvenido!</h1>
+      <h1 className="text-3xl font-bold mb-4">Bienvenidas y bienvenidos</h1>
       <p className="text-blue-100">
-        Get a real intranet on top of your Office 365 environment, with Upteamist.
+        QUITAR ESTO - Get a real intranet on top of your Office 365 environment, with Upteamist.
       </p>
     </div>
   )

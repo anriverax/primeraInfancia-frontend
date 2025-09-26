@@ -1,7 +1,7 @@
 import { Building2, House } from "lucide-react";
 import React from "react";
-import CardLayoutDashboard from '../../cardLayoutDashboard';
-import { IGroupCount } from '@/features/dashboard/dashboardType';
+import CardLayoutDashboard from "../../cardLayoutDashboard";
+import { IGroupCount } from "@/features/dashboard/dashboardType";
 
 type SchoolsByProps = {
   title: string;

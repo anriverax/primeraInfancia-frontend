@@ -7,18 +7,16 @@ import { StatsSkeleton } from "@/features/dashboard/components/skeleton/statsSke
 const DashboardPage = (): React.JSX.Element => {
   return (
     <div>
-      <h1 className="font-bold text-4xl text-primary-500 mb-6 text-center">
-        Bienvenido al Sistema de Información
-      </h1>
+      <h1 className="font-bold text-4xl text-primary-500 mb-6 text-center">Sistema de información</h1>
       <div className="space-y-2">
         <p className="text-lg">
           Este sistema ha sido diseñado para{" "}
-          <b>almacenar, gestionar y consultar notas, asistencia y seguimientos académicos</b>,
+          <b>almacenar, gestionar y consultar notas ó asistencia</b>,
           garantizando la organización y el acceso oportuno a la información.
         </p>
         <p>
-          Su finalidad es <b>apoyar a las instituciones educativas en la toma de decisiones</b> y en el
-          seguimiento integral del proceso formativo de los estudiantes.
+          Los datos buscan <b>apoyar a las instituciones en la toma de decisiones oportunas</b> y en el
+          seguimiento integral del proceso formativo al cuerpo docente de Primera Infancia.
         </p>
       </div>
       <div className="mx-auto px-4 py-8 my-6">

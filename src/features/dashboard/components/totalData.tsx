@@ -15,7 +15,7 @@ const TotalData = ({ totalSchool, totalTeacher }: TotalDataProps) => {
       icon: <School2 className="w-5 h-5 text-success-600" />
     },
     {
-      title: "Total - Docentes",
+      title: "Total - Cuerpo docente",
       count: totalTeacher,
       icon: <Users className="w-5 h-5 text-warning-600" />
     }

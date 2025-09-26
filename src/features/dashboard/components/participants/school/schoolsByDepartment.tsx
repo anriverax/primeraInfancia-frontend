@@ -9,7 +9,7 @@ import {
   Legend,
   LabelList
 } from "recharts";
-import CardLayoutDashboard from '../../cardLayoutDashboard';
+import CardLayoutDashboard from "../../cardLayoutDashboard";
 
 interface DataItem {
   department: string;
@@ -44,7 +44,7 @@ const SchoolsByDepartment = ({ data }: Props): React.JSX.Element => (
             barSize={10}
             dataKey="school"
             fill="#ae7be2"
-            name="Número de Centros Educativos"
+            name="Centros educativos"
             radius={[0, 6, 6, 0]}
           >
             <LabelList dataKey="school" position="right" />
@@ -53,7 +53,7 @@ const SchoolsByDepartment = ({ data }: Props): React.JSX.Element => (
             barSize={10}
             dataKey="teacher"
             fill="#6eaaf1"
-            name="Número de Docentes"
+            name="Cuerpo docente"
             radius={[0, 6, 6, 0]}
           >
             <LabelList dataKey="teacher" position="right" />

@@ -18,7 +18,7 @@ interface Props {
 
 const AttendanceChart = ({ data }: Props): React.JSX.Element => (
   <CardLayoutDashboard
-    title="Total de asistencia por tipo de evento"
+    title="Total de asistencia por procesos formativos"
     clsCard="w-[75%]"
     clsCardBody="overflow-hidden"
   >

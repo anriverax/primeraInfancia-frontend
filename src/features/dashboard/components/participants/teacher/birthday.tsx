@@ -9,15 +9,15 @@ import {
   Legend,
   LabelList
 } from "recharts";
-import CardLayoutDashboard from '../../cardLayoutDashboard';
-import { IGroupCount } from '@/features/dashboard/dashboardType';
+import CardLayoutDashboard from "../../cardLayoutDashboard";
+import { IGroupCount } from "@/features/dashboard/dashboardType";
 
 type AgeChartProps = {
   data: IGroupCount[];
 };
 
 const AgeChart = ({ data }: AgeChartProps): React.JSX.Element => (
-  <CardLayoutDashboard title="Rango de edades de los docentes" clsCardBody="overflow-hidden">
+  <CardLayoutDashboard title="Rango de edad" clsCardBody="overflow-hidden">
     <div className="w-full h-[480px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} barCategoryGap={5}>
@@ -32,7 +32,7 @@ const AgeChart = ({ data }: AgeChartProps): React.JSX.Element => (
             barSize={15}
             stroke="#77a1bf"
             strokeWidth={2}
-            name="Número de Docentes"
+            name="Cuerpo docente"
           >
             <LabelList dataKey="count" position="top" />
           </Bar>

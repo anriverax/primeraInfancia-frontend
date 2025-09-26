@@ -29,7 +29,7 @@ const SignInForm = ({ formik }: SignInFormProps): React.JSX.Element => {
 
       <div className="mt-8">
         <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
-          Iniciar Sesión
+          Iniciar sesión
         </Button>
       </div>
     </form>

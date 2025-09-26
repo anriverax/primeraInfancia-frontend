@@ -8,7 +8,7 @@ import { Tab, Tabs } from "@heroui/react";
 import { AttendanceEnum } from "@/shared/constants";
 import { useState } from "react";
 import PieChartLayout from "@/features/dashboard/components/pieChartLayout";
-import AttendanceChart from '@/features/dashboard/components/attendance/events/attendance';
+import AttendanceChart from "@/features/dashboard/components/attendance/events/attendance";
 
 const DashboardAttendancePage = (): React.JSX.Element => {
   const [selected, setSelected] = useState<AttendanceEnum>(AttendanceEnum.PRESENTE);
@@ -47,7 +47,7 @@ const DashboardAttendancePage = (): React.JSX.Element => {
               <AttendanceChart data={attendanceFilters.eventType} />
               <div className="w-[25%]">
                 <PieChartLayout
-                  title="Asistencia por mentoría"
+                  title="Asistencia por modalidad de mentoría"
                   height="h-[400px]"
                   data={attendanceFilters.mentoring}
                 />
@@ -56,7 +56,7 @@ const DashboardAttendancePage = (): React.JSX.Element => {
           </>
         )}
         <div className="my-6">
-          <CardLayoutDashboard title="Cantidad de eventos">
+          <CardLayoutDashboard title="Progreso del proceso formativo">
             <div className="grid grid-cols-4 gap-6">
               {attendanceFilters.events.map((item, index) => (
                 <div className="px-6" key={index}>

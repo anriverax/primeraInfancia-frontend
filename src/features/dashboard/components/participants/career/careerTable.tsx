@@ -1,7 +1,7 @@
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/table";
 import { careerColumns, useRenderCareerCell } from "./columns";
-import { ICareerColumnKey, IGroupCount } from '@/features/dashboard/dashboardType';
-import CardLayoutDashboard from '../../cardLayoutDashboard';
+import { ICareerColumnKey, IGroupCount } from "@/features/dashboard/dashboardType";
+import CardLayoutDashboard from "../../cardLayoutDashboard";
 
 type CareerTableProps = {
   title: string;

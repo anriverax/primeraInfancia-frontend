@@ -1,4 +1,4 @@
-import { ICareerColumnKey, IGroupCount } from '@/features/dashboard/dashboardType';
+import { ICareerColumnKey, IGroupCount } from "@/features/dashboard/dashboardType";
 import { IColumns } from "@/shared/types/globals";
 import { useCallback } from "react";
 
