@@ -8,24 +8,23 @@ import { useTrainingModulesList } from "@/features/trainingModule/hooks/training
 import { useState } from "react";
 import { Input } from "@heroui/react";
 import { IBulkGradeInput, BulkGradeInput } from "./type";
-import { FetchResponse, FormikProps } from "@/shared/types/globals";
+import { FetchResponse } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
-import { FormikHelpers, useFormik } from "formik";
-
+import { FormikHelpers } from "formik";
 
 interface ModuleEvaluation {
-    inscriptionId?: number
-    grade: number
-    comment: string
-    moduleProgressStatus: string
-    evaluationInstrumentId: number
-    trainingModuleId: number
+    inscriptionId?: number;
+    grade: number;
+    comment: string;
+    moduleProgressStatus: string;
+    evaluationInstrumentId: number;
+    trainingModuleId: number;
 }
 
 interface ValidationError {
-    row: number
-    field: string
-    message: string
+    row: number;
+    field: string;
+    message: string;
 }
 
 interface DateEntry {
@@ -37,14 +36,20 @@ interface DateEntry {
 
 const dateEnableForEntry: DateEntry[] = [
     {
-        instrumentId: 4, moduleId: 1, maximumDate: new Date(2025, 9, 25), cohort: 1
+        instrumentId: 4,
+        moduleId: 1,
+        maximumDate: new Date(2025, 9, 27),
+        cohort: 1
     },
     {
-        instrumentId: 2, moduleId: 1, maximumDate: new Date(2025, 9, 25), cohort: 1
+        instrumentId: 2,
+        moduleId: 1,
+        maximumDate: new Date(2025, 9, 25),
+        cohort: 1
     }
-]
+];
 
-const BulkGradeView = (groupId: number): React.JSX.Element => {
+const BulkGradeView = ({ groupId: number }): React.JSX.Element => {
     const useRequest = useAxios(true);
     const { evaluationInstrumentsList } = useEvaluationInstrumentsList();
     const { trainingModulesList } = useTrainingModulesList();
@@ -52,65 +57,64 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
     const [moduloSeleccionado, setModuloSeleccionado] = useState(new Set([]));
     const [instrumentName, setInstrumentName] = useState("");
     const [moduleName, setModuleName] = useState("");
-    const [file, setFile] = useState<File | null>(null)
-    const [data, setData] = useState<ModuleEvaluation[]>([])
-    const [isUploading, setIsUploading] = useState(false)
-    const [uploadProgress, setUploadProgress] = useState(0)
-    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([])
-    const [dataRow, setDataRow] = useState<{ key: number; grade: number; moduleProgressStatus: string }[]>([]);
+    const [file, setFile] = useState<File | null>(null);
+    const [data, setData] = useState<ModuleEvaluation[]>([]);
+    const [isUploading, setIsUploading] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
+    const [dataRow, setDataRow] = useState<{ key: number; grade: number; moduleProgressStatus: string }[]>(
+        []
+    );
     const [dataHeader, setDataHeader] = useState<{}[]>([]);
-    const [uploadStatus, setUploadStatus] = useState<"idle" | "success" | "error">("idle")
-
+    const [uploadStatus, setUploadStatus] = useState<"idle" | "success" | "error">("idle");
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (validateFilteredEntryDates([...instrumentoSeleccionado][0], [...moduloSeleccionado][0])) {
-            const selectedFile = event.target.files?.[0]
+            const selectedFile = event.target.files?.[0];
             if (selectedFile && selectedFile.type === "text/csv") {
-                setFile(selectedFile)
-                setUploadStatus("idle")
-                setValidationErrors([])
-                parseCSV(selectedFile)
-            } else 
-                  showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
-        }
-        else
-            showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
-    }
+                setFile(selectedFile);
+                setUploadStatus("idle");
+                setValidationErrors([]);
+                parseCSV(selectedFile);
+            } else showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
+        } else showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
+    };
 
     function validateFilteredEntryDates(instrumentId: number, moduleId: number) {
         // 1. Filter the array based on instrumentId and moduleId
-        const filteredEntries = dateEnableForEntry.find(entry =>
-            entry.instrumentId == instrumentId && entry.moduleId == moduleId
+        const filteredEntries = dateEnableForEntry.find(
+            (entry) => entry.instrumentId == instrumentId && entry.moduleId == moduleId
         );
 
         // Notify if official date does not exists
         if (filteredEntries?.length === 0) {
-            showToast(String("Notifique al administrador que las fechas de ingreso de notas no han sido recuperadas"), "success");
+            showToast(
+                String("Notifique al administrador que las fechas de ingreso de notas no han sido recuperadas"),
+                "success"
+            );
             return false;
         }
 
-        // 2. Prepare the currentDate for accurate comparison
+        // 2. Prepare the currentDate for accurate comparison using hour, minute, seconds
         const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0);
 
-        // 3. Prepare maximumDate for accurate comparison
-        const maxDate = new Date(filteredEntries?.maximumDate)
-        maxDate.setHours(0, 0, 0, 0);
 
-        return maxDate <= currentDate;
+        // 3. Prepare maximumDate for accurate comparison, include midnight
+        const maxDate = new Date(filteredEntries?.maximumDate);
+        maxDate.setHours(23, 59, 59, 0);
+
+        return currentDate <= maxDate;
     }
 
-
     const parseCSV = (file: File) => {
-
-        const reader = new FileReader()
+        const reader = new FileReader();
         reader.onload = (e) => {
-            const text = e.target?.result as string
-            const lines = text.split("\n").filter((line) => line.trim())
-            const headers = lines[0].split(",").map((h) => h.trim().toLowerCase())
+            const text = e.target?.result as string;
+            const lines = text.split("\n").filter((line) => line.trim());
+            const headers = lines[0].split(",").map((h) => h.trim().toLowerCase());
 
-            const expectedHeaders = ["grade", "comment", "id"]
-            const missingHeaders = expectedHeaders.filter((h) => !headers.includes(h))
+            const expectedHeaders = ["grade", "comment", "id"];
+            const missingHeaders = expectedHeaders.filter((h) => !headers.includes(h));
 
             if (missingHeaders.length > 0) {
                 //Notificar que el archivo no está completo
@@ -118,16 +122,16 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
                 return false;
             }
 
-            const parsedData: ModuleEvaluation[] = []
-            const errors: ValidationError[] = []
+            const parsedData: ModuleEvaluation[] = [];
+            const errors: ValidationError[] = [];
 
             for (let i = 1; i < lines.length; i++) {
-                const values = lines[i].split(",").map((v) => v.trim())
-                const row: any = {}
+                const values = lines[i].split(",").map((v) => v.trim());
+                const row: any = {};
 
                 headers.forEach((header, index) => {
-                    row[header] = values[index] || ""
-                })
+                    row[header] = values[index] || "";
+                });
 
                 // Validate and convert data
                 const evaluation: ModuleEvaluation = {
@@ -137,62 +141,58 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
                     inscriptionId: 0,
                     evaluationInstrumentId: 0,
                     trainingModuleId: 0
-                }
+                };
 
                 // Validate grade
-                const gradeValue = Number.parseFloat(row.grade)
+                const gradeValue = Number.parseFloat(row.grade);
                 if (isNaN(gradeValue)) {
-                    errors.push({ row: i, field: "grade", message: "La nota debe ser un número" })
+                    errors.push({ row: i, field: "grade", message: "La nota debe ser un número" });
                 } else {
-                    evaluation.grade = gradeValue
+                    evaluation.grade = gradeValue;
                 }
 
                 // Validate comment
                 if (!row.comment || row.comment.trim() === "") {
-                    errors.push({ row: i, field: "comment", message: "El comentario es requerido" })
+                    errors.push({ row: i, field: "comment", message: "El comentario es requerido" });
                 } else {
-                    evaluation.comment = row.comment.trim()
+                    evaluation.comment = row.comment.trim();
                 }
 
                 // Validate moduleProgressStatus
 
-                evaluation.moduleProgressStatus = "Completado"
+                evaluation.moduleProgressStatus = "Completado";
                 evaluation.inscriptionId = i;
-                parsedData.push(evaluation)
+                parsedData.push(evaluation);
             }
 
-            setData(parsedData)
+            setData(parsedData);
 
-            setValidationErrors(errors)
+            setValidationErrors(errors);
 
             if (errors.length > 0) {
                 //Mostrar errores
             }
-        }
-        reader.readAsText(file)
-    }
+        };
+        reader.readAsText(file);
+    };
 
-    const handleUpload = async (
-        values: BulkGradeInput,
-        formikHelpers: FormikHelpers<IBulkGradeInput>
-    ) => {
+    const handleUpload = async (values: BulkGradeInput, formikHelpers: FormikHelpers<IBulkGradeInput>) => {
         if (!file || data.length === 0 || validationErrors.length > 0) {
             //Mostrar errores
-            return
+            return;
         }
 
-        setIsUploading(true)
-        setUploadProgress(0)
+        setIsUploading(true);
+        setUploadProgress(0);
         let itemValue = 1;
         data.map(async (item) => {
-
             item.evaluationInstrumentId = [...instrumentoSeleccionado][0];
             item.trainingModuleId = [...moduloSeleccionado][0];
             console.log(item.evaluationInstrumentId, "---");
 
             let url = "";
             if (item.evaluationInstrumentId == 1 || item.evaluationInstrumentId == 2)
-                url = "/module-evaluation/create"
+                url = "/module-evaluation/create";
             else {
                 delete item.moduleProgressStatus;
                 delete item.trainingModuleId;
@@ -200,11 +200,8 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
             }
 
             try {
-                const res: AxiosResponse<FetchResponse<IBulkGradeInput>> = await useRequest.post(
-                    url,
-                    item
-                );
-                setUploadProgress((itemValue / data.length) * 100)
+                const res: AxiosResponse<FetchResponse<IBulkGradeInput>> = await useRequest.post(url, item);
+                setUploadProgress((itemValue / data.length) * 100);
                 itemValue++;
                 const resultData = res.data;
 
@@ -223,7 +220,6 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
                 handleFormikResponseError<IBulkGradeInput>(error as AxiosError, formikHelpers!);
             }
         });
-
 
         // try {
         //     // Simulate progress for better UX
@@ -262,7 +258,7 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
         //     setIsUploading(false)
         //     setTimeout(() => setUploadProgress(0), 1000)
         // }
-    }
+    };
 
     const handleEvaluationInstrumentChange = (keys) => {
         setInstrumentoSeleccionado(keys);
@@ -348,7 +344,13 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
                                 <CardBody className="space-y-4">
                                     <div className="space-y-2">
                                         Seleccione el archivo
-                                        <Input id="csv-file" type="file" accept=".csv" onChange={handleFileChange} disabled={isUploading} />
+                                        <Input
+                                            id="csv-file"
+                                            type="file"
+                                            accept=".csv"
+                                            onChange={handleFileChange}
+                                            disabled={isUploading}
+                                        />
                                     </div>
 
                                     {file && (
@@ -371,14 +373,12 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
                                     {uploadStatus === "success" && (
                                         <Alert description="Archivo cargado correctamente.">
                                             <CheckCircle className="h-4 w-4" />
-
                                         </Alert>
                                     )}
 
                                     {uploadStatus === "error" && (
                                         <Alert description="Cargue el archivo, asegurese de que el formato sea '.csv'.">
                                             <AlertCircle className="h-4 w-4" />
-
                                         </Alert>
                                     )}
 
@@ -403,8 +403,7 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
                                     <CardBody>
                                         <div className="space-y-2">
                                             {validationErrors.map((error, index) => (
-                                                <Alert key={index} description={error.message}>
-                                                </Alert>
+                                                <Alert key={index} description={error.message}></Alert>
                                             ))}
                                         </div>
                                     </CardBody>
@@ -420,7 +419,6 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
                     </CardBody>
                 </Card>
             </div>
-
         </div>
     );
 };
