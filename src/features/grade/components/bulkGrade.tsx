@@ -30,7 +30,7 @@ interface ValidationError {
 interface DateEntry {
   instrumentId: number;
   moduleId: number;
-  maximumDate: Date; // The Date object type
+  maximumDate: Date;
   cohort: number;
 }
 
@@ -55,8 +55,8 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
   const { trainingModulesList } = useTrainingModulesList();
   const [instrumentoSeleccionado, setInstrumentoSeleccionado] = useState(new Set([]));
   const [moduloSeleccionado, setModuloSeleccionado] = useState(new Set([]));
-  const [setInstrumentName] = useState("");
-  const [setModuleName] = useState("");
+  const [instrumentName, setInstrumentName] = useState("");
+  const [moduleName, setModuleName] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [data, setData] = useState<ModuleEvaluation[]>([]);
   const [isUploading, setIsUploading] = useState(false);
@@ -155,8 +155,7 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
           evaluation.comment = row.comment.trim();
         }
 
-        // Validate moduleProgressStatus
-
+        // Set moduleProgressStatus
         evaluation.moduleProgressStatus = "Completado";
         evaluation.inscriptionId = i;
         parsedData.push(evaluation);
@@ -219,44 +218,6 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         handleFormikResponseError<IBulkGradeInput>(error as AxiosError, formikHelpers!);
       }
     });
-
-    // try {
-    //     // Simulate progress for better UX
-    //     const progressInterval = setInterval(() => {
-    //         setUploadProgress((prev) => Math.min(prev + 10, 90))
-    //     }, 200)
-
-    //     const response = await fetch("/api/module-evaluations/upload", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({ evaluations: data }),
-    //     })
-
-    //     clearInterval(progressInterval)
-    //     setUploadProgress(100)
-
-    //     if (response.ok) {
-    //         const result = await response.json()
-    //         setUploadStatus("success")
-    //         //Notificar exito
-
-    //         setFile(null)
-    //         setData([])
-    //         const fileInput = document.getElementById("csv-file") as HTMLInputElement
-    //         if (fileInput) fileInput.value = ""
-    //     } else {
-    //         const error = await response.json()
-    //         throw new Error(error.message || "Upload failed")
-    //     }
-    // } catch (error) {
-    //     setUploadStatus("error")
-    //     //Notificar error en transmisión
-    // } finally {
-    //     setIsUploading(false)
-    //     setTimeout(() => setUploadProgress(0), 1000)
-    // }
   };
 
   const handleEvaluationInstrumentChange = (keys): void => {
