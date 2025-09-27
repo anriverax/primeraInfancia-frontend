@@ -31,15 +31,6 @@ const BulkPage = () => {
             <div className="space-y-4">
                 <div className="flex items-center gap-2">
                     <h2 className="text-lg font-semibold text-gray-900">Procesamiento por lotes</h2>
-                    <Tooltip
-                        key="right-end"
-                        color="secondary"
-                        content="Por medio de esta opción del sistema usted debe escoger un archivo con el detalle de las calificaciones obtenidas de los docentes en formato '.csv'; el archivo deberá contener un espacio para la nota, un comentario y el código de inscripción del docente."
-                        placement="right-end"
-                    >
-                        <Info className="h-5 w-5 text-blue-500" />
-                    </Tooltip>
-                    {/* <p>Para iniciar con el ingreso de notas es necesario seleccionar un instrumento y un mentor del grupo.</p> */}
                 </div>
                 <BulkGradeView groupId={Number(params.groupId)} />
             </div>

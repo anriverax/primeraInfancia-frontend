@@ -28,6 +28,22 @@ interface ValidationError {
     message: string
 }
 
+interface DateEntry {
+    instrumentId: number;
+    moduleId: number;
+    maximumDate: Date; // The Date object type
+    cohort: number;
+}
+
+const dateEnableForEntry: DateEntry[] = [
+    {
+        instrumentId: 4, moduleId: 1, maximumDate: new Date(2025, 9, 25), cohort: 1
+    },
+    {
+        instrumentId: 2, moduleId: 1, maximumDate: new Date(2025, 9, 25), cohort: 1
+    }
+]
+
 const BulkGradeView = (groupId: number): React.JSX.Element => {
     const useRequest = useAxios(true);
     const { evaluationInstrumentsList } = useEvaluationInstrumentsList();
@@ -47,17 +63,43 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
 
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-
-        const selectedFile = event.target.files?.[0]
-        if (selectedFile && selectedFile.type === "text/csv") {
-            setFile(selectedFile)
-            setUploadStatus("idle")
-            setValidationErrors([])
-            parseCSV(selectedFile)
-        } else {
-            //Notificar que el archivo no es válido
+        if (validateFilteredEntryDates([...instrumentoSeleccionado][0], [...moduloSeleccionado][0])) {
+            const selectedFile = event.target.files?.[0]
+            if (selectedFile && selectedFile.type === "text/csv") {
+                setFile(selectedFile)
+                setUploadStatus("idle")
+                setValidationErrors([])
+                parseCSV(selectedFile)
+            } else 
+                  showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
         }
+        else
+            showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
     }
+
+    function validateFilteredEntryDates(instrumentId: number, moduleId: number) {
+        // 1. Filter the array based on instrumentId and moduleId
+        const filteredEntries = dateEnableForEntry.find(entry =>
+            entry.instrumentId == instrumentId && entry.moduleId == moduleId
+        );
+
+        // Notify if official date does not exists
+        if (filteredEntries?.length === 0) {
+            showToast(String("Notifique al administrador que las fechas de ingreso de notas no han sido recuperadas"), "success");
+            return false;
+        }
+
+        // 2. Prepare the currentDate for accurate comparison
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+
+        // 3. Prepare maximumDate for accurate comparison
+        const maxDate = new Date(filteredEntries?.maximumDate)
+        maxDate.setHours(0, 0, 0, 0);
+
+        return maxDate <= currentDate;
+    }
+
 
     const parseCSV = (file: File) => {
 
@@ -72,7 +114,8 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
 
             if (missingHeaders.length > 0) {
                 //Notificar que el archivo no está completo
-                return
+                showToast(String("El formato del archivo no es válido"), "danger");
+                return false;
             }
 
             const parsedData: ModuleEvaluation[] = []
