@@ -25,7 +25,7 @@ const BulkPage = () => {
             <div className="flex w-full gap-3 justify-between">
                 <div className="flex items-center gap-2">
                     <ShieldPlus className="h-5 w-5 text-blue-500" />
-                    <h2 className="text-2xl font-bold text-gray-900">Ingreso de notas</h2>
+                    <h2 className="text-2xl font-bold text-gray-900">Ingreso de calificaciones</h2>
                 </div>
             </div>
             <div className="space-y-4">
@@ -34,7 +34,7 @@ const BulkPage = () => {
                     <Tooltip
                         key="right-end"
                         color="secondary"
-                        content="Por medio de esta opción del sistema usted debe escoger un archivo con el detalle de las notas obtenidas de los docentes en formato '.csv'; el archivo deberá contener un espacio para la nota, un comentario y el código de inscripción del docente."
+                        content="Por medio de esta opción del sistema usted debe escoger un archivo con el detalle de las calificaciones obtenidas de los docentes en formato '.csv'; el archivo deberá contener un espacio para la nota, un comentario y el código de inscripción del docente."
                         placement="right-end"
                     >
                         <Info className="h-5 w-5 text-blue-500" />

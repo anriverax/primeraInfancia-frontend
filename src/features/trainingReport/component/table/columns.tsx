@@ -11,7 +11,7 @@ import {
 export const trainingReportColumns: IColumns<ITrainingReportColumnKey>[] = [
   {
     key: "finalScore",
-    label: "Nota final"
+    label: "Calificación final"
   },
   {
     key: "status",

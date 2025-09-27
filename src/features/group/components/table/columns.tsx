@@ -37,7 +37,7 @@ export const useRenderGroupCell = (
         case "actions":
           return (
             <div className="relative flex items-center gap-2">
-               <Tooltip content="Ingreso de notas">
+               <Tooltip content="Ingreso de calificaciones">
                 <Link
                   href={`./ingreso-nota/lote/${encodeURIComponent(group.id!)}`}
                   className="text-lg text-default-400 cursor-pointer active:opacity-50"

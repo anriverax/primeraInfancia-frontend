@@ -21,7 +21,7 @@ export const moduleEvaluationColumns: IColumns<IModuleEvaluationColumnKey>[] = [
   },
   {
     key: "grade",
-    label: "Nota"
+    label: "Calificación"
   },
   {
     key: "moduleProgressStatus",

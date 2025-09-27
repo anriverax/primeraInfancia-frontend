@@ -45,6 +45,7 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
     const [dataHeader, setDataHeader] = useState<{}[]>([]);
     const [uploadStatus, setUploadStatus] = useState<"idle" | "success" | "error">("idle")
 
+
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
         const selectedFile = event.target.files?.[0]
@@ -298,7 +299,7 @@ const BulkGradeView = (groupId: number): React.JSX.Element => {
                             <Card>
                                 <CardHeader>
                                     <h3 className="pb-6">
-                                        <p className="text-xl text-justify">Cargar archivo de notas</p>
+                                        <p className="text-xl text-justify">Cargar archivo de calificaciones</p>
                                     </h3>
                                 </CardHeader>
                                 <CardBody className="space-y-4">

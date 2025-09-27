@@ -17,7 +17,7 @@ export const trainingEvaluationColumns: IColumns<ITrainingEvaluationColumnKey>[]
   },
   {
     key: "grade",
-    label: "Nota"
+    label: "Calificación"
   },
   {
     key: "comment",
