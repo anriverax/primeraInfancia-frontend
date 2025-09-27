@@ -17,7 +17,7 @@ export const evaluationInstrumentColumns: IColumns<IEvaluationInstrumentColumnKe
   },
   {
     key: "percentage",
-    label: "Porcentaje global"
+    label: "Porcentaje"
   }
 ];
 
@@ -30,6 +30,12 @@ export const useRenderEvaluationInstrumentCell = (): ((
       const cellValue = evaluationInstrument[columnKey as keyof EvaluationInstrumentInput];
 
       switch (columnKey) {
+        case "percentage":
+          return (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium">
+              {evaluationInstrument?.percentage} %
+            </span>
+          );
         default:
           return cellValue;
       }
