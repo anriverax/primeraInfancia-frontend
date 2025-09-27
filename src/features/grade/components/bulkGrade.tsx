@@ -5,7 +5,7 @@ import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FileText, CheckCircle, AlertCircle } from "lucide-react";
 import { useEvaluationInstrumentsList } from "@/features/evaluationInstrument/hooks/evaluationInstrument/useEvaluationInstrumentList";
 import { useTrainingModulesList } from "@/features/trainingModule/hooks/trainingModule/useTrainingModuleList";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Input } from "@heroui/react";
 import { IBulkGradeInput, BulkGradeInput } from "./type";
 import { FetchResponse } from "@/shared/types/globals";
@@ -36,7 +36,7 @@ interface DateEntry {
 
 const dateEnableForEntry: DateEntry[] = [
   {
-    instrumentId: 4,
+    instrumentId: 1,
     moduleId: 1,
     maximumDate: new Date(2025, 9, 27),
     cohort: 1
@@ -44,7 +44,25 @@ const dateEnableForEntry: DateEntry[] = [
   {
     instrumentId: 2,
     moduleId: 1,
-    maximumDate: new Date(2025, 9, 25),
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 3,
+    moduleId: 1,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 4,
+    moduleId: 1,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 5,
+    moduleId: 1,
+    maximumDate: new Date(2025, 9, 27),
     cohort: 1
   }
 ];
@@ -63,17 +81,18 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [validationErrors, setValidationErrors] = useState<ValidationError[]>([]);
   const [uploadStatus, setUploadStatus] = useState<"idle" | "success" | "error">("idle");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (validateFilteredEntryDates([...instrumentoSeleccionado][0], [...moduloSeleccionado][0])) {
-      const selectedFile = event.target.files?.[0];
-      if (selectedFile && selectedFile.type === "text/csv") {
-        setFile(selectedFile);
-        setUploadStatus("idle");
-        setValidationErrors([]);
-        parseCSV(selectedFile);
-      } else showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
+    // if (validateFilteredEntryDates([...instrumentoSeleccionado][0], [...moduloSeleccionado][0])) {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile && selectedFile.type === "text/csv") {
+      setFile(selectedFile);
+      setUploadStatus("idle");
+      setValidationErrors([]);
+      parseCSV(selectedFile);
     } else showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
+    // } else showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
   };
 
   function validateFilteredEntryDates(instrumentId: number, moduleId: number): boolean {
@@ -95,30 +114,39 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     const currentDate = new Date();
 
     // 3. Prepare maximumDate for accurate comparison, include midnight
+    console.log(new Date(filteredEntries?.maximumDate));
+
     const maxDate = new Date(filteredEntries?.maximumDate);
     maxDate.setHours(23, 59, 59, 0);
+    console.log(currentDate, maxDate);
 
     return currentDate <= maxDate;
   }
 
   const parseCSV = (file: File): void => {
     const reader = new FileReader();
-    reader.onload = (e): void => {
+    reader.onload = (e): void | boolean => {
       const text = e.target?.result as string;
       const lines = text.split("\n").filter((line) => line.trim());
       const headers = lines[0].split(",").map((h) => h.trim().toLowerCase());
 
-      const expectedHeaders = ["grade", "comment", "id"];
-      const missingHeaders = expectedHeaders.filter((h) => !headers.includes(h));
+      //Add headers name
+      const expectedHeaders = ["grade", "comment", "id", "instrumentId", "moduleId"];
+      const missingHeaders = expectedHeaders.filter((h) => !headers.includes(h.toLowerCase()));
+
+      const errors: ValidationError[] = [];
 
       if (missingHeaders.length > 0) {
         //Notificar que el archivo no está completo
-        showToast(String("El formato del archivo no es válido"), "danger");
+        const detailMessage = "El formato del archivo no es válido";
+        showToast(String(detailMessage), "danger");
+        errors.push({ row: 0, field: "Archivo escogido", message: detailMessage });
+        setValidationErrors(errors);
         return false;
       }
 
       const parsedData: ModuleEvaluation[] = [];
-      const errors: ValidationError[] = [];
+
 
       for (let i = 1; i < lines.length; i++) {
         const values = lines[i].split(",").map((v) => v.trim());
@@ -141,16 +169,16 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         };
 
         // Validate grade
-        const gradeValue = Number.parseFloat(row.grade);
+        let gradeValue = Number.parseFloat(row.grade);
         if (isNaN(gradeValue)) {
-          errors.push({ row: i, field: "grade", message: "La nota debe ser un número" });
+          errors.push({ row: i, field: "calificación", message: `La calificación debe ser un número, revisar la línea ${i}` });
         } else {
           evaluation.grade = gradeValue;
         }
 
         // Validate comment
         if (!row.comment || row.comment.trim() === "") {
-          errors.push({ row: i, field: "comment", message: "El comentario es requerido" });
+          errors.push({ row: i, field: "observaciones", message: `El comentario es requerido, revisar la línea ${i}` });
         } else {
           evaluation.comment = row.comment.trim();
         }
@@ -159,6 +187,8 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         evaluation.moduleProgressStatus = "Completado";
         evaluation.inscriptionId = i;
         parsedData.push(evaluation);
+        console.log(i, "conteo");
+
       }
 
       setData(parsedData);
@@ -175,7 +205,9 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
   const handleUpload = async (
     values: BulkGradeInput,
     formikHelpers: FormikHelpers<IBulkGradeInput>
-  ): void => {
+  ): Promise<void> => {
+    console.log("si va");
+
     if (!file || data.length === 0 || validationErrors.length > 0) {
       //Mostrar errores
       return;
@@ -220,7 +252,19 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     });
   };
 
-  const handleEvaluationInstrumentChange = (keys): void => {
+  const handleReUpload = (): void => {
+    setFile(null);
+    setData([]);
+    setValidationErrors([]);
+    setUploadStatus("idle");
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const handleEvaluationInstrumentChange = (keys: any): void => {
     setInstrumentoSeleccionado(keys);
 
     // Convert the Set of keys to an array to get the first selected key
@@ -240,7 +284,7 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     }
   };
 
-  const handleTrainingModuleChange = (keys): void => {
+  const handleTrainingModuleChange = (keys: any): void => {
     setModuloSeleccionado(keys);
 
     // Convert the Set of keys to an array to get the first selected key
@@ -257,6 +301,7 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
       setModuleName("");
     }
   };
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   return (
     <div className="flex items-center gap-2">
@@ -343,11 +388,18 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
                   )}
 
                   <Button
-                    disabled={!file || data.length === 0 || validationErrors.length > 0 || isUploading}
+                    isDisabled={!file || data.length === 0 || validationErrors.length > 0 || isUploading}
                     className="w-full"
                     onClick={handleUpload}
                   >
                     {isUploading ? "Leyendo el archivo..." : "Almacenar archivo"}
+                  </Button>
+                  <Button
+                    isDisabled={validationErrors.length == 0}
+                    className="w-full"
+                    onClick={handleReUpload}
+                  >
+                    Intentar de nuevo
                   </Button>
                 </CardBody>
               </Card>
@@ -356,9 +408,8 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
                 <Card>
                   <CardHeader>
                     <h4 className="pb-6">
-                      <p className="text-xl text-justify">Errores</p>
+                      <p className="text-xl text-justify">Errores, por favor corregirlos antes de intentarlo de nuevo.</p>
                     </h4>
-                    <p>Por favor corregir los errore antes de intentarlo de nuevo</p>
                   </CardHeader>
                   <CardBody>
                     <div className="space-y-2">
@@ -372,14 +423,14 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
 
               {data.length > 0 && validationErrors.length === 0 && (
                 <h4 className="pb-6">
-                  <p className="text-xl text-justify">Se han encontrado {data.length} registros</p>
+                  <p className="text-xl text-justify">El archivo proporcionado es válido, se procesarán {data.length} registros</p>
                 </h4>
               )}
             </div>
           </CardBody>
         </Card>
       </div>
-    </div>
+    </div >
   );
 };
 
