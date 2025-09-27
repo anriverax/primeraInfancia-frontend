@@ -21,6 +21,7 @@ import {
 } from "@heroui/react";
 import { UserRoundSearch, SaveAll, ShieldPlus, Info } from "lucide-react";
 import { Select, SelectItem } from "@heroui/select";
+import { showToast } from "@/shared/utils/funtions";
 
 const estudiantes = {
   inscriptionPerson: [
@@ -155,8 +156,6 @@ const GradePage = (): Promise<React.JSX.Element> => {
   let { groupDetail } = useGroupDetail(Number(params.groupId));
   const { evaluationInstrumentsList } = useEvaluationInstrumentsList();
   const { trainingModulesList } = useTrainingModulesList();
-
-  const [notas, setNotas] = useState<any[]>([]);
   const [filtro, setFiltro] = useState("");
   const [instrumentoSeleccionado, setInstrumentoSeleccionado] = useState(new Set([]));
   const [moduloSeleccionado, setModuloSeleccionado] = useState(new Set([]));
@@ -166,17 +165,6 @@ const GradePage = (): Promise<React.JSX.Element> => {
   const [instrumentName, setInstrumentName] = useState("");
   const [moduleName, setModuleName] = useState("");
 
-  const agregarNota = (estudianteId: number, materia: string, nota: number, observaciones: string) => {
-    const nuevaNota = {
-      id: Date.now(),
-      estudianteId,
-      materia,
-      nota,
-      observaciones,
-      fecha: new Date().toLocaleDateString()
-    };
-    setNotas([...notas, nuevaNota]);
-  };
   if (!groupDetail) groupDetail = estudiantes;
 
   let estudiantesFiltrados = groupDetail?.inscriptionPerson.filter((student) =>
@@ -204,7 +192,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
     studentName: string,
     field: "grade" | "observations",
     value: string | number
-  ) => {
+  ): void => {
     setGradesData((prev) => ({
       ...prev,
       [inscriptionId]: {
@@ -216,7 +204,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
     }));
   };
 
-  const submitAllGrades = async () => {
+  const submitAllGrades = async (): Promise<void> => {
     try {
       setIsSubmitting(true);
 
@@ -256,40 +244,18 @@ const GradePage = (): Promise<React.JSX.Element> => {
           inscriptionId: Number(inscriptionId)
         }));
 
-      // console.log("Submitting grades payload:", payload)
-
-      // Replace this URL with your actual endpoint
-      request: async ({ tokens }) => {
-        const response = await fetch("http://localhost:3001/api/module-evaluation/create", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${tokens.access_token}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-      };
-      //const { ok } = useGrade(payload[0]);
-
-      // if (!ok) {
-      //   throw new Error(`HTTP error! status: ${response.status}`)
-      // }
-
-      // const result = await response.json()
-      console.log("Grades submitted successfully:", ok);
-
       // Reset form after successful submission
       setGradesData({});
-      alert("Notas enviadas exitosamente!");
+      showToast(String("Calificaciones almacenadas correctamente."), "success");
     } catch (error) {
-      console.error("Error submitting grades:", error);
-      alert("Error al enviar las notas. Por favor, intente nuevamente.");
+      showToast(String("Error al enviar las notas. Por favor, intente nuevamente."), "danger");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleEvaluationInstrumentChange = (keys) => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const handleEvaluationInstrumentChange = (keys: any): void => {
     setInstrumentoSeleccionado(keys);
 
     // Convert the Set of keys to an array to get the first selected key
@@ -309,7 +275,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
     }
   };
 
-  const handleTrainingModuleChange = (keys) => {
+  const handleTrainingModuleChange = (keys: any): void => {
     setModuloSeleccionado(keys);
 
     // Convert the Set of keys to an array to get the first selected key
@@ -326,6 +292,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
       setModuleName("");
     }
   };
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   return (
     <div className="space-y-8">
@@ -400,10 +367,10 @@ const GradePage = (): Promise<React.JSX.Element> => {
                 type="text"
                 placeholder="Nombre o código..."
                 value={filtro}
-                onChange={(e) => setFiltro(e.target.value)}
                 startContent={<UserRoundSearch className="text-default-400" size={16} />}
                 className="flex-1"
                 variant="bordered"
+                onChange={(e) => setFiltro(e.target.value)}
               />
             </div>
 
@@ -531,9 +498,9 @@ const GradePage = (): Promise<React.JSX.Element> => {
             <Button
               color="primary"
               startContent={<SaveAll size={16} />}
-              onClick={submitAllGrades}
               isLoading={isSubmitting}
               isDisabled={Object.keys(gradesData).length === 0}
+              onClick={submitAllGrades}
             >
               {isSubmitting
                 ? "Enviando..."
