@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { ShieldPlus } from "lucide-react";
 import BulkGradeView from "@/features/grade/components/bulkGrade";
 
-const BulkPage = (): Promise<React.JSX.Element> => {
+const BulkPage = (): React.JSX.Element => {
   const params = useParams();
 
   return (
