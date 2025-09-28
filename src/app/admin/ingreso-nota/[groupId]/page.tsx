@@ -21,7 +21,12 @@ import {
 } from "@heroui/react";
 import { UserRoundSearch, SaveAll, ShieldPlus, Info } from "lucide-react";
 import { Select, SelectItem } from "@heroui/select";
-import { showToast } from "@/shared/utils/funtions";
+import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
+import { IBulkGradeInput, BulkGradeInput } from "@/features/grade/components/type";
+import useAxios from "@/shared/hooks/useAxios";
+import { AxiosError, AxiosResponse } from "axios";
+import { FetchResponse } from "@/shared/types/globals";
+import { FormikHelpers } from "formik";
 
 const estudiantes = {
   inscriptionPerson: [
@@ -150,9 +155,19 @@ interface GradeData {
   observations: string;
 }
 
+interface ModuleEvaluation {
+  inscriptionId?: number;
+  grade: number;
+  comment: string;
+  moduleProgressStatus?: string;
+  evaluationInstrumentId?: number;
+  trainingModuleId?: number;
+}
+
+
 const GradePage = (): Promise<React.JSX.Element> => {
   const params = useParams();
-
+  const useRequest = useAxios(true);
   let { groupDetail } = useGroupDetail(Number(params.groupId));
   const { evaluationInstrumentsList } = useEvaluationInstrumentsList();
   const { trainingModulesList } = useTrainingModulesList();
@@ -199,24 +214,19 @@ const GradePage = (): Promise<React.JSX.Element> => {
         ...prev[inscriptionId],
         inscriptionId,
         studentName,
-        [field]: field === "grade" ? (value === "" ? null : Number(value)) : value
+        [field]: field === "grade" ? (value === "" ? null : Number(value)) : value,
       }
     }));
   };
 
-  const submitAllGrades = async (): Promise<void> => {
+  //const submitAllGrades = async (): Promise<void> => {
+  const submitAllGrades = async (
+    values: BulkGradeInput,
+    formikHelpers: FormikHelpers<IBulkGradeInput>
+  ): Promise<void> => {
     try {
       setIsSubmitting(true);
 
-      // Create the payload object
-      // const payload = {
-      //   groupId: Number(params.groupId),
-      //   instrumentId: instrumentoSeleccionado || null,
-      //   moduleId: moduloSeleccionado || null,
-      //   mentorId: mentorSeleccionado || null,
-      //   grades: Object.values(gradesData).filter((grade) => grade.grade !== null || grade.observations.trim() !== ""),
-      //   submittedAt: new Date().toISOString(),
-      // }
       const payload = Object.entries(gradesData)
         // First, filter the entries based on your condition:
         // a non-null grade OR non-empty observations (after trimming whitespace).
@@ -234,7 +244,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
 
           // This value must be provided from your application logic.
           // We'll use a placeholder here for demonstration.
-          moduleProgressStatus: "COMPLETED",
+          moduleProgressStatus: "Completado",
 
           // These values come from your form selections.
           evaluationInstrumentId: [...instrumentoSeleccionado][0],
@@ -244,6 +254,24 @@ const GradePage = (): Promise<React.JSX.Element> => {
           inscriptionId: Number(inscriptionId)
         }));
 
+      payload.map(async (item) => {
+        let url = "";
+        if (item.evaluationInstrumentId == 1 || item.evaluationInstrumentId == 2)
+          url = "/module-evaluation/create";
+        else {
+          delete item.moduleProgressStatus;
+          delete item.trainingModuleId;
+          url = "/training-evaluation/create";
+        }
+
+        try {
+          const res: AxiosResponse<FetchResponse<IBulkGradeInput>> = await useRequest.post(url, item);
+
+          return res.data;
+        } catch (error) {
+          handleFormikResponseError<IBulkGradeInput>(error as AxiosError, formikHelpers!);
+        }
+      });
       // Reset form after successful submission
       setGradesData({});
       showToast(String("Calificaciones almacenadas correctamente."), "success");
@@ -343,20 +371,6 @@ const GradePage = (): Promise<React.JSX.Element> => {
                   ?.map((trainingModule) => (
                     <SelectItem key={trainingModule.id} textValue={trainingModule.moduleName}>
                       {trainingModule.moduleName}
-                    </SelectItem>
-                  ))}
-              </Select>
-              <Select
-                placeholder="Seleccionar mentor"
-                variant="bordered"
-                selectedKeys={mentorSeleccionado}
-                onSelectionChange={setMentorSeleccionado}
-              >
-                {groupDetail?.mentors
-                  ?.sort((a, b) => a.fullName.localeCompare(b.fullName))
-                  ?.map((mentor) => (
-                    <SelectItem key={mentor.id} textValue={mentor.fullName}>
-                      {mentor.fullName}
                     </SelectItem>
                   ))}
               </Select>
