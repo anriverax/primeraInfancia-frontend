@@ -348,7 +348,7 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
 
       try {
         const res: AxiosResponse<FetchResponse<IBulkGradeInput>> = await useRequest.post(url, item);
-        setUploadProgress((itemValue / data.length) * 100);
+        setUploadProgress(Math.round((itemValue / data.length) * 100));
         itemValue++;
         const resultData = res.data;
 
