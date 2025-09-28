@@ -16,9 +16,9 @@ interface ModuleEvaluation {
   inscriptionId?: number;
   grade: number;
   comment: string;
-  moduleProgressStatus: string;
-  evaluationInstrumentId: number;
-  trainingModuleId: number;
+  moduleProgressStatus?: string;
+  evaluationInstrumentId?: number;
+  trainingModuleId?: number;
 }
 
 interface ValidationError {
@@ -29,7 +29,7 @@ interface ValidationError {
 
 interface DateEntry {
   instrumentId: number;
-  moduleId: number;
+  trainingModuleId: number;
   maximumDate: Date;
   cohort: number;
 }
@@ -37,31 +37,31 @@ interface DateEntry {
 const dateEnableForEntry: DateEntry[] = [
   {
     instrumentId: 1,
-    moduleId: 1,
+    trainingModuleId: 1,
     maximumDate: new Date(2025, 9, 27),
     cohort: 1
   },
   {
     instrumentId: 2,
-    moduleId: 1,
+    trainingModuleId: 1,
     maximumDate: new Date(2025, 9, 27),
     cohort: 1
   },
   {
     instrumentId: 3,
-    moduleId: 1,
+    trainingModuleId: 1,
     maximumDate: new Date(2025, 9, 27),
     cohort: 1
   },
   {
     instrumentId: 4,
-    moduleId: 1,
+    trainingModuleId: 1,
     maximumDate: new Date(2025, 9, 27),
     cohort: 1
   },
   {
     instrumentId: 5,
-    moduleId: 1,
+    trainingModuleId: 1,
     maximumDate: new Date(2025, 9, 27),
     cohort: 1
   }
@@ -95,10 +95,10 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     // } else showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
   };
 
-  function validateFilteredEntryDates(instrumentId: number, moduleId: number): boolean {
-    // 1. Filter the array based on instrumentId and moduleId
+  function validateFilteredEntryDates(instrumentId: number, trainingModuleId: number): boolean {
+    // 1. Filter the array based on instrumentId and trainingModuleId
     const filteredEntries = dateEnableForEntry.find(
-      (entry) => entry.instrumentId == instrumentId && entry.moduleId == moduleId
+      (entry) => entry.instrumentId == instrumentId && entry.trainingModuleId == trainingModuleId
     );
 
     // Notify if official date does not exists
@@ -147,7 +147,6 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
 
       const parsedData: ModuleEvaluation[] = [];
 
-
       for (let i = 1; i < lines.length; i++) {
         const values = lines[i].split(",").map((v) => v.trim());
         /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -155,7 +154,7 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         /* eslint-enable @typescript-eslint/no-explicit-any */
 
         headers.forEach((header, index) => {
-          row[header] = values[index] || "";
+          row[header.toLowerCase()] = values[index] || "";
         });
 
         // Validate and convert data
@@ -171,14 +170,14 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         // Validate grade
         let gradeValue = Number.parseFloat(row.grade);
         if (isNaN(gradeValue)) {
-          errors.push({ row: i, field: "calificación", message: `La calificación debe ser un número, revisar la línea ${i}` });
+          errors.push({ row: i, field: "calificación", message: `La calificación debe ser un número, revisar la línea ${i + 1}` });
         } else {
           evaluation.grade = gradeValue;
         }
 
         // Validate comment
         if (!row.comment || row.comment.trim() === "") {
-          errors.push({ row: i, field: "observaciones", message: `El comentario es requerido, revisar la línea ${i}` });
+          errors.push({ row: i, field: "observaciones", message: `El comentario es requerido, revisar la línea ${i + 1}` });
         } else {
           evaluation.comment = row.comment.trim();
         }
@@ -186,9 +185,9 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         // Set moduleProgressStatus
         evaluation.moduleProgressStatus = "Completado";
         evaluation.inscriptionId = i;
+        evaluation.evaluationInstrumentId = Number.parseInt(row.instrumentid);
+        evaluation.trainingModuleId = Number.parseInt(row.moduleid);
         parsedData.push(evaluation);
-        console.log(i, "conteo");
-
       }
 
       setData(parsedData);
@@ -206,7 +205,6 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     values: BulkGradeInput,
     formikHelpers: FormikHelpers<IBulkGradeInput>
   ): Promise<void> => {
-    console.log("si va");
 
     if (!file || data.length === 0 || validationErrors.length > 0) {
       //Mostrar errores
@@ -217,8 +215,9 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     setUploadProgress(0);
     let itemValue = 1;
     data.map(async (item) => {
-      item.evaluationInstrumentId = [...instrumentoSeleccionado][0];
-      item.trainingModuleId = [...moduloSeleccionado][0];
+
+      // item.evaluationInstrumentId = item.
+      // item.trainingModuleId = item.trainingModuleId;
 
       let url = "";
       if (item.evaluationInstrumentId == 1 || item.evaluationInstrumentId == 2)
@@ -229,7 +228,10 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         url = "/training-evaluation/create";
       }
 
+
       try {
+        console.log(item);
+
         const res: AxiosResponse<FetchResponse<IBulkGradeInput>> = await useRequest.post(url, item);
         setUploadProgress((itemValue / data.length) * 100);
         itemValue++;
