@@ -1,10 +1,7 @@
 import { Button, Card, CardHeader, CardBody, Alert, Progress } from "@heroui/react";
-import { Select, SelectItem } from "@heroui/select";
 import useAxios from "@/shared/hooks/useAxios";
-import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { FileText, CheckCircle, AlertCircle } from "lucide-react";
-import { useEvaluationInstrumentsList } from "@/features/evaluationInstrument/hooks/evaluationInstrument/useEvaluationInstrumentList";
-import { useTrainingModulesList } from "@/features/trainingModule/hooks/trainingModule/useTrainingModuleList";
 import { useState, useRef } from "react";
 import { Input } from "@heroui/react";
 import { IBulkGradeInput, BulkGradeInput } from "./type";
@@ -64,17 +61,131 @@ const dateEnableForEntry: DateEntry[] = [
     trainingModuleId: 1,
     maximumDate: new Date(2025, 9, 27),
     cohort: 1
+  },
+  {
+    instrumentId: 1,
+    trainingModuleId: 2,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 2,
+    trainingModuleId: 2,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 3,
+    trainingModuleId: 2,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 4,
+    trainingModuleId: 2,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 5,
+    trainingModuleId: 2,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 1,
+    trainingModuleId: 3,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 2,
+    trainingModuleId: 3,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 3,
+    trainingModuleId: 3,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 4,
+    trainingModuleId: 3,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 5,
+    trainingModuleId: 3,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 1,
+    trainingModuleId: 4,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 2,
+    trainingModuleId: 4,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 3,
+    trainingModuleId: 4,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 4,
+    trainingModuleId: 4,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 5,
+    trainingModuleId: 4,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 1,
+    trainingModuleId: 5,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 2,
+    trainingModuleId: 5,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 3,
+    trainingModuleId: 5,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 4,
+    trainingModuleId: 5,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
+  },
+  {
+    instrumentId: 5,
+    trainingModuleId: 5,
+    maximumDate: new Date(2025, 9, 27),
+    cohort: 1
   }
 ];
 
 const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
   const useRequest = useAxios(true);
-  const { evaluationInstrumentsList } = useEvaluationInstrumentsList();
-  const { trainingModulesList } = useTrainingModulesList();
-  const [instrumentoSeleccionado, setInstrumentoSeleccionado] = useState(new Set([]));
-  const [moduloSeleccionado, setModuloSeleccionado] = useState(new Set([]));
-  const [instrumentName, setInstrumentName] = useState("");
-  const [moduleName, setModuleName] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [data, setData] = useState<ModuleEvaluation[]>([]);
   const [isUploading, setIsUploading] = useState(false);
@@ -84,7 +195,6 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    // if (validateFilteredEntryDates([...instrumentoSeleccionado][0], [...moduloSeleccionado][0])) {
     const selectedFile = event.target.files?.[0];
     if (selectedFile && selectedFile.type === "text/csv") {
       setFile(selectedFile);
@@ -92,11 +202,10 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
       setValidationErrors([]);
       parseCSV(selectedFile);
     } else showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
-    // } else showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
   };
 
   function validateFilteredEntryDates(instrumentId: number, trainingModuleId: number): boolean {
-    // 1. Filter the array based on instrumentId and trainingModuleId
+    // Filter the array based on instrumentId and trainingModuleId, both fields are required
     const filteredEntries = dateEnableForEntry.find(
       (entry) => entry.instrumentId == instrumentId && entry.trainingModuleId == trainingModuleId
     );
@@ -105,20 +214,17 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     if (filteredEntries?.length === 0) {
       showToast(
         String("Notifique al administrador que las fechas de ingreso de notas no han sido recuperadas"),
-        "success"
+        "danger"
       );
       return false;
     }
 
-    // 2. Prepare the currentDate for accurate comparison using hour, minute, seconds
+    // 2. Keep the currentDate for accurate comparison using its hour, minute, seconds
     const currentDate = new Date();
 
     // 3. Prepare maximumDate for accurate comparison, include midnight
-    console.log(new Date(filteredEntries?.maximumDate));
-
     const maxDate = new Date(filteredEntries?.maximumDate);
     maxDate.setHours(23, 59, 59, 0);
-    console.log(currentDate, maxDate);
 
     return currentDate <= maxDate;
   }
@@ -168,16 +274,24 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         };
 
         // Validate grade
-        let gradeValue = Number.parseFloat(row.grade);
+        const gradeValue = Number.parseFloat(row.grade);
         if (isNaN(gradeValue)) {
-          errors.push({ row: i, field: "calificación", message: `La calificación debe ser un número, revisar la línea ${i + 1}` });
+          errors.push({
+            row: i,
+            field: "calificación",
+            message: `La calificación debe ser un número, revisar la línea ${i + 1}`
+          });
         } else {
           evaluation.grade = gradeValue;
         }
 
         // Validate comment
         if (!row.comment || row.comment.trim() === "") {
-          errors.push({ row: i, field: "observaciones", message: `El comentario es requerido, revisar la línea ${i + 1}` });
+          errors.push({
+            row: i,
+            field: "observaciones",
+            message: `El comentario es requerido, revisar la línea ${i + 1}`
+          });
         } else {
           evaluation.comment = row.comment.trim();
         }
@@ -187,16 +301,25 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         evaluation.inscriptionId = i;
         evaluation.evaluationInstrumentId = Number.parseInt(row.instrumentid);
         evaluation.trainingModuleId = Number.parseInt(row.moduleid);
+        //Validate date
+        const isPeriodValid = validateFilteredEntryDates(
+          evaluation.evaluationInstrumentId,
+          evaluation.trainingModuleId
+        );
+
+        if (!isPeriodValid) {
+          errors.push({
+            row: i,
+            field: "Instrumento",
+            message: `En la línea ${i + 1} el archivo incluye una calificación cuyo período de ingreso ha finalizado, para continuar con el procesamiento del archivo es necesario eliminar el registro o confirmar las fechas de ingreso de notas con el administrador del sistema.`
+          });
+          showToast(String("La fecha máxima para ingreso de notas ha sido superada"), "danger");
+        }
         parsedData.push(evaluation);
       }
 
       setData(parsedData);
-
       setValidationErrors(errors);
-
-      if (errors.length > 0) {
-        //Mostrar errores
-      }
     };
     reader.readAsText(file);
   };
@@ -205,7 +328,6 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     values: BulkGradeInput,
     formikHelpers: FormikHelpers<IBulkGradeInput>
   ): Promise<void> => {
-
     if (!file || data.length === 0 || validationErrors.length > 0) {
       //Mostrar errores
       return;
@@ -215,10 +337,6 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     setUploadProgress(0);
     let itemValue = 1;
     data.map(async (item) => {
-
-      // item.evaluationInstrumentId = item.
-      // item.trainingModuleId = item.trainingModuleId;
-
       let url = "";
       if (item.evaluationInstrumentId == 1 || item.evaluationInstrumentId == 2)
         url = "/module-evaluation/create";
@@ -228,10 +346,7 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
         url = "/training-evaluation/create";
       }
 
-
       try {
-        console.log(item);
-
         const res: AxiosResponse<FetchResponse<IBulkGradeInput>> = await useRequest.post(url, item);
         setUploadProgress((itemValue / data.length) * 100);
         itemValue++;
@@ -239,15 +354,7 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
 
         showToast(String(resultData.message), "success");
 
-        if (
-          resultData.statusCode === HttpStatusCode.Created ||
-          resultData.statusCode === HttpStatusCode.Ok
-        ) {
-          // /* eslint-disable @typescript-eslint/no-explicit-any */
-          // const newData: IAttendanceCreated = resultData.data as any;
-          // /* eslint-enable @typescript-eslint/no-explicit-any */
-          // setDataAttendance(newData);
-        }
+        return resultData;
       } catch (error) {
         handleFormikResponseError<IBulkGradeInput>(error as AxiosError, formikHelpers!);
       }
@@ -263,84 +370,13 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-  }
-
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  const handleEvaluationInstrumentChange = (keys: any): void => {
-    setInstrumentoSeleccionado(keys);
-
-    // Convert the Set of keys to an array to get the first selected key
-    const selectedKey = Array.from(keys)[0];
-
-    // Find the instrument object from the list using the selected key
-    const selectedInstrument = evaluationInstrumentsList.find(
-      (instrument) => instrument.id === Number(selectedKey)
-    );
-
-    // Update the instrumentName state if an instrument is found
-    if (selectedInstrument) {
-      setInstrumentName(selectedInstrument.instrumentName);
-    } else {
-      // Clear the name if no instrument is selected
-      setInstrumentName("");
-    }
   };
-
-  const handleTrainingModuleChange = (keys: any): void => {
-    setModuloSeleccionado(keys);
-
-    // Convert the Set of keys to an array to get the first selected key
-    const selectedKey = Array.from(keys)[0];
-
-    // Find the instrument object from the list using the selected key
-    const selectedModule = trainingModulesList.find((module) => module.id === Number(selectedKey));
-
-    // Update the instrumentName state if an instrument is found
-    if (selectedModule) {
-      setModuleName(selectedModule.moduleName);
-    } else {
-      // Clear the name if no instrument is selected
-      setModuleName("");
-    }
-  };
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   return (
     <div className="flex items-center gap-2">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <Card>
           <CardBody>
-            <div className="flex flex-col md:flex-row gap-4 mb-6 w-full xs:w-1/2">
-              <Select
-                placeholder="Seleccionar instrumento"
-                variant="bordered"
-                selectedKeys={instrumentoSeleccionado}
-                onSelectionChange={handleEvaluationInstrumentChange}
-              >
-                {evaluationInstrumentsList
-                  ?.sort((a, b) => a.instrumentName.localeCompare(b.instrumentName))
-                  ?.map((instrument) => (
-                    <SelectItem key={instrument.id} textValue={instrument.instrumentName}>
-                      {instrument.instrumentName}
-                    </SelectItem>
-                  ))}
-              </Select>
-              <Select
-                placeholder="Seleccionar módulo"
-                variant="bordered"
-                selectedKeys={moduloSeleccionado}
-                onSelectionChange={handleTrainingModuleChange}
-              >
-                {trainingModulesList
-                  ?.sort((a, b) => a.moduleName.localeCompare(b.moduleName))
-                  ?.map((trainingModule) => (
-                    <SelectItem key={trainingModule.id} textValue={trainingModule.moduleName}>
-                      {trainingModule.moduleName}
-                    </SelectItem>
-                  ))}
-              </Select>
-            </div>
-
             <div className="space-y-6">
               <Card>
                 <CardHeader>
@@ -388,20 +424,19 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
                       <AlertCircle className="h-4 w-4" />
                     </Alert>
                   )}
-
-                  <Button
-                    isDisabled={!file || data.length === 0 || validationErrors.length > 0 || isUploading}
-                    className="w-full"
-                    onClick={handleUpload}
-                  >
-                    {isUploading ? "Leyendo el archivo..." : "Almacenar archivo"}
-                  </Button>
                   <Button
                     isDisabled={validationErrors.length == 0}
                     className="w-full"
                     onClick={handleReUpload}
                   >
                     Intentar de nuevo
+                  </Button>
+                  <Button
+                    isDisabled={!file || data.length === 0 || validationErrors.length > 0 || isUploading}
+                    className="w-full"
+                    onClick={handleUpload}
+                  >
+                    {isUploading ? "Leyendo el archivo..." : "Almacenar archivo"}
                   </Button>
                 </CardBody>
               </Card>
@@ -410,7 +445,9 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
                 <Card>
                   <CardHeader>
                     <h4 className="pb-6">
-                      <p className="text-xl text-justify">Errores, por favor corregirlos antes de intentarlo de nuevo.</p>
+                      <p className="text-xl text-justify">
+                        Errores, por favor corregirlos antes de intentarlo de nuevo.
+                      </p>
                     </h4>
                   </CardHeader>
                   <CardBody>
@@ -425,14 +462,16 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
 
               {data.length > 0 && validationErrors.length === 0 && (
                 <h4 className="pb-6">
-                  <p className="text-xl text-justify">El archivo proporcionado es válido, se procesarán {data.length} registros</p>
+                  <p className="text-xl text-justify">
+                    El archivo proporcionado es válido, se procesarán {data.length} registros
+                  </p>
                 </h4>
               )}
             </div>
           </CardBody>
         </Card>
       </div>
-    </div >
+    </div>
   );
 };
 
