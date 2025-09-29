@@ -8,7 +8,7 @@ import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Attachment2Input = {
   educationalLevelServed: "",
-  childrenAge: "",
+  //childrenAge: "",
   yearsExperiencie: "",
   initialTraining: "",
   hasRecentlyParticipated: "",
@@ -36,7 +36,7 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
     formikHelpers: FormikHelpers<IAttachment2Input>
   ): Promise<void> => {
     const educationalLevelServedField = values.educationalLevelServed;
-    const childrenAgeField = values.childrenAge;
+    //const childrenAgeField = values.childrenAge;
     const yearsExperiencieField = values.yearsExperiencie;
     const initialTrainingField = values.initialTraining;
     const hasRecentlyParticipatedField = values.hasRecentlyParticipated;
@@ -64,13 +64,13 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
         teacherRoleId: 1,
         mentorRoleId: 2
       },
-      {
-        name: nameField,
-        textQuestion: "Edad de los niños y niñas",
-        textAnswer: childrenAgeField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
+      // {
+      //   name: nameField,
+      //   textQuestion: "Edad de los niños y niñas",
+      //   textAnswer: childrenAgeField,
+      //   teacherRoleId: 1,
+      //   mentorRoleId: 2
+      // },
       {
         name: nameField,
         textQuestion: "Años de experiencia docente",

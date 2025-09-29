@@ -33,12 +33,18 @@ export const dataList = [
   { name: "initialTraining", key: "Otros", label: "Otros" },
   { name: "levelOfPractice", key: "Necesito apoyo", label: "Necesito apoyo" },
   { name: "levelOfPractice", key: "En desarrollo", label: "En desarrollo" },
-  { name: "levelOfPractice", key: "Me siento competente", label: "Me siento competente" }
+  { name: "levelOfPractice", key: "Me siento competente", label: "Me siento competente" },
+  { name: "educationalLevelServed", key: "Inicial 3", label: "Inicial 3" },
+  { name: "educationalLevelServed", key: "Parvularia 4", label: "Parvularia 4" },
+  { name: "educationalLevelServed", key: "Parvulario 5", label: "Parvulario 5" },
+  { name: "educationalLevelServed", key: "Parvularia 6", label: "Parvularia 6" },
+  { name: "educationalLevelServed", key: "Primer grado", label: "Primer grado" },
 ];
 
 const experienceList = dataList.filter((item) => item.name === "experiencie");
 const initialTrainingList = dataList.filter((item) => item.name === "initialTraining");
 const levelOfPracticeList = dataList.filter((item) => item.name === "levelOfPractice");
+const educationLevelServedList = dataList.filter((item) => item.name === "educationalLevelServed");
 
 type Attachment2FormProps = {
   formik: FormikProps<IAttachment2Input>;
@@ -84,8 +90,65 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
               <h3 className="pb-6">
                 <p className="text-xl text-justify">I. Datos generales del docente</p>
               </h3>
+
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <RadioGroup label="Escoja el turno">
+                    <Radio value="A.M.">A.M.</Radio>
+                    <Radio value="P.M.">P.M.</Radio>
+                  </RadioGroup>
+                </div>
+
+                <div className="space-y-2">
+                  <Select
+                    items={educationLevelServedList}
+                    {...getFieldProps("educationalLevelServed")}
+                    {...getInputProps(
+                      "educationalLevelServed",
+                      "Nivel educativo que atiende: ",
+                      touched.educationalLevelServed,
+                      errors.educationalLevelServed
+                    )}
+                  >
+                    {(item) => <SelectItem>{item.label}</SelectItem>}
+                  </Select>
+                </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("hasRecentlyParticipatedDetail")}
+                    {...getInputProps(
+                      "hasRecentlyParticipatedDetail",
+                      "Cantidad de niñas",
+                      touched.hasRecentlyParticipatedDetail,
+                      errors.hasRecentlyParticipatedDetail,
+                    )}
+                  />
+                </div>
+
+
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("hasRecentlyParticipatedDetail")}
+                    {...getInputProps(
+                      "hasRecentlyParticipatedDetail",
+                      "Cantidad de niños",
+                      touched.hasRecentlyParticipatedDetail,
+                      errors.hasRecentlyParticipatedDetail,
+                    )}
+                  />
+                </div>
+              </div>
+
+
               <div className="space-y-3">
-                <Input
+
+
+                <Select
+                  items={educationLevelServedList}
                   {...getFieldProps("educationalLevelServed")}
                   {...getInputProps(
                     "educationalLevelServed",
@@ -93,9 +156,11 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                     touched.educationalLevelServed,
                     errors.educationalLevelServed
                   )}
-                />
+                >
+                  {(item) => <SelectItem>{item.label}</SelectItem>}
+                </Select>
               </div>
-              <div className="space-y-3">
+              {/* <div className="space-y-3">
                 <Input
                   {...getFieldProps("childrenAge")}
                   {...getInputProps(
@@ -105,7 +170,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                     errors.childrenAge
                   )}
                 />
-              </div>
+              </div> */}
               <div className="space-y-3">
                 <Select
                   items={experienceList}

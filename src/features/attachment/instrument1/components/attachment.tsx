@@ -125,7 +125,7 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
               <ol>
                 <li>Acompañar el proceso con respeto, confidencialidad y actitud de escucha.</li>
                 <li>Generar un ambiente de confianza y apoyo profesional.</li>
-                <li>Brindar orientación opoprtuna, contextualizada y constructiva.</li>
+                <li>Brindar orientación oportuna, contextualizada y constructiva.</li>
                 <li>Planificar junto con el/la docente el proceso de mejora continua.</li>
                 <li>Sistematizar y documentar los avances del proceso.</li>
                 <li>Promover la autonomía y el desarrollo profesional del/la docente.</li>

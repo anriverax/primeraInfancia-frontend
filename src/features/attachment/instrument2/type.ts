@@ -2,7 +2,7 @@ import { AxiosMessage } from "@/shared/types/globals";
 
 export interface Attachment2Input {
   educationalLevelServed: string;
-  childrenAge: string;
+  //childrenAge: string;
   yearsExperiencie: string;
   initialTraining: string;
   hasRecentlyParticipated: string;

@@ -16,6 +16,7 @@ const LucideIconRenderer = dynamic(
 const TrainerView = (): React.JSX.Element => {
   const useRequest = useAxios(true);
   const { appendixsList } = useAppendixList();
+console.log(appendixsList);
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
@@ -41,7 +42,7 @@ const TrainerView = (): React.JSX.Element => {
                     <div
                       className={`inline-flex items?-center px-3 py-1 rounded-full text-xs font-medium border ${item?.color}`}
                     >
-                      {item?.periodicity} • {item?.color}
+                      {item?.periodicity} • {item?.title}
                     </div>
                     {/* Indicador de la realización */}
                   </div>
@@ -53,7 +54,7 @@ const TrainerView = (): React.JSX.Element => {
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-card-foreground text-balance leading-tight mb-2">
-                        {item?.title}
+                        {item?.subTitle}
                       </h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {truncateText(item?.description, 94)}
@@ -79,7 +80,7 @@ const TrainerView = (): React.JSX.Element => {
           );
         })}
       </div>
-      <TrainerDetailView />
+      {/* <TrainerDetailView /> */}
     </div>
   );
 };

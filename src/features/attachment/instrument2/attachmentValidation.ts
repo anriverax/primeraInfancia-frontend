@@ -5,7 +5,7 @@ import { stringField } from "@/shared/utils/funtions";
 
 export const attachment2Schema: ObjectSchema<Attachment2Input> = object({
   educationalLevelServed: stringField(validationMessages.required),
-  childrenAge: stringField(validationMessages.required),
+  //childrenAge: stringField(validationMessages.required),
   yearsExperiencie: stringField(validationMessages.required),
   initialTraining: stringField(validationMessages.required),
   hasRecentlyParticipated: stringField(validationMessages.required),
