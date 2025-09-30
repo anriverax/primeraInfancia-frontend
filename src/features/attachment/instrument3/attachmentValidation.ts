@@ -9,7 +9,7 @@ export const attachment3Schema: ObjectSchema<Attachment3Input> = object({
   goal: stringField(validationMessages.required),
   activities: stringField(validationMessages.required),
   resources: stringField(validationMessages.required),
-  time: stringField(validationMessages.required),
+  tempo: stringField(validationMessages.required),
   successIndicators: stringField(validationMessages.required),
   levelAchievement: stringField(validationMessages.required),
   classrromObservations: stringField(validationMessages.required),

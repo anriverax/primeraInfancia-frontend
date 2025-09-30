@@ -12,7 +12,7 @@ const initialValues: Attachment3Input = {
   goal: "",
   activities: "",
   resources: "",
-  time: "",
+  tempo: "",
   successIndicators: "",
   levelAchievement: "",
   classrromObservations: "",
@@ -23,15 +23,6 @@ const initialValues: Attachment3Input = {
   portfolioReview: "",
   analysisEvidence: "",
   other: "",
-  resourceList: "",
-  expectedIndicators: "",
-  reviewFrecuency: "",
-  adjustedPlan: "",
-  teachingPortfolio: "",
-  observationRecords: "",
-  otherEvidence: "",
-  improveAspects: "",
-  proposals: ""
 };
 
 const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
@@ -46,7 +37,7 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
     const goalField = values.goal;
     const activitiesField = values.activities;
     const resourcesField = values.resources;
-    const timeField = values.time;
+    const timeField = values.tempo;
     const successIndicatorsField = values.successIndicators;
     const levelAchievementField = values.levelAchievement;
     const classrromObservationsField = values.classrromObservations;
@@ -57,16 +48,7 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
     const portfolioReviewField = values.portfolioReview;
     const analysisEvidenceField = values.analysisEvidence;
     const otherField = values.other;
-    const resourceListField = values.resourceList;
-    const expectedIndicatorsField = values.expectedIndicators;
-    const reviewFrecuencyField = values.reviewFrecuency;
-    const adjustedPlanField = values.adjustedPlan;
-    const teachingPortfolioField = values.teachingPortfolio;
-    const observationRecordsField = values.observationRecords;
-    const otherEvidenceField = values.otherEvidence;
-    const improveAspectsField = values.improveAspects;
-    const proposalsField = values.proposals;
-
+    
     const nameField = "Anexo 3";
     const data = [
       {
@@ -178,71 +160,6 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
         name: nameField,
         textQuestion: "Otras:",
         textAnswer: otherField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion:
-          "¿Qué materiales, espacios o apoyos se requerirán para llevar a cabo las acciones planificadas?",
-        textAnswer: resourceListField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Indicadores de progreso esperados",
-        textAnswer: expectedIndicatorsField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Frecuencia de revisión:",
-        textAnswer: reviewFrecuencyField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Planificaciones ajustadas",
-        textAnswer: adjustedPlanField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Portafolio docente",
-        textAnswer: teachingPortfolioField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Registros de observación",
-        textAnswer: observationRecordsField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Otros:",
-        textAnswer: otherEvidenceField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion:
-          "¿Qué aspectos pueden ser fortalecidos o ajustados para mejorar la práctica docente?",
-        textAnswer: improveAspectsField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Propuestas concretas para avanzar en la mejora continua.",
-        textAnswer: proposalsField,
         teacherRoleId: 1,
         mentorRoleId: 2
       }

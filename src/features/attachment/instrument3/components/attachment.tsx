@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileText, Save, StepBack } from "lucide-react";
+import { FileText, Save, StepBack, Trash2 } from "lucide-react";
 import {
   Button,
   Input,
@@ -11,7 +11,8 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
+  ModalFooter, Select, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,
+  SelectItem, DatePicker,
   useDisclosure
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
@@ -21,12 +22,14 @@ import Link from "next/link";
 
 interface DimensionDetailData {
   id: string
-  shift: string
-  section: string
-  girlNumber: number
-  boyNumber: number
-  girlDisabilityNumber: number
-  boyDisabilityNumber: number
+  dimension: string
+  subdimension: string
+  goal: string
+  activities: string
+  resources: string
+  tempo: string
+  successIndicators: string
+  levelAchievement: string
 }
 
 export const dataList = [
@@ -58,7 +61,7 @@ export const dataList = [
       }]
   },
   {
-    name: "dimension", key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia",sub: [
+    name: "dimension", key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia", sub: [
       {
         key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible"
       }, {
@@ -67,61 +70,82 @@ export const dataList = [
         key: "Desarrollo socioemocional, colaboración y valores", label: "Desarrollo socioemocional, colaboración y valores"
       },]
   },
-  { name: "dimension", key: "Integración de las familias en los procesos de desarrollo y aprendizjae", label: "Integración de las familias en los procesos de desarrollo y aprendizjae" ,sub: [
+  {
+    name: "dimension", key: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias", label: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias", sub: [
       {
-        key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible"
+        key: "Integración de las familias en los procesos de desarrollo y aprendizaje", label: "Integración de las familias en los procesos de desarrollo y aprendizaje"
       }, {
-        key: "Comunicación positiva, atención y respeto", label: "Comunicación positiva, atención y respeto"
+        key: "Acompañamiento docente a las familias", label: "Acompañamiento docente a las familias"
       }, {
-        key: "Desarrollo socioemocional, colaboración y valores", label: "Desarrollo socioemocional, colaboración y valores"
-      },]},
-  { name: "dimension", key: "Más de 10 años", label: "Más de 10 años" },
+        key: "Participación del docente en el modelo de atención integral", label: "Participación del docente en el modelo de atención integral"
+      }]
+  },
+  {
+    name: "dimension", key: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnologógicos", label: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnologógicos", sub: [
+      {
+        key: "Trabajo cooperativo y en equipo", label: "Trabajo cooperativo y en equipo"
+      }, {
+        key: "Aula y recursos virtuales", label: "Aula y recursos virtuales"
+      }, {
+        key: "Aula y recursos virtuales", label: "Aula y recursos virtuales"
+      }
+    ]
+  },
 ]
+
+const dimensionList = dataList.filter((item) => item.name === "dimension");
+
 type Attachment3FormProps = {
   formik: FormikProps<IAttachment3Input>;
 };
 
 const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element => {
-  const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { getInputProps } = useCustomFormFields();
 
   const [formData, setFormData] = useState({
-    shift: "",
-    section: "",
-    girlNumber: 0,
-    boyNumber: 0,
-    girlDisabilityNumber: 0,
-    boyDisabilityNumber: 0,
+    dimension: "",
+    subdimension: "",
+    goal: "",
+    activities: "",
+    resources: "",
+    tempo: "",
+    successIndicators: "",
+    levelAchievement: "",
   })
   const [dimensionDetailEntries, setDimensionDetailEntries] = useState<DimensionDetailData[]>([])
 
   const handleDetailTeacher = () => {
-    // if (!values.shift || !values.section) {
-    //   showToast(String("Por favor complete los campos obligatorios: Turno y Sección"), "danger");
+    // if (!values.dimension || !values.subdimension) {
+    //   showToast(String("Por favor complete los campos obligatorios"), "danger");
     //   return
     // }
 
     const newEntry: DimensionDetailData = {
       id: dimensionDetailEntries.length.toString(),
-      shift: values.shift,
-      section: values.section,
-      girlNumber: values.girlNumber,
-      boyNumber: values.boyNumber,
-      girlDisabilityNumber: values.girlDisabilityNumber,
-      boyDisabilityNumber: values.boyDisabilityNumber,
+      dimension: values.dimension,
+      subdimension: values.subdimension,
+      goal: values.goal,
+      activities: values.activities,
+      resources: values.resources,
+      tempo: values.tempo,
+      successIndicators: values.successIndicators,
+      levelAchievement: values.levelAchievement,
     }
 
     setDimensionDetailEntries((prev) => [...prev, newEntry])
 
     setFormData({
-      shift: "",
-      section: "",
-      girlNumber: 0,
-      boyNumber: 0,
-      girlDisabilityNumber: 0,
-      boyDisabilityNumber: 0,
+      dimension: "",
+      subdimension: "",
+      goal: "",
+      activities: "",
+      resources: "",
+      tempo: "",
+      successIndicators: "",
+      levelAchievement: "",
     })
   }
 
@@ -142,6 +166,15 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
     onOpenChange();
   };
   /* eslint-enable @typescript-eslint/explicit-function-return-type */
+
+  // Find the selected dimension object from dataList
+  const selectedDimension = dataList.find(
+    (item) => item.key === values.dimension
+  );
+
+  // Get the subdimension list or empty array
+  const subdimensionList = selectedDimension?.sub ?? [];
+
   return (
     <div className="flex justify-center">
       <div className="w-3/4 space-y-8">
@@ -164,13 +197,13 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Select
-                    items={ampmList}
-                    {...getFieldProps("shift")}
+                    items={dimensionList}
+                    {...getFieldProps("dimension")}
                     {...getInputProps(
-                      "shift",
-                      "Turno: ",
-                      touched.shift,
-                      errors.shift
+                      "dimension",
+                      "Dimensión: ",
+                      touched.dimension,
+                      errors.dimension
                     )}
                   >
                     {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -178,13 +211,13 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                 </div>
                 <div className="space-y-2">
                   <Select
-                    items={educationLevelServedList}
-                    {...getFieldProps("section")}
+                    items={subdimensionList}
+                    {...getFieldProps("subdimension")}
                     {...getInputProps(
-                      "section",
-                      "Nivel educativo que atiende: ",
-                      touched.section,
-                      errors.section
+                      "subdimension",
+                      "Sub dimensión: ",
+                      touched.subdimension,
+                      errors.subdimension
                     )}
 
                   >
@@ -196,50 +229,82 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Input
-                    {...getFieldProps("girlNumber")}
+                    {...getFieldProps("goal")}
                     {...getInputProps(
-                      "girlNumber",
-                      "Total de niñas atendidos",
-                      touched.girlNumber,
-                      errors.girlNumber
+                      "goal",
+                      "Objetivos",
+                      touched.goal,
+                      errors.goal
                     )}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Input
-                    {...getFieldProps("boyNumber")}
+                    {...getFieldProps("activities")}
                     {...getInputProps(
-                      "boyNumber",
-                      "Total de niños atendidos",
-                      touched.boyNumber,
-                      errors.boyNumber
+                      "activities",
+                      "Actividades",
+                      touched.activities,
+                      errors.activities
                     )}
                   />
+                  {/* <DatePicker  {...getFieldProps("activities")}
+                   {...getInputProps(
+                      "activities",
+                      "Actividades",
+                      touched.activities,
+                      errors.activities
+                    )}
+                   /> */}
                 </div>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Input
-                    {...getFieldProps("girlDisabilityNumber")}
+                    {...getFieldProps("resources")}
                     {...getInputProps(
-                      "girlDisabilityNumber",
-                      "Cantidad de niñas con discapacidad diagnosticada",
-                      touched.girlDisabilityNumber,
-                      errors.girlDisabilityNumber
+                      "resources",
+                      "Recursos",
+                      touched.resources,
+                      errors.resources
                     )}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Input
-                    {...getFieldProps("boyDisabilityNumber")}
+                    {...getFieldProps("tempo")}
                     {...getInputProps(
-                      "boyDisabilityNumber",
-                      "Cantidad de niños con discapacidad diagnosticada",
-                      touched.boyDisabilityNumber,
-                      errors.boyDisabilityNumber
+                      "tempo",
+                      "Temporización",
+                      touched.tempo,
+                      errors.tempo
+                    )}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("successIndicators")}
+                    {...getInputProps(
+                      "successIndicators",
+                      "Indicadores de éxito",
+                      touched.successIndicators,
+                      errors.successIndicators
+                    )}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("levelAchievement")}
+                    {...getInputProps(
+                      "levelAchievement",
+                      "Nivel de logro (del 1 al 10)",
+                      touched.levelAchievement,
+                      errors.levelAchievement
                     )}
                   />
                 </div>
@@ -256,30 +321,27 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                   <div className="overflow-x-auto">
                     <Table aria-label="Example table with dynamic content">
                       <TableHeader>
-                        <TableColumn>Turno</TableColumn>
-                        <TableColumn>Sección</TableColumn>
-                        <TableColumn>Niñas</TableColumn>
-                        <TableColumn>Niños</TableColumn>
-                        <TableColumn>Niñas con <br />discapacidad diagnosticada</TableColumn>
-                        <TableColumn>Niños con <br />discapacidad diagnosticada</TableColumn>
-                        <TableColumn>Total</TableColumn>
+                        <TableColumn>Dimensión</TableColumn>
+                        <TableColumn>Sub dimensión</TableColumn>
+                        <TableColumn>Objetivos</TableColumn>
+                        <TableColumn>Actividades</TableColumn>
+                        <TableColumn>Recursos</TableColumn>
+                        <TableColumn>Temporización</TableColumn>
+                        <TableColumn>Indicadores de éxito</TableColumn>
+                        <TableColumn>Nivel de logro</TableColumn>
                         <TableColumn>Acción</TableColumn>
-
                       </TableHeader>
                       <TableBody items={dimensionDetailEntries}>
                         {(item) => (
                           <TableRow key={item.id}>
-                            <TableCell>{item.shift}</TableCell>
-                            <TableCell>{item.section}</TableCell>
-                            <TableCell>{item.girlNumber}</TableCell>
-                            <TableCell>{item.boyNumber}</TableCell>
-                            <TableCell>{item.girlDisabilityNumber}</TableCell>
-                            <TableCell>{item.boyDisabilityNumber}</TableCell>
-                            <TableCell>
-                              <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-secondary text-secondary-foreground">
-                                {getClasificacion(item)}
-                              </span>
-                            </TableCell>
+                            <TableCell>{item.dimension}</TableCell>
+                            <TableCell>{item.subdimension}</TableCell>
+                            <TableCell>{item.goal}</TableCell>
+                            <TableCell>{item.activities}</TableCell>
+                            <TableCell>{item.resources}</TableCell>
+                            <TableCell>{item.tempo}</TableCell>
+                            <TableCell>{item.successIndicators}</TableCell>
+                            <TableCell>{item.levelAchievement}</TableCell>
                             <TableCell>
                               <Button
                                 variant="ghost"
@@ -300,102 +362,15 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
               <hr />
 
               <h3 className="pb-6">
-                <p className="text-xl text-justify">I. DATOS GENERALES</p>
-              </h3>
-              <Input
-                {...getFieldProps("startDate")}
-                {...getInputProps(
-                  "startDate",
-                  "Fecha de inicio del acompañamiento",
-                  touched.startDate,
-                  errors.startDate
-                )}
-              />
-              <h3 className="pb-6">
-                <p className="text-xl text-justify">II. OBJETIVOS DEL ACOMPAÑAMIENTO</p>
-              </h3>
-              <Input
-                {...getFieldProps("goalList")}
-                {...getInputProps(
-                  "goalList",
-                  "Describa brevemente los aspectos clave observados durante la clase o actividad.",
-                  touched.goalList,
-                  errors.goalList
-                )}
-              />
-              <h3 className="pb-6">
-                <p className="text-xl text-justify">III. ÁREAS PRIORITARIAS DE TRABAJO</p>
-              </h3>
-              <Input
-                {...getFieldProps("workArea")}
-                {...getInputProps("workArea", "Área de trabajo", touched.workArea, errors.workArea)}
-              />
-              <Input
-                {...getFieldProps("justification")}
-                {...getInputProps(
-                  "justification",
-                  "Justificación",
-                  touched.justification,
-                  errors.justification
-                )}
-              />
-              <Input
-                {...getFieldProps("priorityLevel")}
-                {...getInputProps(
-                  "priorityLevel",
-                  "Nivel de prioridad",
-                  touched.priorityLevel,
-                  errors.priorityLevel
-                )}
-              />
-              <h3 className="pb-6">
-                <p className="text-xl text-justify">IV. ACTIVIDADES PLANIFICADAS</p>
-              </h3>
-              <Input
-                {...getFieldProps("plannedDate")}
-                {...getInputProps("plannedDate", "Fecha", touched.plannedDate, errors.plannedDate)}
-              />
-              <Input
-                {...getFieldProps("activity")}
-                {...getInputProps("activity", "Actividad", touched.activity, errors.activity)}
-              />
-              <Input
-                {...getFieldProps("mode")}
-                {...getInputProps("mode", "Modalidad", touched.mode, errors.mode)}
-              />
-              <Input
-                {...getFieldProps("responsible")}
-                {...getInputProps("responsible", "Responsable", touched.responsible, errors.responsible)}
-              />
-
-              <Input
-                {...getFieldProps("observations")}
-                {...getInputProps(
-                  "observations",
-                  "Observaciones",
-                  touched.observations,
-                  errors.observations
-                )}
-              />
-              <h3 className="pb-6">
                 <p className="text-xl text-justify">V. ESTRATEGIAS DE ACOMPAÑAMIENTO</p>
               </h3>
               <Input
                 {...getFieldProps("classrromObservations")}
                 {...getInputProps(
                   "classrromObservations",
-                  "Observación de experiencia de desarrollo y aprendizaje de clases",
+                  "Observación de aula",
                   touched.classrromObservations,
                   errors.classrromObservations
-                )}
-              />
-              <Input
-                {...getFieldProps("observationRoutine")}
-                {...getInputProps(
-                  "observationRoutine",
-                  "Observación de la rutina",
-                  touched.observationRoutine,
-                  errors.observationRoutine
                 )}
               />
               <Input
@@ -411,7 +386,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                 {...getFieldProps("modelingPractices")}
                 {...getInputProps(
                   "modelingPractices",
-                  "Modelado de prácticas",
+                  "Modelaje pedagógico",
                   touched.modelingPractices,
                   errors.modelingPractices
                 )}
@@ -420,7 +395,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                 {...getFieldProps("coPlanningActivities")}
                 {...getInputProps(
                   "coPlanningActivities",
-                  "Co-planificación de actividades",
+                  "Co-planificación",
                   touched.coPlanningActivities,
                   errors.coPlanningActivities
                 )}
@@ -438,7 +413,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                 {...getFieldProps("analysisEvidence")}
                 {...getInputProps(
                   "analysisEvidence",
-                  "Análisis de evidencias de aprendizaje",
+                  "Análisis de materiales pedagógicos",
                   touched.analysisEvidence,
                   errors.analysisEvidence
                 )}
@@ -446,97 +421,6 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
               <Input
                 {...getFieldProps("other")}
                 {...getInputProps("other", "Otras:", touched.other, errors.other)}
-              />
-              <h3 className="pb-6">
-                <p className="text-xl text-justify">VI. RECURSOS NECESARIOS</p>
-              </h3>
-              <Input
-                {...getFieldProps("resourceList")}
-                {...getInputProps(
-                  "resourceList",
-                  "¿Qué materiales, espacios o apoyos se requerirán para llevar a cabo las acciones planificadas?",
-                  touched.resourceList,
-                  errors.resourceList
-                )}
-              />
-              <h3 className="pb-6">
-                <p className="text-xl text-justify">VII. CRITERIOS DE SEGUIMIENTO Y EVALUACIÓN</p>
-              </h3>
-              <Input
-                {...getFieldProps("expectedIndicators")}
-                {...getInputProps(
-                  "expectedIndicators",
-                  "Indicadores de progreso esperados",
-                  touched.expectedIndicators,
-                  errors.expectedIndicators
-                )}
-              />
-              <Input
-                {...getFieldProps("reviewFrecuency")}
-                {...getInputProps(
-                  "reviewFrecuency",
-                  "Frecuencia de revisión",
-                  touched.reviewFrecuency,
-                  errors.reviewFrecuency
-                )}
-              />
-              <h3 className="pb-6">
-                <p className="text-xl text-justify">Evidencias que recopilar:</p>
-              </h3>
-              <Input
-                {...getFieldProps("adjustedPlan")}
-                {...getInputProps(
-                  "adjustedPlan",
-                  "Planificaciones ajustadas",
-                  touched.adjustedPlan,
-                  errors.adjustedPlan
-                )}
-              />
-              <Input
-                {...getFieldProps("teachingPortfolio")}
-                {...getInputProps(
-                  "teachingPortfolio",
-                  "Portafolio docente",
-                  touched.teachingPortfolio,
-                  errors.teachingPortfolio
-                )}
-              />
-              <Input
-                {...getFieldProps("observationRecords")}
-                {...getInputProps(
-                  "observationRecords",
-                  "Registros de observación",
-                  touched.observationRecords,
-                  errors.observationRecords
-                )}
-              />
-              <Input
-                {...getFieldProps("otherEvidence")}
-                {...getInputProps(
-                  "otherEvidence",
-                  "Otros:",
-                  touched.otherEvidence,
-                  errors.otherEvidence
-                )}
-              />
-
-              <Input
-                {...getFieldProps("improveAspects")}
-                {...getInputProps(
-                  "improveAspects",
-                  "¿Qué aspectos pueden ser fortalecidos o ajustados para mejorar la práctica docente?",
-                  touched.improveAspects,
-                  errors.improveAspects
-                )}
-              />
-              <Input
-                {...getFieldProps("proposals")}
-                {...getInputProps(
-                  "proposals",
-                  "Propuestas concretas para avanzar en la mejora continua.",
-                  touched.proposals,
-                  errors.proposals
-                )}
               />
             </CardBody>
           </Card>
