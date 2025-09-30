@@ -29,10 +29,7 @@ export interface ISchoolsFiltersResponse {
   nip: number;
   experience: IGroupCount[];
   educationalLevel: IGroupCount[];
-  total: {
-    school: number;
-    teacher: ITeacherStatus;
-  };
+  totalTeacher: ITeacherStatus;
 }
 
 export type ICareerColumnKey = "label" | "count";

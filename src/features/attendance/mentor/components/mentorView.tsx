@@ -1,143 +1,123 @@
-import { Button, RadioGroup, Radio, Select, SelectItem } from "@heroui/react";
+import { Button, RadioGroup, Radio, Select, SelectItem, Textarea, Input } from "@heroui/react";
 import { useAttendanceList } from "../../hook/useAttendanceList";
-import { IEvent } from "../../attendance.type";
+import { IEvent, TeachersAssignmentMentor } from "../../attendance.type";
 import { useAttendanceForm } from "../../hook/useAttendanceForm";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import { CheckCircle } from "lucide-react";
-import { useSession } from "next-auth/react";
-import { useMemo } from "react";
-import ListTeacher from "./listTeacher";
 import { useMentor } from "../../hook/useMentor";
-import { AttendanceEnum } from "@/shared/constants";
+import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
 
 const MentorView = (): React.JSX.Element => {
-  const { eventList, attendance } = useAttendanceList();
-  const formik = useAttendanceForm(attendance ? attendance.id : 0);
-  const { data: session } = useSession();
+  const assignmentList = useAttendanceList();
+  const formik = useAttendanceForm(0);
   useMentor();
-  const { values, touched, errors, getFieldProps, handleSubmit } = formik;
-  const { getSelectProps } = useCustomFormFields();
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  const attendanceDetails = useMemo(() => {
-    if (attendance) {
-      return (
-        <div className="bg-white border border-blue-100">
-          <div className="p-6 flex items-center gap-2 bg-blue-50 text-blue-500">
-            <CheckCircle className="h-5 w-5" />
-            <h3 className="text-2xl font-semibold">Información</h3>
-          </div>
-          <ul className="p-6 space-y-4 grid grid-cols-2">
-            <li>
-              <p className="font-bold">Evento</p>
-              <span>{attendance.Event?.name}</span>
-            </li>
-            <li>
-              <p className="font-bold">Formador</p>
-              {session ? <span>{session.user.name}</span> : <span>Cargando...</span>}
-            </li>
-            <li>
-              <p className="font-bold">Inicio de Jornada</p>
-              <span>{attendance.checkIn}</span>
-            </li>
-            <li>
-              <p className="font-bold">Finalización de Jornada</p>
-              {attendance.checkOut ? (
-                <span>{attendance.checkIn}</span>
-              ) : (
-                <Button fullWidth color="secondary" onPress={() => handleSubmit()}>
-                  Finalizar Jornada
-                </Button>
-              )}
-            </li>
-          </ul>
-        </div>
-      );
-    }
-  }, [attendance, session]);
-  /* eslint-enable react-hooks/exhaustive-deps */
+  const { values, touched, errors, getFieldProps, handleSubmit, setFieldValue } = formik;
+  const { getSelectProps, getTextAreaProps, getInputProps } = useCustomFormFields();
 
   return (
     <div className="flex justify-center xl:gap-6">
-      {!attendance && (
+      {assignmentList !== undefined && (
         <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-1/2">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <Select
-              items={eventList ? eventList : []}
+              items={assignmentList.events}
               {...getSelectProps(
                 "Evento",
                 "Seleccione un evento",
-                eventList ? eventList.length : 0,
+                assignmentList.events.length || 0,
                 values.eventId,
                 touched.eventId,
                 errors.eventId
               )}
               {...getFieldProps("eventId")}
-              isDisabled={attendance ? true : false}
+              isDisabled={!assignmentList.events.length}
             >
-              {eventList.map((event: IEvent) => (
+              {assignmentList.events.map((event: IEvent) => (
                 <SelectItem key={event.id}>{event.name}</SelectItem>
               ))}
             </Select>
+            <RadioGroup
+              label="Seleccione una modalidad"
+              orientation="horizontal"
+              value={values.modality}
+              onValueChange={(value: string) => setFieldValue("modality", value)}
+            >
+              <Radio value={AttendanceModeEnum.PRESENCIAL} color="primary">
+                {AttendanceModeEnum.PRESENCIAL}
+              </Radio>
+              <Radio value={AttendanceModeEnum.VIRTUAL} color="primary">
+                {AttendanceModeEnum.VIRTUAL}
+              </Radio>
+            </RadioGroup>
             <Select
-              items={eventList ? eventList : []}
+              items={assignmentList.teachers}
               {...getSelectProps(
-                "Evento",
-                "Seleccione un evento",
-                eventList ? eventList.length : 0,
-                values.eventId,
-                touched.eventId,
-                errors.eventId
+                "Cuerpo docente",
+                "Seleccione uno o más docentes",
+                assignmentList.teachers.length || 0,
+                values.teacherId,
+                touched.teacherId,
+                errors.teacherId
               )}
-              {...getFieldProps("eventId")}
-              isDisabled={attendance ? true : false}
+              {...getFieldProps("teacherId")}
+              isDisabled={!assignmentList.teachers.length}
             >
-              {eventList.map((event: IEvent) => (
-                <SelectItem key={event.id}>{event.name}</SelectItem>
+              {assignmentList.teachers.map((teacher: TeachersAssignmentMentor) => (
+                <SelectItem key={teacher.id} textValue={teacher.fullName}>
+                  <div className="flex gap-2 items-center">
+                    <div className="flex flex-col">
+                      <span className="text-small">{teacher.fullName}</span>
+                      <span className="text-tiny text-default-400">{teacher.School.name}</span>
+                    </div>
+                  </div>
+                </SelectItem>
               ))}
             </Select>
-            <RadioGroup label="Seleccione una opción" orientation="horizontal">
+            <RadioGroup
+              label="Seleccione una opción"
+              orientation="horizontal"
+              value={values.status}
+              onValueChange={(value: string) => setFieldValue("status", value)}
+            >
               <Radio value={AttendanceEnum.PRESENTE} color="primary">
                 {AttendanceEnum.PRESENTE}
-              </Radio>
-              <Radio value={AttendanceEnum.PERMISO} color="secondary">
-                {AttendanceEnum.PERMISO}
               </Radio>
               <Radio value={AttendanceEnum.AUSENTE} color="danger">
                 {AttendanceEnum.AUSENTE}
               </Radio>
             </RadioGroup>
-            <Select
-              items={eventList ? eventList : []}
-              {...getSelectProps(
-                "Evento",
-                "Seleccione un evento",
-                eventList ? eventList.length : 0,
-                values.eventId,
-                touched.eventId,
-                errors.eventId
-              )}
-              {...getFieldProps("eventId")}
-              isDisabled={attendance ? true : false}
-            >
-              {eventList.map((event: IEvent) => (
-                <SelectItem key={event.id}>{event.name}</SelectItem>
-              ))}
-            </Select>
+            {values.status.toString() === AttendanceEnum.AUSENTE && (
+              <div>
+                <Textarea
+                  {...getTextAreaProps(
+                    "Comentarios",
+                    "Escriba un comentario...",
+                    touched.comment,
+                    errors.comment
+                  )}
+                  {...getFieldProps("comment")}
+                />
+                <Input
+                  {...getInputProps(
+                    "url",
+                    "Url de justificación",
+                    touched.justificationUrl,
+                    errors.justificationUrl
+                  )}
+                />
+              </div>
+            )}
             <Button
               fullWidth
               color="primary"
               variant="shadow"
               type="submit"
-              isDisabled={attendance ? true : false}
+              isDisabled={values.eventId > 0 ? false : true}
             >
               Iniciar jornada
             </Button>
           </form>
         </div>
       )}
-      {attendanceDetails}
-      {attendance && <ListTeacher attendance={attendance} />}
     </div>
   );
 };

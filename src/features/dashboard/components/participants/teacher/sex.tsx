@@ -37,6 +37,10 @@ const Sex = ({ dataSex, total }: SexProps): React.JSX.Element => {
           </li>
         ))}
       </ul>
+      <div className="flex justify-between items-center">
+        <p className="text-gray-500 font-medium">TOTAL</p>
+        <p className="font-bold text-2xl">{dataSex.reduce((acc, item) => acc + item.count, 0)}</p>
+      </div>
     </CardLayoutDashboard>
   );
 };

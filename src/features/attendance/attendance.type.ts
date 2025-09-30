@@ -10,19 +10,15 @@ export interface IAttendanceTable {
   checkOut: string;
   status: AttendanceEnum;
 }
-export interface IEvent {
-  id: number;
-  name: string;
-}
-
-export interface EventSelectBoxResult {
-  eventList: IEvent[];
-  attendance: IAttendanceDetail;
-}
 
 export interface AttendanceInput {
   eventId: number;
   coordenates?: string;
+  modality: string;
+  teacherId: number;
+  comment?: string;
+  justificationUrl?: string;
+  status: "";
 }
 export type IAttendanceCreated = Pick<IAttendanceDetail, "id" | "coordenates">;
 export type IAttendance = AttendanceInput & AxiosMessage;
@@ -40,17 +36,22 @@ export interface IMentorAssignmentBox {
   fullName: string;
 }
 
-export interface IMentorAssignmentSchool {
-  code: number;
-  name: string;
-  coordenates: string;
-  location: string;
-}
-export interface IMentorAssignmentData extends IMentorAssignmentBox {
-  School: IMentorAssignmentSchool;
+export interface TeachersAssignmentMentor {
+  id: number;
+  fullName: string;
+  School: {
+    code: number;
+    name: string;
+    coordenates: string;
+    location: string;
+  };
 }
 
-export interface IMentorAssignmentByUser {
-  selectBox: IMentorAssignmentBox[];
-  teachers: IMentorAssignmentData[];
+export interface IEvent {
+  id: number;
+  name: string;
+}
+export interface TeachersAssignmentWithEvents {
+  events: IEvent[];
+  teachers: TeachersAssignmentMentor[];
 }

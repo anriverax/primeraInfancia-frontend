@@ -11,7 +11,12 @@ import { useEffect, useState } from "react";
 
 const initialValuesAttendance: AttendanceInput = {
   eventId: 0,
-  coordenates: ""
+  coordenates: "",
+  modality: "",
+  teacherId: 0,
+  comment: "",
+  justificationUrl: "",
+  status: ""
 };
 
 const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
@@ -24,6 +29,7 @@ const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
     values?: AttendanceInput,
     formikHelpers?: FormikHelpers<IAttendance>
   ): Promise<void> => {
+    console.log(values);
     const location = await getCurrentLocation();
 
     const newValue = location

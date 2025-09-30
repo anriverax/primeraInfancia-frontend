@@ -10,9 +10,9 @@ type SchoolsByProps = {
 
 const SchoolsBy = ({ title, data }: SchoolsByProps): React.JSX.Element => (
   <CardLayoutDashboard title={title}>
-    <div className="grid grid-cols-2 gap-6 items-center">
+    <ul className="grid grid-cols-2 gap-6 items-center mb-6">
       {data.map((school, index: number) => (
-        <div className="flex gap-3 items-center" key={index}>
+        <li className="flex gap-3 items-center" key={index}>
           <div className="p-2 rounded-lg shrink-0 bg-gray-100">
             {index === 0 ? (
               <House className="w-5 h-5 text-secondary-600" />
@@ -24,8 +24,12 @@ const SchoolsBy = ({ title, data }: SchoolsByProps): React.JSX.Element => (
             <span className="text-gray-500 font-medium">{school.label}</span>
             <p className="font-bold text-lg">{school.count}</p>
           </div>
-        </div>
+        </li>
       ))}
+    </ul>
+    <div className="flex justify-between items-center">
+      <p className="text-gray-500 font-medium">TOTAL</p>
+      <p className="font-bold text-2xl">{data.reduce((acc, item) => acc + item.count, 0)}</p>
     </div>
   </CardLayoutDashboard>
 );

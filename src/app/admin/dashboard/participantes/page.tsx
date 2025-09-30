@@ -3,8 +3,6 @@
 import SchoolsByDepartmentChart from "@/features/dashboard/components/participants/school/schoolsByDepartment";
 import SchoolsBy from "@/features/dashboard/components/participants/school/schoolsBy";
 import { useDashboardParticipant } from "@/features/dashboard/hook/useDashboardParticipant";
-import TotalData from "@/features/dashboard/components/totalData";
-
 import PieChartLayout from "@/features/dashboard/components/pieChartLayout";
 import Sex from "@/features/dashboard/components/participants/teacher/sex";
 import AgeChart from "@/features/dashboard/components/participants/teacher/birthday";
@@ -20,19 +18,15 @@ const DashboardParticipantsPage = (): React.JSX.Element => {
         <>
           <div className="grid grid-cols-4 gap-12 h-auto">
             <SchoolsBy title="Centros educativos por zonas" data={schoolFilters.zone} />
-            <Sex dataSex={schoolFilters.sex} total={schoolFilters.total.teacher.active} />
-            <TotalData
-              totalSchool={schoolFilters.total.school}
-              totalTeacher={schoolFilters.total.teacher.active + schoolFilters.total.teacher.inactive}
-            />
+            <Sex dataSex={schoolFilters.sex} total={schoolFilters.totalTeacher.active} />
             <div className="space-y-6 h-full">
               <TeacherStatus
-                num={schoolFilters.total.teacher.active}
+                num={schoolFilters.totalTeacher.active}
                 title="Cuerpo docente activos"
                 style={{ base: "bg-success/30", text: "text-success-800" }}
               />
               <TeacherStatus
-                num={schoolFilters.total.teacher.inactive}
+                num={schoolFilters.totalTeacher.inactive}
                 title="Cuerpo docente inactivos"
                 style={{ base: "bg-danger/30", text: "text-danger-800" }}
               />
