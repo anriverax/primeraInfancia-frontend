@@ -1,16 +1,24 @@
 import { AxiosMessage } from "@/shared/types/globals";
 
 export interface Attachment3Input {
-  startDate: string;
-  goalList: string;
-  workArea: string;
-  justification: string;
-  priorityLevel: string;
-  plannedDate: string;
-  activity: string;
-  mode: string;
-  responsible: string;
-  observations: string;
+  // startDate: string;
+  // goalList: string;
+  // workArea: string;
+  // justification: string;
+  // priorityLevel: string;
+  // plannedDate: string;
+  // activity: string;
+  // mode: string;
+  // responsible: string;
+  // observations: string;
+  dimension: string;
+  subdimension: string;
+  goal:string;
+  activities:string;
+  resources:string;
+  time:string;
+  successIndicators:string;
+  levelAchievement:string;
   classrromObservations: string;
   observationRoutine: string;
   dialoguedFeedback: string;

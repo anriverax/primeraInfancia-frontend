@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react"
+import { useState } from "react";
 import { FileText, Save, StepBack, Trash2 } from "lucide-react";
 import {
   Button,
@@ -80,8 +80,6 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
   const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<ClasificationChildrenData[]>([])
 
   const handleDetailTeacher = () => {
-    console.log(values);
-    
     // if (!values.shift || !values.section) {
     //   showToast(String("Por favor complete los campos obligatorios: Turno y Sección"), "danger");
     //   return
@@ -155,10 +153,6 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  {/* <RadioGroup label="Escoja el turno">
-                    <Radio value="A.M.">A.M.</Radio>
-                    <Radio value="P.M.">P.M.</Radio>
-                  </RadioGroup> */}
                   <Select
                     items={ampmList}
                     {...getFieldProps("shift")}
@@ -168,7 +162,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                       touched.shift,
                       errors.shift
                     )}
-                    onChange={(value) => formik.setFieldValue("shift", value)}>
+                  >
                     {(item) => <SelectItem>{item.label}</SelectItem>}
                   </Select>
                 </div>
@@ -182,7 +176,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                       touched.section,
                       errors.section
                     )}
-                    onChange={(value) => formik.setFieldValue("section", value)}
+
                   >
                     {(item) => <SelectItem>{item.label}</SelectItem>}
                   </Select>

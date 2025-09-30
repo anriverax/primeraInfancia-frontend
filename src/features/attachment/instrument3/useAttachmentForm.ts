@@ -7,16 +7,14 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Attachment3Input = {
-  startDate: "",
-  goalList: "",
-  workArea: "",
-  justification: "",
-  priorityLevel: "",
-  plannedDate: "",
-  activity: "",
-  mode: "",
-  responsible: "",
-  observations: "",
+  dimension: "",
+  subdimension: "",
+  goal: "",
+  activities: "",
+  resources: "",
+  time: "",
+  successIndicators: "",
+  levelAchievement: "",
   classrromObservations: "",
   observationRoutine: "",
   dialoguedFeedback: "",
@@ -43,16 +41,14 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
     values: Attachment3Input,
     formikHelpers: FormikHelpers<IAttachment3Input>
   ): Promise<void> => {
-    const startDateField = values.startDate;
-    const goalListField = values.goalList;
-    const workAreaField = values.workArea;
-    const justificationField = values.justification;
-    const priorityLevelField = values.priorityLevel;
-    const plannedDateField = values.plannedDate;
-    const activityField = values.activity;
-    const modeField = values.mode;
-    const responsibleField = values.responsible;
-    const observationsField = values.observations;
+    const dimensionField = values.dimension;
+    const subdimensionField = values.subdimension;
+    const goalField = values.goal;
+    const activitiesField = values.activities;
+    const resourcesField = values.resources;
+    const timeField = values.time;
+    const successIndicatorsField = values.successIndicators;
+    const levelAchievementField = values.levelAchievement;
     const classrromObservationsField = values.classrromObservations;
     const observationRoutineField = values.observationRoutine;
     const dialoguedFeedbackField = values.dialoguedFeedback;
@@ -75,71 +71,57 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
     const data = [
       {
         name: nameField,
-        textQuestion: "Fecha de inicio del acompañamiento",
-        textAnswer: startDateField,
+        textQuestion: "Dimensión",
+        textAnswer: dimensionField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
       {
         name: nameField,
-        textQuestion: "Describa brevemente los aspectos clave observados durante la clase o actividad.",
-        textAnswer: goalListField,
+        textQuestion: "Subdimensión",
+        textAnswer: subdimensionField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
       {
         name: nameField,
-        textQuestion: "Área de trabajo",
-        textAnswer: workAreaField,
+        textQuestion: "Objetivos",
+        textAnswer: goalField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
       {
         name: nameField,
-        textQuestion: "Justificación",
-        textAnswer: justificationField,
+        textQuestion: "Actividades",
+        textAnswer: activitiesField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
       {
         name: nameField,
-        textQuestion: "Nivel de prioridad",
-        textAnswer: priorityLevelField,
+        textQuestion: "Recursos",
+        textAnswer: resourcesField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
       {
         name: nameField,
-        textQuestion: "Fecha",
-        textAnswer: plannedDateField,
+        textQuestion: "Temporización",
+        textAnswer: timeField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
       {
         name: nameField,
-        textQuestion: "Actividad",
-        textAnswer: activityField,
+        textQuestion: "Indicadores de éxito",
+        textAnswer: successIndicatorsField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
       {
         name: nameField,
-        textQuestion: "Modalidad",
-        textAnswer: modeField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Responsable",
-        textAnswer: responsibleField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Observaciones",
-        textAnswer: observationsField,
+        textQuestion: "Nivel de logro",
+        textAnswer: levelAchievementField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
