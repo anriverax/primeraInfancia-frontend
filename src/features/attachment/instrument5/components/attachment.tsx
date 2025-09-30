@@ -11,6 +11,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Select,
+  SelectItem,
   useDisclosure
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
@@ -18,12 +20,76 @@ import { FormikProps } from "@/shared/types/globals";
 import { IAttachment5Input } from "../type";
 import Link from "next/link";
 
+export const dataList = [
+  {
+    name: "dimension", key: "Desarrollo y aprendizaje activos. Currículo integrado", label: "Desarrollo y aprendizaje activos. Currículo integrado", sub: [
+      {
+        key: "Aprendizaje significativo", label: "Aprendizaje significativo"
+      },
+      {
+        key: "Enfoque constructivista", label: "Enfoque constructivista"
+      }, {
+        key: "Respeto a las características individuales e inclusión educativa", label: "Respeto a las características individuales e inclusión educativa"
+      }, {
+        key: "Juego como estrategia pedagógica", label: "Juego como estrategia pedagógica"
+      }, {
+        key: "Ambientes, espacios y materiales", label: "Ambientes, espacios y materiales"
+      }, {
+        key: "Motricidad y expresión emocional", label: "Motricidad y expresión emocional"
+      }, {
+        key: "Instalaciones de interacción entre iguales y los objetos", label: "Instalaciones de interacción entre iguales y los objetos"
+      }, {
+        key: "Estrategias pedagógicas pertinentes", label: "Estrategias pedagógicas pertinentes"
+      }, {
+        key: "Rutinas y organización (pág.92)", label: "Rutinas y organización (pág.92)"
+      }, {
+        key: "Rutinas y organización", label: "Rutinas y organización"
+      }, {
+        key: "Planificación y evaluación", label: "Planificación y evaluación"
+      }]
+  },
+  {
+    name: "dimension", key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia", sub: [
+      {
+        key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible"
+      }, {
+        key: "Comunicación positiva, atención y respeto", label: "Comunicación positiva, atención y respeto"
+      }, {
+        key: "Desarrollo socioemocional, colaboración y valores", label: "Desarrollo socioemocional, colaboración y valores"
+      },]
+  },
+  {
+    name: "dimension", key: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias", label: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias", sub: [
+      {
+        key: "Integración de las familias en los procesos de desarrollo y aprendizaje", label: "Integración de las familias en los procesos de desarrollo y aprendizaje"
+      }, {
+        key: "Acompañamiento docente a las familias", label: "Acompañamiento docente a las familias"
+      }, {
+        key: "Participación del docente en el modelo de atención integral", label: "Participación del docente en el modelo de atención integral"
+      }]
+  },
+  {
+    name: "dimension", key: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnologógicos", label: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnologógicos", sub: [
+      {
+        key: "Trabajo cooperativo y en equipo", label: "Trabajo cooperativo y en equipo"
+      }, {
+        key: "Aula y recursos virtuales", label: "Aula y recursos virtuales"
+      }, {
+        key: "Aula y recursos virtuales", label: "Aula y recursos virtuales"
+      }
+    ]
+  },
+]
+
+const dimensionList = dataList.filter((item) => item.name === "dimension");
+
+
 type Attachment5FormProps = {
   formik: FormikProps<IAttachment5Input>;
 };
 
 const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element => {
-  const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
   const { isOpen, onOpenChange } = useDisclosure();
 
   const { getInputProps } = useCustomFormFields();
@@ -34,6 +100,11 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
     onOpenChange();
   };
   /* eslint-enable @typescript-eslint/explicit-function-return-type */
+
+  const selectedDimension = dimensionList.find(
+    (item) => item.key === formik.values.mentorObserve
+  );
+  const challengeClassroomList = selectedDimension?.sub ?? [];
 
   return (
     <div className="flex justify-center">
@@ -57,7 +128,8 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
                   Sección A. Reflexión del docente en la visita:
                 </p>
               </h3>
-              <Input
+              <Select
+                items={dimensionList}
                 {...getFieldProps("mentorObserve")}
                 {...getInputProps(
                   "mentorObserve",
@@ -65,8 +137,10 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
                   touched.mentorObserve,
                   errors.mentorObserve
                 )}
-              />
-              <Input
+              >{(item) => <SelectItem>{item.label}</SelectItem>}
+              </Select>
+              <Select
+                items={challengeClassroomList}
                 {...getFieldProps("challengeClassroom")}
                 {...getInputProps(
                   "challengeClassroom",
@@ -74,7 +148,8 @@ const Attachment5Form = ({ formik }: Attachment5FormProps): React.JSX.Element =>
                   touched.challengeClassroom,
                   errors.challengeClassroom
                 )}
-              />
+              >{(item) => <SelectItem>{item.label}</SelectItem>}
+              </Select>
               <Input
                 {...getFieldProps("emotionalManagment")}
                 {...getInputProps(
