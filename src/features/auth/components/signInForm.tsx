@@ -26,9 +26,15 @@ const SignInForm = ({ formik }: SignInFormProps): React.JSX.Element => {
         {...getInputProps("password", "Contraseña", touched.passwd, errors.passwd)}
         endContent={<Lock size={18} className="text-gray-400" />}
       />
-      <DatePicker 
-      {...getFieldProps("newValueDate")}
-      {...getDateProps("newValueDate", "Fecha de Nacimiento", touched?.newValueDate, errors.newValueDate)} />
+      <DatePicker
+        {...getFieldProps("newValueDate")}
+        {...getDateProps(
+          "newValueDate",
+          "Fecha de Nacimiento",
+          touched?.newValueDate,
+          errors.newValueDate
+        )}
+      />
       <div className="mt-8">
         <Button fullWidth type="submit" color="primary" isLoading={isSubmitting}>
           Iniciar Sesión

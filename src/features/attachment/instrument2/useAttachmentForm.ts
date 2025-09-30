@@ -7,10 +7,16 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Attachment2Input = {
-  educationalLevelServed: "",
-  //childrenAge: "",
+  shift: "",
+  section: "",
+  girlNumber: 0,
+  boyNumber: 0,
+  girlDisabilityNumber: 0,
+  boyDisabilityNumber: 0,
   yearsExperiencie: "",
   initialTraining: "",
+  hasPostgraduate: "",
+  postgraduateDetail: "",
   hasRecentlyParticipated: "",
   hasRecentlyParticipatedDetail: "",
   knowledgeChildDevelopment: "",
@@ -35,8 +41,14 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
     values: Attachment2Input,
     formikHelpers: FormikHelpers<IAttachment2Input>
   ): Promise<void> => {
-    const educationalLevelServedField = values.educationalLevelServed;
-    //const childrenAgeField = values.childrenAge;
+    const shiftField = values.shift;
+    const sectionField = values.section;
+    const girlNumberField = values.girlNumber;
+    const boyNumberField = values.boyNumber;
+    const girlDisabilityNumberField = values.girlDisabilityNumber;
+    const boyDisabilityNumberField = values.boyDisabilityNumber;
+    const hasPostgraduateField = values.hasPostgraduate;
+    const postgraduateDetailField = values.postgraduateDetail;
     const yearsExperiencieField = values.yearsExperiencie;
     const initialTrainingField = values.initialTraining;
     const hasRecentlyParticipatedField = values.hasRecentlyParticipated;
@@ -59,18 +71,60 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
     const data = [
       {
         name: nameField,
-        textQuestion: "Nivel educativo que atiende",
-        textAnswer: educationalLevelServedField,
+        textQuestion: "Turno",
+        textAnswer: shiftField,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
-      // {
-      //   name: nameField,
-      //   textQuestion: "Edad de los niños y niñas",
-      //   textAnswer: childrenAgeField,
-      //   teacherRoleId: 1,
-      //   mentorRoleId: 2
-      // },
+      {
+        name: nameField,
+        textQuestion: "Seccion",
+        textAnswer: sectionField,
+        teacherRoleId: 1,
+        mentorRoleId: 2
+      },
+      {
+        name: nameField,
+        textQuestion: "Cantidad de niñas",
+        textAnswer: girlNumberField,
+        teacherRoleId: 1,
+        mentorRoleId: 2
+      },
+      {
+        name: nameField,
+        textQuestion: "Cantidad de niños",
+        textAnswer: boyNumberField,
+        teacherRoleId: 1,
+        mentorRoleId: 2
+      },
+      {
+        name: nameField,
+        textQuestion: "Niñas con discapacidad diagnosticada",
+        textAnswer: girlDisabilityNumberField,
+        teacherRoleId: 1,
+        mentorRoleId: 2
+      },
+      {
+        name: nameField,
+        textQuestion: "Niños con discapacidad diagnosticada",
+        textAnswer: boyDisabilityNumberField,
+        teacherRoleId: 1,
+        mentorRoleId: 2
+      },
+      {
+        name: nameField,
+        textQuestion: "¿Cuenta con estudio de postgraods u otra formación secundaria",
+        textAnswer: hasPostgraduateField,
+        teacherRoleId: 1,
+        mentorRoleId: 2
+      },
+      {
+        name: nameField,
+        textQuestion: "Detalle",
+        textAnswer: postgraduateDetailField,
+        teacherRoleId: 1,
+        mentorRoleId: 2
+      },
       {
         name: nameField,
         textQuestion: "Años de experiencia docente",

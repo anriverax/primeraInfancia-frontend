@@ -16,7 +16,7 @@ const LucideIconRenderer = dynamic(
 const TrainerView = (): React.JSX.Element => {
   const useRequest = useAxios(true);
   const { appendixsList } = useAppendixList();
-console.log(appendixsList);
+  console.log(appendixsList);
 
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
