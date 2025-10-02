@@ -7,8 +7,8 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Attachment1Input = {
-  startDate: "",
-  finishDate: "",
+  startDate: new Date(),
+  finishDate: new Date(),
   frequencyOfEncounters: "",
   teacherSignature: "",
   mentorSignature: ""

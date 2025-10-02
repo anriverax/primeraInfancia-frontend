@@ -1,3 +1,6 @@
+"use client";
+
+import { Eye, FileText, Users, BookOpen, ClipboardCheck, BarChart3, Target } from "lucide-react";
 import {
   Button,
   Card,
@@ -7,20 +10,29 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Input,
   useDisclosure
 } from "@heroui/react";
+import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import type { FormikProps } from "@/shared/types/globals";
+import type { IAttachment1Input } from "../../../attachment/instrument1/type"
 import Link from "next/link";
 import useAxios from "@/shared/hooks/useAxios";
 import { useAppendixDetailsList } from "@/features/attachment/hooks/appendix/useAppendixDetailList";
-import { Eye, FileText, Users, BookOpen, ClipboardCheck, BarChart3, Target } from "lucide-react";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import type { FormikProps } from "@/shared/types/globals";
-//import type { IAttachment1Input } from "../type";
+import { useFormik } from "formik";
 
-const TrainerDetailView = (): React.JSX.Element => {
+type Attachment1FormProps = {
+  formik: FormikProps<IAttachment1Input>;
+};
+
+const TrainerDetailView = ({ formik }: Attachment1FormProps): React.JSX.Element => {
+
   const useRequest = useAxios(true);
   const { appendixDetailsList } = useAppendixDetailsList();
+  const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { getInputProps } = useCustomFormFields();
+console.log(appendixDetailsList,"--");
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
@@ -64,7 +76,34 @@ const TrainerDetailView = (): React.JSX.Element => {
                       className="text-lg text-justify"
                       dangerouslySetInnerHTML={{ __html: section.summary }}
                     />
+
                   )}
+
+                  <ul className="space-y-2">
+                    {/* Iterate over the 'Question' array within the section */}
+                    {section.Question.map((question, questionIndex) => (
+                      <li key={questionIndex} className="text-lg text-gray-800">
+                        <span className="font-medium mr-2">
+                          {/* Display the extracted text */}
+                          {question.text}
+                        </span>
+                        {question.questionType === "DATE" ? (
+                          <Input
+                            {...getFieldProps("startDate")}
+                            {...getInputProps(
+                              "startDate",
+                              "Fecha de inicio del acompañamiento",
+                              touched.startDate,
+                              errors.startDate
+                            )}></Input>
+                        ) : ('no')}
+                        {/* Optional: Display question type (e.g., as a badge) */}
+                        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">
+                          {question.questionType}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                   {/* You can also iterate through the section.Question array here if needed */}
                 </div>
               ))}

@@ -3,6 +3,7 @@
 import type React from "react";
 
 import { FileText, Save, StepBack } from "lucide-react";
+import { CalendarDate } from "@internationalized/date";
 import {
   Button,
   Input,
@@ -26,7 +27,7 @@ type Attachment1FormProps = {
 };
 
 const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element => {
-  const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { getInputProps } = useCustomFormFields();
@@ -67,7 +68,7 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
               <h3 className="pb-6">
                 <p className="text-xl text-justify">III. Duración de la mentoría</p>
               </h3>
-              <Input
+              {/* <Input
                 {...getFieldProps("startDate")}
                 {...getInputProps(
                   "startDate",
@@ -75,8 +76,64 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
                   touched.startDate,
                   errors.startDate
                 )}
+              {/* Import CalendarDate from @internationalized/date at the top of your file */}
+              <DatePicker
+                name="startDate"
+                label="Fecha de inicio del acompañamiento"
+                value={
+                  formik.values.startDate
+                    ? new (require("@internationalized/date").CalendarDate)(
+                      formik.values.startDate.getFullYear(),
+                      formik.values.startDate.getMonth() + 1,
+                      formik.values.startDate.getDate()
+                    )
+                    : null
+                }
+                onChange={(dateValue) => {
+                  // Convert CalendarDate back to JS Date for formik
+                  if (dateValue) {
+                    const jsDate = new Date(
+                      dateValue.year,
+                      dateValue.month - 1,
+                      dateValue.day
+                    );
+                    formik.setFieldValue("startDate", jsDate);
+                  } else {
+                    formik.setFieldValue("startDate", null);
+                  }
+                }}
+                isInvalid={Boolean(touched.startDate && errors.startDate)}
+              //errorMessage={touched.startDate && errors.startDate ? errors.startDate : undefined}
               />
-              <Input
+              <DatePicker
+                name="finishDate"
+                label="Fecha de inicio del acompañamiento"
+                value={
+                  formik.values.finishDate
+                    ? new (require("@internationalized/date").CalendarDate)(
+                      formik.values.finishDate.getFullYear(),
+                      formik.values.finishDate.getMonth() + 1,
+                      formik.values.finishDate.getDate()
+                    )
+                    : null
+                }
+                onChange={(dateValue) => {
+                  // Convert CalendarDate back to JS Date for formik
+                  if (dateValue) {
+                    const jsDate = new Date(
+                      dateValue.year,
+                      dateValue.month - 1,
+                      dateValue.day
+                    );
+                    formik.setFieldValue("finishDate", jsDate);
+                  } else {
+                    formik.setFieldValue("finishDate", null);
+                  }
+                }}
+                isInvalid={Boolean(touched.finishDate && errors.finishDate)}
+              //errorMessage={touched.startDate && errors.startDate ? errors.startDate : undefined}
+              />
+              {/* <Input
                 {...getFieldProps("finishDate")}
                 {...getInputProps(
                   "finishDate",
@@ -84,7 +141,7 @@ const Attachment1Form = ({ formik }: Attachment1FormProps): React.JSX.Element =>
                   touched.finishDate,
                   errors.finishDate
                 )}
-              />
+              /> */}
               <Input
                 {...getFieldProps("frequencyOfEncounters")}
                 {...getInputProps(

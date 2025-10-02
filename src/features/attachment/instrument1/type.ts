@@ -1,8 +1,8 @@
 import { AxiosMessage } from "@/shared/types/globals";
 
 export interface Attachment1Input {
-  startDate: string;
-  finishDate: string;
+  startDate: Date;
+  finishDate: Date;
   frequencyOfEncounters: string;
   teacherSignature: string;
   mentorSignature: string;
