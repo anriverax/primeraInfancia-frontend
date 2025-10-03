@@ -4,14 +4,13 @@ import { FileText } from "lucide-react";
 import { Button, Input } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
-import { IAttachment3Input } from "../../mentoringType";
 
 type Attachment3FormProps = {
-  formik: FormikProps<IAttachment3Input>;
+  formik: FormikProps<any>;
 };
 
 const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element => {
-  const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik as any;
 
   const { getInputProps } = useCustomFormFields();
   return (

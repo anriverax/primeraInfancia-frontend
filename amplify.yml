@@ -1,0 +1,25 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install -g npm@latest
+        - npm ci
+    build:
+      commands:
+        - echo "NEXT_PUBLIC_NODE_ENV=$NEXT_PUBLIC_NODE_ENV" >> .env
+        - echo "NEXT_PUBLIC_BACKEND=$NEXT_PUBLIC_BACKEND" >> .env
+        - echo "NEXT_PUBLIC_URL=$NEXT_PUBLIC_URL" >> .env
+        - echo "NEXTAUTH_SECRET=$NEXTAUTH_SECRET" >> .env
+        - echo "NEXT_PUBLIC_PLAIN_TEXT=$NEXT_PUBLIC_PLAIN_TEXT" >> .env
+        - echo "NEXT_AUTH_URL=$NEXT_AUTH_URL" >> .env
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*
+

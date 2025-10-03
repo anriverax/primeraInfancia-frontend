@@ -6,7 +6,6 @@ import { Select, SelectItem } from "@heroui/react";
 
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
-import { IAttachment2Input } from "../../mentoringType";
 
 export const dataList = [
   { name: "experiencie", key: "Menos de un año", label: "Menos de un año" },
@@ -22,11 +21,11 @@ const experienceList = dataList.filter((item) => item.name === "experiencie");
 const initialTrainingList = dataList.filter((item) => item.name === "initialTraining");
 
 type Attachment2FormProps = {
-  formik: FormikProps<IAttachment2Input>;
+  formik: FormikProps<any>;
 };
 
 const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element => {
-  const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik as any;
 
   const { getInputProps } = useCustomFormFields();
   return (
