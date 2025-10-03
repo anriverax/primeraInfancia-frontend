@@ -29,7 +29,6 @@ const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
     values?: AttendanceInput,
     formikHelpers?: FormikHelpers<IAttendance>
   ): Promise<void> => {
-    console.log(values);
     const location = await getCurrentLocation();
 
     const newValue = location
@@ -69,11 +68,10 @@ const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
     validateOnChange: false,
     onSubmit: handleSubmit
   });
-  /* eslint-disable react-hooks/exhaustive-deps */
+
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ["attendance-detail"] });
   }, [dataAttendance]);
-  /* eslint-enable react-hooks/exhaustive-deps */
 
   return formikAttendance;
 };

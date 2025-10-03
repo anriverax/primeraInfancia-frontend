@@ -8,7 +8,6 @@ type DotsProps = {
 };
 
 const Dots = memo(({ setActiveSlide, activeSlide }: DotsProps): React.JSX.Element => {
-  /* eslint-disable react-hooks/exhaustive-deps */
   const handleSlideChange = useCallback((index: number) => {
     setActiveSlide(index);
   }, []);
@@ -20,7 +19,6 @@ const Dots = memo(({ setActiveSlide, activeSlide }: DotsProps): React.JSX.Elemen
 
     return (): void => clearInterval(interval); // Interval cleaning
   }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <div className="flex justify-center space-x-2">

@@ -1,9 +1,8 @@
 import { object, ObjectSchema } from "yup";
 import { validationMessages } from "@/shared/constants";
 import { stringField } from "@/shared/utils/funtions";
-import { Attachment1Input } from "../mentoringType";
 
-export const attachment1Schema: ObjectSchema<Attachment1Input> = object({
+export const attachment1Schema: ObjectSchema<any> = object({
   applicationDate: stringField(validationMessages.required),
   schoolName: stringField(validationMessages.required),
   departmentMunicipality: stringField(validationMessages.required),

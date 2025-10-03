@@ -8,7 +8,7 @@ interface SexProps {
 }
 
 const Sex = ({ dataSex, total }: SexProps): React.JSX.Element => {
-  const getName = (d: string) => {
+  const getName = (d: string): string => {
     if (d === "H") return "Hombres";
     return "Mujeres";
   };

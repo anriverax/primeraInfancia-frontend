@@ -11,7 +11,7 @@ interface MentoringProps {
 const PieChartLayout = ({ data, height, title }: MentoringProps): React.JSX.Element => {
   const COLORS: string[] = ["#8884d8", "#82ca9d", "#ffc658", "#ff7c7c"];
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  console.log(data);
+
   return (
     <CardLayoutDashboard clsCard="overflow-hidden" title={title} clsCardBody={height}>
       <div className={`${height} overflow-hidden`}>

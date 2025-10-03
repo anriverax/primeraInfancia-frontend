@@ -65,7 +65,8 @@ const eslintConfig = [
 
       // 🔹 Reglas específicas de TypeScript
       "@typescript-eslint/explicit-function-return-type": "warn",
-      "@typescript-eslint/explicit-module-boundary-types": "warn"
+      "@typescript-eslint/explicit-module-boundary-types": "warn",
+      "react-hooks/exhaustive-deps": "off"
     }
   }
 ];

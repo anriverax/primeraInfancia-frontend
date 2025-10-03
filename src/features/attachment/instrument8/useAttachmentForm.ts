@@ -141,7 +141,6 @@ const useAttachment8Form = (): FormikProps<IAttachment8Input> => {
     let correlative = "1";
 
     const nameField = "Anexo 8";
-    console.log(nameField);
 
     const data = [
       //Seccion A
@@ -687,7 +686,6 @@ const useAttachment8Form = (): FormikProps<IAttachment8Input> => {
         mentorRoleId: 2
       }
     ];
-    console.log(data);
 
     data.map(async (item) => {
       try {

@@ -18,7 +18,7 @@ export interface AttendanceInput {
   teacherId: number;
   comment?: string;
   justificationUrl?: string;
-  status: "";
+  status?: string;
 }
 export type IAttendanceCreated = Pick<IAttendanceDetail, "id" | "coordenates">;
 export type IAttendance = AttendanceInput & AxiosMessage;
@@ -54,4 +54,20 @@ export interface IEvent {
 export interface TeachersAssignmentWithEvents {
   events: IEvent[];
   teachers: TeachersAssignmentMentor[];
+}
+
+export interface IMentorAssignmentSchool {
+  code: number;
+  name: string;
+  coordenates: string;
+  location: string;
+}
+
+export interface IMentorAssignmentData extends IMentorAssignmentBox {
+  School: IMentorAssignmentSchool;
+}
+
+export interface IMentorAssignmentByUser {
+  selectBox: IMentorAssignmentBox[];
+  teachers: IMentorAssignmentData[];
 }

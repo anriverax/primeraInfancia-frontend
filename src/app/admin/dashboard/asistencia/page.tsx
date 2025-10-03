@@ -1,5 +1,5 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useDashboardAttendance } from "@/features/dashboard/hook/useDashboardAttendance";
 import CardLayoutDashboard from "@/features/dashboard/components/cardLayoutDashboard";
 import { cn } from "@/shared/utils/tv";

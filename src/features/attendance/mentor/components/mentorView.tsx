@@ -85,7 +85,7 @@ const MentorView = (): React.JSX.Element => {
                 {AttendanceEnum.AUSENTE}
               </Radio>
             </RadioGroup>
-            {values.status.toString() === AttendanceEnum.AUSENTE && (
+            {values.status?.toString() === AttendanceEnum.AUSENTE && (
               <div>
                 <Textarea
                   {...getTextAreaProps(

@@ -38,7 +38,6 @@ export const useQueryRequest = <T>(
     placeholderData: (previousData) => previousData
   });
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (error && !hasHandledError.current) {
       hasHandledError.current = true;

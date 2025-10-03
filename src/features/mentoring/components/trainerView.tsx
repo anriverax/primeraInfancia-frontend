@@ -16,10 +16,8 @@ const TrainerView = (): React.JSX.Element => {
   const { appendixsList } = useAppendixList();
 
   const truncateText = (text: string, maxLength: number) => {
-    if (text.length > maxLength) {
-      console.log(text.substring(0, maxLength) + "...");
-      return text.substring(0, maxLength) + "...";
-    }
+    if (text.length > maxLength) return text.substring(0, maxLength) + "...";
+
     return text;
   };
 

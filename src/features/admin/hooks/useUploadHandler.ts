@@ -8,7 +8,6 @@ interface UploadHandlerResult {
   handleAvatarChange: (_file: File | null) => void;
 }
 
-/* eslint-disable react-hooks/exhaustive-deps */
 export const useUploadHandler = (
   setFieldValue: (
     _field: string,
@@ -30,4 +29,3 @@ export const useUploadHandler = (
 
   return { handleCvChange, handleImagesChange, handleAvatarChange };
 };
-/* eslint-enable react-hooks/exhaustive-deps */
