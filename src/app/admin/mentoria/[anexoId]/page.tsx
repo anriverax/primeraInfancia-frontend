@@ -8,6 +8,7 @@ import { useAttachment5Form } from "@/features/attachment/instrument5/useAttachm
 import { useAttachment6Form } from "@/features/attachment/instrument6/useAttachmentForm";
 import { useAttachment7Form } from "@/features/attachment/instrument7/useAttachmentForm";
 import { useAttachment8Form } from "@/features/attachment/instrument8/useAttachmentForm";
+import { useAppendix1Form } from "@/features/mentoring/appendix1/useAttachmentForm";
 import Attachment1Form from "@/features/attachment/instrument1/components/attachment";
 import Attachment2Form from "@/features/attachment/instrument2/components/attachment";
 import Attachment3Form from "@/features/attachment/instrument3/components/attachment";
@@ -15,6 +16,7 @@ import Attachment5Form from "@/features/attachment/instrument5/components/attach
 import Attachment6Form from "@/features/attachment/instrument6/components/attachment";
 import Attachment7Form from "@/features/attachment/instrument7/components/attachment";
 import Attachment8Form from "@/features/attachment/instrument8/components/attachment";
+import TrainerDetailView from "@/features/mentoring/appendix1/component/detail";
 
 const AttachmentDetailPage = (): React.JSX.Element => {
   const params = useParams();
@@ -26,6 +28,7 @@ const AttachmentDetailPage = (): React.JSX.Element => {
   const formikAttachment6 = useAttachment6Form();
   const formikAttachment7 = useAttachment7Form();
   const formikAttachment8 = useAttachment8Form();
+  const formikAppendix1 = useAppendix1Form();
   return (
     <>
       {Number(params.anexoId) === 2 && <Attachment1Form formik={formikAttachment1} />}
@@ -41,6 +44,8 @@ const AttachmentDetailPage = (): React.JSX.Element => {
       {Number(params.anexoId) === 7 && <Attachment7Form formik={formikAttachment7} />}
 
       {Number(params.anexoId) === 8 && <Attachment8Form formik={formikAttachment8} />}
+
+      {Number(params.anexoId) === 12 && <TrainerDetailView formik={formikAppendix1} />}
     </>
   );
 };

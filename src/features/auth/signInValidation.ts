@@ -11,6 +11,5 @@ export const signInSchema: ObjectSchema<SignInInput> = object({
   passwd: stringField(validationMessages.required).min(
     8,
     "La contraseña debe tener al menos 8 caracteres"
-  ),
-  newValueDate: dateField(validationMessages.required)
+  )
 });
