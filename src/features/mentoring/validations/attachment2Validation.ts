@@ -1,7 +1,7 @@
 import { object, ObjectSchema } from "yup";
 import { validationMessages } from "@/shared/constants";
 import { stringField } from "@/shared/utils/funtions";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const attachment2Schema: ObjectSchema<any> = object({
   fullName: stringField(validationMessages.required),
   schoolName: stringField(validationMessages.required),

@@ -1,7 +1,7 @@
 import { Progress } from "@heroui/react";
 import { Info, Users } from "lucide-react";
 import { GroupListRender } from "./groupInfo";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const GroupDetailInfo = (props: any): React.JSX.Element => (
   <div className="bg-white border border-blue-100 mt-6 shadow-md rounded-lg">
     <div className="p-6 flex items-center gap-2 bg-blue-50 text-blue-500">

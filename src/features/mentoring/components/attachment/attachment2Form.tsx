@@ -6,7 +6,7 @@ import { Select, SelectItem } from "@heroui/react";
 
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const dataList = [
   { name: "experiencie", key: "Menos de un año", label: "Menos de un año" },
   { name: "experiencie", key: "1 a 3 años", label: "1 a 3 años" },

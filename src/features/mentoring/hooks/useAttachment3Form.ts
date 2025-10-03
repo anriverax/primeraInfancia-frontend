@@ -4,7 +4,7 @@ import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 import { attachment3Schema } from "../validations/attachment3Validation";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const initialValues = {
   teacherName: "",
   mentorName: "",

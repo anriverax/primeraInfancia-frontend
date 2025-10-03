@@ -4,7 +4,7 @@ import { FileText } from "lucide-react";
 import { Button, Input } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type Attachment1FormProps = {
   formik: FormikProps<any>;
 };
