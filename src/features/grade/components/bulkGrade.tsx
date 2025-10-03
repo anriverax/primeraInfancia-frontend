@@ -1,4 +1,4 @@
-import { Button, Card, CardHeader, CardBody, Alert, Progress } from "@heroui/react";
+import { Button, Card, CardHeader, CardBody, Alert, Progress, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@heroui/react";
 import useAxios from "@/shared/hooks/useAxios";
 import { AxiosError, AxiosResponse } from "axios";
 import { FileText, CheckCircle, AlertCircle } from "lucide-react";
@@ -31,155 +31,157 @@ interface DateEntry {
   cohort: number;
 }
 
+// Array example about maximumDates
+const yearValue = 2025;
 const dateEnableForEntry: DateEntry[] = [
   {
     instrumentId: 1,
     trainingModuleId: 1,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 2,
     trainingModuleId: 1,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 3,
     trainingModuleId: 1,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 4,
     trainingModuleId: 1,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 5,
     trainingModuleId: 1,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 1,
     trainingModuleId: 2,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 2,
     trainingModuleId: 2,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 3,
     trainingModuleId: 2,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 4,
     trainingModuleId: 2,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 5,
     trainingModuleId: 2,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 1,
     trainingModuleId: 3,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 2,
     trainingModuleId: 3,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 3,
     trainingModuleId: 3,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 4,
     trainingModuleId: 3,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 5,
     trainingModuleId: 3,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 1,
     trainingModuleId: 4,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 2,
     trainingModuleId: 4,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 3,
     trainingModuleId: 4,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 4,
     trainingModuleId: 4,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 5,
     trainingModuleId: 4,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 1,
     trainingModuleId: 5,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 2,
     trainingModuleId: 5,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 3,
     trainingModuleId: 5,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 4,
     trainingModuleId: 5,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   },
   {
     instrumentId: 5,
     trainingModuleId: 5,
-    maximumDate: new Date(2025, 9, 27),
+    maximumDate: new Date(yearValue, 10, 4),
     cohort: 1
   }
 ];
@@ -205,12 +207,12 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
   };
 
   function validateFilteredEntryDates(instrumentId: number, trainingModuleId: number): boolean {
-    // Filter the array based on instrumentId and trainingModuleId, both fields are required
+    // 1. Filter the array based on instrumentId and trainingModuleId, both fields are required
     const filteredEntries = dateEnableForEntry.find(
       (entry) => entry.instrumentId == instrumentId && entry.trainingModuleId == trainingModuleId
     );
 
-    // Notify if official date does not exists
+    // 1.1 Notify if official date does not exists
     if (filteredEntries?.length === 0) {
       showToast(
         String("Notifique al administrador que las fechas de ingreso de notas no han sido recuperadas"),
@@ -341,11 +343,12 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
       if (item.evaluationInstrumentId == 1 || item.evaluationInstrumentId == 2)
         url = "/module-evaluation/create";
       else {
+        // At model 'TrainingEvaluation' the following properties are not required
         delete item.moduleProgressStatus;
         delete item.trainingModuleId;
         url = "/training-evaluation/create";
       }
-
+      url = "";
       try {
         const res: AxiosResponse<FetchResponse<IBulkGradeInput>> = await useRequest.post(url, item);
         setUploadProgress(Math.round((itemValue / data.length) * 100));
@@ -427,7 +430,7 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
                   <Button
                     isDisabled={validationErrors.length == 0}
                     className="w-full"
-                    onClick={handleReUpload}
+                    onPress={handleReUpload}
                   >
                     Intentar de nuevo
                   </Button>
@@ -470,6 +473,38 @@ const BulkGradeView = ({ groupId }: number): React.JSX.Element => {
             </div>
           </CardBody>
         </Card>
+
+        {data.length > 0 && validationErrors.length === 0 && (
+          <Card>
+            <CardHeader>
+              <h3 className="pb-6">
+                <p className="text-xl text-justify">Vista preliminar</p>
+              </h3>
+            </CardHeader>
+            <CardBody className="space-y-4">
+              <div className="rounded-md border">
+                <Table>
+                  <TableHeader>
+                    {/* <TableRow> */}
+                    <TableColumn>Calificación</TableColumn>
+                    <TableColumn>Comentario</TableColumn>
+                    <TableColumn>Modulo</TableColumn>
+                    {/* </TableRow> */}
+                  </TableHeader>
+                  <TableBody items={data}>
+                    {(item) => (
+                      <TableRow key={new Date().toString()}>
+                        <TableCell>{item.comment}</TableCell>
+                        <TableCell>{item.comment}</TableCell>
+                        <TableCell>{item.trainingModuleId}</TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardBody>
+          </Card>
+        )}
       </div>
     </div>
   );
