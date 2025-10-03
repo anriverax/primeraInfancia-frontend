@@ -2,6 +2,15 @@
 
 import { Card, CardBody, CardHeader, Chip } from "@heroui/react";
 import { useMemo } from "react";
+import BarChart from "./component/barChart"
+import dynamic from 'next/dynamic';
+const academicLevelData =
+{
+  labels: ['Inicial 3', 'Parvularia 4', 'Parvularia 5', 'Parvularia 6', 'Primer grado'],
+  values: [2, 3, 0, 0, 5],
+  datasetLabel: 'Nivel académico que atiende'
+}
+
 
 const educationalData = [
   {
@@ -28,7 +37,14 @@ const educationalData = [
   {
     name: "Anexo 2",
     textQuestion: "Nivel educativo que atiende",
-    textAnswer: "Kinder 4 ",
+    textAnswer: "Inicial 3",
+    teacherRoleId: 1,
+    mentorRoleId: 2
+  },
+  {
+    name: "Anexo 2",
+    textQuestion: "Nivel educativo que atiende",
+    textAnswer: "Inicial 3",
     teacherRoleId: 1,
     mentorRoleId: 2
   },
@@ -77,7 +93,55 @@ const educationalData = [
   {
     name: "Anexo 2",
     textQuestion: "Nivel educativo que atiende",
-    textAnswer: "Kinder 4 ",
+    textAnswer: "Parvularia 4",
+    teacherRoleId: 1,
+    mentorRoleId: 2
+  },{
+    name: "Anexo 2",
+    textQuestion: "Nivel educativo que atiende",
+    textAnswer: "Parvularia 4",
+    teacherRoleId: 1,
+    mentorRoleId: 2
+  },
+  {
+    name: "Anexo 2",
+    textQuestion: "Nivel educativo que atiende",
+    textAnswer: "Parvularia 4",
+    teacherRoleId: 1,
+    mentorRoleId: 2
+  },
+  {
+    name: "Anexo 2",
+    textQuestion: "Nivel educativo que atiende",
+    textAnswer: "Primer grado",
+    teacherRoleId: 1,
+    mentorRoleId: 2
+  },
+  {
+    name: "Anexo 2",
+    textQuestion: "Nivel educativo que atiende",
+    textAnswer: "Primer grado",
+    teacherRoleId: 1,
+    mentorRoleId: 2
+  },
+  {
+    name: "Anexo 2",
+    textQuestion: "Nivel educativo que atiende",
+    textAnswer: "Primer grado",
+    teacherRoleId: 1,
+    mentorRoleId: 2
+  },
+  {
+    name: "Anexo 2",
+    textQuestion: "Nivel educativo que atiende",
+    textAnswer: "Primer grado",
+    teacherRoleId: 1,
+    mentorRoleId: 2
+  },
+  {
+    name: "Anexo 2",
+    textQuestion: "Nivel educativo que atiende",
+    textAnswer: "Primer grado",
     teacherRoleId: 1,
     mentorRoleId: 2
   },
@@ -134,6 +198,9 @@ interface ConsolidatedData {
   nivelEducativo: { [key: string]: number };
   totalDocentes: number;
 }
+const DynamicBarChart = dynamic(() => import('./component/barChart'), {
+  ssr: false,
+});
 
 export default function EducationalData(): React.JSX.Element {
   const consolidatedData: ConsolidatedData = useMemo(() => {
@@ -202,7 +269,7 @@ export default function EducationalData(): React.JSX.Element {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <Card className="col-span-full bg-sky-100 shadow-xl border-0">
+          {/* <Card className="col-span-full bg-sky-100 shadow-xl border-0">
             <CardHeader className="pb-4">
               <h2 className="text-2xl font-bold text-black">Resumen General</h2>
             </CardHeader>
@@ -372,12 +439,12 @@ export default function EducationalData(): React.JSX.Element {
                 ))}
               </div>
             </CardBody>
-          </Card>
+          </Card> */}
 
-          <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 border-0 bg-white/80 backdrop-blur-sm">
+          <Card className="col-span-full shadow-lg hover:shadow-xl transition-shadow duration-300 border-0 bg-white/80 backdrop-blur-sm">
             <CardHeader className="pb-3 bg-gradient-to-r from-slate-50 to-gray-50">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+                <div className="w-18 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
                   <span className="text-slate-600 text-lg">📚</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-800">Nivel Educativo que Atiende</h3>
@@ -396,6 +463,13 @@ export default function EducationalData(): React.JSX.Element {
                     </Chip>
                   </div>
                 ))}
+              </div>
+              <div>
+
+                {/* Container to give context to the chart's size */}
+                <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
+                  <BarChart chartData={academicLevelData} />
+                </div>
               </div>
             </CardBody>
           </Card>
