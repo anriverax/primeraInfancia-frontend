@@ -28,11 +28,11 @@ type Appendix1FormProps = {
 
 const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element => {
   const { appendixDetailsList } = useAppendixDetailsList();
-  const { handleSubmit, touched, errors, isSubmitting } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, values } = formik;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   //const { getInputProps } = useCustomFormFields();
 
-console.log(appendixDetailsList);
+  console.log(appendixDetailsList);
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
@@ -125,7 +125,7 @@ console.log(appendixDetailsList);
             </CardBody>
           </Card>
 
-          <div className="flex space-x-4 mt-8">
+           <div className="flex space-x-4 mt-8">
             {/* <div className="flex justify-center text"> */}
             <Button
               color="secondary"
@@ -163,6 +163,10 @@ console.log(appendixDetailsList);
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancelar
+                  </Button>
+                  <Button color="primary" isLoading={isSubmitting} onPress={handleConfirmSubmit}>
+                    {" "}
+                    Enviar
                   </Button>
                 </ModalFooter>
               </>
