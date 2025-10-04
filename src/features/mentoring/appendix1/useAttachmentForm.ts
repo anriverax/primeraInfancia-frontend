@@ -7,11 +7,8 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Appendix1Input = {
-  startDate: new Date(),
   finishDate: new Date(),
   frequencyOfEncounters: "",
-  teacherSignature: "",
-  mentorSignature: ""
 };
 
 const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
@@ -21,21 +18,12 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
     values: Appendix1Input,
     formikHelpers: FormikHelpers<IAppendix1Input>
   ): Promise<void> => {
-    const startDateField = values.startDate;
     const finishDateField = values.finishDate;
     const frequencyOfEncountersField = values.frequencyOfEncounters;
-    const teacherSignatureField = values.teacherSignature;
-    const mentorSignatureField = values.mentorSignature;
+console.log(finishDateField,frequencyOfEncountersField,"##");
 
     const nameField = "Anexo 1";
     const data = [
-      {
-        name: nameField,
-        textQuestion: "Fecha de inicio del acompañamiento",
-        textAnswer: startDateField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
       {
         name: nameField,
         textQuestion: "Fecha estimada de cierre",
@@ -50,20 +38,6 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
         teacherRoleId: 1,
         mentorRoleId: 2
       },
-      {
-        name: nameField,
-        textQuestion: "Acuerdos del personal docente acompañado",
-        textAnswer: teacherSignatureField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "Acuerdos del personal mentor",
-        textAnswer: mentorSignatureField,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      }
     ];
 
     data.map(async (item) => {

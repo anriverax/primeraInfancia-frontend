@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, FileText, Users, BookOpen, ClipboardCheck, BarChart3, Target } from "lucide-react";
+import { FileText, Save, StepBack } from "lucide-react";
 import {
   Button,
   Card,
@@ -20,7 +20,6 @@ import type { IAppendix1Input } from "../type"
 import Link from "next/link";
 import useAxios from "@/shared/hooks/useAxios";
 import { useAppendixDetailsList } from "@/features/attachment/hooks/appendix/useAppendixDetailList";
-import { useFormik } from "formik";
 import { parseDate } from "@internationalized/date";
 
 type Appendix1FormProps = {
@@ -28,13 +27,12 @@ type Appendix1FormProps = {
 };
 
 const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element => {
-
-  const useRequest = useAxios(true);
   const { appendixDetailsList } = useAppendixDetailsList();
-  const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
+  const { handleSubmit, touched, errors, isSubmitting } = formik;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { getInputProps } = useCustomFormFields();
-  console.log(appendixDetailsList, "--");
+  //const { getInputProps } = useCustomFormFields();
+
+console.log(appendixDetailsList);
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
@@ -45,8 +43,8 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
-    // handleSubmit();
-    // onOpenChange();
+    handleSubmit();
+    onOpenChange();
   };
   /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
@@ -64,7 +62,7 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
           <p className="text-xl text-justify">{appendixDetailsList?.description}</p>
         </div>
 
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleOkSubmit}>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
               {appendixDetailsList?.Section?.map((section, index) => (
@@ -89,33 +87,35 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
                           {/* Display the extracted text */}
                           {question.text}
                         </span>
-                        {question.questionType === "DATE" ? (
-                          // <DatePicker
-                          //   name="startDate"
-                          //   value={formik.values.startDate ? parseDate(formik.values.startDate.toISOString().slice(0, 10)) : null}
-                          //   onChange={(dateValue) => {
-                          //     // Convert DateValue to JS Date before storing in formik
-                          //     const jsDate = dateValue ? new Date(dateValue.toString()) : null;
-                          //     formik.setFieldValue("startDate", jsDate);
-                          //   }}
-                          //   isInvalid={Boolean(touched.startDate && errors.startDate)}
-                          //   errorMessage={touched.startDate && errors.startDate ? errors.startDate : undefined}
-                          // />
-                          <Input
-                                              {...getFieldProps("startDate")}
-                                              {...getInputProps(
-                                                "startDate",
-                                                "Total de niñas atendidos",
-                                                touched.startDate,
-                                                errors.startDate
-                                              )}
-                                            />
-
-                        ) : ('no')}
-                        {/* Optional: Display question type (e.g., as a badge) */}
-                        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">
-                          {question.questionType}
-                        </span>
+                        {(() => {
+                          switch (question.questionType) {
+                            case "DATE":
+                              return (
+                                <DatePicker
+                                  name={question.text}
+                                  value={formik.values[question.fieldName] ? parseDate(formik.values[question.fieldName].toISOString().slice(0, 10)) : null}
+                                  onChange={(dateValue) => {
+                                    const jsDate = dateValue ? new Date(dateValue.toString()) : null;
+                                    formik.setFieldValue(question.fieldName, jsDate);
+                                  }}
+                                  isInvalid={Boolean(touched[question.fieldName] && errors[question.fieldName])}
+                                  errorMessage={touched[question.fieldName] && errors[question.fieldName] ? errors[question.fieldName] : undefined}
+                                />
+                              );
+                            case "TEXT":
+                              return (
+                                <Input
+                                  name={question.text}
+                                  value={formik.values[question.fieldName] || ""}
+                                  onChange={formik.handleChange}
+                                  isInvalid={Boolean(touched[question.fieldName] && errors[question.fieldName])}
+                                  errorMessage={touched[question.fieldName] && errors[question.fieldName] ? errors[question.fieldName] : undefined}
+                                />
+                              );
+                            default:
+                              return <span>Tipo de pregunta no soportado, por favor pongase en contacto con el administrador del sistema.</span>;
+                          }
+                        })()}
                       </li>
                     ))}
                   </ul>
@@ -126,16 +126,24 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
           </Card>
 
           <div className="flex space-x-4 mt-8">
+            {/* <div className="flex justify-center text"> */}
             <Button
-              type="button"
               color="secondary"
+              variant="shadow"
+              type="button"
               as={Link}
               href="/admin/mentoria"
-              className="flex-1 py3 px-6"
+              startContent={<StepBack />}
             >
               Regresar
             </Button>
-            <Button type="submit" color="primary" className="flex-1 py3 px-6">
+            <Button
+              color="primary"
+              variant="shadow"
+              type="submit"
+              isLoading={isSubmitting}
+              startContent={<Save />}
+            >
               Enviar
             </Button>
           </div>
@@ -156,10 +164,6 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancelar
                   </Button>
-                  {/* <Button color="primary" isLoading={isSubmitting} onPress={handleConfirmSubmit}>
-                    {" "}
-                    Enviar
-                  </Button> */}
                 </ModalFooter>
               </>
             )}
