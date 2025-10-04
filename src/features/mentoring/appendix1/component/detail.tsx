@@ -14,11 +14,9 @@ import {
   DatePicker,
   useDisclosure
 } from "@heroui/react";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import type { FormikProps } from "@/shared/types/globals";
-import type { IAppendix1Input } from "../type"
+import type { IAppendix1Input } from "../type";
 import Link from "next/link";
-import useAxios from "@/shared/hooks/useAxios";
 import { useAppendixDetailsList } from "@/features/attachment/hooks/appendix/useAppendixDetailList";
 import { parseDate } from "@internationalized/date";
 
@@ -28,11 +26,8 @@ type Appendix1FormProps = {
 
 const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element => {
   const { appendixDetailsList } = useAppendixDetailsList();
-  const { handleSubmit, touched, errors, isSubmitting, values } = formik;
+  const { handleSubmit, touched, errors, isSubmitting } = formik;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  //const { getInputProps } = useCustomFormFields();
-
-  console.log(appendixDetailsList);
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
@@ -70,62 +65,78 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
                   <h3 className="pb-6">
                     <p className="text-xl text-justify">{section.title}</p>
                   </h3>
-                  {/* If there's a summary, render it as well */}
                   {section.summary && (
                     <p
                       className="text-lg text-justify"
                       dangerouslySetInnerHTML={{ __html: section.summary }}
                     />
-
                   )}
 
                   <ul className="space-y-2">
-                    {/* Iterate over the 'Question' array within the section */}
                     {section.Question.map((question, questionIndex) => (
                       <li key={questionIndex} className="text-lg text-gray-800">
-                        <span className="font-medium mr-2">
-                          {/* Display the extracted text */}
-                          {question.text}
-                        </span>
-                        {(() => {
+                        <span className="font-medium mr-2">{question.text}</span>
+                        {((): any => {
                           switch (question.questionType) {
                             case "DATE":
                               return (
                                 <DatePicker
                                   name={question.text}
-                                  value={formik.values[question.fieldName] ? parseDate(formik.values[question.fieldName].toISOString().slice(0, 10)) : null}
+                                  value={
+                                    formik.values[question.fieldName]
+                                      ? parseDate(
+                                        formik.values[question.fieldName].toISOString().slice(0, 10)
+                                      )
+                                      : null
+                                  }
+                                  isInvalid={Boolean(
+                                    touched[question.fieldName] && errors[question.fieldName]
+                                  )}
+                                  errorMessage={
+                                    touched[question.fieldName] && errors[question.fieldName]
+                                      ? errors[question.fieldName]
+                                      : undefined
+                                  }
                                   onChange={(dateValue) => {
                                     const jsDate = dateValue ? new Date(dateValue.toString()) : null;
                                     formik.setFieldValue(question.fieldName, jsDate);
                                   }}
-                                  isInvalid={Boolean(touched[question.fieldName] && errors[question.fieldName])}
-                                  errorMessage={touched[question.fieldName] && errors[question.fieldName] ? errors[question.fieldName] : undefined}
                                 />
                               );
                             case "TEXT":
                               return (
                                 <Input
-                                  name={question.text}
+                                  name={question.fieldName}
                                   value={formik.values[question.fieldName] || ""}
+                                  errorMessage={
+                                    touched[question.fieldName] && errors[question.fieldName]
+                                      ? errors[question.fieldName]
+                                      : undefined
+                                  }
+                                  isInvalid={Boolean(
+                                    touched[question.fieldName] && errors[question.fieldName]
+                                  )}
                                   onChange={formik.handleChange}
-                                  isInvalid={Boolean(touched[question.fieldName] && errors[question.fieldName])}
-                                  errorMessage={touched[question.fieldName] && errors[question.fieldName] ? errors[question.fieldName] : undefined}
                                 />
                               );
                             default:
-                              return <span>Tipo de pregunta no soportado, por favor pongase en contacto con el administrador del sistema.</span>;
+                              return (
+                                <span>
+                                  Tipo de pregunta no soportado, por favor pongase en contacto con el
+                                  administrador del sistema.
+                                </span>
+                              );
                           }
                         })()}
                       </li>
                     ))}
                   </ul>
-                  {/* You can also iterate through the section.Question array here if needed */}
                 </div>
               ))}
             </CardBody>
           </Card>
 
-           <div className="flex space-x-4 mt-8">
+          <div className="flex space-x-4 mt-8">
             {/* <div className="flex justify-center text"> */}
             <Button
               color="secondary"

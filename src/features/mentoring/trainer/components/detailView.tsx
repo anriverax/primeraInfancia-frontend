@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye, FileText, Users, BookOpen, ClipboardCheck, BarChart3, Target } from "lucide-react";
+import { FileText } from "lucide-react";
 import {
   Button,
   Card,
@@ -15,24 +15,19 @@ import {
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import type { FormikProps } from "@/shared/types/globals";
-import type { IAttachment1Input } from "../../../attachment/instrument1/type"
+import type { IAttachment1Input } from "../../../attachment/instrument1/type";
 import Link from "next/link";
-import useAxios from "@/shared/hooks/useAxios";
 import { useAppendixDetailsList } from "@/features/attachment/hooks/appendix/useAppendixDetailList";
-import { useFormik } from "formik";
 
 type Attachment1FormProps = {
   formik: FormikProps<IAttachment1Input>;
 };
 
 const TrainerDetailView = ({ formik }: Attachment1FormProps): React.JSX.Element => {
-
-  const useRequest = useAxios(true);
   const { appendixDetailsList } = useAppendixDetailsList();
-  const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
+  const { handleSubmit, touched, errors, getFieldProps } = formik;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
-console.log(appendixDetailsList,"--");
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
@@ -43,8 +38,8 @@ console.log(appendixDetailsList,"--");
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
-    // handleSubmit();
-    // onOpenChange();
+    handleSubmit();
+    onOpenChange();
   };
   /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
@@ -76,7 +71,6 @@ console.log(appendixDetailsList,"--");
                       className="text-lg text-justify"
                       dangerouslySetInnerHTML={{ __html: section.summary }}
                     />
-
                   )}
 
                   <ul className="space-y-2">
@@ -95,8 +89,11 @@ console.log(appendixDetailsList,"--");
                               "Fecha de inicio del acompañamiento",
                               touched.startDate,
                               errors.startDate
-                            )}></Input>
-                        ) : ('no')}
+                            )}
+                          ></Input>
+                        ) : (
+                          "no"
+                        )}
                         {/* Optional: Display question type (e.g., as a badge) */}
                         <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20">
                           {question.questionType}

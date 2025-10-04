@@ -28,5 +28,5 @@ export const attachment2Schema: ObjectSchema<Attachment2Input> = object({
   challengesAtClassroom: stringField(validationMessages.required),
   whatExpect: stringField(validationMessages.required),
   anythingElse: stringField(validationMessages.required),
-  mentorObservations: stringField(validationMessages.required),
+  mentorObservations: stringField(validationMessages.required)
 });

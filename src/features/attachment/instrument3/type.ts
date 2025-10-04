@@ -3,12 +3,12 @@ import { AxiosMessage } from "@/shared/types/globals";
 export interface Attachment3Input {
   dimension: string;
   subdimension: string;
-  goal:string;
-  activities:string;
-  resources:string;
-  tempo:string;
-  successIndicators:string;
-  levelAchievement:string;
+  goal: string;
+  activities: string;
+  resources: string;
+  tempo: string;
+  successIndicators: string;
+  levelAchievement: string;
   classrromObservations: string;
   observationRoutine: string;
   dialoguedFeedback: string;

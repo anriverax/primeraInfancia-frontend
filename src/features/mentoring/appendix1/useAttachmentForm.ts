@@ -8,7 +8,7 @@ import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Appendix1Input = {
   finishDate: new Date(),
-  frequencyOfEncounters: "",
+  frequencyOfEncounters: ""
 };
 
 const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
@@ -20,7 +20,6 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
   ): Promise<void> => {
     const finishDateField = values.finishDate;
     const frequencyOfEncountersField = values.frequencyOfEncounters;
-console.log(finishDateField,frequencyOfEncountersField,"##");
 
     const nameField = "Anexo 1";
     const data = [
@@ -37,7 +36,7 @@ console.log(finishDateField,frequencyOfEncountersField,"##");
         textAnswer: frequencyOfEncountersField,
         teacherRoleId: 1,
         mentorRoleId: 2
-      },
+      }
     ];
 
     data.map(async (item) => {

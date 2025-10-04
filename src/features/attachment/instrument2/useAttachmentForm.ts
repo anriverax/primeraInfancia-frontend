@@ -66,6 +66,7 @@ const useAttachment2Form = (): FormikProps<IAttachment2Input> => {
     const whatExpect = values.whatExpect;
     const anythingElse = values.anythingElse;
     const mentorObservations = values.mentorObservations;
+    console.log(mentorObservations, "----");
 
     const nameField = "Anexo 2";
     const data = [

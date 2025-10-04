@@ -16,7 +16,14 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue,
+  ModalFooter,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  getKeyValue,
   useDisclosure
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
@@ -26,13 +33,13 @@ import Link from "next/link";
 import { showToast } from "@/shared/utils/funtions";
 
 interface ClasificationChildrenData {
-  id: string
-  shift: string
-  section: string
-  girlNumber: number
-  boyNumber: number
-  girlDisabilityNumber: number
-  boyDisabilityNumber: number
+  id: string;
+  shift: string;
+  section: string;
+  girlNumber: number;
+  boyNumber: number;
+  girlDisabilityNumber: number;
+  boyDisabilityNumber: number;
 }
 
 export const dataList = [
@@ -52,7 +59,8 @@ export const dataList = [
   { name: "educationalLevelServed", key: "Parvularia 6", label: "Parvularia 6" },
   { name: "educationalLevelServed", key: "Primer grado", label: "Primer grado" },
   { name: "ampm", key: "a.m.", label: "A.M." },
-  { name: "ampm", key: "p.m.", label: "P.M." },];
+  { name: "ampm", key: "p.m.", label: "P.M." }
+];
 
 const experienceList = dataList.filter((item) => item.name === "experiencie");
 const initialTrainingList = dataList.filter((item) => item.name === "initialTraining");
@@ -75,9 +83,11 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
     girlNumber: 0,
     boyNumber: 0,
     girlDisabilityNumber: 0,
-    boyDisabilityNumber: 0,
-  })
-  const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<ClasificationChildrenData[]>([])
+    boyDisabilityNumber: 0
+  });
+  const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<
+    ClasificationChildrenData[]
+  >([]);
 
   const handleDetailTeacher = () => {
     // if (!values.shift || !values.section) {
@@ -92,10 +102,10 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
       girlNumber: values.girlNumber,
       boyNumber: values.boyNumber,
       girlDisabilityNumber: values.girlDisabilityNumber,
-      boyDisabilityNumber: values.boyDisabilityNumber,
-    }
+      boyDisabilityNumber: values.boyDisabilityNumber
+    };
 
-    setClasificationChildrenEntries((prev) => [...prev, newEntry])
+    setClasificationChildrenEntries((prev) => [...prev, newEntry]);
 
     setFormData({
       shift: "",
@@ -103,18 +113,17 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
       girlNumber: 0,
       boyNumber: 0,
       girlDisabilityNumber: 0,
-      boyDisabilityNumber: 0,
-    })
-  }
+      boyDisabilityNumber: 0
+    });
+  };
 
   const handleDelete = (id: string) => {
-    setClasificationChildrenEntries((prev) => prev.filter((entry) => entry.id !== id))
-  }
+    setClasificationChildrenEntries((prev) => prev.filter((entry) => entry.id !== id));
+  };
 
   const getClasificacion = (entry: ClasificationChildrenData): number => {
-    return (Number(entry.girlNumber || 0) +
-      Number(entry.boyNumber || 0))
-  }
+    return Number(entry.girlNumber || 0) + Number(entry.boyNumber || 0);
+  };
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
@@ -144,7 +153,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
           </p>
         </div>
 
-        <form className="space-y-6" onSubmit={handleOkSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
               <h3 className="pb-6">
@@ -156,12 +165,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                   <Select
                     items={ampmList}
                     {...getFieldProps("shift")}
-                    {...getInputProps(
-                      "shift",
-                      "Turno: ",
-                      touched.shift,
-                      errors.shift
-                    )}
+                    {...getInputProps("shift", "Turno: ", touched.shift, errors.shift)}
                   >
                     {(item) => <SelectItem>{item.label}</SelectItem>}
                   </Select>
@@ -176,7 +180,6 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                       touched.section,
                       errors.section
                     )}
-
                   >
                     {(item) => <SelectItem>{item.label}</SelectItem>}
                   </Select>
@@ -241,7 +244,9 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
 
               <div>
                 {clasificationChildreEntries.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">No hay registros ingresados aún</div>
+                  <div className="text-center py-8 text-muted-foreground">
+                    No hay registros ingresados aún
+                  </div>
                 ) : (
                   <div className="overflow-x-auto">
                     <Table aria-label="Example table with dynamic content">
@@ -250,11 +255,16 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
                         <TableColumn>Sección</TableColumn>
                         <TableColumn>Niñas</TableColumn>
                         <TableColumn>Niños</TableColumn>
-                        <TableColumn>Niñas con <br />discapacidad diagnosticada</TableColumn>
-                        <TableColumn>Niños con <br />discapacidad diagnosticada</TableColumn>
+                        <TableColumn>
+                          Niñas con <br />
+                          discapacidad diagnosticada
+                        </TableColumn>
+                        <TableColumn>
+                          Niños con <br />
+                          discapacidad diagnosticada
+                        </TableColumn>
                         <TableColumn>Total</TableColumn>
                         <TableColumn>Acción</TableColumn>
-
                       </TableHeader>
                       <TableBody items={clasificationChildreEntries}>
                         {(item) => (
@@ -562,7 +572,7 @@ const Attachment2Form = ({ formik }: Attachment2FormProps): React.JSX.Element =>
           </ModalContent>
         </Modal>
       </div>
-    </div >
+    </div>
   );
 };
 export default Attachment2Form;

@@ -198,7 +198,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
     studentName: string,
     field: "grade" | "comment",
     value: string | number
-  ) => {
+  ): void => {
     setGradesData((prev) => ({
       ...prev,
       [inscriptionId]: {
@@ -210,7 +210,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
     }));
   };
 
-  const submitAllGrades = async () => {
+  const submitAllGrades = async (): void => {
     try {
       setIsSubmitting(true);
 
@@ -276,7 +276,6 @@ const GradePage = (): Promise<React.JSX.Element> => {
       // }
 
       // const result = await response.json()
-      console.log("Grades submitted successfully:", ok);
 
       // Reset form after successful submission
       setGradesData({});
@@ -287,7 +286,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
     }
   };
 
-  const handleEvaluationInstrumentChange = (keys) => {
+  const handleEvaluationInstrumentChange = (keys): void => {
     setInstrumentoSeleccionado(keys);
 
     // Convert the Set of keys to an array to get the first selected key
@@ -307,7 +306,7 @@ const GradePage = (): Promise<React.JSX.Element> => {
     }
   };
 
-  const handleTrainingModuleChange = (keys) => {
+  const handleTrainingModuleChange = (keys): void => {
     setModuloSeleccionado(keys);
 
     // Convert the Set of keys to an array to get the first selected key
@@ -398,10 +397,10 @@ const GradePage = (): Promise<React.JSX.Element> => {
                 type="text"
                 placeholder="Nombre o código..."
                 value={filtro}
-                onChange={(e) => setFiltro(e.target.value)}
                 startContent={<UserRoundSearch className="text-default-400" size={16} />}
                 className="flex-1"
                 variant="bordered"
+                onChange={(e) => setFiltro(e.target.value)}
               />
             </div>
 
@@ -529,9 +528,9 @@ const GradePage = (): Promise<React.JSX.Element> => {
             <Button
               color="primary"
               startContent={<SaveAll size={16} />}
-              onClick={submitAllGrades}
-              isLoading={isSubmitting}
               isDisabled={Object.keys(gradesData).length === 0}
+              isLoading={isSubmitting}
+              onClick={submitAllGrades}
             >
               {isSubmitting
                 ? "Enviando..."

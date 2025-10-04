@@ -22,7 +22,7 @@ const initialValues: Attachment3Input = {
   coPlanningActivities: "",
   portfolioReview: "",
   analysisEvidence: "",
-  other: "",
+  other: ""
 };
 
 const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
@@ -48,7 +48,7 @@ const useAttachment3Form = (): FormikProps<IAttachment3Input> => {
     const portfolioReviewField = values.portfolioReview;
     const analysisEvidenceField = values.analysisEvidence;
     const otherField = values.other;
-    
+
     const nameField = "Anexo 3";
     const data = [
       {

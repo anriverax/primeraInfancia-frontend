@@ -11,8 +11,16 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter, Select, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell,
-  SelectItem, DatePicker,
+  ModalFooter,
+  Select,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  SelectItem,
+  DatePicker,
   useDisclosure
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
@@ -21,77 +29,129 @@ import { IAttachment3Input } from "../type";
 import Link from "next/link";
 
 interface DimensionDetailData {
-  id: string
-  dimension: string
-  subdimension: string
-  goal: string
-  activities: string
-  resources: string
-  tempo: string
-  successIndicators: string
-  levelAchievement: string
+  id: string;
+  dimension: string;
+  subdimension: string;
+  goal: string;
+  activities: string;
+  resources: string;
+  tempo: string;
+  successIndicators: string;
+  levelAchievement: string;
 }
 
 export const dataList = [
   {
-    name: "dimension", key: "Desarrollo y aprendizaje activos. Currículo integrado", label: "Desarrollo y aprendizaje activos. Currículo integrado", sub: [
+    name: "dimension",
+    key: "Desarrollo y aprendizaje activos. Currículo integrado",
+    label: "Desarrollo y aprendizaje activos. Currículo integrado",
+    sub: [
       {
-        key: "Aprendizaje significativo", label: "Aprendizaje significativo"
+        key: "Aprendizaje significativo",
+        label: "Aprendizaje significativo"
       },
       {
-        key: "Enfoque constructivista", label: "Enfoque constructivista"
-      }, {
-        key: "Respeto a las características individuales e inclusión educativa", label: "Respeto a las características individuales e inclusión educativa"
-      }, {
-        key: "Juego como estrategia pedagógica", label: "Juego como estrategia pedagógica"
-      }, {
-        key: "Ambientes, espacios y materiales", label: "Ambientes, espacios y materiales"
-      }, {
-        key: "Motricidad y expresión emocional", label: "Motricidad y expresión emocional"
-      }, {
-        key: "Instalaciones de interacción entre iguales y los objetos", label: "Instalaciones de interacción entre iguales y los objetos"
-      }, {
-        key: "Estrategias pedagógicas pertinentes", label: "Estrategias pedagógicas pertinentes"
-      }, {
-        key: "Rutinas y organización (pág.92)", label: "Rutinas y organización (pág.92)"
-      }, {
-        key: "Rutinas y organización", label: "Rutinas y organización"
-      }, {
-        key: "Planificación y evaluación", label: "Planificación y evaluación"
-      }]
-  },
-  {
-    name: "dimension", key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia", sub: [
+        key: "Enfoque constructivista",
+        label: "Enfoque constructivista"
+      },
       {
-        key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible"
-      }, {
-        key: "Comunicación positiva, atención y respeto", label: "Comunicación positiva, atención y respeto"
-      }, {
-        key: "Desarrollo socioemocional, colaboración y valores", label: "Desarrollo socioemocional, colaboración y valores"
-      },]
-  },
-  {
-    name: "dimension", key: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias", label: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias", sub: [
+        key: "Respeto a las características individuales e inclusión educativa",
+        label: "Respeto a las características individuales e inclusión educativa"
+      },
       {
-        key: "Integración de las familias en los procesos de desarrollo y aprendizaje", label: "Integración de las familias en los procesos de desarrollo y aprendizaje"
-      }, {
-        key: "Acompañamiento docente a las familias", label: "Acompañamiento docente a las familias"
-      }, {
-        key: "Participación del docente en el modelo de atención integral", label: "Participación del docente en el modelo de atención integral"
-      }]
-  },
-  {
-    name: "dimension", key: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnologógicos", label: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnologógicos", sub: [
+        key: "Juego como estrategia pedagógica",
+        label: "Juego como estrategia pedagógica"
+      },
       {
-        key: "Trabajo cooperativo y en equipo", label: "Trabajo cooperativo y en equipo"
-      }, {
-        key: "Aula y recursos virtuales", label: "Aula y recursos virtuales"
-      }, {
-        key: "Aula y recursos virtuales", label: "Aula y recursos virtuales"
+        key: "Ambientes, espacios y materiales",
+        label: "Ambientes, espacios y materiales"
+      },
+      {
+        key: "Motricidad y expresión emocional",
+        label: "Motricidad y expresión emocional"
+      },
+      {
+        key: "Instalaciones de interacción entre iguales y los objetos",
+        label: "Instalaciones de interacción entre iguales y los objetos"
+      },
+      {
+        key: "Estrategias pedagógicas pertinentes",
+        label: "Estrategias pedagógicas pertinentes"
+      },
+      {
+        key: "Rutinas y organización (pág.92)",
+        label: "Rutinas y organización (pág.92)"
+      },
+      {
+        key: "Rutinas y organización",
+        label: "Rutinas y organización"
+      },
+      {
+        key: "Planificación y evaluación",
+        label: "Planificación y evaluación"
       }
     ]
   },
-]
+  {
+    name: "dimension",
+    key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia",
+    label:
+      "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia",
+    sub: [
+      {
+        key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible",
+        label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible"
+      },
+      {
+        key: "Comunicación positiva, atención y respeto",
+        label: "Comunicación positiva, atención y respeto"
+      },
+      {
+        key: "Desarrollo socioemocional, colaboración y valores",
+        label: "Desarrollo socioemocional, colaboración y valores"
+      }
+    ]
+  },
+  {
+    name: "dimension",
+    key: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias",
+    label:
+      "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias",
+    sub: [
+      {
+        key: "Integración de las familias en los procesos de desarrollo y aprendizaje",
+        label: "Integración de las familias en los procesos de desarrollo y aprendizaje"
+      },
+      {
+        key: "Acompañamiento docente a las familias",
+        label: "Acompañamiento docente a las familias"
+      },
+      {
+        key: "Participación del docente en el modelo de atención integral",
+        label: "Participación del docente en el modelo de atención integral"
+      }
+    ]
+  },
+  {
+    name: "dimension",
+    key: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnologógicos",
+    label: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnologógicos",
+    sub: [
+      {
+        key: "Trabajo cooperativo y en equipo",
+        label: "Trabajo cooperativo y en equipo"
+      },
+      {
+        key: "Aula y recursos virtuales",
+        label: "Aula y recursos virtuales"
+      },
+      {
+        key: "Aula y recursos virtuales",
+        label: "Aula y recursos virtuales"
+      }
+    ]
+  }
+];
 
 const dimensionList = dataList.filter((item) => item.name === "dimension");
 
@@ -113,9 +173,9 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
     resources: "",
     tempo: "",
     successIndicators: "",
-    levelAchievement: "",
-  })
-  const [dimensionDetailEntries, setDimensionDetailEntries] = useState<DimensionDetailData[]>([])
+    levelAchievement: ""
+  });
+  const [dimensionDetailEntries, setDimensionDetailEntries] = useState<DimensionDetailData[]>([]);
 
   const handleDetailTeacher = () => {
     // if (!values.dimension || !values.subdimension) {
@@ -132,10 +192,10 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
       resources: values.resources,
       tempo: values.tempo,
       successIndicators: values.successIndicators,
-      levelAchievement: values.levelAchievement,
-    }
+      levelAchievement: values.levelAchievement
+    };
 
-    setDimensionDetailEntries((prev) => [...prev, newEntry])
+    setDimensionDetailEntries((prev) => [...prev, newEntry]);
 
     setFormData({
       dimension: "",
@@ -145,13 +205,13 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
       resources: "",
       tempo: "",
       successIndicators: "",
-      levelAchievement: "",
-    })
-  }
+      levelAchievement: ""
+    });
+  };
 
   const handleDelete = (id: string) => {
-    setDimensionDetailEntries((prev) => prev.filter((entry) => entry.id !== id))
-  }
+    setDimensionDetailEntries((prev) => prev.filter((entry) => entry.id !== id));
+  };
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
@@ -168,9 +228,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
   /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
   // Find the selected dimension object from dataList
-  const selectedDimension = dataList.find(
-    (item) => item.key === values.dimension
-  );
+  const selectedDimension = dataList.find((item) => item.key === values.dimension);
 
   // Get the subdimension list or empty array
   const subdimensionList = selectedDimension?.sub ?? [];
@@ -192,19 +250,12 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
         <form className="space-y-6" onSubmit={handleOkSubmit}>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
-
-
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Select
                     items={dimensionList}
                     {...getFieldProps("dimension")}
-                    {...getInputProps(
-                      "dimension",
-                      "Dimensión: ",
-                      touched.dimension,
-                      errors.dimension
-                    )}
+                    {...getInputProps("dimension", "Dimensión: ", touched.dimension, errors.dimension)}
                   >
                     {(item) => <SelectItem>{item.label}</SelectItem>}
                   </Select>
@@ -219,7 +270,6 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                       touched.subdimension,
                       errors.subdimension
                     )}
-
                   >
                     {(item) => <SelectItem>{item.label}</SelectItem>}
                   </Select>
@@ -230,12 +280,7 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                 <div className="space-y-2">
                   <Input
                     {...getFieldProps("goal")}
-                    {...getInputProps(
-                      "goal",
-                      "Objetivos",
-                      touched.goal,
-                      errors.goal
-                    )}
+                    {...getInputProps("goal", "Objetivos", touched.goal, errors.goal)}
                   />
                 </div>
 
@@ -264,24 +309,14 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
                 <div className="space-y-2">
                   <Input
                     {...getFieldProps("resources")}
-                    {...getInputProps(
-                      "resources",
-                      "Recursos",
-                      touched.resources,
-                      errors.resources
-                    )}
+                    {...getInputProps("resources", "Recursos", touched.resources, errors.resources)}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Input
                     {...getFieldProps("tempo")}
-                    {...getInputProps(
-                      "tempo",
-                      "Temporización",
-                      touched.tempo,
-                      errors.tempo
-                    )}
+                    {...getInputProps("tempo", "Temporización", touched.tempo, errors.tempo)}
                   />
                 </div>
 
@@ -316,7 +351,9 @@ const Attachment3Form = ({ formik }: Attachment3FormProps): React.JSX.Element =>
 
               <div>
                 {dimensionDetailEntries.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground">No hay registros ingresados aún</div>
+                  <div className="text-center py-8 text-muted-foreground">
+                    No hay registros ingresados aún
+                  </div>
                 ) : (
                   <div className="overflow-x-auto">
                     <Table aria-label="Example table with dynamic content">

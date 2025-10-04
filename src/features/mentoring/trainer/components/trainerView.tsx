@@ -1,9 +1,7 @@
 import { Button, Card, CardBody } from "@heroui/react";
 import Link from "next/link";
-import useAxios from "@/shared/hooks/useAxios";
 import { useAppendixList } from "@/features/attachment/hooks/appendix/useAppendixList";
 import { Eye } from "lucide-react";
-import TrainerDetailView from "./detailView";
 import dynamic from "next/dynamic";
 
 const LucideIconRenderer = dynamic(
@@ -14,10 +12,9 @@ const LucideIconRenderer = dynamic(
 );
 
 const TrainerView = (): React.JSX.Element => {
-  const useRequest = useAxios(true);
-  const { appendixsList } = useAppendixList()
+  const { appendixsList } = useAppendixList();
 
-  const truncateText = (text, maxLength) => {
+  const truncateText = (text: string, maxLength: number): string => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
     }
@@ -27,13 +24,13 @@ const TrainerView = (): React.JSX.Element => {
   return (
     <div className="flex items-center gap-2">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {appendixsList?.map((item) => {
+        {appendixsList?.map((item, index) => {
           //const IconComponent = item.iconName;
 
           return (
             <>
               <Card
-                key={item?.id}
+                key={index}
                 className="p-6 h-[285px] hover:shadow-lg  transition-all duration-300 border-border/50 hover:border-accent/20"
               >
                 <CardBody className="pt-3">
