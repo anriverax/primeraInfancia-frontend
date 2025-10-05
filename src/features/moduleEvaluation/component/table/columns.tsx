@@ -17,7 +17,7 @@ export const moduleEvaluationColumns: IColumns<IModuleEvaluationColumnKey>[] = [
   },
   {
     key: "evaluationInstrumentId",
-    label: "Instrumento de evaluación"
+    label: "Ruta de aprendizaje"
   },
   {
     key: "grade",
