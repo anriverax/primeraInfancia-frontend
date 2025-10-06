@@ -15,17 +15,17 @@ import {
   useDisclosure
 } from "@heroui/react";
 import type { FormikProps } from "@/shared/types/globals";
-import type { IAppendix1Input } from "../type";
+import type { IAppendix2Input } from "../type";
 import Link from "next/link";
 import { useAppendixDetailsList } from "@/features/attachment/hooks/appendix/useAppendixDetailList";
 import { parseDate } from "@internationalized/date";
 
 type Appendix1FormProps = {
-  formik: FormikProps<IAppendix1Input>;
+  formik: FormikProps<IAppendix2Input>;
 };
 
-const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element => {
-  const { appendixDetailsList } = useAppendixDetailsList(2);
+const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
+  const { appendixDetailsList } = useAppendixDetailsList(3);
   const { handleSubmit, touched, errors, isSubmitting } = formik;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -189,4 +189,4 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
   );
 };
 
-export default TrainerDetailView;
+export default Appendix2View;
