@@ -12,9 +12,10 @@ const CareerTable = ({ title, careerData }: CareerTableProps): React.JSX.Element
   const renderCareerCell = useRenderCareerCell();
 
   return (
-    <CardLayoutDashboard title={title} clsCard="w-1/2">
+    <CardLayoutDashboard title={title} clsCard="2xl:w-1/2">
       <Table
         shadow="none"
+        className="table-auto"
         classNames={{
           th: " text-bold text-sm text-black bg-white bg-gray-100",
           tr: "border border-gray-100",

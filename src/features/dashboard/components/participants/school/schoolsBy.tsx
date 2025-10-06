@@ -10,7 +10,7 @@ type SchoolsByProps = {
 
 const SchoolsBy = ({ title, data }: SchoolsByProps): React.JSX.Element => (
   <CardLayoutDashboard title={title}>
-    <ul className="grid grid-cols-2 gap-6 items-center mb-6">
+    <ul className="grid grid-cols-2 gap-6 items-center mb-6 justify-between">
       {data.map((school, index: number) => (
         <li className="flex gap-3 items-center" key={index}>
           <div className="p-2 rounded-lg shrink-0 bg-gray-100">

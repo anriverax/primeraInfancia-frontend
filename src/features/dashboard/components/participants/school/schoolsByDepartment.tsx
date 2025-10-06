@@ -24,8 +24,8 @@ interface Props {
 const SchoolsByDepartment = ({ data }: Props): React.JSX.Element => (
   <CardLayoutDashboard
     title="Centros Educativos y Docentes por departamento"
-    clsCard="w-[75%]"
-    clsCardBody="overflow-hidden"
+    clsCard="2xl:w-[75%]"
+    clsCardBody="sm:overflow-hidden"
   >
     <div className="w-full h-[600px]">
       <ResponsiveContainer width="100%" height="100%">
