@@ -25,4 +25,3 @@ export const appendix2Schema: ObjectSchema<Appendix2Input> = object({
   ask19: stringField(validationMessages.required),
   ask20: stringField(validationMessages.required),
 });
-
