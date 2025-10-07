@@ -1,27 +1,29 @@
 import { FormikHelpers, useFormik } from "formik";
-import { IAppendix1Input, Appendix1Input } from "./type";
+import { IAppendix3Input, Appendix3Input } from "./type";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
-import { appendix1Schema } from "./attchmentValidation";
+import { appendix3Schema } from "./attchmentValidation";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
-const initialValues: Appendix1Input = {
-  ask1: new Date(),
-  ask2: ""
+const initialValues: Appendix3Input = {
+  ask1: [],
+  ask2: [],
+  ask3: ""
 };
 
-const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
+const useAppendix1Form = (): FormikProps<IAppendix3Input> => {
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
-    values: Appendix1Input,
-    formikHelpers: FormikHelpers<IAppendix1Input>
+    values: Appendix3Input,
+    formikHelpers: FormikHelpers<IAppendix3Input>
   ): Promise<void> => {
     const ask1Field = values.ask1;
     const ask2Field = values.ask2;
+    const ask3Field = values.ask3;
 
-    const nameField = "Anexo 1";
+    const nameField = "Anexo 3";
     const data = [
       {
         name: nameField,
@@ -36,12 +38,19 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
         textAnswer: ask2Field,
         teacherRoleId: 1,
         mentorRoleId: 2
+      },
+      {
+        name: nameField,
+        textQuestion: "3",
+        textAnswer: ask3Field,
+        teacherRoleId: 1,
+        mentorRoleId: 2
       }
     ];
 
     data.map(async (item) => {
       try {
-        const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
+        const res: AxiosResponse<FetchResponse<IAppendix3Input>> = await useRequest.post(
           "/appendix-test/create",
           item
         );
@@ -60,7 +69,7 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
           // setDataAttendance(newData);
         }
       } catch (error) {
-        handleFormikResponseError<IAppendix1Input>(error as AxiosError, formikHelpers!);
+        handleFormikResponseError<IAppendix3Input>(error as AxiosError, formikHelpers!);
       }
     });
   };
@@ -68,7 +77,7 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
-    validationSchema: appendix1Schema,
+    validationSchema: appendix3Schema,
     validateOnBlur: true,
     validateOnChange: false,
     onSubmit: handleSubmit
