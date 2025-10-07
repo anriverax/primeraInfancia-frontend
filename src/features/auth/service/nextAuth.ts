@@ -57,6 +57,7 @@ export const authOptions: NextAuthOptions = {
         path: "/",
         maxAge: 60 * 60 * 24 // 1 día, por ejemplo
       });
+
       return true;
     },
     async jwt({ token, user, session }) {
