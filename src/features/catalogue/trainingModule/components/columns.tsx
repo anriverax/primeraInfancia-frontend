@@ -30,6 +30,7 @@ export const useRenderTrainingModuleCell = (): ((
   _columnKey: ITrainingModuleColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
   return useCallback((trainingModule: ITrainingModuleTable, columnKey: ITrainingModuleColumnKey) => {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     const cellValue = trainingModule[columnKey as keyof ITrainingModuleTable] as any;
 
     switch (columnKey) {
