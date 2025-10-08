@@ -15,7 +15,7 @@ export default function GroupsPage(): React.JSX.Element {
         <h2 className="text-2xl font-bold text-gray-900">Grupos</h2>
       </div>
 
-      <div className="space-y-4 w-full overflow-x-visible">
+      <div className="space-y-4">
         <GroupTable />
       </div>
     </div>

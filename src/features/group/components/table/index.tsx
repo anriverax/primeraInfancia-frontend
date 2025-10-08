@@ -55,9 +55,7 @@ const GroupTable = (): React.JSX.Element => {
         {(groupItem: IGroupTable) => (
           <TableRow key={groupItem.id}>
             {(groupKey) => (
-              <TableCell className="w-full">
-                {renderGroupCell(groupItem, groupKey as IGroupColumnKey)}
-              </TableCell>
+              <TableCell>{renderGroupCell(groupItem, groupKey as IGroupColumnKey)}</TableCell>
             )}
           </TableRow>
         )}
