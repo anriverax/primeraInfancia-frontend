@@ -18,7 +18,7 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
     values: Appendix1Input,
     formikHelpers: FormikHelpers<IAppendix1Input>
   ): Promise<void> => {
-    const ask1Field = values.ask1;
+        const ask1Field = values.ask1;
     const ask2Field = values.ask2;
 
     const nameField = "Anexo 1";
@@ -49,6 +49,7 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
         const resultData = res.data;
 
         showToast(String(resultData.message), "success");
+         formikHelpers.resetForm();
 
         if (
           resultData.statusCode === HttpStatusCode.Created ||
