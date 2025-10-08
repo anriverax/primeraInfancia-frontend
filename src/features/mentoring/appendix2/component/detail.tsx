@@ -1,6 +1,7 @@
 "use client";
 
-import { FileText, Save, StepBack } from "lucide-react";
+import { useState } from "react";
+import { FileText, Save, StepBack , Trash2} from "lucide-react";
 import {
   Button,
   Card,
@@ -12,13 +13,58 @@ import {
   ModalFooter,
   Input,
   DatePicker,
+  Select,
+  SelectItem,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
   useDisclosure
 } from "@heroui/react";
+import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import type { FormikProps } from "@/shared/types/globals";
 import type { IAppendix2Input } from "../type";
 import Link from "next/link";
 import { useAppendixDetailsList } from "@/features/attachment/hooks/appendix/useAppendixDetailList";
 import { parseDate } from "@internationalized/date";
+
+interface ClasificationChildrenData {
+  id: string;
+  shift: string;
+  section: string;
+  girlNumber: number;
+  boyNumber: number;
+  girlDisabilityNumber: number;
+  boyDisabilityNumber: number;
+}
+
+export const dataList = [
+  { name: "experiencie", key: "Menos de un año", label: "Menos de un año" },
+  { name: "experiencie", key: "1 a 3 años", label: "1 a 3 años" },
+  { name: "experiencie", key: "4 a 10 años", label: "4 a 10 años" },
+  { name: "experiencie", key: "Más de 10 años", label: "Más de 10 años" },
+  { name: "initialTraining", key: "Licenciatura", label: "Licenciatura" },
+  { name: "initialTraining", key: "Bachiller", label: "Bachiller" },
+  { name: "initialTraining", key: "Otros", label: "Otros" },
+  { name: "levelOfPractice", key: "Necesito apoyo", label: "Necesito apoyo" },
+  { name: "levelOfPractice", key: "En desarrollo", label: "En desarrollo" },
+  { name: "levelOfPractice", key: "Me siento competente", label: "Me siento competente" },
+  { name: "educationalLevelServed", key: "Inicial 3", label: "Inicial 3" },
+  { name: "educationalLevelServed", key: "Parvularia 4", label: "Parvularia 4" },
+  { name: "educationalLevelServed", key: "Parvulario 5", label: "Parvulario 5" },
+  { name: "educationalLevelServed", key: "Parvularia 6", label: "Parvularia 6" },
+  { name: "educationalLevelServed", key: "Primer grado", label: "Primer grado" },
+  { name: "ampm", key: "a.m.", label: "A.M." },
+  { name: "ampm", key: "p.m.", label: "P.M." }
+];
+
+const experienceList = dataList.filter((item) => item.name === "experiencie");
+const initialTrainingList = dataList.filter((item) => item.name === "initialTraining");
+const levelOfPracticeList = dataList.filter((item) => item.name === "levelOfPractice");
+const educationLevelServedList = dataList.filter((item) => item.name === "educationalLevelServed");
+const ampmList = dataList.filter((item) => item.name === "ampm");
 
 type Appendix1FormProps = {
   formik: FormikProps<IAppendix2Input>;
@@ -26,9 +72,58 @@ type Appendix1FormProps = {
 
 const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
   const { appendixDetailsList } = useAppendixDetailsList(3);
-  const { handleSubmit, touched, errors, isSubmitting } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values, } = formik;
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { getInputProps } = useCustomFormFields();
 
+
+  const [formData, setFormData] = useState({
+    shift: "",
+    section: "",
+    girlNumber: 0,
+    boyNumber: 0,
+    girlDisabilityNumber: 0,
+    boyDisabilityNumber: 0
+  });
+  const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<
+      ClasificationChildrenData[]
+    >([]);
+  
+    const handleDetailTeacher = () => {
+      // if (!values.shift || !values.section) {
+      //   showToast(String("Por favor complete los campos obligatorios: Turno y Sección"), "danger");
+      //   return
+      // }
+  
+      const newEntry: ClasificationChildrenData = {
+        id: clasificationChildreEntries.length.toString(),
+        shift: values.shift,
+        section: values.section,
+        girlNumber: values.girlNumber,
+        boyNumber: values.boyNumber,
+        girlDisabilityNumber: values.girlDisabilityNumber,
+        boyDisabilityNumber: values.boyDisabilityNumber
+      };
+  
+      setClasificationChildrenEntries((prev) => [...prev, newEntry]);
+  
+      setFormData({
+        shift: "",
+        section: "",
+        girlNumber: 0,
+        boyNumber: 0,
+        girlDisabilityNumber: 0,
+        boyDisabilityNumber: 0
+      });
+    };
+  
+    const handleDelete = (id: string) => {
+      setClasificationChildrenEntries((prev) => prev.filter((entry) => entry.id !== id));
+    };
+  
+    const getClasificacion = (entry: ClasificationChildrenData): number => {
+      return Number(entry.girlNumber || 0) + Number(entry.boyNumber || 0);
+    };
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,6 +155,144 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
         <form className="space-y-6" onSubmit={handleOkSubmit}>
           <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
             <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Select
+                    items={ampmList}
+                    {...getFieldProps("shift")}
+                    {...getInputProps("shift", "Turno: ", touched.shift, errors.shift)}
+                  >
+                    {(item) => <SelectItem>{item.label}</SelectItem>}
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Select
+                    items={educationLevelServedList}
+                    {...getFieldProps("section")}
+                    {...getInputProps(
+                      "section",
+                      "Nivel educativo que atiende: ",
+                      touched.section,
+                      errors.section
+                    )}
+                  >
+                    {(item) => <SelectItem>{item.label}</SelectItem>}
+                  </Select>
+                </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("girlNumber")}
+                    {...getInputProps(
+                      "girlNumber",
+                      "Total de niñas atendidos",
+                      touched.girlNumber,
+                      errors.girlNumber
+                    )}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("boyNumber")}
+                    {...getInputProps(
+                      "boyNumber",
+                      "Total de niños atendidos",
+                      touched.boyNumber,
+                      errors.boyNumber
+                    )}
+                  />
+                </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("girlDisabilityNumber")}
+                    {...getInputProps(
+                      "girlDisabilityNumber",
+                      "Cantidad de niñas con discapacidad diagnosticada",
+                      touched.girlDisabilityNumber,
+                      errors.girlDisabilityNumber
+                    )}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("boyDisabilityNumber")}
+                    {...getInputProps(
+                      "boyDisabilityNumber",
+                      "Cantidad de niños con discapacidad diagnosticada",
+                      touched.boyDisabilityNumber,
+                      errors.boyDisabilityNumber
+                    )}
+                  />
+                </div>
+
+                <Button className="w-full" onClick={() => handleDetailTeacher()}>
+                  Agregar Registro
+                </Button>
+              </div>
+
+              <div>
+                {clasificationChildreEntries.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No hay registros ingresados aún
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <Table aria-label="Example table with dynamic content">
+                      <TableHeader>
+                        <TableColumn>Turno</TableColumn>
+                        <TableColumn>Sección</TableColumn>
+                        <TableColumn>Niñas</TableColumn>
+                        <TableColumn>Niños</TableColumn>
+                        <TableColumn>
+                          Niñas con <br />
+                          discapacidad diagnosticada
+                        </TableColumn>
+                        <TableColumn>
+                          Niños con <br />
+                          discapacidad diagnosticada
+                        </TableColumn>
+                        <TableColumn>Total</TableColumn>
+                        <TableColumn>Acción</TableColumn>
+                      </TableHeader>
+                      <TableBody items={clasificationChildreEntries}>
+                        {(item) => (
+                          <TableRow key={item.id}>
+                            <TableCell>{item.shift}</TableCell>
+                            <TableCell>{item.section}</TableCell>
+                            <TableCell>{item.girlNumber}</TableCell>
+                            <TableCell>{item.boyNumber}</TableCell>
+                            <TableCell>{item.girlDisabilityNumber}</TableCell>
+                            <TableCell>{item.boyDisabilityNumber}</TableCell>
+                            <TableCell>
+                              <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-secondary text-secondary-foreground">
+                                {getClasificacion(item)}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleDelete(item.id)}
+                                className="text-destructive hover:text-destructive"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+              </div>
+
               {appendixDetailsList?.Section?.map((section, index) => (
                 <div key={index}>
                   <h3 className="pb-6">
@@ -118,6 +351,29 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
                                   )}
                                   onChange={formik.handleChange}
                                 />
+                              );
+                            case "SINGLE_CHOIDE":
+                              return (
+                                <Select
+                                  items={ampmList}
+                                  {...getFieldProps("shift")}
+                                  {...getInputProps("shift", "Turno: ", touched.shift, errors.shift)}
+                                >
+                                  {(item) => <SelectItem>{item.label}</SelectItem>}
+                                </Select>
+                                // <Input
+                                //   name={question.fieldName}
+                                //   value={formik.values[question.fieldName] || ""}
+                                //   errorMessage={
+                                //     touched[question.fieldName] && errors[question.fieldName]
+                                //       ? errors[question.fieldName]
+                                //       : undefined
+                                //   }
+                                //   isInvalid={Boolean(
+                                //     touched[question.fieldName] && errors[question.fieldName]
+                                //   )}
+                                //   onChange={formik.handleChange}
+                                // />
                               );
                             default:
                               return (
