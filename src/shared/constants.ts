@@ -42,7 +42,8 @@ export const roleDisplayNames: Record<TypeRole, string> = {
   [TypeRole.USER_TECNICO_APOYO]: "Técnico de apoyo"
 };
 
-export const tableClassNames: { th: string } = {
+export const tableClassNames: { base: string; th: string } = {
+  base: "w-full min-w-[600px] overflow-x-scroll",
   th: " text-bold text-sm text-black bg-blue-50"
 };
 /* eslint-disable no-unused-vars */

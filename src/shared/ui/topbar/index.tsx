@@ -30,7 +30,7 @@ const TopBar = memo(
               alt="logo de Mi nueva escuela"
               width={94}
               height={25}
-              className="h-auto w-auto"
+              className="h-auto w-auto hidden"
             />
           </div>
         </div>

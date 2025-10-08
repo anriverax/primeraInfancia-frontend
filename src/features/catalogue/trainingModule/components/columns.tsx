@@ -5,18 +5,43 @@ import { ITrainingModuleColumnKey, ITrainingModuleTable } from "../trainingModul
 export const trainingModuleColumns: IColumns<ITrainingModuleColumnKey>[] = [
   {
     key: "name",
+    label: "Módulo"
+  },
+  {
+    key: "title",
     label: "Nombre"
+  },
+  {
+    key: "startDate",
+    label: "Fecha de inicio"
+  },
+  {
+    key: "endDate",
+    label: "Fecha de finalización"
+  },
+  {
+    key: "hours",
+    label: "Duración (horas)"
   }
 ];
 
 export const useRenderTrainingModuleCell = (): ((
-  _zone: ITrainingModuleTable,
+  _module: ITrainingModuleTable,
   _columnKey: ITrainingModuleColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
   return useCallback((trainingModule: ITrainingModuleTable, columnKey: ITrainingModuleColumnKey) => {
-    const cellValue = trainingModule[columnKey as keyof ITrainingModuleTable];
+    const cellValue = trainingModule[columnKey as keyof ITrainingModuleTable] as any;
 
     switch (columnKey) {
+      case "startDate":
+      case "endDate":
+        return new Date(cellValue as string).toLocaleDateString("es-ES", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+      case "hours":
+        return `${cellValue} horas`;
       default:
         return cellValue;
     }

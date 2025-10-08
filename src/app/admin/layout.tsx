@@ -21,7 +21,7 @@ function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
       <div className="relative flex h-full flex-1 flex-col ">
         <TopBar />
 
-        <div className="flex flex-1 flex-col gap-6 p-12 bg-gray-50">{children}</div>
+        <div className="gap-6 p-12 bg-gray-50">{children}</div>
         {session && !session?.user.isVerified && <FormModal isOpen={true} />}
       </div>
     </div>
