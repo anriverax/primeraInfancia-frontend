@@ -21,7 +21,7 @@ export const useRenderSchoolCell = (): ((
           <div className="relative flex items-center justify-center gap-2">
             <Tooltip content="Detalle del centro escolar">
               <Link
-                href={`./centros-escolares/${encodeURIComponent(school.id!)}`}
+                href={`./centros-educativos/${encodeURIComponent(school.id!)}`}
                 className="text-lg text-default-400 cursor-pointer active:opacity-50"
               >
                 <Eye className="h-4 w-4" />

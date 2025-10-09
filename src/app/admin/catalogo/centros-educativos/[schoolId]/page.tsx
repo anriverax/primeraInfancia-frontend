@@ -16,7 +16,7 @@ const SchoolPage = (): React.JSX.Element => {
     <div>
       <Breadcrumbs>
         <BreadcrumbItem>
-          <Link href="../centros-escolares">Centros Escolares</Link>
+          <Link href="../centros-educativos">Centros Escolares</Link>
         </BreadcrumbItem>
         <BreadcrumbItem>Detalle</BreadcrumbItem>
       </Breadcrumbs>

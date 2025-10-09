@@ -12,9 +12,9 @@ const Title = memo(
 const Greeting = memo(
   (): React.JSX.Element => (
     <div className="text-center mb-8">
-      <h1 className="text-3xl font-bold mb-4">Bienvenidas y bienvenidos</h1>
+      <h1 className="text-3xl font-bold mb-4">Bienvenidos</h1>
       <p className="text-blue-100">
-        QUITAR ESTO - Get a real intranet on top of your Office 365 environment, with Upteamist.
+        Implementación de la formación de docentes en servicio en Primera Infancia
       </p>
     </div>
   )

@@ -22,7 +22,7 @@ const DashboardParticipantsPage = (): React.JSX.Element => {
             <div className="h-full sm:col-span-2 xl:col-span-1">
               <div className="space-y-6 sm:flex sm:gap-12 sm:space-y-0 lg:justify-between xl:block xl:space-y-6">
                 <TeacherStatus
-                  num={schoolFilters.totalTeacher.active}
+                  num={4998}
                   title="Cuerpo docente activos"
                   style={{ base: "bg-success/30", text: "text-success-800" }}
                 />
@@ -42,10 +42,10 @@ const DashboardParticipantsPage = (): React.JSX.Element => {
           </div>
           <div className="my-12 2xl:flex 2xl:space-y-0 gap-12 space-y-12">
             <CareerTable title="Nivel académico del cuerpo docente" careerData={schoolFilters.career} />
-            <CareerTable
+            {/*<CareerTable
               title="Cuerpo docente por secciones"
               careerData={schoolFilters.educationalLevel}
-            />
+            />*/}
           </div>
           <div className="my-12 ">
             <PieChartLayout
