@@ -25,9 +25,10 @@ export interface IGroupTable extends ZoneInput {
 }
 
 export interface IGroupDetail extends IGroupTable {
-  leaders: IPerson & { assignedMunicipality: string };
-  inscriptionPerson: Inscription[];
-  mentors: IMentor[];
+  techSupport: IPerson;
+  trainer: IPerson;
+  teachers: Inscription[];
+  mentors: IPerson[];
 }
 export interface GroupListResult {
   handleChangePage: Dispatch<SetStateAction<number>>;

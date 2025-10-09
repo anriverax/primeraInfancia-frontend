@@ -13,7 +13,7 @@ export const GroupListRender = ({ numList, value }: GroupListRenderProps): React
     2: "Departamento",
     3: "Formador"
   };
-
+  console.log(value);
   const getIcon: Record<
     number,
     ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>

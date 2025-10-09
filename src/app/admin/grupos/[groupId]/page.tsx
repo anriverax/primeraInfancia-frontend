@@ -39,13 +39,13 @@ const GroupDetailPage = (): React.JSX.Element => {
             <div className="p-6 space-y-4">
               <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
                 <div className="text-2xl font-bold text-green-600">
-                  {groupDetail?.inscriptionPerson.filter((s) => s.status === "Activo").length}
+                  {groupDetail?.teachers.filter((s) => s.status === "Activo").length}
                 </div>
                 <div className="text-sm text-green-700 font-medium">Docentes Activos</div>
               </div>
               <div className="text-center p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                 <div className="text-2xl font-bold text-yellow-600">
-                  {groupDetail?.inscriptionPerson.filter((s) => s.status === "Inactivo").length}
+                  {groupDetail?.teachers.filter((s) => s.status === "Inactivo").length}
                 </div>
                 <div className="text-sm text-yellow-700 font-medium">Docentes Inactivos</div>
               </div>
@@ -53,7 +53,7 @@ const GroupDetailPage = (): React.JSX.Element => {
           </div>
         </div>
 
-        {groupDetail && <ListTeachers inscription={groupDetail.inscriptionPerson} />}
+        {groupDetail && <ListTeachers inscription={groupDetail.teachers} />}
       </div>
     </div>
   );

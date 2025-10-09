@@ -24,7 +24,7 @@ const ListTeachers = ({ inscription }: ListTeachersProps): React.JSX.Element => 
     <div className="col-span-3 mt-6">
       <div className="bg-white border border-gray-200">
         <div className="px-6 pt-6 flex items-center gap-2">
-          <h3 className="text-2xl text-black font-semibold">Docentes inscritos</h3>
+          <h3 className="text-2xl text-black font-semibold">Inscritos</h3>
         </div>
 
         <div className="px-6 pt-3 space-y-4">

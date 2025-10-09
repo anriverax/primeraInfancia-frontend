@@ -36,8 +36,8 @@ const DashboardAttendancePage = (): React.JSX.Element => {
                     selectedKey={selected}
                     onSelectionChange={(key) => setSelected(key as AttendanceEnum)}
                   >
-                    {Object.values(AttendanceEnum).map((value) => (
-                      <Tab key={value} title={value} />
+                    {attendanceFilters.trainingModule.map((value) => (
+                      <Tab key={value.id} title={value.name} />
                     ))}
                   </Tabs>
                 </div>

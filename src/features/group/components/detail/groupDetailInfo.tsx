@@ -1,8 +1,9 @@
 import { Progress } from "@heroui/react";
 import { Info, Users } from "lucide-react";
 import { GroupListRender } from "./groupInfo";
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const GroupDetailInfo = (props: any): React.JSX.Element => (
+import { IGroupDetail } from "../../groupType";
+
+const GroupDetailInfo = (props: IGroupDetail): React.JSX.Element => (
   <div className="bg-white border border-blue-100 mt-6 shadow-md rounded-lg">
     <div className="p-6 flex items-center gap-2 bg-blue-50 text-blue-500">
       <Info className="h-5 w-5" />
@@ -13,8 +14,7 @@ const GroupDetailInfo = (props: any): React.JSX.Element => (
       <ul className="space-y-3">
         <GroupListRender numList={1} value={props.name} />
         <GroupListRender numList={2} value={props.department} />
-
-        <GroupListRender numList={3} value={String(props.leaders.fullName)} />
+        <GroupListRender numList={3} value={String(props.trainer.fullName)} />
         <li className="text-sm">
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4 text-gray-400" />
@@ -24,7 +24,6 @@ const GroupDetailInfo = (props: any): React.JSX.Element => (
           {props.mentors.map((m: any) => (
             <span key={m.id} className="block px-6 py-1 rounded-full">
               {m.fullName}
-              <br />({m.assignedMunicipality})
             </span>
           ))}
         </li>

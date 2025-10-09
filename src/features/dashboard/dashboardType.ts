@@ -1,3 +1,5 @@
+import { ITrainingModuleTable } from "../catalogue/trainingModule/trainingModuleType";
+
 export interface IGroupCount {
   label: string;
   count: number;
@@ -17,6 +19,8 @@ export interface ITeacherStatus {
 
 export interface IAttendanceFiltersResponse {
   eventType: IGroupCount[];
+  trainingModule: Pick<ITrainingModuleTable, "id" | "name">[];
+
   mentoring: IGroupCount[];
   events: IEventType[];
 }
