@@ -2,6 +2,7 @@ import { Progress } from "@heroui/react";
 import { Info, Users } from "lucide-react";
 import { GroupListRender } from "./groupInfo";
 import { IGroupDetail } from "../../groupType";
+import { IPerson } from "@/shared/types/globals";
 
 const GroupDetailInfo = (props: IGroupDetail): React.JSX.Element => (
   <div className="bg-white border border-blue-100 mt-6 shadow-md rounded-lg">
@@ -21,7 +22,7 @@ const GroupDetailInfo = (props: IGroupDetail): React.JSX.Element => (
             <span className="text-gray-600">Mentores:</span>
           </div>
 
-          {props.mentors.map((m: any) => (
+          {props.mentors.map((m: IPerson) => (
             <span key={m.id} className="block px-6 py-1 rounded-full">
               {m.fullName}
             </span>
