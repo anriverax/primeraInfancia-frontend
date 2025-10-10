@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
 import { ITrainingModuleColumnKey, ITrainingModuleTable } from "../trainingModuleType";
+import { Chip } from "@heroui/react";
 
 export const trainingModuleColumns: IColumns<ITrainingModuleColumnKey>[] = [
   {
@@ -22,6 +23,10 @@ export const trainingModuleColumns: IColumns<ITrainingModuleColumnKey>[] = [
   {
     key: "hours",
     label: "Duración (horas)"
+  },
+  {
+    key: "status",
+    label: "Estado"
   }
 ];
 
@@ -43,6 +48,25 @@ export const useRenderTrainingModuleCell = (): ((
         });
       case "hours":
         return `${cellValue} horas`;
+      case "status":
+        const startDate = new Date(trainingModule.startDate);
+        const endDate = new Date(trainingModule.endDate);
+        const currentDate = new Date();
+        return (
+          <Chip
+            className="capitalize"
+            color={currentDate < startDate ? "warning" : currentDate > endDate ? "success" : "primary"}
+            size="sm"
+            variant="flat"
+          >
+            {currentDate < startDate
+              ? "Pendiente"
+              : currentDate > endDate
+                ? "Finalizado"
+                : "En ejecución"}
+          </Chip>
+        );
+
       default:
         return cellValue;
     }

@@ -18,7 +18,7 @@ export default function TrainingModulePage(): React.JSX.Element {
           <Sheet className="h-5 w-5 text-blue-500" />
           <h2 className="text-lg font-semibold text-gray-900">Módulos Formativos</h2>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-4 w-full overflow-x-auto">
           <TrainingModuleTable />
         </div>
       </div>

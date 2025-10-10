@@ -9,7 +9,11 @@ const TrainingModuleTable = (): React.JSX.Element => {
   const renderTrainingModuleCell = useRenderTrainingModuleCell();
 
   return (
-    <Table classNames={tableClassNames} aria-label="Tabla para mostrar las rutas de aprendizaje">
+    <Table
+      className="min-w-[max-content]"
+      classNames={tableClassNames}
+      aria-label="Tabla para mostrar las rutas de aprendizaje"
+    >
       <TableHeader columns={trainingModuleColumns}>
         {(trainingModuleCol) => (
           <TableColumn key={trainingModuleCol.key}>{trainingModuleCol.label}</TableColumn>

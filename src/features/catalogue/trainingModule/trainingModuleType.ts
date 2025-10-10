@@ -7,4 +7,4 @@ export interface ITrainingModuleTable {
   hours: number;
 }
 
-export type ITrainingModuleColumnKey = "name" | "title" | "startDate" | "endDate" | "hours";
+export type ITrainingModuleColumnKey = "name" | "title" | "startDate" | "endDate" | "hours" | "status";
