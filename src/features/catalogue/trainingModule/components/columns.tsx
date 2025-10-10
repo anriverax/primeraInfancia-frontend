@@ -38,6 +38,10 @@ export const useRenderTrainingModuleCell = (): ((
     /* eslint-disable @typescript-eslint/no-explicit-any */
     const cellValue = trainingModule[columnKey as keyof ITrainingModuleTable] as any;
 
+    const startDate = new Date(trainingModule.startDate);
+    const endDate = new Date(trainingModule.endDate);
+    const currentDate = new Date();
+
     switch (columnKey) {
       case "startDate":
       case "endDate":
@@ -49,9 +53,6 @@ export const useRenderTrainingModuleCell = (): ((
       case "hours":
         return `${cellValue} horas`;
       case "status":
-        const startDate = new Date(trainingModule.startDate);
-        const endDate = new Date(trainingModule.endDate);
-        const currentDate = new Date();
         return (
           <Chip
             className="capitalize"
