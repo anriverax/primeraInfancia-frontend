@@ -10,38 +10,37 @@ const TrainingModuleTable = (): React.JSX.Element => {
   const renderTrainingModuleCell = useRenderTrainingModuleCell();
 
   return (
-    <ScrollShadow
-      orientation="vertical"
-      hideScrollBar={false}
-      className="max-w-sm md:max-w-full p-4 z-0 flex flex-col relative justify-between gap-4 bg-content1 overflow-auto shadow-small rounded-large w-full mi"
-    >
-      <Table
-        removeWrapper
-        className="min-w-[max-content]"
-        classNames={tableClassNames}
-        aria-label="Tabla para mostrar las rutas de aprendizaje"
-      >
-        <TableHeader columns={trainingModuleColumns}>
-          {(trainingModuleCol) => (
-            <TableColumn key={trainingModuleCol.key}>{trainingModuleCol.label}</TableColumn>
-          )}
-        </TableHeader>
-        <TableBody isLoading={!trainingModuleList} items={trainingModuleList || []}>
-          {(trainingModuleItem: ITrainingModuleTable) => (
-            <TableRow key={trainingModuleItem.id}>
-              {(trainingModuleKey) => (
-                <TableCell>
-                  {renderTrainingModuleCell(
-                    trainingModuleItem,
-                    trainingModuleKey as ITrainingModuleColumnKey
-                  )}
-                </TableCell>
+    <div className="overflow-x-auto max-w-full">
+      <ScrollShadow orientation="horizontal" hideScrollBar={false} className="w-full overflow-x-auto">
+        <div className="max-w-sm lg:max-w-full">
+          <Table
+            className="min-w-[max-content]"
+            classNames={tableClassNames}
+            aria-label="Tabla para mostrar las rutas de aprendizaje"
+          >
+            <TableHeader columns={trainingModuleColumns}>
+              {(trainingModuleCol) => (
+                <TableColumn key={trainingModuleCol.key}>{trainingModuleCol.label}</TableColumn>
               )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </ScrollShadow>
+            </TableHeader>
+            <TableBody isLoading={!trainingModuleList} items={trainingModuleList || []}>
+              {(trainingModuleItem: ITrainingModuleTable) => (
+                <TableRow key={trainingModuleItem.id}>
+                  {(trainingModuleKey) => (
+                    <TableCell>
+                      {renderTrainingModuleCell(
+                        trainingModuleItem,
+                        trainingModuleKey as ITrainingModuleColumnKey
+                      )}
+                    </TableCell>
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </ScrollShadow>
+    </div>
   );
 };
 

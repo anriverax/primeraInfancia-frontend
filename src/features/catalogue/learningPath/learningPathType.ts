@@ -3,6 +3,7 @@ export interface ILearningPathTable {
   name: string;
   periodicity: string;
   percentage: number;
+  code: string;
 }
 
-export type ILearningPathColumnKey = "name" | "periodicity" | "percentage";
+export type ILearningPathColumnKey = "name" | "periodicity" | "percentage" | "code";
