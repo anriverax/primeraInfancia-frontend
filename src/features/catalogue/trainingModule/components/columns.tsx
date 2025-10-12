@@ -37,6 +37,7 @@ export const useRenderTrainingModuleCell = (): ((
   return useCallback((trainingModule: ITrainingModuleTable, columnKey: ITrainingModuleColumnKey) => {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     const cellValue = trainingModule[columnKey as keyof ITrainingModuleTable] as any;
+    /* eslint-enable @typescript-eslint/no-explicit-any */
 
     const startDate = new Date(trainingModule.startDate);
     const endDate = new Date(trainingModule.endDate);

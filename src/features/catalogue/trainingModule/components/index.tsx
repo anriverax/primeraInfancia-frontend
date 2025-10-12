@@ -3,18 +3,14 @@ import { tableClassNames } from "@/shared/constants";
 import { useTrainingModuleList } from "../useTrainingModuleList";
 import { ITrainingModuleColumnKey, ITrainingModuleTable } from "../trainingModuleType";
 import { trainingModuleColumns, useRenderTrainingModuleCell } from "./columns";
-import { ScrollShadow } from "@heroui/react";
+import { TableLayout } from "@/shared/ui/custom/tableLayout";
 
 const TrainingModuleTable = (): React.JSX.Element => {
   const { trainingModuleList } = useTrainingModuleList();
   const renderTrainingModuleCell = useRenderTrainingModuleCell();
 
   return (
-    <ScrollShadow
-      orientation="vertical"
-      hideScrollBar={false}
-      className="max-w-sm md:max-w-full p-4 z-0 flex flex-col relative justify-between gap-4 bg-content1 overflow-auto shadow-small rounded-large w-full mi"
-    >
+    <TableLayout>
       <Table
         removeWrapper
         className="min-w-[max-content]"
@@ -41,7 +37,7 @@ const TrainingModuleTable = (): React.JSX.Element => {
           )}
         </TableBody>
       </Table>
-    </ScrollShadow>
+    </TableLayout>
   );
 };
 

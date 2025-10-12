@@ -4,6 +4,10 @@ import { ILearningPathColumnKey, ILearningPathTable } from "../learningPathType"
 
 export const evaluationInstrumentColumns: IColumns<ILearningPathColumnKey>[] = [
   {
+    key: "code",
+    label: "Código"
+  },
+  {
     key: "name",
     label: "Nombre"
   },
@@ -18,7 +22,7 @@ export const evaluationInstrumentColumns: IColumns<ILearningPathColumnKey>[] = [
 ];
 
 export const useRenderEvaluationInstrumentCell = (): ((
-  _zone: ILearningPathTable,
+  _learningPath: ILearningPathTable,
   _columnKey: ILearningPathColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
   return useCallback((evaluationInstrument: ILearningPathTable, columnKey: ILearningPathColumnKey) => {

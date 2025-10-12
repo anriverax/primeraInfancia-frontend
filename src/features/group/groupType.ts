@@ -42,3 +42,14 @@ export interface GroupTableResult {
 
   headerColumns: IColumns<IGroupColumnKey>[];
 }
+
+export interface IGroupByUser {
+  id: number;
+  Person: IPerson & {
+    school: string;
+    district: string;
+    municipality: string;
+  };
+}
+
+export type IGroupByUserColumnKey = "Person.fullName" | "Person.school" | "Person.district" | "actions";

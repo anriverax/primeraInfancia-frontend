@@ -13,6 +13,7 @@ type UpdatedProfileProps = {
   setFormStatus: (_data: UpdatedProfileState) => void;
 };
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const useUpdatedProfileStore = create<UpdatedProfileProps>()(
   persist(
     (set) => ({
@@ -28,3 +29,4 @@ export const useUpdatedProfileStore = create<UpdatedProfileProps>()(
     }
   )
 );
+/* eslint-enable @typescript-eslint/explicit-function-return-type */

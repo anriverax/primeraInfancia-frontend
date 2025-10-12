@@ -100,3 +100,8 @@ export function getIdParam(queryId: string | string[] | undefined): number | und
   const idParam = Array.isArray(queryId) ? parseInt(queryId[0], 10) : parseInt(queryId ?? "", 10);
   return isNaN(idParam) ? undefined : idParam;
 }
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
+export const getNestedValue = (obj: any, path: string): any => {
+  return path.split(".").reduce((acc, key) => acc?.[key], obj);
+};
+/* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
