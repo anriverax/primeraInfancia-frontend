@@ -26,9 +26,8 @@ export async function middleware(request: NextRequest): Promise<NextResponse<unk
 
   for (const route in roleAccessMap) {
     if (pathname.startsWith(route)) {
-      console.log(pathname);
       const allowedRoles = roleAccessMap[route];
-      console.log(allowedRoles);
+
       if (
         !token ||
         !Array.isArray(token.permissions) ||

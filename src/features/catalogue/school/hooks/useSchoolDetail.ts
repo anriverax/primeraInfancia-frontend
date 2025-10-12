@@ -1,5 +1,5 @@
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
-import { ISchoolDetail } from "../schoolDetailType";
+import { ISchoolDetail } from "../schoolType";
 
 const useSchoolDetail = (
   schoolId: number

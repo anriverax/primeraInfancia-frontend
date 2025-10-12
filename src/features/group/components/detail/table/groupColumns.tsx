@@ -1,12 +1,9 @@
 import { IGroupByUser, IGroupByUserColumnKey } from "@/features/group/groupType";
 import { IColumns } from "@/shared/types/globals";
+import { getNestedValue } from "@/shared/utils/funtions";
 import { Link, Tooltip } from "@heroui/react";
 import { Notebook } from "lucide-react";
 import { useCallback } from "react";
-
-const getNestedValue = (obj: any, path: string): any => {
-  return path.split(".").reduce((acc, key) => acc?.[key], obj);
-};
 
 export const groupDetailByUserColumns: IColumns<IGroupByUserColumnKey>[] = [
   {
@@ -32,10 +29,7 @@ export const useRenderGroupDFMCell = (): ((
   _columnKey: IGroupByUserColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
   return useCallback((groupDetailList: IGroupByUser, columnKey: IGroupByUserColumnKey) => {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
     const cellValue = getNestedValue(groupDetailList, columnKey);
-
-    /* eslint-enable @typescript-eslint/no-explicit-any */
 
     switch (columnKey) {
       case "Person.district":

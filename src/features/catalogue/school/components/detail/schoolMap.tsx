@@ -58,7 +58,13 @@ const SchoolMap = ({ coordenates, schoolName }: SchoolMapProps): React.JSX.Eleme
     };
   }, []);
   /* eslint-enable @typescript-eslint/no-explicit-any */
-  return <div id="map" style={{ height: "320px", width: "100%", borderRadius: "12px" }} />;
+  return (
+    <div
+      id="map"
+      className="shadow"
+      style={{ height: "302px", width: "100%", borderRadius: "12px", zIndex: "1", marginTop: "25px" }}
+    />
+  );
 };
 
 export default SchoolMap;

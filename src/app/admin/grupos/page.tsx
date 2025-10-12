@@ -14,21 +14,19 @@ export default function GroupsPage(): React.JSX.Element {
   const { data: session } = useSession();
 
   const getTypeRole = (): boolean => {
-    if (session?.user.role === (TypeRole.USER_TECNICO_APOYO || TypeRole.ADMIN || TypeRole.USER)) {
-      return true;
-    }
+    const role = session?.user.role;
 
-    return false;
+    // Retorna false si es FORMADOR o MENTOR, true en cualquier otro caso
+    return ![TypeRole.USER_FORMADOR, TypeRole.USER_MENTOR].includes(role as TypeRole);
   };
-
   return (
     <div className="space-y-8">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 sm:bg-amber-400 md:bg-success-400 lg:bg-red-600 xl:bg-cyan-400">
         <Users className="h-5 w-5 text-blue-500" />
         <h2 className="text-2xl font-bold text-gray-900">{getTypeRole() ? "Grupos" : "Grupo"}</h2>
       </div>
 
-      <div className="space-y-4">{getTypeRole() ? <GroupTable /> : <GroupDFM />}</div>
+      {getTypeRole() ? <GroupTable /> : <GroupDFM />}
     </div>
   );
 }

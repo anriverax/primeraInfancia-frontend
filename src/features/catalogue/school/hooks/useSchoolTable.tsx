@@ -38,7 +38,7 @@ const useSchoolTable = (
 
   const bottomContent = useMemo(() => {
     return meta && schoolList.length > 0 ? (
-      <div className="flex w-full justify-center">
+      <div className="flex w-full justify-center my-4">
         <Pagination
           isCompact
           showControls
