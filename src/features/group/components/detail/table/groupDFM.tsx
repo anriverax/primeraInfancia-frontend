@@ -7,6 +7,8 @@ import { IGroupByUser, IGroupByUserColumnKey } from "@/features/group/groupType"
 const GroupDFM = (): React.JSX.Element => {
   const { groupDetailList } = useGroupDFM();
   const renderGroupDFM = useRenderGroupDFMCell();
+  
+  groupDetailList?.sort((a, b) => a.Person?.fullName?.localeCompare(b.Person.fullName));
 
   return (
     <div className="p-4 z-0 overflow-x-auto shadow-small rounded-large w-full">
