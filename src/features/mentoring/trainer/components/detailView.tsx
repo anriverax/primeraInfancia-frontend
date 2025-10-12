@@ -29,14 +29,7 @@ const TrainerDetailView = ({ formik }: Attachment1FormProps): React.JSX.Element 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
 
-  /* eslint-disable @typescript-eslint/explicit-function-return-type */
-  const handleOkSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onOpen();
-  };
-  /* eslint-enable @typescript-eslint/explicit-function-return-type */
-
-  /* eslint-disable @typescript-eslint/explicit-function-return-type */
+    /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
     handleSubmit();
     onOpenChange();

@@ -26,7 +26,7 @@ const initialValues: Appendix2Input = {
   ask17: "",
   ask18: "",
   ask19: "",
-  ask20: "",
+  ask20: ""
 };
 
 const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
@@ -59,7 +59,6 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
     const nameField = "Anexo 2";
 
     const data = [
-
       {
         name: nameField,
         textQuestion: "1",
@@ -73,7 +72,8 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
         textAnswer: ask2Field,
         teacherRoleId: 1,
         mentorRoleId: 2
-      }, {
+      },
+      {
         name: nameField,
         textQuestion: "3",
         textAnswer: ask3Field,
@@ -86,7 +86,8 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
         textAnswer: ask4Field,
         teacherRoleId: 1,
         mentorRoleId: 2
-      }, {
+      },
+      {
         name: nameField,
         textQuestion: "5",
         textAnswer: ask5Field,
@@ -99,7 +100,8 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
         textAnswer: ask6Field,
         teacherRoleId: 1,
         mentorRoleId: 2
-      }, {
+      },
+      {
         name: nameField,
         textQuestion: "7",
         textAnswer: ask7Field,
@@ -109,10 +111,11 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
       {
         name: nameField,
         textQuestion: "8",
-        textAnswer: ask9Field,
+        textAnswer: ask8Field,
         teacherRoleId: 1,
         mentorRoleId: 2
-      }, {
+      },
+      {
         name: nameField,
         textQuestion: "9",
         textAnswer: ask9Field,
@@ -125,7 +128,8 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
         textAnswer: ask10Field,
         teacherRoleId: 1,
         mentorRoleId: 2
-      }, {
+      },
+      {
         name: nameField,
         textQuestion: "11",
         textAnswer: ask11Field,
@@ -138,7 +142,8 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
         textAnswer: ask12Field,
         teacherRoleId: 1,
         mentorRoleId: 2
-      }, {
+      },
+      {
         name: nameField,
         textQuestion: "13",
         textAnswer: ask13Field,
@@ -151,7 +156,8 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
         textAnswer: ask14Field,
         teacherRoleId: 1,
         mentorRoleId: 2
-      }, {
+      },
+      {
         name: nameField,
         textQuestion: "15",
         textAnswer: ask15Field,
@@ -164,7 +170,8 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
         textAnswer: ask16Field,
         teacherRoleId: 1,
         mentorRoleId: 2
-      }, {
+      },
+      {
         name: nameField,
         textQuestion: "17",
         textAnswer: ask17Field,
@@ -177,7 +184,8 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
         textAnswer: ask18Field,
         teacherRoleId: 1,
         mentorRoleId: 2
-      }, {
+      },
+      {
         name: nameField,
         textQuestion: "19",
         textAnswer: ask19Field,
@@ -191,7 +199,6 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
         teacherRoleId: 1,
         mentorRoleId: 2
       }
-
     ];
 
     data.map(async (item) => {

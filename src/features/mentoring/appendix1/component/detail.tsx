@@ -22,11 +22,12 @@ import { parseDate } from "@internationalized/date";
 
 type Appendix1FormProps = {
   formik: FormikProps<IAppendix1Input>;
+  id: number;
 };
 
-const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element => {
-  const { appendixDetailsList } = useAppendixDetailsList(2);
+const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting } = formik;
+  const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -76,6 +77,7 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
                     {section.Question.map((question, questionIndex) => (
                       <li key={questionIndex} className="text-lg text-gray-800">
                         <span className="font-medium mr-2">{question.text}</span>
+                        {/* eslint-disable @typescript-eslint/no-explicit-any */}
                         {((): any => {
                           switch (question.questionType) {
                             case "DATE":
@@ -85,8 +87,8 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
                                   value={
                                     formik.values[question.fieldName]
                                       ? parseDate(
-                                        formik.values[question.fieldName].toISOString().slice(0, 10)
-                                      )
+                                          formik.values[question.fieldName].toISOString().slice(0, 10)
+                                        )
                                       : null
                                   }
                                   isInvalid={Boolean(
@@ -128,6 +130,7 @@ const TrainerDetailView = ({ formik }: Appendix1FormProps): React.JSX.Element =>
                               );
                           }
                         })()}
+                        {/* eslint-enable @typescript-eslint/no-explicit-any */}
                       </li>
                     ))}
                   </ul>

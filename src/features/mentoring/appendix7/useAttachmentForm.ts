@@ -40,8 +40,7 @@ const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
       },
       {
         name: nameField,
-        textQuestion:
-          "2",
+        textQuestion: "2",
         textAnswer: ask2Field,
         teacherRoleId: 1,
         mentorRoleId: 2
@@ -55,16 +54,14 @@ const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
       },
       {
         name: nameField,
-        textQuestion:
-          "4",
+        textQuestion: "4",
         textAnswer: ask4Field,
         teacherRoleId: 1,
         mentorRoleId: 2
       },
       {
         name: nameField,
-        textQuestion:
-          "5",
+        textQuestion: "5",
         textAnswer: ask5Field,
         teacherRoleId: 1,
         mentorRoleId: 2

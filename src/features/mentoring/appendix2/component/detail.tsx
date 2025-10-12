@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useState } from "react";
 import { FileText, Save, StepBack, Trash2 } from "lucide-react";
 import {
@@ -22,7 +23,10 @@ import {
   TableRow,
   TableCell,
   useDisclosure,
-  RadioGroup, Radio,
+  RadioGroup,
+  Radio,
+  Listbox,
+  ListboxItem
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import type { FormikProps } from "@/shared/types/globals";
@@ -40,48 +44,57 @@ interface ClasificationChildrenData {
   girlDisabilityNumber: number;
   boyDisabilityNumber: number;
 }
-//Option
-//['Menos de un año','1 a 3 años','4 a 10 años','Más de 10 años']
+
+export const ListboxWrapper = ({ children }) => (
+  <div className="w-[260px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
+    {children}
+  </div>
+);
 
 export const dataList = [
   { name: "experiencie", key: "Menos de un año", label: "Menos de un año" },
-  { name: "experiencie", key: "1 a 3 años", label: "1 a 3 años" },
-  { name: "experiencie", key: "4 a 10 años", label: "4 a 10 años" },
-  { name: "experiencie", key: "Más de 10 años", label: "Más de 10 años" },
-  { name: "initialTraining", key: "Licenciatura", label: "Licenciatura" },
-  { name: "initialTraining", key: "Bachiller", label: "Bachiller" },
-  { name: "initialTraining", key: "Otros", label: "Otros" },
-  { name: "levelOfPractice", key: "Necesito apoyo", label: "Necesito apoyo" },
-  { name: "levelOfPractice", key: "En desarrollo", label: "En desarrollo" },
-  { name: "levelOfPractice", key: "Me siento competente", label: "Me siento competente" },
-  { name: "educationalLevelServed", key: "Inicial 3", label: "Inicial 3" },
-  { name: "educationalLevelServed", key: "Parvularia 4", label: "Parvularia 4" },
-  { name: "educationalLevelServed", key: "Parvulario 5", label: "Parvulario 5" },
-  { name: "educationalLevelServed", key: "Parvularia 6", label: "Parvularia 6" },
-  { name: "educationalLevelServed", key: "Primer grado", label: "Primer grado" },
-  { name: "hasParticipated", key: "Si", label: "Sí" },
-  { name: "hasParticipated", key: "No", label: "No" },
-  { name: "ampm", key: "a.m.", label: "A.M." },
-  { name: "ampm", key: "p.m.", label: "P.M." }
+  { name: "experiencie", "key": "1 a 3 años", "label": "1 a 3 años" },
+  { name: "experiencie", "key": "4 a 10 años", "label": "4 a 10 años" },
+  { name: "experiencie", "key": "Más de 10 años", "label": "Más de 10 años" },
+  { name: "initialTraining", "key": "Licenciatura", "label": "Licenciatura" },
+  { name: "initialTraining", "key": "Bachiller", "label": "Bachiller" },
+  { name: "initialTraining", "key": "Otros", "label": "Otros" },
+  { name: "levelOfPractice", "key": "Necesito apoyo", "label": "Necesito apoyo" },
+  { name: "levelOfPractice", "key": "En desarrollo", "label": "En desarrollo" },
+  { name: "levelOfPractice", "key": "Me siento competente", "label": "Me siento competente" },
+  { name: "educationalLevelServed", "key": "Inicial 3", "label": "Inicial 3" },
+  { name: "educationalLevelServed", "key": "Parvularia 4", "label": "Parvularia 4" },
+  { name: "educationalLevelServed", "key": "Parvulario 5", "label": "Parvulario 5" },
+  { name: "educationalLevelServed", "key": "Parvularia 6", "label": "Parvularia 6" },
+  { name: "educationalLevelServed", "key": "Primer grado", "label": "Primer grado" },
+  { name: "hasParticipated", "key": "Si", "label": "Sí" },
+  { name: "hasParticipated", "key": "No", "label": "No" },
+  { name: "ampm", "key": "a.m.", "label": "A.M." },
+  { name: "ampm", "key": "p.m.", "label": "P.M." }
 ];
+
+export interface SelectItemData {
+  key: string;
+  label: string;
+}
 
 const experienceList = dataList.filter((item) => item.name === "experiencie");
 const initialTrainingList = dataList.filter((item) => item.name === "initialTraining");
 const levelOfPracticeList = dataList.filter((item) => item.name === "levelOfPractice");
 const educationLevelServedList = dataList.filter((item) => item.name === "educationalLevelServed");
 const ampmList = dataList.filter((item) => item.name === "ampm");
-const participatedList = dataList.filter((item) => item.name === "hasParticipated")
+const participatedList = dataList.filter((item) => item.name === "hasParticipated");
 
 type Appendix1FormProps = {
   formik: FormikProps<IAppendix2Input>;
+  id: number;
 };
 
-const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
-  const { appendixDetailsList } = useAppendixDetailsList(3);
-  const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values, } = formik;
+const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element => {
+  const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
+  const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
-
 
   const [formData, setFormData] = useState({
     shift: "",
@@ -91,7 +104,7 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
     girlDisabilityNumber: 0,
     boyDisabilityNumber: 0
   });
-  const [selectedParticipated, setselectedParticipated] = useState("sydney");
+  const [selectedParticipated, setselectedParticipated] = useState("");
   const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<
     ClasificationChildrenData[]
   >([]);
@@ -145,6 +158,10 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
   };
   /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
+  const [selectedKeys, setSelectedKeys] = React.useState(new Set(["text"]));
+
+  const selectedValue = React.useMemo(() => Array.from(selectedKeys).join(", "), [selectedKeys]);
+
   return (
     <div className="flex justify-center">
       <div className="w-3/4 space-y-8">
@@ -176,32 +193,33 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
 
                   {/* Special div before questions if index === 1 */}
                   {index === 0 && (
-                    <> <div className="grid gap-4 sm:grid-cols-2">
-                      <div className="space-y-2">
-                        <Select
-                          items={ampmList}
-                          {...getFieldProps("shift")}
-                          {...getInputProps("shift", "Turno: ", touched.shift, errors.shift)}
-                        >
-                          {(item) => <SelectItem>{item.label}</SelectItem>}
-                        </Select>
+                    <>
+                      {" "}
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div className="space-y-2">
+                          <Select
+                            items={ampmList}
+                            {...getFieldProps("shift")}
+                            {...getInputProps("shift", "Turno: ", touched.shift, errors.shift)}
+                          >
+                            {(item) => <SelectItem>{item.label}</SelectItem>}
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Select
+                            items={educationLevelServedList}
+                            {...getFieldProps("section")}
+                            {...getInputProps(
+                              "section",
+                              "Nivel educativo que atiende: ",
+                              touched.section,
+                              errors.section
+                            )}
+                          >
+                            {(item) => <SelectItem>{item.label}</SelectItem>}
+                          </Select>
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <Select
-                          items={educationLevelServedList}
-                          {...getFieldProps("section")}
-                          {...getInputProps(
-                            "section",
-                            "Nivel educativo que atiende: ",
-                            touched.section,
-                            errors.section
-                          )}
-                        >
-                          {(item) => <SelectItem>{item.label}</SelectItem>}
-                        </Select>
-                      </div>
-                    </div>
-
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div className="space-y-2">
                           <Input
@@ -227,7 +245,6 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
                           />
                         </div>
                       </div>
-
                       <div className="grid gap-4 sm:grid-cols-2">
                         <div className="space-y-2">
                           <Input
@@ -257,7 +274,6 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
                           Agregar Registro
                         </Button>
                       </div>
-
                       <div>
                         {clasificationChildreEntries.length === 0 ? (
                           <div className="text-center py-8 text-muted-foreground">
@@ -312,7 +328,8 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
                             </Table>
                           </div>
                         )}
-                      </div></>
+                      </div>
+                    </>
                   )}
 
                   <ul className="space-y-2">
@@ -362,22 +379,8 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
                                   onChange={formik.handleChange}
                                 />
                               );
-                            case "SINGLE_CHOICE": {
-                              let items = [];
-                              switch (question.fieldName) {
-                                case "ask7":
-                                  items = experienceList;
-                                  break;
-                                case "ask8":
-                                  items = initialTrainingList;
-                                  break;
-                                // case "ask10":
-                                //   items = participatedList;
-                                //   break;
-                                case "ask11":
-                                  items = levelOfPracticeList;
-                                  break;
-                              }
+                            case "SELECT": {
+                              let items: SelectItemData = JSON.parse(question.options);
                               return (
                                 <Select
                                   items={items}
@@ -389,45 +392,85 @@ const Appendix2View = ({ formik }: Appendix1FormProps): React.JSX.Element => {
                                       ? errors[question.fieldName]
                                       : undefined
                                   }
-                                  isInvalid={Boolean(touched[question.fieldName] && errors[question.fieldName])}
+                                  isInvalid={Boolean(
+                                    touched[question.fieldName] && errors[question.fieldName]
+                                  )}
                                 >
                                   {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}
                                 </Select>
                               );
                             }
                             case "RADIO":
+                              let items: SelectItemData = JSON.parse(question.options);
                               return (
                                 <RadioGroup
-                                  label="Select your favorite city"
-                                  value={selectedParticipated}
-   selectedParticipated={setSelectedCity} // Use onValueChange for controlled component
+                                  value={selectedParticipated} orientation="horizontal"
+                                  setselectedParticipated={(value) => formik.setFieldValue(question.fieldName, value)}
                                 >
-                                  {/* 2. Map over the array to render Radio components dynamically */}
-                                  {participatedList.map((option) => (
+                                  {items.map((option, index) => (
                                     <Radio
-                                      key={option.id}       // Always provide a unique key when mapping
-                                      value={option.value}  // Set the value that the RadioGroup tracks
+                                      key={index}
+                                      value={option.value}
                                     >
-                                      {option.name}         {/* The visible label for the radio button */}
+                                      {option.label}
                                     </Radio>
                                   ))}
                                 </RadioGroup>
-
-                                // <Select
-                                //   items={items}
-                                //   name={question.fieldName}
-                                //   value={formik.values[question.fieldName] || ""}
-                                //   onChange={(value) => formik.setFieldValue(question.fieldName, value)}
-                                //   errorMessage={
-                                //     touched[question.fieldName] && errors[question.fieldName]
-                                //       ? errors[question.fieldName]
-                                //       : undefined
-                                //   }
-                                //   isInvalid={Boolean(touched[question.fieldName] && errors[question.fieldName])}
-                                // >
-                                //   {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}
-                                // </Select>
                               );
+                            case "MULTI_CHOICE_DETAIL": {
+                              // Parse options from question.options (should be a JSON string of items)
+                              let items: SelectItemData[] = [];
+                              try {
+                                items = JSON.parse(question.options);
+                              } catch {
+                                items = [];
+                              }
+
+                              // Ensure Formik value is a Set for Listbox
+                              const selectedKeys = new Set(formik.values[question.fieldName] || []);
+
+                              return (
+                                <div className="flex flex-col gap-2 ">
+                                  <ListboxWrapper>
+                                    <Listbox
+                                      disallowEmptySelection={false}
+                                      aria-label={question.text}
+                                      selectedKeys={selectedKeys}
+                                      selectionMode="multiple"
+                                      variant="flat"
+                                      onSelectionChange={(keys) => {
+                                        // Convert Set to Array for Formik
+                                        formik.setFieldValue(question.fieldName, Array.from(keys));
+                                      }}
+                                    >
+                                      {items.map((item) => (
+                                        <>
+                                          <ListboxItem key={item.key}>{item.label}
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                                              
+                                              <Input
+                                                type="text"
+                                                placeholder="Especificar"
+                                                onClick={(e) => {
+                                                  e.stopPropagation();
+                                                }}
+                                                style={{ marginLeft: '1rem', padding: '0.25rem' }}
+                                              />
+                                            </div>
+                                          </ListboxItem>
+                                        </>
+                                      ))}
+                                    </Listbox>
+                                  </ListboxWrapper>
+                                  <p className="text-small text-default-500">
+                                    {(formik.values[question.fieldName] || []).join(", ")}
+                                  </p>
+                                  {touched[question.fieldName] && errors[question.fieldName] && (
+                                    <span className="text-danger text-xs">{errors[question.fieldName]}</span>
+                                  )}
+                                </div>
+                              );
+                            }
                             default:
                               return (
                                 <span>
