@@ -1,7 +1,7 @@
 import { object, ObjectSchema } from "yup";
 import { Appendix8Input } from "./type";
 import { validationMessages } from "@/shared/constants";
-import { stringField, dateField } from "@/shared/utils/funtions";
+import { stringField } from "@/shared/utils/funtions";
 
 export const appendix8Schema: ObjectSchema<Appendix8Input> = object({
   ask1: stringField(validationMessages.required),

@@ -134,9 +134,7 @@ const useAppendix8Form = (): FormikProps<IAppendix8Input> => {
     const ask57Field = values.ask57;
     const ask58Field = values.ask58;
     const ask59Field = values.ask59;
-    let correlative = "1";
     const nameField = "Anexo 8";
-    console.log(nameField);
 
     const data = [
       //Seccion A
@@ -557,7 +555,6 @@ const useAppendix8Form = (): FormikProps<IAppendix8Input> => {
         mentorRoleId: 2
       }
     ];
-    console.log(data);
 
     data.map(async (item) => {
       try {

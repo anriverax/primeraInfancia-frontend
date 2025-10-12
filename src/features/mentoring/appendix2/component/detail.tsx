@@ -45,32 +45,36 @@ interface ClasificationChildrenData {
   boyDisabilityNumber: number;
 }
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const ListboxWrapper = ({ children }) => (
   <div className="w-[260px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
     {children}
   </div>
 );
+/* eslint-enable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-enable @typescript-eslint/explicit-function-return-type */
 
 export const dataList = [
   { name: "experiencie", key: "Menos de un año", label: "Menos de un año" },
-  { name: "experiencie", "key": "1 a 3 años", "label": "1 a 3 años" },
-  { name: "experiencie", "key": "4 a 10 años", "label": "4 a 10 años" },
-  { name: "experiencie", "key": "Más de 10 años", "label": "Más de 10 años" },
-  { name: "initialTraining", "key": "Licenciatura", "label": "Licenciatura" },
-  { name: "initialTraining", "key": "Bachiller", "label": "Bachiller" },
-  { name: "initialTraining", "key": "Otros", "label": "Otros" },
-  { name: "levelOfPractice", "key": "Necesito apoyo", "label": "Necesito apoyo" },
-  { name: "levelOfPractice", "key": "En desarrollo", "label": "En desarrollo" },
-  { name: "levelOfPractice", "key": "Me siento competente", "label": "Me siento competente" },
-  { name: "educationalLevelServed", "key": "Inicial 3", "label": "Inicial 3" },
-  { name: "educationalLevelServed", "key": "Parvularia 4", "label": "Parvularia 4" },
-  { name: "educationalLevelServed", "key": "Parvulario 5", "label": "Parvulario 5" },
-  { name: "educationalLevelServed", "key": "Parvularia 6", "label": "Parvularia 6" },
-  { name: "educationalLevelServed", "key": "Primer grado", "label": "Primer grado" },
-  { name: "hasParticipated", "key": "Si", "label": "Sí" },
-  { name: "hasParticipated", "key": "No", "label": "No" },
-  { name: "ampm", "key": "a.m.", "label": "A.M." },
-  { name: "ampm", "key": "p.m.", "label": "P.M." }
+  { name: "experiencie", key: "1 a 3 años", label: "1 a 3 años" },
+  { name: "experiencie", key: "4 a 10 años", label: "4 a 10 años" },
+  { name: "experiencie", key: "Más de 10 años", label: "Más de 10 años" },
+  { name: "initialTraining", key: "Licenciatura", label: "Licenciatura" },
+  { name: "initialTraining", key: "Bachiller", label: "Bachiller" },
+  { name: "initialTraining", key: "Otros", label: "Otros" },
+  { name: "levelOfPractice", key: "Necesito apoyo", label: "Necesito apoyo" },
+  { name: "levelOfPractice", key: "En desarrollo", label: "En desarrollo" },
+  { name: "levelOfPractice", key: "Me siento competente", label: "Me siento competente" },
+  { name: "educationalLevelServed", key: "Inicial 3", label: "Inicial 3" },
+  { name: "educationalLevelServed", key: "Parvularia 4", label: "Parvularia 4" },
+  { name: "educationalLevelServed", key: "Parvulario 5", label: "Parvulario 5" },
+  { name: "educationalLevelServed", key: "Parvularia 6", label: "Parvularia 6" },
+  { name: "educationalLevelServed", key: "Primer grado", label: "Primer grado" },
+  { name: "hasParticipated", key: "Si", label: "Sí" },
+  { name: "hasParticipated", key: "No", label: "No" },
+  { name: "ampm", key: "a.m.", label: "A.M." },
+  { name: "ampm", key: "p.m.", label: "P.M." }
 ];
 
 export interface SelectItemData {
@@ -78,12 +82,8 @@ export interface SelectItemData {
   label: string;
 }
 
-const experienceList = dataList.filter((item) => item.name === "experiencie");
-const initialTrainingList = dataList.filter((item) => item.name === "initialTraining");
-const levelOfPracticeList = dataList.filter((item) => item.name === "levelOfPractice");
 const educationLevelServedList = dataList.filter((item) => item.name === "educationalLevelServed");
 const ampmList = dataList.filter((item) => item.name === "ampm");
-const participatedList = dataList.filter((item) => item.name === "hasParticipated");
 
 type Appendix1FormProps = {
   formik: FormikProps<IAppendix2Input>;
@@ -109,7 +109,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
     ClasificationChildrenData[]
   >([]);
 
-  const handleDetailTeacher = () => {
+  const handleDetailTeacher = (): void => {
     // if (!values.shift || !values.section) {
     //   showToast(String("Por favor complete los campos obligatorios: Turno y Sección"), "danger");
     //   return
@@ -137,7 +137,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
     });
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: string): void => {
     setClasificationChildrenEntries((prev) => prev.filter((entry) => entry.id !== id));
   };
 
@@ -316,8 +316,8 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                                       <Button
                                         variant="ghost"
                                         size="sm"
-                                        onClick={() => handleDelete(item.id)}
                                         className="text-destructive hover:text-destructive"
+                                        onClick={() => handleDelete(item.id)}
                                       >
                                         <Trash2 className="h-4 w-4" />
                                       </Button>
@@ -336,6 +336,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                     {section.Question.map((question, questionIndex) => (
                       <li key={questionIndex} className="text-lg text-gray-800">
                         <span className="font-medium mr-2">{question.text}</span>
+                        {/* eslint-disable @typescript-eslint/explicit-function-return-type */}
                         {(() => {
                           switch (question.questionType) {
                             case "DATE":
@@ -345,8 +346,8 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                                   value={
                                     formik.values[question.fieldName]
                                       ? parseDate(
-                                        formik.values[question.fieldName].toISOString().slice(0, 10)
-                                      )
+                                          formik.values[question.fieldName].toISOString().slice(0, 10)
+                                        )
                                       : null
                                   }
                                   isInvalid={Boolean(
@@ -380,13 +381,12 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                                 />
                               );
                             case "SELECT": {
-                              let items: SelectItemData = JSON.parse(question.options);
+                              const items: SelectItemData = JSON.parse(question.options);
                               return (
                                 <Select
                                   items={items}
                                   name={question.fieldName}
                                   value={formik.values[question.fieldName] || ""}
-                                  onChange={(value) => formik.setFieldValue(question.fieldName, value)}
                                   errorMessage={
                                     touched[question.fieldName] && errors[question.fieldName]
                                       ? errors[question.fieldName]
@@ -395,23 +395,24 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                                   isInvalid={Boolean(
                                     touched[question.fieldName] && errors[question.fieldName]
                                   )}
+                                  onChange={(value) => formik.setFieldValue(question.fieldName, value)}
                                 >
                                   {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}
                                 </Select>
                               );
                             }
                             case "RADIO":
-                              let items: SelectItemData = JSON.parse(question.options);
+                              const items: SelectItemData = JSON.parse(question.options);
                               return (
                                 <RadioGroup
-                                  value={selectedParticipated} orientation="horizontal"
-                                  setselectedParticipated={(value) => formik.setFieldValue(question.fieldName, value)}
+                                  value={selectedParticipated}
+                                  orientation="horizontal"
+                                  setselectedParticipated={(value) =>
+                                    formik.setFieldValue(question.fieldName, value)
+                                  }
                                 >
                                   {items.map((option, index) => (
-                                    <Radio
-                                      key={index}
-                                      value={option.value}
-                                    >
+                                    <Radio key={index} value={option.value}>
                                       {option.label}
                                     </Radio>
                                   ))}
@@ -419,7 +420,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                               );
                             case "MULTI_CHOICE_DETAIL": {
                               // Parse options from question.options (should be a JSON string of items)
-                              let items: SelectItemData[] = [];
+                              const items: SelectItemData[] = [];
                               try {
                                 items = JSON.parse(question.options);
                               } catch {
@@ -445,16 +446,23 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                                     >
                                       {items.map((item) => (
                                         <>
-                                          <ListboxItem key={item.key}>{item.label}
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                                              
+                                          <ListboxItem key={item.key}>
+                                            {item.label}
+                                            <div
+                                              style={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                                width: "100%"
+                                              }}
+                                            >
                                               <Input
                                                 type="text"
                                                 placeholder="Especificar"
+                                                style={{ marginLeft: "1rem", padding: "0.25rem" }}
                                                 onClick={(e) => {
                                                   e.stopPropagation();
                                                 }}
-                                                style={{ marginLeft: '1rem', padding: '0.25rem' }}
                                               />
                                             </div>
                                           </ListboxItem>
@@ -466,7 +474,9 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                                     {(formik.values[question.fieldName] || []).join(", ")}
                                   </p>
                                   {touched[question.fieldName] && errors[question.fieldName] && (
-                                    <span className="text-danger text-xs">{errors[question.fieldName]}</span>
+                                    <span className="text-danger text-xs">
+                                      {errors[question.fieldName]}
+                                    </span>
                                   )}
                                 </div>
                               );
@@ -480,6 +490,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                               );
                           }
                         })()}
+                        {/* eslint-enable @typescript-eslint/explicit-function-return-type */}
                       </li>
                     ))}
                   </ul>

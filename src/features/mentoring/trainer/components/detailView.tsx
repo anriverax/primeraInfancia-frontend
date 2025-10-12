@@ -26,10 +26,10 @@ type Attachment1FormProps = {
 const TrainerDetailView = ({ formik }: Attachment1FormProps): React.JSX.Element => {
   const { appendixDetailsList } = useAppendixDetailsList();
   const { handleSubmit, touched, errors, getFieldProps } = formik;
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
 
-    /* eslint-disable @typescript-eslint/explicit-function-return-type */
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
     handleSubmit();
     onOpenChange();
@@ -131,10 +131,10 @@ const TrainerDetailView = ({ formik }: Attachment1FormProps): React.JSX.Element 
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancelar
                   </Button>
-                  {/* <Button color="primary" isLoading={isSubmitting} onPress={handleConfirmSubmit}>
+                  <Button color="primary" isLoading={isSubmitting} onPress={handleConfirmSubmit}>
                     {" "}
                     Enviar
-                  </Button> */}
+                  </Button>
                 </ModalFooter>
               </>
             )}
