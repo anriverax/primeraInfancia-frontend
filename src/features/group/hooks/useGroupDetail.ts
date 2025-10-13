@@ -8,7 +8,7 @@ const useGroupDetail = (
 } => {
   const { data: groupDetail } = useQueryRequest<IGroupDetail>(
     `group-detail-${groupId}`, // Unique key for each group
-    `/group/${groupId}`,
+    `/group/detail/${groupId}`,
     true,
     "grupo"
   );
