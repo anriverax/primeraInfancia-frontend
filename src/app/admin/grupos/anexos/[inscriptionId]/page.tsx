@@ -1,6 +1,6 @@
 "use client";
 
-import TrainerView from "@/features/mentoring/components/trainerView";
+import TrainerView from "@/features/mentoring/component/trainerView";
 import { ListTodo } from "lucide-react";
 
 export default function MentoringPage(): React.JSX.Element {
