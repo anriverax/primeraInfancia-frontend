@@ -1,4 +1,11 @@
-import { AnyObject, string, StringSchema } from "yup";
+import {
+  AnyObject, string, StringSchema, date,
+  DateSchema,
+  number,
+  NumberSchema,
+  array,
+  ArraySchema,
+} from "yup";
 import { ERR_BAD_REQUEST } from "../constants";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import crypto from "crypto-js";
@@ -8,6 +15,17 @@ import Swal from "sweetalert2";
 
 export const stringField = (requiredMessage: string): StringSchema<string, AnyObject, undefined, ""> =>
   string().required(requiredMessage);
+
+export const numberField = (requiredMessage: string): NumberSchema<number, AnyObject, undefined, ""> =>
+  number().required(requiredMessage);
+
+export const dateField = (requiredMessage: string): DateSchema<Date, AnyObject, undefined, ""> =>
+  date().required(requiredMessage);
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const arrayField = (requiredMessage: string): ArraySchema<any[], AnyObject, undefined, ""> =>
+  array().required(requiredMessage);
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export const encrypt = (plainText: string): string =>
   crypto.AES.encrypt(plainText, process.env.NEXT_PUBLIC_PLAIN_TEXT as string).toString();
