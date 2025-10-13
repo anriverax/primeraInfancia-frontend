@@ -420,7 +420,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                               );
                             case "MULTI_CHOICE_DETAIL": {
                               // Parse options from question.options (should be a JSON string of items)
-                              const items: SelectItemData[] = [];
+                              let items: SelectItemData[] = [];
                               try {
                                 items = JSON.parse(question.options);
                               } catch {

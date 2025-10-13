@@ -1,3 +1,5 @@
+"use client";
+
 import { useParams } from "next/navigation";
 import { useAppendix1Form } from "@/features/mentoring/appendix1/useAttachmentForm";
 import { useAppendix2Form } from "@/features/mentoring/appendix2/useAttachmentForm";
@@ -8,6 +10,7 @@ const AttachmentDetailPage = (): React.JSX.Element => {
   const params = useParams();
   const formikAppendix1 = useAppendix1Form();
   const formikAppnedix2 = useAppendix2Form();
+   
   return (
     <>
       {Number(params.anexoId) === 1 && (
