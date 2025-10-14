@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useAppendixList } from "../hooks/useAppendixList";
 import { IAppendixTable } from "../mentoringType"
 import { Eye } from "lucide-react";
+import { useState } from "react";
 
 const LucideIconRenderer = dynamic(
   () => import("@/shared/ui/custom/lucideIcon").then((mod) => mod.LucideIconRenderer),
@@ -12,8 +13,9 @@ const LucideIconRenderer = dynamic(
   }
 );
 
-const TrainerView = (): React.JSX.Element => {
+const TrainerView = ({ inscriptionId }: number): React.JSX.Element => {
   const { appendixsList } = useAppendixList();
+  const [inscription, setInscription] = useState(inscriptionId);
 
   const truncateText = (text: string, maxLength: number): string => {
     if (text.length > maxLength) return text.substring(0, maxLength) + "...";

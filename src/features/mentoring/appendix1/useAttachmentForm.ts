@@ -21,28 +21,23 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
     const ask1Field = values.ask1;
     const ask2Field = values.ask2;
 
-    const nameField = "Anexo 1";
     const data = [
       {
-        name: nameField,
-        textQuestion: "1",
-        textAnswer: ask1Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
+        questionId: "1",
+        valueText: ask1Field,
+        inscriptionId: 1,
       },
       {
-        name: nameField,
-        textQuestion: "2",
-        textAnswer: ask2Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
+         questionId: "1",
+        valueText: ask2Field,
+        inscriptionId: 1,
       }
     ];
 
     data.map(async (item) => {
       try {
         const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
-          "/appendix-test/create",
+          "/answer/create",
           item
         );
 
