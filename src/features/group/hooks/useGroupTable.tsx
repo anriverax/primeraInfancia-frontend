@@ -32,12 +32,15 @@ const useGroupTable = (
     return meta && groupList.length > 0 ? (
       <div className="flex w-full justify-center my-4">
         <Pagination
-          isCompact
           showControls
+          showShadow
           initialPage={meta?.currentPage}
           variant="light"
           total={meta?.lastPage || 0}
           onChange={(e) => onChange(e)}
+          classNames={{
+            wrapper: "bg-white py-1 shadow-small"
+          }}
         />
       </div>
     ) : null;
