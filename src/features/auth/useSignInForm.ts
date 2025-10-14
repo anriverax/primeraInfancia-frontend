@@ -23,7 +23,7 @@ const useSignInForm = (): FormikProps<ISignIn> => {
     if (res && res.status !== 200) {
       formikHelpers.setFieldError("axiosMessage", res?.error as string);
       formikHelpers.setStatus(res?.status);
-    } else router.push("/admin/dashboard");
+    } else router.push("/admin/dashboard/participantes");
   };
 
   const handleSubmit = async (
