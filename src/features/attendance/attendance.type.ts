@@ -15,7 +15,7 @@ export interface AttendanceInput {
   eventId: number;
   coordenates?: string;
   modality: string;
-  teacherId: number;
+  teacherId: number[];
   comment?: string;
   justificationUrl?: string;
   status?: string;

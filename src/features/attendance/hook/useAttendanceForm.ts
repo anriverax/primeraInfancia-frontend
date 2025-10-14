@@ -13,7 +13,7 @@ const initialValuesAttendance: AttendanceInput = {
   eventId: 0,
   coordenates: "",
   modality: "",
-  teacherId: 0,
+  teacherId: [],
   comment: "",
   justificationUrl: "",
   status: ""
@@ -30,7 +30,7 @@ const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
     formikHelpers?: FormikHelpers<IAttendance>
   ): Promise<void> => {
     const location = await getCurrentLocation();
-
+    console.log(values);
     const newValue = location
       ? { ...values, coordenates: `${location.latitude},${location.longitude}` }
       : values;

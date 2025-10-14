@@ -1,7 +1,7 @@
 import { Progress } from "@heroui/react";
 import { memo } from "react";
 
-const ProgressCustom = memo(
+const CustomProgress = memo(
   (): React.JSX.Element => (
     <div className="flex justify-center items-center h-dvh">
       <Progress
@@ -16,5 +16,5 @@ const ProgressCustom = memo(
   )
 );
 
-ProgressCustom.displayName = "MemorizedProgressCustom";
-export default ProgressCustom;
+CustomProgress.displayName = "MemorizedCustomProgress";
+export default CustomProgress;

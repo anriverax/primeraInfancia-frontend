@@ -3,6 +3,28 @@ import { ISchoolColumnKey, ISchoolTable } from "../../schoolType";
 import { Eye } from "lucide-react";
 import { Tooltip } from "@heroui/react";
 import Link from "next/link";
+import { IColumns } from '@/shared/types/globals';
+
+export const headerColumns: IColumns<ISchoolColumnKey>[] = [
+  {
+    key: "code",
+    label: "Código"
+  },
+  {
+    key: "name",
+    label: "Nombre"
+  },
+  { key: "coordenates", label: "Coordenadas" },
+  { key: "ubication", label: "Ubicación Territorial" },
+  {
+    key: "_count",
+    label: "Total"
+  },
+  {
+    key: "actions",
+    label: "Acción"
+  }
+];
 
 export const useRenderSchoolCell = (): ((
   _school: ISchoolTable,

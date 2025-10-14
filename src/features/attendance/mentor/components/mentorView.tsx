@@ -13,6 +13,17 @@ const MentorView = (): React.JSX.Element => {
   const { values, touched, errors, getFieldProps, handleSubmit, setFieldValue } = formik;
   const { getSelectProps, getTextAreaProps, getInputProps } = useCustomFormFields();
 
+  const touchedTeacher = Array.isArray(touched.teacherId)
+    ? touched.teacherId.some((t) => !!t)
+    : (touched.teacherId as boolean | undefined);
+
+  const errorTeacher = Array.isArray(errors.teacherId)
+    ? errors.teacherId.filter(Boolean).join(", ")
+    : (errors.teacherId as string | undefined);
+  console.log(errorTeacher);
+  console.log(touchedTeacher);
+  console.log(errors);
+  console.log(touched);
   return (
     <div className="flex justify-center xl:gap-6">
       {assignmentList !== undefined && (
@@ -55,11 +66,20 @@ const MentorView = (): React.JSX.Element => {
                 "Seleccione uno o más docentes",
                 assignmentList.teachers.length || 0,
                 values.teacherId,
-                touched.teacherId,
-                errors.teacherId
+                touchedTeacher,
+                errorTeacher
               )}
-              {...getFieldProps("teacherId")}
               isDisabled={!assignmentList.teachers.length}
+              selectionMode="multiple"
+              selectedKeys={values.teacherId?.map((v: number) => v.toString()) ?? []}
+              onSelectionChange={(keys: any) => {
+                const iterable: Iterable<unknown> = keys as Iterable<unknown>;
+                const arr = Array.from(iterable)
+                  .map((k) => String(k))
+                  .filter((k) => k !== "")
+                  .map((k) => Number(k));
+                setFieldValue("teacherId", arr);
+              }}
             >
               {assignmentList.teachers.map((teacher: TeachersAssignmentMentor) => (
                 <SelectItem key={teacher.id} textValue={teacher.fullName}>
@@ -86,7 +106,7 @@ const MentorView = (): React.JSX.Element => {
               </Radio>
             </RadioGroup>
             {values.status?.toString() === AttendanceEnum.AUSENTE && (
-              <div>
+              <div className="space-y-6">
                 <Textarea
                   {...getTextAreaProps(
                     "Comentarios",
