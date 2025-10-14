@@ -21,7 +21,7 @@ export const useRenderZoneCell = (): ((
     switch (columnKey) {
       case "department":
         return (
-          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium md:bg-blue-100 text-blue-700">
             {zone.departmets}
           </span>
         );

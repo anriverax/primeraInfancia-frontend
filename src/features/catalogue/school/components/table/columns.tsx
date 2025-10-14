@@ -14,7 +14,7 @@ export const useRenderSchoolCell = (): ((
     switch (columnKey) {
       case "_count":
         return (
-          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-50 border-blue-500 border text-blue-700">{`${school._count?.PrincipalSchool} Docentes`}</span>
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium 2xl:bg-blue-50 2xl:border-blue-500 2xl:border border-0 text-blue-700">{`${school._count?.PrincipalSchool} Docentes`}</span>
         );
       case "actions":
         return (

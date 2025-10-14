@@ -12,8 +12,6 @@ const LearningPathTable = (): React.JSX.Element => {
   return (
     <TableLayout>
       <Table
-        removeWrapper
-        className="min-w-[max-content]"
         classNames={tableClassNames}
         aria-label="Tabla para mostrar las rutas de aprendizaje registradas"
       >
