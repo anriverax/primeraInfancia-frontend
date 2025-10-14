@@ -15,6 +15,7 @@ const SchoolTable = (): React.JSX.Element => {
   return (
     <TableLayout>
       <Table
+        className="min-w-[max-content]"
         classNames={tableClassNames}
         bottomContent={bottomContent}
         aria-label="Tabla para mostrar los Centros escolares registrados"
