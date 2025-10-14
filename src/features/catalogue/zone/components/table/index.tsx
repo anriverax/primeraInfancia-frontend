@@ -3,7 +3,7 @@ import { useRenderZoneCell, zoneColumns } from "./columns";
 import { IZoneColumnKey, IZoneTable } from "../../zoneType";
 import { tableClassNames } from "@/shared/constants";
 import { useZonesList } from "../../useZonesList";
-import { TableLayout } from '@/shared/ui/custom/tableLayout';
+import { TableLayout } from "@/shared/ui/custom/tableLayout";
 
 const ZoneTable = (): React.JSX.Element => {
   const { zonesList } = useZonesList();

@@ -40,8 +40,6 @@ const GroupTable = (): React.JSX.Element => {
   return (
     <TableLayout>
       <Table
-        removeWrapper
-        className="min-w-[max-content]"
         classNames={tableClassNames}
         aria-label="Tabla para mostrar los grupos registradas"
         bottomContent={bottomContent}

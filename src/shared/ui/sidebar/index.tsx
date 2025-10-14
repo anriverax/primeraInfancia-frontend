@@ -13,7 +13,7 @@ type SidebarProps = {
 };
 
 const Sidebar = memo(({ logo }: SidebarProps): React.JSX.Element => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 1024px)");
 
   // Determine if the sidebar is extended based on the screen size
   // If isMobile is undefined, default to false (desktop view)

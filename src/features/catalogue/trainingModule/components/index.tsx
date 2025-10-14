@@ -11,12 +11,7 @@ const TrainingModuleTable = (): React.JSX.Element => {
 
   return (
     <TableLayout>
-      <Table
-        removeWrapper
-        className="min-w-[max-content]"
-        classNames={tableClassNames}
-        aria-label="Tabla para mostrar las rutas de aprendizaje"
-      >
+      <Table classNames={tableClassNames} aria-label="Tabla para mostrar las rutas de aprendizaje">
         <TableHeader columns={trainingModuleColumns}>
           {(trainingModuleCol) => (
             <TableColumn key={trainingModuleCol.key}>{trainingModuleCol.label}</TableColumn>
