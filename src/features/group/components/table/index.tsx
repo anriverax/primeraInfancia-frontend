@@ -38,32 +38,35 @@ const GroupTable = (): React.JSX.Element => {
   }, [sortDescriptor, groupList]);
 
   return (
-    <TableLayout>
-      <Table
-        classNames={tableClassNames}
-        aria-label="Tabla para mostrar los grupos registradas"
-        bottomContent={bottomContent}
-        sortDescriptor={sortDescriptor}
-        onSortChange={(descriptor: SortDescriptor) => setSortDescriptor(descriptor)}
-      >
-        <TableHeader columns={headerColumns}>
-          {(column) => (
-            <TableColumn key={column.key} allowsSorting={column.sortable}>
-              {column.label}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody items={sortedItems ?? []} emptyContent="No hay registros que mostrar.">
-          {(groupItem: IGroupTable) => (
-            <TableRow key={groupItem.id}>
-              {(groupKey) => (
-                <TableCell>{renderGroupCell(groupItem, groupKey as IGroupColumnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </TableLayout>
+    <>
+      <TableLayout>
+        <Table
+          className="min-w-[max-content]"
+          classNames={tableClassNames}
+          aria-label="Tabla para mostrar los grupos registradas"
+          sortDescriptor={sortDescriptor}
+          onSortChange={(descriptor: SortDescriptor) => setSortDescriptor(descriptor)}
+        >
+          <TableHeader columns={headerColumns}>
+            {(column) => (
+              <TableColumn key={column.key} allowsSorting={column.sortable}>
+                {column.label}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody items={sortedItems ?? []} emptyContent="No hay registros que mostrar.">
+            {(groupItem: IGroupTable) => (
+              <TableRow key={groupItem.id}>
+                {(groupKey) => (
+                  <TableCell>{renderGroupCell(groupItem, groupKey as IGroupColumnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableLayout>
+      {bottomContent}
+    </>
   );
 };
 
