@@ -37,10 +37,10 @@ const useGroupTable = (
           initialPage={meta?.currentPage}
           variant="light"
           total={meta?.lastPage || 0}
-          onChange={(e) => onChange(e)}
           classNames={{
             wrapper: "bg-white py-1 shadow-small"
           }}
+          onChange={(e) => onChange(e)}
         />
       </div>
     ) : null;
