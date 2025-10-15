@@ -30,6 +30,7 @@ export interface Appendix2Input {
   ask18: string;
   ask19: string;
   ask20: string;
+  questionMap?: any;
 }
 
 export type IAppendix2Input = Appendix2Input & AxiosMessage;

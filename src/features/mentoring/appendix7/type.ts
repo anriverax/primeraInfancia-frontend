@@ -7,6 +7,7 @@ export interface Attachment7Input {
   ask4: string;
   ask5: string;
   ask6: string;
+  questionMap?: any;
 }
 
 export type IAttachment7Input = Attachment7Input & AxiosMessage;

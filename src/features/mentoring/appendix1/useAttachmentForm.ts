@@ -8,7 +8,8 @@ import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Appendix1Input = {
   ask1: new Date(),
-  ask2: ""
+  ask2: "",
+  questionMap: {}
 };
 
 const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
@@ -20,6 +21,7 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
   ): Promise<void> => {
     const ask1Field = values.ask1;
     const ask2Field = values.ask2;
+    const askMapField =values.questionMap;
 
     const data = [
       {
@@ -28,7 +30,7 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
         inscriptionId: 1,
       },
       {
-         questionId: "1",
+        questionId: "1",
         valueText: ask2Field,
         inscriptionId: 1,
       }

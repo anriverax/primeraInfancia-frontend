@@ -6,6 +6,7 @@ export interface Attachment1Input {
   frequencyOfEncounters: string;
   teacherSignature: string;
   mentorSignature: string;
+  questionMap?: any;
 }
 
 export type IAttachment1Input = Attachment1Input & AxiosMessage;

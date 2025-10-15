@@ -12,7 +12,8 @@ const initialValues: Attachment7Input = {
   ask3: "",
   ask4: "",
   ask5: "",
-  ask6: ""
+  ask6: "",
+  questionMap: {}
 };
 
 const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
@@ -28,6 +29,7 @@ const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
     const ask4Field = values.ask4;
     const ask5Field = values.ask5;
     const ask6Field = values.ask6;
+    const askMapField = values.questionMap;
 
     const nameField = "Anexo 7";
     const data = [

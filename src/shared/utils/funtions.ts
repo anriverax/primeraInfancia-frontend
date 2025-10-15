@@ -5,6 +5,8 @@ import {
   NumberSchema,
   array,
   ArraySchema,
+  mixed,
+  MixedSchema,
 } from "yup";
 import { ERR_BAD_REQUEST } from "../constants";
 import axios, { AxiosError, AxiosResponse } from "axios";
@@ -21,6 +23,9 @@ export const numberField = (requiredMessage: string): NumberSchema<number, AnyOb
 
 export const dateField = (requiredMessage: string): DateSchema<Date, AnyObject, undefined, ""> =>
   date().required(requiredMessage);
+
+export const mixedField = (): MixedSchema<any, AnyObject, undefined, ""> =>
+  mixed().optional();
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const arrayField = (requiredMessage: string): ArraySchema<any[], AnyObject, undefined, ""> =>

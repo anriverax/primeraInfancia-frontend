@@ -60,6 +60,7 @@ export interface Appendix8Input {
   ask57: string;
   ask58: string;
   ask59: string;
+  questionMap?: any;
 }
 
 export type IAppendix8Input = Appendix8Input & AxiosMessage;

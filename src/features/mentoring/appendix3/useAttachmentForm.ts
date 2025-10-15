@@ -9,7 +9,8 @@ import useAxios from "@/shared/hooks/useAxios";
 const initialValues: Appendix3Input = {
   ask1: [],
   ask2: [],
-  ask3: ""
+  ask3: "",
+  questionMap: {}
 };
 
 const useAppendix1Form = (): FormikProps<IAppendix3Input> => {
@@ -22,6 +23,7 @@ const useAppendix1Form = (): FormikProps<IAppendix3Input> => {
     const ask1Field = values.ask1;
     const ask2Field = values.ask2;
     const ask3Field = values.ask3;
+    const askMapField = values.questionMap;
 
     const nameField = "Anexo 3";
     const data = [

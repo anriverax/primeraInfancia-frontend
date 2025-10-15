@@ -27,8 +27,20 @@ type Appendix1FormProps = {
 
 const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting } = formik;
-  const { appendixDetailsList } = useAppendixDetailsList(id);
+  const { appendixDetailsList } = useAppendixDetailsList();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const getQuestionIdMap = (sections) => {
+    const idMap = {};
+    sections?.forEach((section) => {
+      section.Question.forEach((question) => {
+        idMap[question.fieldName] = question.id;
+      });
+    });
+    return idMap;
+  }
+
+  const questionIdMap = getQuestionIdMap(appendixDetailsList?.Section || []);
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
@@ -87,8 +99,8 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
                                   value={
                                     formik.values[question.fieldName]
                                       ? parseDate(
-                                          formik.values[question.fieldName].toISOString().slice(0, 10)
-                                        )
+                                        formik.values[question.fieldName].toISOString().slice(0, 10)
+                                      )
                                       : null
                                   }
                                   isInvalid={Boolean(

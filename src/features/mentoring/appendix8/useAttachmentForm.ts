@@ -65,7 +65,8 @@ const initialValues: Appendix8Input = {
   ask56: "",
   ask57: "",
   ask58: "",
-  ask59: ""
+  ask59: "",
+  questionMap: {}
 };
 
 const useAppendix8Form = (): FormikProps<IAppendix8Input> => {
@@ -134,6 +135,7 @@ const useAppendix8Form = (): FormikProps<IAppendix8Input> => {
     const ask57Field = values.ask57;
     const ask58Field = values.ask58;
     const ask59Field = values.ask59;
+    const askMapField = values.questionMap;
     const nameField = "Anexo 8";
 
     const data = [

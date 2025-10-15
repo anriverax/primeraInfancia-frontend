@@ -20,7 +20,8 @@ const initialValues: Appendix5Input = {
   ask11: "",
   ask12: "",
   ask13: "",
-  ask14: ""
+  ask14: "",
+  questionMap: {}
 };
 
 const useAppendix1Form = (): FormikProps<IAppendix5Input> => {
@@ -44,6 +45,7 @@ const useAppendix1Form = (): FormikProps<IAppendix5Input> => {
     const ask12Field = values.ask12;
     const ask13Field = values.ask13;
     const ask14Field = values.ask14;
+    const askMapField = values.questionMap;
 
     const nameField = "Anexo 3";
     const data = [

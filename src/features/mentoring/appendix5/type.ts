@@ -15,6 +15,7 @@ export interface Appendix5Input {
   ask12: string;
   ask13: string;
   ask14: string;
+  questionMap?: any;
 }
 
 export type IAppendix5Input = Appendix5Input & AxiosMessage;

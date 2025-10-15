@@ -10,6 +10,7 @@ export interface Appendix6Input {
   ask7: string;
   ask8: string;
   ask9: string;
+  questionMap?: any;
 }
 
 export type IAppendix6Input = Appendix6Input & AxiosMessage;

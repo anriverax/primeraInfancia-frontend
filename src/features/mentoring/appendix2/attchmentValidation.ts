@@ -1,7 +1,7 @@
 import { object, ObjectSchema } from "yup";
 import { Appendix2Input } from "./type";
 import { validationMessages } from "@/shared/constants";
-import { stringField, arrayField } from "@/shared/utils/funtions";
+import { stringField, arrayField, mixedField } from "@/shared/utils/funtions";
 
 export const appendix2Schema: ObjectSchema<Appendix2Input> = object({
   ask1: arrayField(validationMessages.required),
@@ -23,5 +23,6 @@ export const appendix2Schema: ObjectSchema<Appendix2Input> = object({
   ask17: stringField(validationMessages.required),
   ask18: stringField(validationMessages.required),
   ask19: stringField(validationMessages.required),
-  ask20: stringField(validationMessages.required)
+  ask20: stringField(validationMessages.required),
+  questionMap: mixedField(),
 });
