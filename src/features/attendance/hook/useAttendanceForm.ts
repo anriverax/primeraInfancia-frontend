@@ -19,7 +19,7 @@ const initialValuesAttendance: AttendanceInput = {
   status: ""
 };
 
-const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
+const useAttendanceForm = (): FormikProps<IAttendance> => {
   const [dataAttendance, setDataAttendance] = useState<IAttendanceCreated>();
   const queryClient = useQueryClient();
   const getCurrentLocation = useCurrentLocation();
@@ -30,25 +30,22 @@ const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
     formikHelpers?: FormikHelpers<IAttendance>
   ): Promise<void> => {
     const location = await getCurrentLocation();
-    console.log(values);
+
     const newValue = location
       ? { ...values, coordenates: `${location.latitude},${location.longitude}` }
       : values;
 
     try {
-      const res: AxiosResponse<FetchResponse<IAttendance>> =
-        attendanceId === 0
-          ? await useRequest.post("/attendance/create", newValue)
-          : await useRequest.put(`/attendance/update/${attendanceId}`);
+      const res: AxiosResponse<FetchResponse<IAttendance>> = await useRequest.post(
+        "/attendance/create",
+        newValue
+      );
 
       const resultData = res.data;
 
       showToast(String(resultData.message), "success");
 
-      if (
-        resultData.statusCode === HttpStatusCode.Created ||
-        resultData.statusCode === HttpStatusCode.Ok
-      ) {
+      if (resultData.statusCode === HttpStatusCode.Created) {
         /* eslint-disable @typescript-eslint/no-explicit-any */
         const newData: IAttendanceCreated = resultData.data as any;
         /* eslint-enable @typescript-eslint/no-explicit-any */

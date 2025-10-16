@@ -3,7 +3,10 @@ import { memo } from "react";
 
 const CustomProgress = memo(
   (): React.JSX.Element => (
-    <div className="flex justify-center items-center h-dvh">
+    <div
+      className="flex justify-center items-center h-[calc(100dvh-256px)]
+"
+    >
       <Progress
         isIndeterminate
         aria-label="Cargando..."

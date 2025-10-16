@@ -8,63 +8,24 @@ import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 
 const LeaderView = (): React.JSX.Element => {
-  const { eventList, attendance } = useAttendanceList();
-  const formik = useAttendanceForm(attendance ? attendance.id : 0);
+  const { assignmentList } = useAttendanceList();
+  const formik = useAttendanceForm();
   const { data: session } = useSession();
 
   const { values, touched, errors, getFieldProps, handleSubmit } = formik;
   const { getSelectProps } = useCustomFormFields();
 
-  const attendanceDetails = useMemo(() => {
-    if (attendance) {
-      return (
-        <div>
-          <div className="bg-white border border-gray-200">
-            <div className="p-6 flex items-center gap-2 bg-blue-50 text-blue-500">
-              <CheckCircle className="h-5 w-5" />
-              <h3 className="text-2xl font-semibold">Información</h3>
-            </div>
-            <ul className="p-6 space-y-4 grid grid-cols-2">
-              <li>
-                <p className="font-bold">Evento</p>
-                <span>{attendance.Event?.name}</span>
-              </li>
-              <li>
-                <p className="font-bold">Formador</p>
-                {session ? <span>{session.user.name}</span> : <span>Cargando...</span>}
-              </li>
-              <li>
-                <p className="font-bold">Inicio de Jornada</p>
-                <span>{attendance.checkIn}</span>
-              </li>
-              <li>
-                <p className="font-bold">Finalización de Jornada</p>
-                {attendance.checkOut ? (
-                  <span>{attendance.checkOut}</span>
-                ) : (
-                  <Button fullWidth color="secondary" onPress={() => handleSubmit()}>
-                    Finalizar Jornada
-                  </Button>
-                )}
-              </li>
-            </ul>
-          </div>
-        </div>
-      );
-    }
-  }, [attendance, session]);
-
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-6">
-      {!attendance && (
+      {!assignmentList && (
         <div className="flex justify-between">
           <form className="space-y-4" onSubmit={handleSubmit}>
             <Select
-              items={eventList ? eventList : []}
+              items={assignmentList.events}
               {...getSelectProps(
                 "Evento",
                 "Seleccione un evento",
-                eventList ? eventList.length : 0,
+                eventList ? assignmentList.events.length : 0,
                 values.eventId,
                 touched.eventId,
                 errors.eventId

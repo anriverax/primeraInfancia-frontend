@@ -4,7 +4,7 @@ import { memo, useCallback } from "react";
 type CustomPaginationProps = {
   currentPage: number;
   lastPage: number;
-  handleChangePage: (e: number) => void;
+  handleChangePage: (_e: number) => void;
 };
 
 const CustomPagination = memo(

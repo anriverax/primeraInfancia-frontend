@@ -3,7 +3,7 @@ import { ISchoolColumnKey, ISchoolTable } from "../../schoolType";
 import { Eye } from "lucide-react";
 import { Tooltip } from "@heroui/react";
 import Link from "next/link";
-import { IColumns } from '@/shared/types/globals';
+import { IColumns } from "@/shared/types/globals";
 
 export const headerColumns: IColumns<ISchoolColumnKey>[] = [
   {
