@@ -5,7 +5,7 @@ import { FetchResponse } from "@/shared/types/globals";
 import { IAppendixDetailTable, AppendixDetailListResult } from "../../appendixDetailType";
 import { handleAxiosError } from "@/shared/utils/funtions";
 
-const useAppendixDetailsList = (): AppendixDetailListResult => {
+const useAppendixDetailsList = (id: number): AppendixDetailListResult => {
   const [appendixDetailsList, setAppendixDetailsList] = useState<IAppendixDetailTable[]>([]);
   const useRequest = useAxios(true);
 
@@ -14,7 +14,7 @@ const useAppendixDetailsList = (): AppendixDetailListResult => {
     const fetchData = async (): Promise<void> => {
       try {
         const res: AxiosResponse<FetchResponse<IAppendixDetailTable[]>> =
-          await useRequest.get("/appendix/detail/2");
+          await useRequest.get(`/appendix/detail/${id}`);
 
         if (isMounted) {
           const { data } = res.data;

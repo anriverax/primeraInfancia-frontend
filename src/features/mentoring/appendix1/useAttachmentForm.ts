@@ -23,6 +23,22 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
     const ask2Field = values.ask2;
     const askMapField =values.questionMap;
 
+    const responseDataWithIds = askMapField.keys(values).map(fieldName => {
+    // Check if the fieldName is one of your dynamic questions
+    if (questionIdMap.hasOwnProperty(fieldName)) {
+      const questionId = questionIdMap[fieldName];
+      const answerValue = values[fieldName];
+
+      return {
+        questionId: questionId, // This is the ID you need
+        fieldName: fieldName,    // Optional: Keep the field name
+        answer: answerValue,     // The user's input
+      };
+    }
+    return null; // Ignore other Formik values if necessary
+  }).filter(item => item !== null);
+console.log(responseDataWithIds,"8989888777777");
+
     const data = [
       {
         questionId: "1",
