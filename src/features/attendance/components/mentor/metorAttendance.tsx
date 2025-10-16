@@ -5,7 +5,7 @@ type MentorAttendanceProps = {
   isHistory: boolean;
 };
 
-const MentorAttendance = ({ isHistory }: MentorAttendanceProps) => {
+const MentorAttendance = ({ isHistory }: MentorAttendanceProps): React.JSX.Element => {
   if (isHistory) return <MentorAttendanceHistory />;
 
   return <MentorView />;

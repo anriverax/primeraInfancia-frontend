@@ -34,8 +34,8 @@ export default function AttendancePage(): React.JSX.Element {
           size="md"
           color="primary"
           selectedKey={selectedTab}
-          onSelectionChange={(key) => setSelectedTab(key as TabsType)}
           classNames={{ tabList: "bg-white shadow-sm" }}
+          onSelectionChange={(key) => setSelectedTab(key as TabsType)}
         >
           {showNewRegister && <Tab key="new" title="Nuevo registro" />}
           <Tab key="history" title="Historial" />
@@ -49,8 +49,8 @@ export default function AttendancePage(): React.JSX.Element {
             size="md"
             color="secondary"
             selectedKey={selectedView}
-            onSelectionChange={(key) => setSelectedView(key as RoleViewType)}
             classNames={{ tabList: "bg-white shadow-sm" }}
+            onSelectionChange={(key) => setSelectedView(key as RoleViewType)}
           >
             <Tab key="mentor" title="Mentor" />
             <Tab key="leader" title="Formador" />

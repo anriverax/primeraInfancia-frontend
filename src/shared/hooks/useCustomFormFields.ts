@@ -81,13 +81,18 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
       placeholder: string,
       itemsLength: number,
       itemValue: number | number[],
-      touched: boolean | undefined,
       error: string | undefined,
       isRequired: boolean = true
     ): SelectProps => {
-      const valuesArray: string[] = Array.isArray(itemValue)
-        ? itemValue.map((v) => (v === 0 ? "" : v.toString()))
-        : [itemValue === 0 ? "" : itemValue.toString()];
+      // Determine selectedKeys depending on whether it is an array or a single value
+      let selectedKeys: string[];
+      if (Array.isArray(itemValue)) {
+        // For multiple selections: convert array of numbers to array of strings
+        selectedKeys = itemValue.length > 0 ? itemValue.map((v) => v.toString()) : [];
+      } else {
+        // For simple select: convert number to array with a string
+        selectedKeys = itemValue === 0 || itemValue === -1 ? [] : [itemValue.toString()];
+      }
 
       return {
         ...getCommonFieldProps(label, isRequired, placeholder),
@@ -95,17 +100,19 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
         className: "w-full",
         classNames: {
           trigger:
-            "border data-[hover=true]:border-blue-500 data-[open=true]:border-blue-500 data-[focus=true]:border-blue-500 h-auto",
-          label: "group-data-[filled=true]:font-bold top-4",
-          value: "group-data-[has-value=true]:text-gray-600 whitespace-pre-wrap"
+            "border data-[hover=true]:border-blue-500 data-[open=true]:border-blue-500 data-[focus=true]:border-blue-500",
+          label: "group-data-[filled=true]:font-bold",
+          value: "group-data-[has-value=true]:text-gray-600"
         },
-        selectedKeys: valuesArray,
+
+        selectedKeys,
         isLoading: itemsLength === 0,
         isDisabled: itemsLength === 0,
-        ...getValidationState(touched, error)
+        isInvalid: !!error && selectedKeys.length === 0,
+        errorMessage: error ? error : undefined
       };
     },
-    [getCommonFieldProps, getValidationState]
+    []
   );
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const getDateProps = useCallback(

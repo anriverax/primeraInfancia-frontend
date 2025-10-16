@@ -4,7 +4,7 @@ import useAxios from "@/shared/hooks/useAxios";
 import { FetchResponse } from "@/shared/types/globals";
 import { useQueryClient } from "@tanstack/react-query";
 
-const useAttendanceFinish = (): { handleSubmit: (eventId: number) => Promise<void> } => {
+const useAttendanceFinish = (): { handleSubmit: (_eventId: number) => Promise<void> } => {
   const queryClient = useQueryClient();
   const useRequest = useAxios(true);
 

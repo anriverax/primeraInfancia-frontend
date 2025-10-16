@@ -10,13 +10,13 @@ import { useCurrentLocation } from "./useCurrentLocation";
 import { useEffect, useState } from "react";
 
 const initialValuesAttendance: AttendanceInput = {
-  eventId: 0,
+  eventId: -1,
   coordenates: "",
   modality: "",
   teacherId: [],
   comment: "",
   justificationUrl: "",
-  status: ""
+  status: "Presente"
 };
 
 const useAttendanceForm = (): FormikProps<IAttendance> => {
@@ -62,12 +62,12 @@ const useAttendanceForm = (): FormikProps<IAttendance> => {
     initialValues: initialValuesAttendance,
     validationSchema: attendanceSchema,
     validateOnBlur: true,
-    validateOnChange: false,
+    validateOnChange: true ,
     onSubmit: handleSubmit
   });
 
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ["attendance-detail"] });
+    queryClient.invalidateQueries({ queryKey: ["last-attendance"] });
   }, [dataAttendance]);
 
   return formikAttendance;

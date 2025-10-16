@@ -1,5 +1,7 @@
 interface ValidationMessage {
   required: string;
+  invalidUrl: string;
+  selectRequired: string;
 }
 
 export const DASHBOARD_REDIRECT_URL = "/admin/dashboard";
@@ -8,7 +10,9 @@ export const LOGIN_REDIRECT_URL = "/auth/iniciar-sesion";
 export const ERR_BAD_REQUEST = "ERR_BAD_REQUEST";
 
 export const validationMessages: ValidationMessage = {
-  required: "Por favor, complete este campo*."
+  required: "Este campo es obligatorio.",
+  invalidUrl: "Por favor, ingrese una URL válida.",
+  selectRequired: "Por favor, seleccione una opción."
 };
 
 export const breakpoints: {

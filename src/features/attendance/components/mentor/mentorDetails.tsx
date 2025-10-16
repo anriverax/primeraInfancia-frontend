@@ -1,4 +1,4 @@
-import { Alert, Button, Select, SelectItem } from "@heroui/react";
+import { Button, Select, SelectItem } from "@heroui/react";
 import { Calendar } from "lucide-react";
 import { ILastAttendance } from "../../attendance.type";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
@@ -27,7 +27,14 @@ const MentorDetail = ({
     <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-1/2 space-y-6">
       <Select
         items={events}
-        {...getSelectProps("Evento", "Seleccione un evento", events.length || 0, selectedId, false, "")}
+        {...getSelectProps(
+          "Evento",
+          "Seleccione un evento",
+          events.length || 0,
+          selectedId,
+          undefined,
+          false
+        )}
         onChange={handleSelectionChange}
         isDisabled={!events.length}
       >

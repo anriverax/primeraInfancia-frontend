@@ -32,8 +32,8 @@ const AttendanceLayout = ({ role }: { role: string }): React.JSX.Element => {
               size="md"
               color="secondary"
               selectedKey={selectedView}
-              onSelectionChange={(key) => setSelectedView(key as RoleViewType)}
               classNames={{ tabList: "bg-white shadow-sm" }}
+              onSelectionChange={(key) => setSelectedView(key as RoleViewType)}
             >
               <Tab key="all" title="Todos" />
               <Tab key="mentor" title="Mentores" />
@@ -48,8 +48,8 @@ const AttendanceLayout = ({ role }: { role: string }): React.JSX.Element => {
             size="md"
             color="primary"
             selectedKey={selectedTab}
-            onSelectionChange={(key) => setSelectedTab(key as TabsType)}
             classNames={{ tabList: "bg-white shadow-sm" }}
+            onSelectionChange={(key) => setSelectedTab(key as TabsType)}
           >
             {showNewRegister && <Tab key="new" title="Nuevo registro" />}
             <Tab key="history" title="Historial" />
@@ -60,7 +60,7 @@ const AttendanceLayout = ({ role }: { role: string }): React.JSX.Element => {
       <div className="flex justify-center xl:gap-6">
         {/* Vista de Mentor */}
         {(selectedView === "mentor" || selectedView === "all") &&
-          (role === TypeRole.USER_MENTOR || role === TypeRole.USER_TECNICO) && (
+          (role === TypeRole.USER_MENTOR || role === TypeRole.USER_TECNICO_APOYO) && (
             <div className={selectedView === "all" ? "w-1/2" : "w-full"}>
               <MentorView isHistory={selectedTab === "history"} />
             </div>
@@ -68,7 +68,7 @@ const AttendanceLayout = ({ role }: { role: string }): React.JSX.Element => {
 
         {/* Vista de Formador */}
         {(selectedView === "leader" || selectedView === "all") &&
-          (role === TypeRole.USER_FORMADOR || role === TypeRole.USER_TECNICO) && (
+          (role === TypeRole.USER_FORMADOR || role === TypeRole.USER_TECNICO_APOYO) && (
             <div className={selectedView === "all" ? "w-1/2" : "w-full"}>
               <LeaderView isHistory={selectedTab === "history"} />
             </div>

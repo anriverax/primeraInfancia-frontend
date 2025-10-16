@@ -1,5 +1,6 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
+import { getRoutePermissionsMap, hasAccess } from "@/shared/utils/accessControl";
 
 const roleAccessMap: Record<string, string[]> = {
   "/admin/grupos": ["VIEW_GROUPS"]
@@ -9,8 +10,8 @@ const roleAccessMap: Record<string, string[]> = {
 export async function middleware(request: NextRequest): Promise<NextResponse<unknown>> {
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
   const pathname = request.nextUrl.pathname;
-
-  const isAuthenticated = request.cookies.get("next-auth.session-token");
+  // Rely on getToken only (supports both dev and __Secure cookies)
+  const isAuthenticated = !!token;
   const isAuthRoute = request.nextUrl.pathname.startsWith("/auth");
   const isProtectedRoute = request.nextUrl.pathname.startsWith("/admin");
 
@@ -24,18 +25,9 @@ export async function middleware(request: NextRequest): Promise<NextResponse<unk
     return NextResponse.redirect(new URL("/auth/iniciar-sesion", request.url));
   }
 
-  for (const route in roleAccessMap) {
-    if (pathname.startsWith(route)) {
-      const allowedRoles = roleAccessMap[route];
-
-      if (
-        !token ||
-        !Array.isArray(token.permissions) ||
-        !token.permissions.some((role) => allowedRoles.includes(role))
-      ) {
-        return NextResponse.redirect(new URL("/admin/dashboard/participantes", request.url));
-      }
-    }
+  const routeMap = await getRoutePermissionsMap();
+  if (!hasAccess(pathname, token, routeMap)) {
+    return NextResponse.redirect(new URL("/admin/dashboard/participantes", request.url));
   }
 
   return NextResponse.next();

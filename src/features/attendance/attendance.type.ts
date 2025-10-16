@@ -45,3 +45,16 @@ export interface ILastAttendance {
     coordenates: string;
   }[];
 }
+
+export interface IAttendanceTable {
+  checkIn: string;
+  checkOut: string | null;
+  Event: {
+    name: string;
+  };
+  id: number;
+  status: string;
+  _count: {
+    PrincipalSchool: number;
+  };
+}

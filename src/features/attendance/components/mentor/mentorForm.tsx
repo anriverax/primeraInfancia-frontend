@@ -9,7 +9,7 @@ import {
   Textarea
 } from "@heroui/react";
 import { useAttendanceForm } from "../../hook/useAttendanceForm";
-import { useAttendanceList } from "../../hook/useAttendanceList";
+import { useAttendanceNew } from "../../hook/useAttendanceNew";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { IEvent, TeachersAssignmentMentor } from "../../attendance.type";
 import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
@@ -18,17 +18,13 @@ import CustomProgress from "@/shared/ui/custom/customProgress";
 const MentorForm = (): React.JSX.Element => {
   const formik = useAttendanceForm();
   const { getSelectProps, getTextAreaProps, getInputProps } = useCustomFormFields();
-  const { assignmentList } = useAttendanceList();
+
   const { values, touched, errors, getFieldProps, handleSubmit, setFieldValue } = formik;
 
-  const touchedTeacher = Array.isArray(touched.teacherId)
-    ? touched.teacherId.some((t) => !!t)
-    : (touched.teacherId as boolean | undefined);
-
-  const errorTeacher = Array.isArray(errors.teacherId)
-    ? errors.teacherId.filter(Boolean).join(", ")
-    : (errors.teacherId as string | undefined);
-
+  const { assignmentList, handleSelectionChange, getErrorTeacher } = useAttendanceNew({
+    eventId: values.eventId,
+    setFieldValue
+  });
   if (!assignmentList) return <CustomProgress />;
 
   return (
@@ -36,25 +32,32 @@ const MentorForm = (): React.JSX.Element => {
       <form className="space-y-6" onSubmit={handleSubmit}>
         <Select
           items={assignmentList.events}
+          name="eventId"
           {...getSelectProps(
             "Evento",
             "Seleccione un evento",
             assignmentList.events.length || 0,
             values.eventId,
-            touched.eventId,
             errors.eventId
           )}
-          {...getFieldProps("eventId")}
-          isDisabled={!assignmentList.events.length}
+          onSelectionChange={(keys: SharedSelection) => {
+            const selected = Array.from(keys as Set<string>)[0];
+            const id = selected ? Number(selected) : -1;
+            setFieldValue("eventId", id);
+            setFieldValue("teacherId", []);
+          }}
         >
           {assignmentList.events.map((event: IEvent) => (
             <SelectItem key={event.id}>{event.name}</SelectItem>
           ))}
         </Select>
         <RadioGroup
+          isRequired
           label="Seleccione una modalidad"
           orientation="horizontal"
           value={values.modality}
+          isInvalid={!!errors.modality}
+          errorMessage={errors.modality}
           onValueChange={(value: string) => setFieldValue("modality", value)}
         >
           <Radio value={AttendanceModeEnum.PRESENCIAL} color="primary">
@@ -70,21 +73,13 @@ const MentorForm = (): React.JSX.Element => {
             "Cuerpo docente",
             "Seleccione uno o más docentes",
             assignmentList.teachers.length || 0,
-            values.teacherId,
-            touchedTeacher,
-            errorTeacher
+            values.teacherId ?? [],
+            getErrorTeacher(errors.teacherId)
           )}
-          isDisabled={!assignmentList.teachers.length}
+          isDisabled={!assignmentList.teachers.length || !values.eventId}
           selectionMode="multiple"
           selectedKeys={values.teacherId?.map((v: number) => v.toString()) ?? []}
-          onSelectionChange={(keys: SharedSelection) => {
-            const iterable: Iterable<unknown> = keys as Iterable<unknown>;
-            const arr = Array.from(iterable)
-              .map((k) => String(k))
-              .filter((k) => k !== "")
-              .map((k) => Number(k));
-            setFieldValue("teacherId", arr);
-          }}
+          onSelectionChange={(keys: SharedSelection) => handleSelectionChange(keys)}
         >
           {assignmentList.teachers.map((teacher: TeachersAssignmentMentor) => (
             <SelectItem key={teacher.id} textValue={teacher.fullName}>
@@ -122,6 +117,7 @@ const MentorForm = (): React.JSX.Element => {
               {...getFieldProps("comment")}
             />
             <Input
+              {...getFieldProps("justificationUrl")}
               {...getInputProps(
                 "url",
                 "Url de justificación",
@@ -131,7 +127,7 @@ const MentorForm = (): React.JSX.Element => {
             />
           </div>
         )}
-        <Button fullWidth color="primary" variant="shadow" type="submit" isDisabled={!values.eventId}>
+        <Button fullWidth color="primary" variant="shadow" type="submit">
           Iniciar jornada
         </Button>
       </form>

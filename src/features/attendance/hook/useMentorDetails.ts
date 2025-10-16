@@ -10,7 +10,7 @@ const useMentorDetails = (
     name: string;
   }[];
   lastAttendance: ILastAttendance[];
-  calculateDistance: (schoolDist: string, mentorDist: string) => number;
+  calculateDistance: (_schoolDist: string, _mentorDist: string) => number;
 } => {
   const splitDistance = (
     distance: string

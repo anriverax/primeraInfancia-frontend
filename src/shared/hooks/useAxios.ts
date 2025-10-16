@@ -79,10 +79,16 @@ const useAxios = (isPrivate: boolean = false): AxiosInstance => {
       (response) => response,
       async (error) => {
         const prevRequest: any = error?.config;
+        const url: string = prevRequest?.url || "";
+        // Evitar ciclo de refresh en endpoints de auth
+        const isAuthEndpoint = [
+          "/auth/login",
+          "/auth/logout",
+          "/auth/refresh-token",
+          "/auth/change-password"
+        ].some((ep) => url.includes(ep));
 
-        // const isRefreshEndpoint = prevRequest?.url?.includes("/auth/change-password");
-
-        if (error?.response?.status === 401 && !prevRequest?.sent) {
+        if (error?.response?.status === 401 && !prevRequest?.sent && !isAuthEndpoint) {
           prevRequest.sent = true;
 
           const getToken = await refreshAccessToken(session!, update);

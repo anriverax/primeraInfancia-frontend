@@ -1,6 +1,5 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { cookies } from "next/headers";
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -45,21 +44,6 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    async signIn() {
-      const cookieStore = await cookies();
-
-      cookieStore.set({
-        name: "isAuth",
-        value: "true", // Mejor usar un token seguro
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // Solo por HTTPS en producción
-        sameSite: "strict", // O "lax"
-        path: "/",
-        maxAge: 60 * 60 * 24 // 1 día, por ejemplo
-      });
-
-      return true;
-    },
     async jwt({ token, user, session }) {
       if (user) {
         token.accessToken = user.accessToken;
@@ -94,15 +78,6 @@ export const authOptions: NextAuthOptions = {
       session.permissions = token.permissions;
 
       return { ...session, accessToken: token.accessToken, refreshToken: token.refreshToken };
-    },
-    async redirect({ url, baseUrl }): Promise<string> {
-      const cookieStore = await cookies();
-
-      const isAuth = cookieStore.get("isAuth");
-
-      if (isAuth) return url;
-
-      return `${baseUrl}/auth/iniciar-sesion`;
     }
   }
 };

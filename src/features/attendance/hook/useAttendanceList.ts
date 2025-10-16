@@ -1,15 +1,20 @@
-import { TeachersAssignmentWithEvents } from "../attendance.type";
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useState } from "react";
 
 const useAttendanceList = () => {
-  const { data: assignmentList } = useQueryRequest<any>(
-    "teachers-with-events",
-    "/attendance/teachersWithEvents",
+  const [page, setPage] = useState<number>(1);
+  const limit = 10;
+
+  const { data: attendanceList, meta } = useQueryRequest<any[]>(
+    "attendance-list",
+    "/catalogue/school",
     true,
-    "listado de eventos"
+    "Lista de asistencias",
+    page,
+    limit
   );
 
-  return { assignmentList: assignmentList as TeachersAssignmentWithEvents };
+  return { handleChangePage: setPage, attendanceList, meta };
 };
 
 export { useAttendanceList };
