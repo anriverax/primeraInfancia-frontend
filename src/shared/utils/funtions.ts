@@ -65,7 +65,11 @@ export function showToast(
   });
 }
 
-export function handleAxiosError(error: unknown, message: string, action: "obtener" | "eliminar"): void {
+export function handleAxiosError(
+  error: unknown,
+  message: string,
+  action: "obtener" | "eliminar" | "actualizar"
+): void {
   const isAxios = axios.isAxiosError(error);
   const isDev = process.env.NODE_ENV === "development";
   const title = isAxios ? `Error al ${action}` : `Error inesperado al ${action}`;

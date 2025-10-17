@@ -34,6 +34,7 @@ export interface TextAreaProps
 
 export interface SelectProps
   extends Pick<InputProps, "label" | "variant" | "isRequired" | "isInvalid" | "errorMessage"> {
+  placeholder: string;
   className: string;
   classNames: {
     trigger: string;
@@ -64,8 +65,7 @@ export interface CustomFormFieldsResult {
     _label: string,
     _placeholder: string,
     _itemsLength: number,
-    _itemValue: number,
-    _touched: boolean | undefined,
+    _itemValue: number | number[],
     _error: string | undefined,
     _isRequired?: boolean
   ) => SelectProps;

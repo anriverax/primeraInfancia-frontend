@@ -1,6 +1,6 @@
 "use client";
 
-import { PageTitle } from "@/shared/ui/custom/pageTitle";
+import { PageTitle } from "@/shared/ui/pageTitle";
 import dynamic from "next/dynamic";
 
 const TrainingModuleTable = dynamic(

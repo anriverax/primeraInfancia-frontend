@@ -7,18 +7,18 @@ import {
   TableCell,
   SortDescriptor
 } from "@heroui/table";
-import { useRenderGroupCell } from "./columns";
+import { headerColumns, useRenderGroupCell } from "./columns";
 import { IGroupColumnKey, IGroupTable } from "../../groupType";
 import { tableClassNames } from "@/shared/constants";
 import { useGroupsList } from "../../hooks/useGroupsList";
-import { useGroupTable } from "../../hooks/useGroupTable";
 import { useMemo, useState } from "react";
 import { TableLayout } from "@/shared/ui/custom/tableLayout";
+import CustomPagination from "@/shared/ui/custom/customPagination";
 
 const GroupTable = (): React.JSX.Element => {
   const { handleChangePage, groupList, meta, handleConfirmDeleteGroup } = useGroupsList();
-  const { bottomContent, headerColumns } = useGroupTable(meta, groupList, handleChangePage);
   const renderGroupCell = useRenderGroupCell(handleConfirmDeleteGroup);
+
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: "departments",
     direction: "ascending"
@@ -65,7 +65,14 @@ const GroupTable = (): React.JSX.Element => {
           </TableBody>
         </Table>
       </TableLayout>
-      {bottomContent}
+
+      {meta && groupList.length > 0 && (
+        <CustomPagination
+          currentPage={meta.currentPage}
+          lastPage={meta.lastPage}
+          handleChangePage={handleChangePage}
+        />
+      )}
     </>
   );
 };

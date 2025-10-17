@@ -10,16 +10,16 @@ import { useCurrentLocation } from "./useCurrentLocation";
 import { useEffect, useState } from "react";
 
 const initialValuesAttendance: AttendanceInput = {
-  eventId: 0,
+  eventId: -1,
   coordenates: "",
   modality: "",
-  teacherId: 0,
+  teacherId: [],
   comment: "",
   justificationUrl: "",
-  status: ""
+  status: "Presente"
 };
 
-const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
+const useAttendanceForm = (): FormikProps<IAttendance> => {
   const [dataAttendance, setDataAttendance] = useState<IAttendanceCreated>();
   const queryClient = useQueryClient();
   const getCurrentLocation = useCurrentLocation();
@@ -36,19 +36,16 @@ const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
       : values;
 
     try {
-      const res: AxiosResponse<FetchResponse<IAttendance>> =
-        attendanceId === 0
-          ? await useRequest.post("/attendance/create", newValue)
-          : await useRequest.put(`/attendance/update/${attendanceId}`);
+      const res: AxiosResponse<FetchResponse<IAttendance>> = await useRequest.post(
+        "/attendance/create",
+        newValue
+      );
 
       const resultData = res.data;
 
       showToast(String(resultData.message), "success");
 
-      if (
-        resultData.statusCode === HttpStatusCode.Created ||
-        resultData.statusCode === HttpStatusCode.Ok
-      ) {
+      if (resultData.statusCode === HttpStatusCode.Created) {
         /* eslint-disable @typescript-eslint/no-explicit-any */
         const newData: IAttendanceCreated = resultData.data as any;
         /* eslint-enable @typescript-eslint/no-explicit-any */
@@ -65,12 +62,12 @@ const useAttendanceForm = (attendanceId: number): FormikProps<IAttendance> => {
     initialValues: initialValuesAttendance,
     validationSchema: attendanceSchema,
     validateOnBlur: true,
-    validateOnChange: false,
+    validateOnChange: true,
     onSubmit: handleSubmit
   });
 
   useEffect(() => {
-    queryClient.invalidateQueries({ queryKey: ["attendance-detail"] });
+    queryClient.invalidateQueries({ queryKey: ["last-attendance"] });
   }, [dataAttendance]);
 
   return formikAttendance;

@@ -1,40 +1,21 @@
-import { useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
-import useAxios from "@/shared/hooks/useAxios";
-import { TeachersAssignmentWithEvents } from "../attendance.type";
-import { handleAxiosError } from "@/shared/utils/funtions";
-// TeachersAssignmentWithEvents -any
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const useAttendanceList = (): any | undefined => {
-  const [assignmentList, setAssignmentList] = useState<TeachersAssignmentWithEvents | undefined>(
-    undefined
+import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useState } from "react";
+import { AttendanceListResult, IAttendanceTable } from "../attendance.type";
+
+const useAttendanceList = (): AttendanceListResult => {
+  const [page, setPage] = useState<number>(1);
+  const limit = 10;
+
+  const { data: attendanceList, meta } = useQueryRequest<IAttendanceTable[]>(
+    "attendance-list",
+    "/attendance",
+    true,
+    "Lista de asistencias",
+    page,
+    limit
   );
-  const useRequest = useAxios(true);
 
-  useEffect(() => {
-    let isMounted = true;
-    const fetchData = async (): Promise<void> => {
-      try {
-        const res: AxiosResponse<TeachersAssignmentWithEvents> = await useRequest.get(
-          "/attendance/teachersWithEvents"
-        );
-
-        if (isMounted) {
-          const { data } = res;
-          setAssignmentList(data);
-        }
-      } catch (error) {
-        handleAxiosError(error, "listado de eventos", "obtener");
-      }
-    };
-    if (assignmentList === undefined) fetchData();
-
-    return (): void => {
-      isMounted = false;
-    };
-  }, [assignmentList]);
-
-  return assignmentList;
+  return { handleChangePage: setPage, attendanceList, meta };
 };
 
 export { useAttendanceList };

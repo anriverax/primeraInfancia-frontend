@@ -3,7 +3,20 @@ import { Eye, Trash2, Users } from "lucide-react";
 import { Tooltip } from "@heroui/react";
 import { useCallback } from "react";
 import Link from "next/link";
+import { IColumns } from "@/shared/types/globals";
 
+export const headerColumns: IColumns<IGroupColumnKey>[] = [
+  {
+    key: "name",
+    label: "Nombre"
+  },
+  { key: "count", label: "Integrantes" },
+  { key: "department", label: "Departamento", sortable: true },
+  {
+    key: "actions",
+    label: "Acciones"
+  }
+];
 export const useRenderGroupCell = (
   onDeleteGroup: (_groupId: number, _groupName: string) => Promise<void>
 ): ((
