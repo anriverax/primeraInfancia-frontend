@@ -21,23 +21,24 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
   ): Promise<void> => {
     const ask1Field = values.ask1;
     const ask2Field = values.ask2;
-    const askMapField =values.questionMap;
+    const askMapField = values.questionMap;
+console.log( askMapField);
 
-    const responseDataWithIds = askMapField.keys(values).map(fieldName => {
-    // Check if the fieldName is one of your dynamic questions
-    if (questionIdMap.hasOwnProperty(fieldName)) {
-      const questionId = questionIdMap[fieldName];
-      const answerValue = values[fieldName];
+    const responseDataWithIds = Object?.keys(values).map(fieldName => {
+      // Check if the fieldName is one of your dynamic questions
+      if (askMapField.hasOwnProperty(fieldName)) {
+        const questionId = askMapField[fieldName];
+        const answerValue = values[fieldName];
 
-      return {
-        questionId: questionId, // This is the ID you need
-        fieldName: fieldName,    // Optional: Keep the field name
-        answer: answerValue,     // The user's input
-      };
-    }
-    return null; // Ignore other Formik values if necessary
-  }).filter(item => item !== null);
-console.log(responseDataWithIds,"8989888777777");
+        return {
+          questionId: questionId, // This is the ID you need
+          fieldName: fieldName,    // Optional: Keep the field name
+          answer: answerValue,     // The user's input
+        };
+      }
+      return null; // Ignore other Formik values if necessary
+    }).filter(item => item !== null);
+    console.log(ask1Field, ask2Field, askMapField, responseDataWithIds);
 
     const data = [
       {
@@ -54,25 +55,25 @@ console.log(responseDataWithIds,"8989888777777");
 
     data.map(async (item) => {
       try {
-        const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
-          "/answer/create",
-          item
-        );
+        // const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
+        //   "/answer/create",
+        //   item
+        // );
 
-        const resultData = res.data;
+        // const resultData = res.data;
 
-        showToast(String(resultData.message), "success");
-        formikHelpers.resetForm();
+        // showToast(String(resultData.message), "success");
+        // formikHelpers.resetForm();
 
-        if (
-          resultData.statusCode === HttpStatusCode.Created ||
-          resultData.statusCode === HttpStatusCode.Ok
-        ) {
-          // /* eslint-disable @typescript-eslint/no-explicit-any */
-          // const newData: IAttendanceCreated = resultData.data as any;
-          // /* eslint-enable @typescript-eslint/no-explicit-any */
-          // setDataAttendance(newData);
-        }
+        // if (
+        //   resultData.statusCode === HttpStatusCode.Created ||
+        //   resultData.statusCode === HttpStatusCode.Ok
+        // ) {
+        // /* eslint-disable @typescript-eslint/no-explicit-any */
+        // const newData: IAttendanceCreated = resultData.data as any;
+        // /* eslint-enable @typescript-eslint/no-explicit-any */
+        // setDataAttendance(newData);
+        //}
       } catch (error) {
         handleFormikResponseError<IAppendix1Input>(error as AxiosError, formikHelpers!);
       }

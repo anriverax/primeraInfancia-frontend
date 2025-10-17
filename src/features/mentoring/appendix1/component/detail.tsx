@@ -25,7 +25,7 @@ type Appendix1FormProps = {
 };
 
 const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Element => {
-  const { handleSubmit, touched, errors, isSubmitting } = formik;
+  const { handleSubmit, touched, errors, isSubmitting, values } = formik;
   const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -41,7 +41,6 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
 
   const questionIdMap = getQuestionIdMap(appendixDetailsList?.Section || []);
 
-
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,8 +50,6 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
-    console.log(questionIdMap, formik.values.ask1, formik.values.ask2);
-
     formik.values.questionMap = questionIdMap;
     handleSubmit();
     onOpenChange();
@@ -76,8 +73,6 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
         </div>
 
         <form className="space-y-6" onSubmit={handleOkSubmit}>
-          {/* <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8"> */}
           {appendixDetailsList.Section?.map((section, index) => (
             <div key={index}>
               <h3 className="pb-6">
@@ -159,11 +154,8 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
               </ul>
             </div>
           ))}
-          {/* </CardBody>
-          </Card> */}
 
           <div className="flex space-x-4 mt-8">
-            {/* <div className="flex justify-center text"> */}
             <Button
               color="secondary"
               variant="shadow"
