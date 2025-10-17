@@ -1,7 +1,7 @@
 import { validationMessages } from "@/shared/constants";
 import { object, number, ObjectSchema, string, array } from "yup";
 import { AttendanceInput } from "./attendance.type";
-import { stringField } from "@/shared/utils/funtions";
+import { stringField } from "@/shared/utils/functions";
 
 export const attendanceSchema: ObjectSchema<AttendanceInput> = object({
   eventId: number()

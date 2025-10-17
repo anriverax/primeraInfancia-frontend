@@ -20,7 +20,7 @@ type SchoolMapProps = {
 
 const SchoolMap = ({ coordenates, schoolName }: SchoolMapProps): React.JSX.Element => {
   const coord = coordenates.split(",")!;
-  /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-function-return-type */
+  /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-function-return-type, react-hooks/exhaustive-deps */
   useEffect(() => {
     // Avoid initializing the map more than once
     const container: any = L.DomUtil.get("map");
@@ -57,7 +57,7 @@ const SchoolMap = ({ coordenates, schoolName }: SchoolMapProps): React.JSX.Eleme
       map.remove();
     };
   }, []);
-  /* eslint-enable @typescript-eslint/no-explicit-any */
+  /* eslint-enable @typescript-eslint/no-explicit-any, react-hooks/exhaustive-deps */
   return (
     <div
       id="map"

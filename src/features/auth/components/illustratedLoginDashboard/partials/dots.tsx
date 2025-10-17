@@ -6,7 +6,7 @@ type DotsProps = {
   setActiveSlide: Dispatch<SetStateAction<number>>;
   activeSlide: number;
 };
-
+/* eslint-disable react-hooks/exhaustive-deps */
 const Dots = memo(({ setActiveSlide, activeSlide }: DotsProps): React.JSX.Element => {
   const handleSlideChange = useCallback((index: number) => {
     setActiveSlide(index);
@@ -33,7 +33,7 @@ const Dots = memo(({ setActiveSlide, activeSlide }: DotsProps): React.JSX.Elemen
     </div>
   );
 });
-
+/* eslint-enable react-hooks/exhaustive-deps */
 Dots.displayName = "MemorizedDots";
 
 export { Dots };

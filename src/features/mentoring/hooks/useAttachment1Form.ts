@@ -1,7 +1,7 @@
 import { FormikHelpers, useFormik } from "formik";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
-import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
+import { handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import useAxios from "@/shared/hooks/useAxios";
 import { attachment1Schema } from "../validations/attachment1Validation";
 import { IAttachment1Input } from "@/features/attachment/instrument1/type";

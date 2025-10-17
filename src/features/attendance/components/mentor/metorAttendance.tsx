@@ -5,10 +5,12 @@ type MentorAttendanceProps = {
   isHistory: boolean;
 };
 
-const MentorAttendance = ({ isHistory }: MentorAttendanceProps): React.JSX.Element => {
+export const MentorAttendance = ({ isHistory }: MentorAttendanceProps): React.JSX.Element => {
   if (isHistory) return <MentorAttendanceHistory />;
 
-  return <MentorView />;
+  return (
+    <div className="flex justify-center xl:gap-6">
+      <MentorView />
+    </div>
+  );
 };
-
-export default MentorAttendance;

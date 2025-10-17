@@ -1,35 +1,45 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 import { getRoutePermissionsMap, hasAccess } from "@/shared/utils/accessControl";
-/*
-const roleAccessMap: Record<string, string[]> = {
-  "/admin/grupos": ["VIEW_GROUPS"]
-};
-*/
-// This function can be marked `async` if using `await` inside
-export async function middleware(request: NextRequest): Promise<NextResponse<unknown>> {
-  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
-  const pathname = request.nextUrl.pathname;
-  // Rely on getToken only (supports both dev and __Secure cookies)
-  const isAuthenticated = !!token;
-  const isAuthRoute = request.nextUrl.pathname.startsWith("/auth");
-  const isProtectedRoute = request.nextUrl.pathname.startsWith("/admin");
 
-  // If you are authenticated and try to go to /auth, redirect to dashboard
+/**
+ * Next.js middleware to protect routes.
+ * Flow:
+ * 1. Check if the user is authenticated (using JWT)
+ * 2. Redirect authenticated users who try to access /auth
+ * 3. Redirect unauthenticated users who try to access /admin
+ * 4. Validate route-specific permissions for authenticated users
+ */
+export async function middleware(request: NextRequest): Promise<NextResponse<unknown>> {
+  const pathname = request.nextUrl.pathname;
+  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+  const isAuthenticated = !!token;
+
+  const isAuthRoute = pathname.startsWith("/auth");
+  const isProtectedRoute = pathname.startsWith("/admin");
+
+  // 1. Authenticated user attempting to access /auth → redirect to dashboard
   if (isAuthenticated && isAuthRoute) {
     return NextResponse.redirect(new URL("/admin/dashboard/participantes", request.url));
   }
 
-  // If you are not authenticated and try to go to a protected route
+  // 2. Unauthenticated user attempting to access /admin → redirect to login
   if (!isAuthenticated && isProtectedRoute) {
     return NextResponse.redirect(new URL("/auth/iniciar-sesion", request.url));
   }
 
-  const routeMap = await getRoutePermissionsMap();
-  if (!hasAccess(pathname, token, routeMap)) {
-    return NextResponse.redirect(new URL("/admin/dashboard/participantes", request.url));
+  // 3. Authenticated user in protected route → validate specific permissions
+  if (isAuthenticated && isProtectedRoute) {
+    const bearer = token?.accessToken ? `Bearer ${token.accessToken as string}` : undefined;
+    const routeMap = await getRoutePermissionsMap({ bearer });
+
+    if (!hasAccess(pathname, token, routeMap)) {
+      console.warn(`[middleware] Acceso denegado para ${pathname}`);
+      return NextResponse.redirect(new URL("/admin/dashboard/participantes", request.url));
+    }
   }
 
+  // 4. Allow access
   return NextResponse.next();
 }
 

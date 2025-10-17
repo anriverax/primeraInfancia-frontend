@@ -1,6 +1,6 @@
 import { object, ObjectSchema } from "yup";
 import { validationMessages } from "@/shared/constants";
-import { stringField } from "@/shared/utils/funtions";
+import { stringField } from "@/shared/utils/functions";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const attachment3Schema: ObjectSchema<any> = object({

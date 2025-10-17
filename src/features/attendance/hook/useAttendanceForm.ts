@@ -1,6 +1,6 @@
 import { FormikHelpers, useFormik } from "formik";
 import { attendanceSchema } from "../attendanceValidation";
-import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
+import { handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { AttendanceInput, IAttendance, IAttendanceCreated } from "../attendance.type";
 import useAxios from "@/shared/hooks/useAxios";
@@ -66,9 +66,11 @@ const useAttendanceForm = (): FormikProps<IAttendance> => {
     onSubmit: handleSubmit
   });
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ["last-attendance"] });
   }, [dataAttendance]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return formikAttendance;
 };

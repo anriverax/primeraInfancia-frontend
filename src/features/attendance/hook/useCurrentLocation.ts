@@ -1,4 +1,4 @@
-import { showToast } from "@/shared/utils/funtions";
+import { showToast } from "@/shared/utils/functions";
 
 interface LocationData {
   latitude: number;
