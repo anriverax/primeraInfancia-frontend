@@ -1,6 +1,5 @@
 "use client";
 
-import MentorView from "@/features/attendance/components/mentor/mentorView";
 import MentorAttendance from "@/features/attendance/components/mentor/metorAttendance";
 import { TypeRole } from "@/shared/constants";
 import { Tab, Tabs } from "@heroui/react";
@@ -68,18 +67,7 @@ export default function AttendancePage(): React.JSX.Element {
           (role === TypeRole.USER_FORMADOR || role === TypeRole.USER_TECNICO_APOYO) && <div />}
 
         {/* Vista de Admin (solo historial) */}
-        {role === TypeRole.ADMIN && (
-          <div className="w-full grid grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Historial de Mentores</h3>
-              <MentorView />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Historial de Formadores</h3>
-              <div />
-            </div>
-          </div>
-        )}
+        {role === TypeRole.ADMIN && <MentorAttendance isHistory={selectedTab === "history"} />}
       </div>
     </div>
   );

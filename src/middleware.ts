@@ -1,11 +1,11 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 import { getRoutePermissionsMap, hasAccess } from "@/shared/utils/accessControl";
-
+/*
 const roleAccessMap: Record<string, string[]> = {
   "/admin/grupos": ["VIEW_GROUPS"]
 };
-
+*/
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest): Promise<NextResponse<unknown>> {
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });

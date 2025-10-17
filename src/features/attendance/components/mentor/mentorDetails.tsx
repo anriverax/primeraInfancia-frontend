@@ -11,7 +11,7 @@ type ListTeacherProps = {
     name: string;
   }[];
   attendance?: ILastAttendance;
-  handleSelectionChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  handleSelectionChange: (_e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
 const MentorDetail = ({
@@ -35,8 +35,8 @@ const MentorDetail = ({
           undefined,
           false
         )}
-        onChange={handleSelectionChange}
         isDisabled={!events.length}
+        onChange={handleSelectionChange}
       >
         {events.map((event) => (
           <SelectItem key={event.id}>{event.name}</SelectItem>

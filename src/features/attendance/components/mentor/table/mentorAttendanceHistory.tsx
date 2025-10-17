@@ -1,37 +1,36 @@
+import { useAttendanceList } from "@/features/attendance/hook/useAttendanceList";
 import { tableClassNames } from "@/shared/constants";
 import { Table, TableBody, TableHeader, TableRow, TableCell, TableColumn } from "@heroui/react";
-// bottomContent={bottomContent}
+import { headerColumns, useHistoryAttendanceCell } from "./historyAttendanceColumns";
+import { IAttendanceColumnKey, IAttendanceTable } from "@/features/attendance/attendance.type";
+
 const MentorAttendanceHistory = (): React.JSX.Element => {
+  const { attendanceList } = useAttendanceList();
+  const renderHistoryCell = useHistoryAttendanceCell();
+
   return (
-    <Table classNames={tableClassNames} aria-label="Tabla para mostrar los grupos registradas">
-      <TableHeader>
-        <TableColumn>NAME</TableColumn>
-        <TableColumn>ROLE</TableColumn>
-        <TableColumn>STATUS</TableColumn>
-      </TableHeader>
-      <TableBody>
-        <TableRow key="1">
-          <TableCell>Tony Reichert</TableCell>
-          <TableCell>CEO</TableCell>
-          <TableCell>Active</TableCell>
-        </TableRow>
-        <TableRow key="2">
-          <TableCell>Zoey Lang</TableCell>
-          <TableCell>Technical Lead</TableCell>
-          <TableCell>Paused</TableCell>
-        </TableRow>
-        <TableRow key="3">
-          <TableCell>Jane Fisher</TableCell>
-          <TableCell>Senior Developer</TableCell>
-          <TableCell>Active</TableCell>
-        </TableRow>
-        <TableRow key="4">
-          <TableCell>William Howard</TableCell>
-          <TableCell>Community Manager</TableCell>
-          <TableCell>Vacation</TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
+    <>
+      <Table
+        className="min-w-[max-content]"
+        classNames={tableClassNames}
+        aria-label="Tabla para mostrar el historial de asistencias"
+      >
+        <TableHeader columns={headerColumns}>
+          {(historyCol) => <TableColumn key={historyCol.key}>{historyCol.label}</TableColumn>}
+        </TableHeader>
+        <TableBody items={attendanceList ?? []}>
+          {(historyItem: IAttendanceTable) => (
+            <TableRow key={historyItem.personRoleId}>
+              {(historyKey) => (
+                <TableCell>
+                  {renderHistoryCell(historyItem, historyKey as IAttendanceColumnKey)}
+                </TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </>
   );
 };
 

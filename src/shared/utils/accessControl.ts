@@ -1,5 +1,7 @@
 import { JWT } from "next-auth/jwt";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // Fallback local por si el backend no responde
 export const staticRoutePermissionsMap: Record<string, string[]> = {
   "/admin/grupos": ["VIEW_GROUPS"]
@@ -8,7 +10,6 @@ export const staticRoutePermissionsMap: Record<string, string[]> = {
 type RoutePerms = Record<string, string[]>;
 
 declare global {
-  // eslint-disable-next-line no-var
   var __routePermCache: { at: number; data: RoutePerms } | undefined;
 }
 
@@ -54,3 +55,5 @@ export function hasAccess(pathname: string, token: JWT | null, map?: RoutePerms)
   }
   return true;
 }
+
+/* eslint-enable @typescript-eslint/no-explicit-any */

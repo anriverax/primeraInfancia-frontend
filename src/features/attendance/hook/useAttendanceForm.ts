@@ -62,7 +62,7 @@ const useAttendanceForm = (): FormikProps<IAttendance> => {
     initialValues: initialValuesAttendance,
     validationSchema: attendanceSchema,
     validateOnBlur: true,
-    validateOnChange: true ,
+    validateOnChange: true,
     onSubmit: handleSubmit
   });
 

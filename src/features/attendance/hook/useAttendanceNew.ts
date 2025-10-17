@@ -7,7 +7,7 @@ type AttendanceNewProps = {
   eventId: number;
   setFieldValue: (
     _field: string,
-    _value: any,
+    _value: number[],
     _shouldValidate?: boolean | undefined
   ) => Promise<void> | Promise<FormikErrors<IAttendance>>;
 };
@@ -18,7 +18,7 @@ const useAttendanceNew = ({
 }: AttendanceNewProps): {
   assignmentList: TeachersAssignmentWithEvents;
   handleSelectionChange: (_keys: SharedSelection) => void;
-  getErrorTeacher: (teacherId?: string | string[] | undefined) => string | undefined;
+  getErrorTeacher: (_teacherId?: string | string[] | undefined) => string | undefined;
 } => {
   const { data: assignmentList } = useQueryRequest<TeachersAssignmentWithEvents>(
     "teachers-with-events",
@@ -27,7 +27,7 @@ const useAttendanceNew = ({
     "listado de eventos"
   );
 
-  const handleSelectionChange = (keys: SharedSelection) => {
+  const handleSelectionChange = (keys: SharedSelection): void => {
     const selectedIds = Array.from(keys as Iterable<unknown>)
       .map((k) => Number(k))
       .filter((n) => !isNaN(n));
@@ -48,7 +48,7 @@ const useAttendanceNew = ({
     setFieldValue("teacherId", limitedSelection);
   };
 
-  const getErrorTeacher = (teacherId?: string | string[] | undefined) => {
+  const getErrorTeacher = (teacherId?: string | string[] | undefined): string | undefined => {
     const errorTeacher = Array.isArray(teacherId)
       ? teacherId.filter(Boolean).join(", ")
       : (teacherId as string | undefined);

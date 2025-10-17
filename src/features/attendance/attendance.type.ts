@@ -1,4 +1,5 @@
-import { AxiosMessage } from "@/shared/types/globals";
+import { AxiosMessage, IPagination } from "@/shared/types/globals";
+import { Dispatch, SetStateAction } from "react";
 
 export interface AttendanceInput {
   eventId: number;
@@ -47,14 +48,15 @@ export interface ILastAttendance {
 }
 
 export interface IAttendanceTable {
-  checkIn: string;
-  checkOut: string | null;
-  Event: {
-    name: string;
-  };
-  id: number;
-  status: string;
-  _count: {
-    PrincipalSchool: number;
-  };
+  personRoleId: number;
+  fullName: string;
+  totalEvent: number;
 }
+
+export interface AttendanceListResult {
+  handleChangePage: Dispatch<SetStateAction<number>>;
+  attendanceList: IAttendanceTable[];
+  meta: IPagination | undefined;
+}
+
+export type IAttendanceColumnKey = "fullName" | "totalEvents" | "actions";

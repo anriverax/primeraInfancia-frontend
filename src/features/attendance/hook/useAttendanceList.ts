@@ -1,13 +1,14 @@
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 import { useState } from "react";
+import { AttendanceListResult, IAttendanceTable } from "../attendance.type";
 
-const useAttendanceList = () => {
+const useAttendanceList = (): AttendanceListResult => {
   const [page, setPage] = useState<number>(1);
   const limit = 10;
 
-  const { data: attendanceList, meta } = useQueryRequest<any[]>(
+  const { data: attendanceList, meta } = useQueryRequest<IAttendanceTable[]>(
     "attendance-list",
-    "/catalogue/school",
+    "/attendance",
     true,
     "Lista de asistencias",
     page,

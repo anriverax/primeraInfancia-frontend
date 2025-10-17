@@ -7,8 +7,8 @@ import { Info } from "lucide-react";
 import SchoolMap from "@/features/catalogue/school/components/detail/schoolMap";
 import { useSchoolDetail } from "@/features/catalogue/school/hooks/useSchoolDetail";
 import TeacherTable from "@/features/catalogue/school/components/detail/table/teacherTable";
-import { Loading } from "@/shared/ui/loading";
 import { ISchoolDetail } from "@/features/catalogue/school/schoolType";
+import CustomProgress from "@/shared/ui/custom/customProgress";
 
 const SchoolPage = (): React.JSX.Element => {
   const params = useParams();
@@ -67,7 +67,7 @@ const SchoolPage = (): React.JSX.Element => {
         </BreadcrumbItem>
         <BreadcrumbItem>Detalle</BreadcrumbItem>
       </Breadcrumbs>
-      {schoolDetail ? schoolContent(schoolDetail) : <Loading />}
+      {schoolDetail ? schoolContent(schoolDetail) : <CustomProgress />}
     </div>
   );
 };
