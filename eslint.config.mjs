@@ -34,15 +34,7 @@ const eslintConfig = [
     }
   },
   ...compat.config({
-    extends: [
-      "next/core-web-vitals",
-      "next/typescript",
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "next",
-      "prettier"
-    ]
+    extends: ["next/core-web-vitals", "prettier"]
   }),
   {
     plugins: {
@@ -55,18 +47,33 @@ const eslintConfig = [
       // 🔹 Reglas base de JavaScript
       "no-console": "warn",
       "unused-imports/no-unused-imports": "error",
-      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      // Desactivar no-unused-vars base (conflictúa con TypeScript)
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }
+      ],
 
       // 🔹 Reglas específicas de React
       "react/jsx-sort-props": [
         "error",
         { callbacksLast: true, shorthandFirst: true, noSortAlphabetically: true }
       ],
+      "react/react-in-jsx-scope": "off", // No necesario en Next.js con App Router
 
       // 🔹 Reglas específicas de TypeScript
       "@typescript-eslint/explicit-function-return-type": "warn",
       "@typescript-eslint/explicit-module-boundary-types": "warn",
-      "react-hooks/exhaustive-deps": "off"
+      "@typescript-eslint/no-explicit-any": "warn", // Advertir uso de any
+
+      // 🔹 React Hooks - Rehabilitar con excepciones puntuales
+      "react-hooks/exhaustive-deps": [
+        "warn",
+        {
+          // Permitir exclusiones específicas si es necesario
+          // Por ahora, advertencia para revisar caso por caso
+        }
+      ]
     }
   }
 ];

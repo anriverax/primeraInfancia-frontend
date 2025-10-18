@@ -1,6 +1,6 @@
-/* eslint-disable  @typescript-eslint/no-unused-vars, no-unused-vars, unused-imports/no-unused-imports*/
+/* eslint-disable @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports */
 import { JWT } from "next-auth/jwt";
-
+/* eslint-enable @typescript-eslint/no-unused-vars, unused-imports/no-unused-imports */
 // Extend the global scope
 export interface IToken {
   accessToken: string;

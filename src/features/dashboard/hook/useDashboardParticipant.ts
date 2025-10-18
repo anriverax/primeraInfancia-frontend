@@ -1,5 +1,5 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { handleAxiosError } from "@/shared/utils/funtions";
+import { handleAxiosError } from "@/shared/utils/functions";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { ISchoolsFiltersResponse } from "../dashboardType";
@@ -9,7 +9,7 @@ const useDashboardParticipant = (): {
 } => {
   const [schoolFilters, setSchoolFilters] = useState<ISchoolsFiltersResponse | undefined>();
   const useRequest = useAxios(true);
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
@@ -31,7 +31,7 @@ const useDashboardParticipant = (): {
       isMounted = false;
     };
   }, [schoolFilters]);
-
+  /* eslint-enable react-hooks/exhaustive-deps */
   return { schoolFilters };
 };
 

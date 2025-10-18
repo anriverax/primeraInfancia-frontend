@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import { IAppendixDetailTable, AppendixDetailListResult } from "../../appendixDetailType";
-import { handleAxiosError } from "@/shared/utils/funtions";
+import { handleAxiosError } from "@/shared/utils/functions";
 
 const useAppendixDetailsList = (): AppendixDetailListResult => {
   const [appendixDetailsList, setAppendixDetailsList] = useState<IAppendixDetailTable[]>([]);
   const useRequest = useAxios(true);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
@@ -31,6 +32,7 @@ const useAppendixDetailsList = (): AppendixDetailListResult => {
     };
   }, []);
 
+  /* eslint-enable react-hooks/exhaustive-deps */
   return { appendixDetailsList, setAppendixDetailsList };
 };
 

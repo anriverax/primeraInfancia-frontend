@@ -5,7 +5,7 @@ import { ISignIn, SignInInput } from "./type";
 import { AxiosError } from "axios";
 import { signInSchema } from "./signInValidation";
 import { FormikProps } from "@/shared/types/globals";
-import { encrypt, handleFormikResponseError } from "@/shared/utils/funtions";
+import { encrypt, handleFormikResponseError } from "@/shared/utils/functions";
 import { DASHBOARD_REDIRECT_URL } from "@/shared/constants";
 
 const initialValues: SignInInput = {

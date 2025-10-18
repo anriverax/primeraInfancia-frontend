@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import useAxios from "./useAxios";
 import { signOut } from "next-auth/react";
-import { handleAxiosError } from "../utils/funtions";
+import { handleAxiosError } from "../utils/functions";
 
 const useLogout = (): {
   handleSignOut: () => Promise<void>;

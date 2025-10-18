@@ -4,7 +4,7 @@ import { verifyCodeSchema } from "../modalValidation";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
 import { FormikProps } from "@/shared/types/globals";
-import { handleFormikResponseError } from "@/shared/utils/funtions";
+import { handleFormikResponseError } from "@/shared/utils/functions";
 import { useModalFormVisibleStore } from "@/shared/hooks/store/useModalFormVisibleStore";
 
 const initialCodeValues: VerifyCodeInput = {

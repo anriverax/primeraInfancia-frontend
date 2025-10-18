@@ -3,7 +3,7 @@ import { IAttachment5Input, Attachment5Input } from "./type";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { attachment5Schema } from "./attachmentValidation";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
-import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
+import { handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Attachment5Input = {
