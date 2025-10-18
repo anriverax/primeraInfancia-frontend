@@ -48,7 +48,7 @@ interface ClasificationChildrenData {
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const ListboxWrapper = ({ children }) => (
-  <div className="w-[260px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
+  <div className="w-96 border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
     {children}
   </div>
 );
@@ -56,23 +56,11 @@ export const ListboxWrapper = ({ children }) => (
 /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
 export const dataList = [
-  { name: "experiencie", key: "Menos de un año", label: "Menos de un año" },
-  { name: "experiencie", key: "1 a 3 años", label: "1 a 3 años" },
-  { name: "experiencie", key: "4 a 10 años", label: "4 a 10 años" },
-  { name: "experiencie", key: "Más de 10 años", label: "Más de 10 años" },
-  { name: "initialTraining", key: "Licenciatura", label: "Licenciatura" },
-  { name: "initialTraining", key: "Bachiller", label: "Bachiller" },
-  { name: "initialTraining", key: "Otros", label: "Otros" },
-  { name: "levelOfPractice", key: "Necesito apoyo", label: "Necesito apoyo" },
-  { name: "levelOfPractice", key: "En desarrollo", label: "En desarrollo" },
-  { name: "levelOfPractice", key: "Me siento competente", label: "Me siento competente" },
   { name: "educationalLevelServed", key: "Inicial 3", label: "Inicial 3" },
   { name: "educationalLevelServed", key: "Parvularia 4", label: "Parvularia 4" },
   { name: "educationalLevelServed", key: "Parvulario 5", label: "Parvulario 5" },
   { name: "educationalLevelServed", key: "Parvularia 6", label: "Parvularia 6" },
   { name: "educationalLevelServed", key: "Primer grado", label: "Primer grado" },
-  { name: "hasParticipated", key: "Si", label: "Sí" },
-  { name: "hasParticipated", key: "No", label: "No" },
   { name: "ampm", key: "a.m.", label: "A.M." },
   { name: "ampm", key: "p.m.", label: "P.M." }
 ];
@@ -95,6 +83,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
   const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
+  console.log(appendixDetailsList, "#########");
 
   const [formData, setFormData] = useState({
     shift: "",
@@ -153,6 +142,8 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
+    console.log(formik.values);
+
     handleSubmit();
     onOpenChange();
   };
@@ -164,7 +155,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
 
   return (
     <div className="flex justify-center">
-      <div className="w-3/4 space-y-8">
+      <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-3/4">
         {/* Header */}
 
         <div className="text-center space-y-4">
@@ -177,327 +168,342 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
         </div>
 
         <form className="space-y-6" onSubmit={handleOkSubmit}>
-          <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardBody className="grid grid-cols-1 md:grid-cols-1 gap-8">
-              {appendixDetailsList?.Section?.map((section, index) => (
-                <div key={index}>
-                  <h3 className="pb-6">
-                    <p className="text-xl text-justify">{section.title}</p>
-                  </h3>
-                  {section.summary && (
-                    <p
-                      className="text-lg text-justify"
-                      dangerouslySetInnerHTML={{ __html: section.summary }}
-                    />
-                  )}
+          {appendixDetailsList?.Section?.map((section, index) => (
+            <div key={index}>
+              <h3 className="pb-6">
+                <p className="text-xl text-justify">{section.title}</p>
+              </h3>
+              {section.summary && (
+                <p
+                  className="text-lg text-justify"
+                  dangerouslySetInnerHTML={{ __html: section.summary }}
+                />
+              )}
 
-                  {/* Special div before questions if index === 1 */}
-                  {index === 0 && (
-                    <>
-                      {" "}
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Select
-                            items={ampmList}
-                            {...getFieldProps("shift")}
-                            {...getInputProps("shift", "Turno: ", touched.shift, errors.shift)}
-                          >
-                            {(item) => <SelectItem>{item.label}</SelectItem>}
-                          </Select>
-                        </div>
-                        <div className="space-y-2">
-                          <Select
-                            items={educationLevelServedList}
-                            {...getFieldProps("section")}
-                            {...getInputProps(
-                              "section",
-                              "Nivel educativo que atiende: ",
-                              touched.section,
-                              errors.section
-                            )}
-                          >
-                            {(item) => <SelectItem>{item.label}</SelectItem>}
-                          </Select>
-                        </div>
-                      </div>
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Input
-                            {...getFieldProps("girlNumber")}
-                            {...getInputProps(
-                              "girlNumber",
-                              "Total de niñas atendidos",
-                              touched.girlNumber,
-                              errors.girlNumber
-                            )}
-                          />
-                        </div>
-
-                        <div className="space-y-2">
-                          <Input
-                            {...getFieldProps("boyNumber")}
-                            {...getInputProps(
-                              "boyNumber",
-                              "Total de niños atendidos",
-                              touched.boyNumber,
-                              errors.boyNumber
-                            )}
-                          />
-                        </div>
-                      </div>
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Input
-                            {...getFieldProps("girlDisabilityNumber")}
-                            {...getInputProps(
-                              "girlDisabilityNumber",
-                              "Cantidad de niñas con discapacidad diagnosticada",
-                              touched.girlDisabilityNumber,
-                              errors.girlDisabilityNumber
-                            )}
-                          />
-                        </div>
-
-                        <div className="space-y-2">
-                          <Input
-                            {...getFieldProps("boyDisabilityNumber")}
-                            {...getInputProps(
-                              "boyDisabilityNumber",
-                              "Cantidad de niños con discapacidad diagnosticada",
-                              touched.boyDisabilityNumber,
-                              errors.boyDisabilityNumber
-                            )}
-                          />
-                        </div>
-
-                        <Button className="w-full" onClick={() => handleDetailTeacher()}>
-                          Agregar Registro
-                        </Button>
-                      </div>
-                      <div>
-                        {clasificationChildreEntries.length === 0 ? (
-                          <div className="text-center py-8 text-muted-foreground">
-                            No hay registros ingresados aún
-                          </div>
-                        ) : (
-                          <div className="overflow-x-auto">
-                            <Table aria-label="Example table with dynamic content">
-                              <TableHeader>
-                                <TableColumn>Turno</TableColumn>
-                                <TableColumn>Sección</TableColumn>
-                                <TableColumn>Niñas</TableColumn>
-                                <TableColumn>Niños</TableColumn>
-                                <TableColumn>
-                                  Niñas con <br />
-                                  discapacidad diagnosticada
-                                </TableColumn>
-                                <TableColumn>
-                                  Niños con <br />
-                                  discapacidad diagnosticada
-                                </TableColumn>
-                                <TableColumn>Total</TableColumn>
-                                <TableColumn>Acción</TableColumn>
-                              </TableHeader>
-                              <TableBody items={clasificationChildreEntries}>
-                                {(item) => (
-                                  <TableRow key={item.id}>
-                                    <TableCell>{item.shift}</TableCell>
-                                    <TableCell>{item.section}</TableCell>
-                                    <TableCell>{item.girlNumber}</TableCell>
-                                    <TableCell>{item.boyNumber}</TableCell>
-                                    <TableCell>{item.girlDisabilityNumber}</TableCell>
-                                    <TableCell>{item.boyDisabilityNumber}</TableCell>
-                                    <TableCell>
-                                      <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-secondary text-secondary-foreground">
-                                        {getClasificacion(item)}
-                                      </span>
-                                    </TableCell>
-                                    <TableCell>
-                                      <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        className="text-destructive hover:text-destructive"
-                                        onClick={() => handleDelete(item.id)}
-                                      >
-                                        <Trash2 className="h-4 w-4" />
-                                      </Button>
-                                    </TableCell>
-                                  </TableRow>
-                                )}
-                              </TableBody>
-                            </Table>
-                          </div>
+              {/* Special div before questions if index === 1 */}
+              {index === 0 && (
+                <>
+                  {" "}
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Select
+                        items={ampmList}
+                        {...getFieldProps("shift")}
+                        {...getInputProps("shift", "Turno: ", touched.shift, errors.shift)}
+                      >
+                        {(item) => <SelectItem>{item.label}</SelectItem>}
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Select
+                        items={educationLevelServedList}
+                        {...getFieldProps("section")}
+                        {...getInputProps(
+                          "section",
+                          "Nivel educativo que atiende: ",
+                          touched.section,
+                          errors.section
                         )}
+                      >
+                        {(item) => <SelectItem>{item.label}</SelectItem>}
+                      </Select>
+                    </div>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Input
+                        {...getFieldProps("girlNumber")}
+                        {...getInputProps(
+                          "girlNumber",
+                          "Total de niñas atendidos",
+                          touched.girlNumber,
+                          errors.girlNumber
+                        )}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Input
+                        {...getFieldProps("boyNumber")}
+                        {...getInputProps(
+                          "boyNumber",
+                          "Total de niños atendidos",
+                          touched.boyNumber,
+                          errors.boyNumber
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Input
+                        {...getFieldProps("girlDisabilityNumber")}
+                        {...getInputProps(
+                          "girlDisabilityNumber",
+                          "Cantidad de niñas con discapacidad diagnosticada",
+                          touched.girlDisabilityNumber,
+                          errors.girlDisabilityNumber
+                        )}
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Input
+                        {...getFieldProps("boyDisabilityNumber")}
+                        {...getInputProps(
+                          "boyDisabilityNumber",
+                          "Cantidad de niños con discapacidad diagnosticada",
+                          touched.boyDisabilityNumber,
+                          errors.boyDisabilityNumber
+                        )}
+                      />
+                    </div>
+
+                    <Button className="w-full" onClick={() => handleDetailTeacher()}>
+                      Agregar Registro
+                    </Button>
+                  </div>
+                  <div>
+                    {clasificationChildreEntries.length === 0 ? (
+                      <div className="text-center py-8 text-muted-foreground">
+                        No hay registros ingresados aún
                       </div>
-                    </>
-                  )}
+                    ) : (
+                      <div className="overflow-x-auto">
+                        <Table aria-label="Example table with dynamic content">
+                          <TableHeader>
+                            <TableColumn>Turno</TableColumn>
+                            <TableColumn>Sección</TableColumn>
+                            <TableColumn>Niñas</TableColumn>
+                            <TableColumn>Niños</TableColumn>
+                            <TableColumn>
+                              Niñas con <br />
+                              discapacidad diagnosticada
+                            </TableColumn>
+                            <TableColumn>
+                              Niños con <br />
+                              discapacidad diagnosticada
+                            </TableColumn>
+                            <TableColumn>Total</TableColumn>
+                            <TableColumn>Acción</TableColumn>
+                          </TableHeader>
+                          <TableBody items={clasificationChildreEntries}>
+                            {(item) => (
+                              <TableRow key={item.id}>
+                                <TableCell>{item.shift}</TableCell>
+                                <TableCell>{item.section}</TableCell>
+                                <TableCell>{item.girlNumber}</TableCell>
+                                <TableCell>{item.boyNumber}</TableCell>
+                                <TableCell>{item.girlDisabilityNumber}</TableCell>
+                                <TableCell>{item.boyDisabilityNumber}</TableCell>
+                                <TableCell>
+                                  <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium bg-secondary text-secondary-foreground">
+                                    {getClasificacion(item)}
+                                  </span>
+                                </TableCell>
+                                <TableCell>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="text-destructive hover:text-destructive"
+                                    onClick={() => handleDelete(item.id)}
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                </TableCell>
+                              </TableRow>
+                            )}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
 
-                  <ul className="space-y-2">
-                    {section.Question.map((question, questionIndex) => (
-                      <li key={questionIndex} className="text-lg text-gray-800">
-                        <span className="font-medium mr-2">{question.text}</span>
-                        {/* eslint-disable @typescript-eslint/explicit-function-return-type */}
-                        {(() => {
-                          switch (question.questionType) {
-                            case "DATE":
-                              return (
-                                <DatePicker
-                                  name={question.text}
-                                  value={
-                                    formik.values[question.fieldName]
-                                      ? parseDate(
-                                          formik.values[question.fieldName].toISOString().slice(0, 10)
-                                        )
-                                      : null
-                                  }
-                                  isInvalid={Boolean(
-                                    touched[question.fieldName] && errors[question.fieldName]
-                                  )}
-                                  errorMessage={
-                                    touched[question.fieldName] && errors[question.fieldName]
-                                      ? errors[question.fieldName]
-                                      : undefined
-                                  }
-                                  onChange={(dateValue) => {
-                                    const jsDate = dateValue ? new Date(dateValue.toString()) : null;
-                                    formik.setFieldValue(question.fieldName, jsDate);
-                                  }}
-                                />
-                              );
-                            case "TEXT":
-                              return (
-                                <Input
-                                  name={question.fieldName}
-                                  value={formik.values[question.fieldName] || ""}
-                                  errorMessage={
-                                    touched[question.fieldName] && errors[question.fieldName]
-                                      ? errors[question.fieldName]
-                                      : undefined
-                                  }
-                                  isInvalid={Boolean(
-                                    touched[question.fieldName] && errors[question.fieldName]
-                                  )}
-                                  onChange={formik.handleChange}
-                                />
-                              );
-                            case "SELECT": {
-                              const items: SelectItemData = JSON.parse(question.options);
-                              return (
-                                <Select
-                                  items={items}
-                                  name={question.fieldName}
-                                  value={formik.values[question.fieldName] || ""}
-                                  errorMessage={
-                                    touched[question.fieldName] && errors[question.fieldName]
-                                      ? errors[question.fieldName]
-                                      : undefined
-                                  }
-                                  isInvalid={Boolean(
-                                    touched[question.fieldName] && errors[question.fieldName]
-                                  )}
-                                  onChange={(value) => formik.setFieldValue(question.fieldName, value)}
-                                >
-                                  {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}
-                                </Select>
-                              );
-                            }
-                            case "RADIO":
-                              const items: SelectItemData = JSON.parse(question.options);
-                              return (
-                                <RadioGroup
-                                  value={selectedParticipated}
-                                  orientation="horizontal"
-                                  setselectedParticipated={(value) =>
-                                    formik.setFieldValue(question.fieldName, value)
-                                  }
-                                >
-                                  {items.map((option, index) => (
-                                    <Radio key={index} value={option.value}>
-                                      {option.label}
-                                    </Radio>
-                                  ))}
-                                </RadioGroup>
-                              );
-                            case "MULTI_CHOICE_DETAIL": {
-                              // Parse options from question.options (should be a JSON string of items)
-                              let items: SelectItemData[] = [];
-                              try {
-                                items = JSON.parse(question.options);
-                              } catch {
-                                items = [];
+              <ul className="space-y-2">
+                {section.Question.map((question, questionIndex) => (
+                  <li key={questionIndex} className="text-lg text-gray-800">
+                    <span className="font-medium mr-2">{question.text}</span>
+                    {/* eslint-disable @typescript-eslint/explicit-function-return-type */}
+                    {(() => {
+                      switch (question.questionType) {
+                        case "DATE":
+                          return (
+                            <DatePicker
+                              name={question.text}
+                              value={
+                                formik.values[question.fieldName]
+                                  ? parseDate(
+                                      formik.values[question.fieldName].toISOString().slice(0, 10)
+                                    )
+                                  : null
                               }
+                              isInvalid={Boolean(
+                                touched[question.fieldName] && errors[question.fieldName]
+                              )}
+                              errorMessage={
+                                touched[question.fieldName] && errors[question.fieldName]
+                                  ? errors[question.fieldName]
+                                  : undefined
+                              }
+                              onChange={(dateValue) => {
+                                const jsDate = dateValue ? new Date(dateValue.toString()) : null;
+                                formik.setFieldValue(question.fieldName, jsDate);
+                              }}
+                            />
+                          );
+                        case "TEXT":
+                          return (
+                            <Input
+                              name={question.fieldName}
+                              value={formik.values[question.fieldName] || ""}
+                              errorMessage={
+                                touched[question.fieldName] && errors[question.fieldName]
+                                  ? errors[question.fieldName]
+                                  : undefined
+                              }
+                              isInvalid={Boolean(
+                                touched[question.fieldName] && errors[question.fieldName]
+                              )}
+                              onChange={formik.handleChange}
+                            />
+                          );
+                        case "SELECT": {
+                          const items: SelectItemData = question.options;
+                          return (
+                            <Select
+                              items={items}
+                              name={question.fieldName}
+                              value={formik.values[question.fieldName] || ""}
+                              errorMessage={
+                                touched[question.fieldName] && errors[question.fieldName]
+                                  ? errors[question.fieldName]
+                                  : undefined
+                              }
+                              isInvalid={Boolean(
+                                touched[question.fieldName] && errors[question.fieldName]
+                              )}
+                              onChange={(value) => formik.setFieldValue(question.fieldName, value)}
+                            >
+                              {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}
+                            </Select>
+                          );
+                        }
+                        case "RADIO": {
+                          // question.options expected to be an array like [{ key, label }] or [{ value, label }]
+                          const items: SelectItemData[] = (question.options as any[]) || [];
 
-                              // Ensure Formik value is a Set for Listbox
-                              const selectedKeys = new Set(formik.values[question.fieldName] || []);
+                          // current value from Formik (string)
+                          const currentValue = formik.values[question.fieldName] ?? "";
 
-                              return (
-                                <div className="flex flex-col gap-2 ">
-                                  <ListboxWrapper>
-                                    <Listbox
-                                      disallowEmptySelection={false}
-                                      aria-label={question.text}
-                                      selectedKeys={selectedKeys}
-                                      selectionMode="multiple"
-                                      variant="flat"
-                                      onSelectionChange={(keys) => {
-                                        // Convert Set to Array for Formik
-                                        formik.setFieldValue(question.fieldName, Array.from(keys));
-                                      }}
-                                    >
-                                      {items.map((item) => (
-                                        <>
-                                          <ListboxItem key={item.key}>
-                                            {item.label}
-                                            <div
-                                              style={{
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
-                                                width: "100%"
-                                              }}
-                                            >
-                                              <Input
-                                                type="text"
-                                                placeholder="Especificar"
-                                                style={{ marginLeft: "1rem", padding: "0.25rem" }}
-                                                onClick={(e) => {
-                                                  e.stopPropagation();
-                                                }}
-                                              />
-                                            </div>
-                                          </ListboxItem>
-                                        </>
-                                      ))}
-                                    </Listbox>
-                                  </ListboxWrapper>
-                                  <p className="text-small text-default-500">
-                                    {(formik.values[question.fieldName] || []).join(", ")}
-                                  </p>
-                                  {touched[question.fieldName] && errors[question.fieldName] && (
-                                    <span className="text-danger text-xs">
-                                      {errors[question.fieldName]}
-                                    </span>
-                                  )}
-                                </div>
-                              );
-                            }
-                            default:
-                              return (
-                                <span>
-                                  Tipo de pregunta no soportado, por favor pongase en contacto con el
-                                  administrador del sistema.
-                                </span>
-                              );
+                          return (
+                            <RadioGroup
+                              value={selectedParticipated}
+                              orientation="horizontal"
+                              onChange={(val: string) => formik.setFieldValue(question.fieldName, val)}
+                            >
+                              {items.map((option) => {
+                                const optValue = (option as any).value ?? (option as any).key;
+                                return <Radio value={optValue}>{(option as any).label}</Radio>;
+                              })}
+                            </RadioGroup>
+                          );
+                        }
+                        case "MULTI_CHOICE_DETAIL": {
+                          // items expected to be SelectItemData[]
+                          let items: SelectItemData[] = [];
+                          try {
+                            items = question.options;
+                          } catch {
+                            items = [];
                           }
-                        })()}
-                        {/* eslint-enable @typescript-eslint/explicit-function-return-type */}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </CardBody>
-          </Card>
+
+                          // form value shape: Array<{ key: string; detail?: string }>
+                          const current: { key: string; detail?: string }[] =
+                            formik.values[question.fieldName] || [];
+
+                          // derive selected keys set from current value
+                          const selectedKeys = new Set(current.map((v) => v.key));
+
+                          const handleSelectionChange = (keys: any) => {
+                            const newKeys = Array.from(keys as Iterable<string>);
+                            // keep existing details when possible
+                            const map = Object.fromEntries(current.map((c) => [c.key, c.detail || ""]));
+                            const newValue = newKeys.map((k) => ({ key: k, detail: map[k] ?? "" }));
+                            formik.setFieldValue(question.fieldName, newValue);
+                          };
+
+                          const handleDetailChange = (key: string, detail: string) => {
+                            const next = current.map((c) => (c.key === key ? { ...c, detail } : c));
+                            // if input typed for a not-yet-selected item, add it
+                            if (!next.find((n) => n.key === key)) next.push({ key, detail });
+                            formik.setFieldValue(question.fieldName, next);
+                          };
+
+                          return (
+                            <div className="flex flex-col gap-2 ">
+                              <ListboxWrapper>
+                                <Listbox
+                                  disallowEmptySelection={false}
+                                  aria-label={question.text}
+                                  selectedKeys={selectedKeys}
+                                  selectionMode="multiple"
+                                  variant="flat"
+                                  onSelectionChange={handleSelectionChange}
+                                >
+                                  {items.map((item) => {
+                                    const detail = current.find((c) => c.key === item.key)?.detail || "";
+                                    return (
+                                      <ListboxItem key={item.key}>
+                                        <div className="flex items-center justify-between w-full">
+                                          <span>{item.label}</span>
+                                          <Input
+                                            type="text"
+                                            placeholder="Especificar"
+                                            value={detail}
+                                            onClick={(e) => e.stopPropagation()}
+                                            onChange={(e) => {
+                                              e.stopPropagation();
+                                              handleDetailChange(item.key, e.currentTarget.value);
+                                            }}
+                                            className="ml-4 w-full"
+                                          />
+                                        </div>
+                                      </ListboxItem>
+                                    );
+                                  })}
+                                </Listbox>
+                              </ListboxWrapper>
+
+                              <p className="text-small text-default-500">
+                                {/* show summary: key:detail, join for display */}
+                                {(formik.values[question.fieldName] || [])
+                                  .map((v: any) => (v.detail ? `${v.key}: ${v.detail}` : v.key))
+                                  .join(", ")}
+                              </p>
+
+                              {touched[question.fieldName] && errors[question.fieldName] && (
+                                <span className="text-danger text-xs">{errors[question.fieldName]}</span>
+                              )}
+                            </div>
+                          );
+                        }
+                        default:
+                          return (
+                            <span>
+                              Tipo de pregunta no soportado, por favor pongase en contacto con el
+                              administrador del sistema.
+                            </span>
+                          );
+                      }
+                    })()}
+                    {/* eslint-enable @typescript-eslint/explicit-function-return-type */}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           <div className="flex space-x-4 mt-8">
             {/* <div className="flex justify-center text"> */}

@@ -7,26 +7,30 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Appendix2Input = {
-  ask1: [],
-  ask2: "",
-  ask3: "",
-  ask4: "",
-  ask5: "",
-  ask6: "",
-  ask7: "",
-  ask8: "",
-  ask9: "",
-  ask10: "",
-  ask11: "",
-  ask12: "",
-  ask13: "",
-  ask14: "",
-  ask15: "",
-  ask16: "",
-  ask17: "",
-  ask18: "",
-  ask19: "",
-  ask20: "",
+  anx2Ask1: [],
+  // ask2: "",
+  // ask3: "",
+  // ask4: "",
+  // ask5: "",
+  // ask6: "",
+  anx2Ask7: "",
+  anx2Ask8: "",
+  anx2Ask9: "",
+  anx2Ask10: "",
+  anx2Ask11: "",
+  anx2Ask12: "",
+  anx2Ask13: "",
+  anx2Ask14: "",
+  anx2Ask15: "",
+  anx2Ask16: "",
+  anx2Ask17: "",
+  anx2Ask18: "",
+  anx2Ask19: "",
+  anx2Ask20: "",
+  anx2Ask21: "",
+  anx2Ask22: "",
+  anx2Ask23: "",
+  anx2Ask24: "",
   questionMap: {}
 };
 
@@ -37,28 +41,44 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
     values: Appendix2Input,
     formikHelpers: FormikHelpers<IAppendix2Input>
   ): Promise<void> => {
-    const ask1Field = values.ask1;
-    const ask2Field = values.ask2;
-    const ask3Field = values.ask3;
-    const ask4Field = values.ask4;
-    const ask5Field = values.ask5;
-    const ask6Field = values.ask6;
-    const ask7Field = values.ask7;
-    const ask8Field = values.ask8;
-    const ask9Field = values.ask9;
-    const ask10Field = values.ask10;
-    const ask11Field = values.ask11;
-    const ask12Field = values.ask12;
-    const ask13Field = values.ask13;
-    const ask14Field = values.ask14;
-    const ask15Field = values.ask15;
-    const ask16Field = values.ask16;
-    const ask17Field = values.ask17;
-    const ask18Field = values.ask18;
-    const ask19Field = values.ask19;
-    const ask20Field = values.ask20;
-    const askMapField =values.questionMap;
+    const anx2Ask1Field = values.anx2Ask1;
+    const anx2Ask7Field = values.anx2Ask7;
+    const anx2Ask8Field = values.anx2Ask8;
+    const anx2Ask9Field = values.anx2Ask9;
+    const anx2Ask10Field = values.anx2Ask10;
+    const anx2Ask11Field = values.anx2Ask11;
+    const anx2Ask12Field = values.anx2Ask12;
+    const anx2Ask13Field = values.anx2Ask13;
+    const anx2Ask14Field = values.anx2Ask14;
+    const anx2Ask15Field = values.anx2Ask15;
+    const anx2Ask16Field = values.anx2Ask16;
+    const anx2Ask17Field = values.anx2Ask17;
+    const anx2Ask18Field = values.anx2Ask18;
+    const anx2Ask19Field = values.anx2Ask19;
+    const anx2Ask20Field = values.anx2Ask20;
+    const anx2Ask21Field = values.anx2Ask21;
+    const anx2Ask22Field = values.anx2Ask22;
+    const anx2Ask23Field = values.anx2Ask23;
+    const anx2Ask24Field = values.anx2Ask24;
+    const askMapField = values.questionMap;
     const nameField = "Anexo 2";
+
+    const responseDataWithIds = Object?.keys(values)
+      .map((fieldName) => {
+        // Check if the fieldName is one of your dynamic questions
+        if (askMapField.hasOwnProperty(fieldName)) {
+          const questionId = askMapField[fieldName];
+          const answerValue = values[fieldName];
+
+          return {
+            questionId: questionId, // This is the ID you need
+            fieldName: fieldName, // Optional: Keep the field name
+            answer: answerValue // The user's input
+          };
+        }
+        return null; // Ignore other Formik values if necessary
+      })
+      .filter((item) => item !== null);
 
     const data = [
       {

@@ -10,26 +10,30 @@ export interface DetailChildren {
 }
 
 export interface Appendix2Input {
-  ask1: DetailChildren[];
-  ask2: string;
-  ask3: string;
-  ask4: string;
-  ask5: string;
-  ask6: string;
-  ask7: string;
-  ask8: string;
-  ask9: string;
-  ask10: string;
-  ask11: string;
-  ask12: string;
-  ask13: string;
-  ask14: string;
-  ask15: string;
-  ask16: string;
-  ask17: string;
-  ask18: string;
-  ask19: string;
-  ask20: string;
+  anx2Ask1: DetailChildren[];
+  // ask2: string;
+  // ask3: string;
+  // ask4: string;
+  // ask5: string;
+  // ask6: string;
+  anx2Ask7: string;
+  anx2Ask8: string;
+  anx2Ask9: string;
+  anx2Ask10: string;
+  anx2Ask11: string;
+  anx2Ask12: string;
+  anx2Ask13: string;
+  anx2Ask14: string;
+  anx2Ask15: string;
+  anx2Ask16: string;
+  anx2Ask17: string;
+  anx2Ask18: string;
+  anx2Ask19: string;
+  anx2Ask20: string;
+  anx2Ask21: string;
+  anx2Ask22: string;
+  anx2Ask23: string;
+  anx2Ask24: string;
   questionMap?: any;
 }
 
