@@ -65,7 +65,7 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
 
     const responseDataWithIds = Object?.keys(values)
       .map((fieldName) => {
-        // Check if the fieldName is one of your dynamic questions
+        /* eslint-disable no-prototype-builtins */
         if (askMapField.hasOwnProperty(fieldName)) {
           const questionId = askMapField[fieldName];
           const answerValue = values[fieldName];
@@ -76,6 +76,7 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
             answer: answerValue // The user's input
           };
         }
+        /* eslint-enable no-prototype-builtins */
         return null; // Ignore other Formik values if necessary
       })
       .filter((item) => item !== null);

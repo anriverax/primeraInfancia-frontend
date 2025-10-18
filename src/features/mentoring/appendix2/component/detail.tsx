@@ -5,8 +5,6 @@ import { useState } from "react";
 import { FileText, Save, StepBack, Trash2 } from "lucide-react";
 import {
   Button,
-  Card,
-  CardBody,
   Modal,
   ModalContent,
   ModalHeader,
@@ -83,7 +81,6 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
   const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
-  console.log(appendixDetailsList, "#########");
 
   const [formData, setFormData] = useState({
     shift: "",
@@ -391,10 +388,10 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                           );
                         }
                         case "RADIO": {
-                          // question.options expected to be an array like [{ key, label }] or [{ value, label }]
+                          /* eslint-disable @typescript-eslint/no-explicit-any */
                           const items: SelectItemData[] = (question.options as any[]) || [];
+                          /* eslint-enable @typescript-eslint/no-explicit-any */
 
-                          // current value from Formik (string)
                           const currentValue = formik.values[question.fieldName] ?? "";
 
                           return (
@@ -403,10 +400,12 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                               orientation="horizontal"
                               onChange={(val: string) => formik.setFieldValue(question.fieldName, val)}
                             >
+                              {/* eslint-disable @typescript-eslint/no-explicit-any */}
                               {items.map((option) => {
                                 const optValue = (option as any).value ?? (option as any).key;
                                 return <Radio value={optValue}>{(option as any).label}</Radio>;
                               })}
+                              {/* eslint-enable @typescript-eslint/no-explicit-any */}
                             </RadioGroup>
                           );
                         }
@@ -426,6 +425,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                           // derive selected keys set from current value
                           const selectedKeys = new Set(current.map((v) => v.key));
 
+                          /* eslint-disable @typescript-eslint/no-explicit-any */
                           const handleSelectionChange = (keys: any) => {
                             const newKeys = Array.from(keys as Iterable<string>);
                             // keep existing details when possible
@@ -433,6 +433,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                             const newValue = newKeys.map((k) => ({ key: k, detail: map[k] ?? "" }));
                             formik.setFieldValue(question.fieldName, newValue);
                           };
+                          /* eslint-enable @typescript-eslint/no-explicit-any */
 
                           const handleDetailChange = (key: string, detail: string) => {
                             const next = current.map((c) => (c.key === key ? { ...c, detail } : c));
@@ -462,12 +463,11 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                                             type="text"
                                             placeholder="Especificar"
                                             value={detail}
-                                            onClick={(e) => e.stopPropagation()}
+                                            className="ml-4 w-full"
                                             onChange={(e) => {
                                               e.stopPropagation();
                                               handleDetailChange(item.key, e.currentTarget.value);
                                             }}
-                                            className="ml-4 w-full"
                                           />
                                         </div>
                                       </ListboxItem>
@@ -477,10 +477,11 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                               </ListboxWrapper>
 
                               <p className="text-small text-default-500">
-                                {/* show summary: key:detail, join for display */}
+                                {/* eslint-disable @typescript-eslint/no-explicit-any */}
                                 {(formik.values[question.fieldName] || [])
                                   .map((v: any) => (v.detail ? `${v.key}: ${v.detail}` : v.key))
                                   .join(", ")}
+                                {/* eslint-enable @typescript-eslint/no-explicit-any */}
                               </p>
 
                               {touched[question.fieldName] && errors[question.fieldName] && (

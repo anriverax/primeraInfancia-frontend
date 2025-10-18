@@ -10,7 +10,6 @@ const useAppendixDetailsList = (id: number): AppendixDetailListResult => {
   const { appendixDetailsList, setAppendixDetailsList } = useAppendixDetailListStore();
   const useRequest = useAxios(true);
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     let isMounted = true;
     const fetchData = async (): Promise<void> => {
@@ -33,7 +32,6 @@ const useAppendixDetailsList = (id: number): AppendixDetailListResult => {
       isMounted = false;
     };
   }, []);
-  /* eslint-enable react-hooks/exhaustive-deps */
   return { appendixDetailsList, setAppendixDetailsList };
 };
 

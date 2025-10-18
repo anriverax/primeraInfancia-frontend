@@ -27,7 +27,9 @@ export const numberField = (requiredMessage: string): NumberSchema<number, AnyOb
 export const dateField = (requiredMessage: string): DateSchema<Date, AnyObject, undefined, ""> =>
   date().required(requiredMessage);
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const mixedField = (): MixedSchema<any, AnyObject, undefined, ""> => mixed().optional();
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const arrayField = (requiredMessage: string): ArraySchema<any[], AnyObject, undefined, ""> =>

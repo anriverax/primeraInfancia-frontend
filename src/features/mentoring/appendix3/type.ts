@@ -15,7 +15,9 @@ export interface Appendix3Input {
   ask1: DimesionDetail[];
   ask2: string[];
   ask3: string;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   questionMap?: any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 export type IAppendix3Input = Appendix3Input & AxiosMessage;

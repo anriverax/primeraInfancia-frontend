@@ -6,7 +6,9 @@ export interface Attachment1Input {
   frequencyOfEncounters: string;
   teacherSignature: string;
   mentorSignature: string;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   questionMap?: any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 export type IAttachment1Input = Attachment1Input & AxiosMessage;

@@ -1,6 +1,6 @@
 import { FormikHelpers, useFormik } from "formik";
 import { IAppendix1Input, Appendix1Input } from "./type";
-import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { appendix1Schema } from "./attchmentValidation";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
@@ -19,13 +19,11 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
     values: Appendix1Input,
     formikHelpers: FormikHelpers<IAppendix1Input>
   ): Promise<void> => {
-    const ask1Field = values.ask1;
-    const ask2Field = values.ask2;
     const askMapField = values.questionMap;
 
     const responseDataWithIds = Object?.keys(values)
       .map((fieldName) => {
-        // Check if the fieldName is one of your dynamic questions
+        /* eslint-disable no-prototype-builtins */
         if (askMapField.hasOwnProperty(fieldName)) {
           const questionId = askMapField[fieldName];
           const answerValue = values[fieldName];
@@ -37,14 +35,12 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
             inscriptionId: inscriptionId
           };
         }
+        /* eslint-enable no-prototype-builtins */
         return null;
       })
       .filter((item) => item !== null);
-   
 
     responseDataWithIds.map(async (item) => {
-      console.log(item);
-      
       try {
         const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
           "/answer/create",

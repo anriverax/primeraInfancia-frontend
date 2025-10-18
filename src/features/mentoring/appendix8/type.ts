@@ -60,7 +60,9 @@ export interface Appendix8Input {
   ask57: string;
   ask58: string;
   ask59: string;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   questionMap?: any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 export type IAppendix8Input = Appendix8Input & AxiosMessage;

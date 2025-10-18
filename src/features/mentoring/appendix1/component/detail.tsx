@@ -25,11 +25,11 @@ type Appendix1FormProps = {
 };
 
 const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Element => {
-  const { handleSubmit, touched, errors, isSubmitting, values } = formik;
+  const { handleSubmit, touched, errors, isSubmitting } = formik;
   const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const getQuestionIdMap = (sections) => {
+  const getQuestionIdMap = (sections): void => {
     const idMap = {};
     sections?.forEach((section) => {
       section.Question.forEach((question) => {

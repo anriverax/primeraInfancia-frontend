@@ -15,7 +15,9 @@ export interface Appendix5Input {
   ask12: string;
   ask13: string;
   ask14: string;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   questionMap?: any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 export type IAppendix5Input = Appendix5Input & AxiosMessage;

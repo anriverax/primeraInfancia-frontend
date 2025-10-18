@@ -34,7 +34,9 @@ export interface Appendix2Input {
   anx2Ask22: string;
   anx2Ask23: string;
   anx2Ask24: string;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   questionMap?: any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 export type IAppendix2Input = Appendix2Input & AxiosMessage;
