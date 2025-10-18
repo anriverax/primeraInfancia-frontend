@@ -37,7 +37,7 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
       });
     });
     return idMap;
-  }
+  };
 
   const questionIdMap = getQuestionIdMap(appendixDetailsList?.Section || []);
 
@@ -59,7 +59,6 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
 
   return (
     <div className="flex justify-center">
-
       <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-3/4">
         {/* Header */}
 
@@ -99,8 +98,8 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
                               value={
                                 formik.values[question.fieldName]
                                   ? parseDate(
-                                    formik.values[question.fieldName].toISOString().slice(0, 10)
-                                  )
+                                      formik.values[question.fieldName].toISOString().slice(0, 10)
+                                    )
                                   : null
                               }
                               isInvalid={Boolean(
@@ -130,11 +129,8 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
                               isInvalid={Boolean(
                                 touched[question.fieldName] && errors[question.fieldName]
                               )}
-                              //onChange={formik.handleChange}
                               onChange={(stringValue) => {
                                 const answerValue = stringValue.target.value;
-                                console.log(answerValue, "###############", question.fieldName);
-
                                 formik.setFieldValue(question.fieldName, answerValue);
                               }}
                             />
