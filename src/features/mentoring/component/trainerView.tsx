@@ -2,7 +2,7 @@ import { Button, Card, CardBody } from "@heroui/react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useAppendixList } from "../hooks/useAppendixList";
-import { IAppendixTable } from "../mentoringType"
+import { IAppendixTable } from "../mentoringType";
 import { Eye } from "lucide-react";
 import { useState } from "react";
 
@@ -15,7 +15,6 @@ const LucideIconRenderer = dynamic(
 
 const TrainerView = ({ inscriptionId }: number): React.JSX.Element => {
   const { appendixsList } = useAppendixList();
-  const [inscription, setInscription] = useState(inscriptionId);
 
   const truncateText = (text: string, maxLength: number): string => {
     if (text.length > maxLength) return text.substring(0, maxLength) + "...";
@@ -61,7 +60,7 @@ const TrainerView = ({ inscriptionId }: number): React.JSX.Element => {
                   variant="shadow"
                   type="submit"
                   as={Link}
-                  href={`/admin/mentoria/${item.id}`}
+                  href={`/admin/mentoria/${item.id}?inscriptionId=${inscriptionId}`}
                   startContent={<Eye />}
                 >
                   Visualizar
