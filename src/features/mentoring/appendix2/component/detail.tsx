@@ -82,6 +82,18 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
 
+  const getQuestionIdMap = (sections:any) => {
+    const idMap = {};
+    sections?.forEach((section) => {
+      section.Question.forEach((question:any) => {
+        idMap[question.fieldName] = question.id;
+      });
+    });
+    return idMap;
+  };
+
+  const questionIdMap = getQuestionIdMap(appendixDetailsList?.Section || []);
+
   const [formData, setFormData] = useState({
     shift: "",
     section: "",
@@ -90,7 +102,7 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
     girlDisabilityNumber: 0,
     boyDisabilityNumber: 0
   });
-  const [selectedParticipated, setselectedParticipated] = useState("");
+  const [selectedParticipated, setselectedParticipated] = useState();
   const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<
     ClasificationChildrenData[]
   >([]);
@@ -139,7 +151,9 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
-    console.log(formik.values);
+    console.log(questionIdMap,"$$$");
+    
+    formik.values.questionMap = questionIdMap;
 
     handleSubmit();
     onOpenChange();
@@ -332,8 +346,8 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                               value={
                                 formik.values[question.fieldName]
                                   ? parseDate(
-                                      formik.values[question.fieldName].toISOString().slice(0, 10)
-                                    )
+                                    formik.values[question.fieldName].toISOString().slice(0, 10)
+                                  )
                                   : null
                               }
                               isInvalid={Boolean(
@@ -388,24 +402,23 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                           );
                         }
                         case "RADIO": {
-                          /* eslint-disable @typescript-eslint/no-explicit-any */
                           const items: SelectItemData[] = (question.options as any[]) || [];
-                          /* eslint-enable @typescript-eslint/no-explicit-any */
-
                           const currentValue = formik.values[question.fieldName] ?? "";
-
                           return (
                             <RadioGroup
                               value={selectedParticipated}
                               orientation="horizontal"
-                              onChange={(val: string) => formik.setFieldValue(question.fieldName, val)}
+                              onChange={(val: string) =>
+                                formik.setFieldValue(question.fieldName, val)
+                              }
                             >
-                              {/* eslint-disable @typescript-eslint/no-explicit-any */}
-                              {items.map((option) => {
+                              {items.map((option, index) => {
                                 const optValue = (option as any).value ?? (option as any).key;
-                                return <Radio value={optValue}>{(option as any).label}</Radio>;
+                                return (
+                                  <Radio key={optValue} value={optValue}>
+                                    {(option as any).label}
+                                  </Radio>);
                               })}
-                              {/* eslint-enable @typescript-eslint/no-explicit-any */}
                             </RadioGroup>
                           );
                         }

@@ -14,7 +14,7 @@ const AttachmentDetailPage = (): React.JSX.Element => {
   const inscriptionId = inscriptionIdParam ? Number(inscriptionIdParam) : undefined;
 
   const formikAppendix1 = useAppendix1Form(inscriptionId);
-  const formikAppnedix2 = useAppendix2Form();
+  const formikAppnedix2 = useAppendix2Form(inscriptionId);
 
   return (
     <>

@@ -34,7 +34,7 @@ const initialValues: Appendix2Input = {
   questionMap: {}
 };
 
-const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
+const useAppendix2Form = (inscriptionId?: number): FormikProps<IAppendix2Input> => {
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
@@ -71,15 +71,16 @@ const useAppendix2Form = (): FormikProps<IAppendix2Input> => {
           const answerValue = values[fieldName];
 
           return {
-            questionId: questionId, // This is the ID you need
-            fieldName: fieldName, // Optional: Keep the field name
-            answer: answerValue // The user's input
+            questionId: questionId,
+            valueText: answerValue,
+            inscriptionId: inscriptionId
           };
         }
         /* eslint-enable no-prototype-builtins */
         return null; // Ignore other Formik values if necessary
       })
       .filter((item) => item !== null);
+    console.log(responseDataWithIds, "###########");
 
     const data = [
       {
