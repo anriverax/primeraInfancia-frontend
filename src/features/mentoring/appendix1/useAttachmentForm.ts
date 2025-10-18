@@ -12,7 +12,7 @@ const initialValues: Appendix1Input = {
   questionMap: {}
 };
 
-const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
+const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> => {
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
@@ -22,49 +22,37 @@ const useAppendix1Form = (): FormikProps<IAppendix1Input> => {
     const ask1Field = values.ask1;
     const ask2Field = values.ask2;
     const askMapField = values.questionMap;
-console.log( askMapField);
 
-    const responseDataWithIds = Object?.keys(values).map(fieldName => {
-      // Check if the fieldName is one of your dynamic questions
-      if (askMapField.hasOwnProperty(fieldName)) {
-        const questionId = askMapField[fieldName];
-        const answerValue = values[fieldName];
+    const responseDataWithIds = Object?.keys(values)
+      .map((fieldName) => {
+        // Check if the fieldName is one of your dynamic questions
+        if (askMapField.hasOwnProperty(fieldName)) {
+          const questionId = askMapField[fieldName];
+          const answerValue = values[fieldName];
 
-        return {
-          questionId: questionId, // This is the ID you need
-          fieldName: fieldName,    // Optional: Keep the field name
-          answer: answerValue,     // The user's input
-        };
-      }
-      return null; // Ignore other Formik values if necessary
-    }).filter(item => item !== null);
-    console.log(ask1Field, ask2Field, askMapField, responseDataWithIds);
+          return {
+            questionId: questionId,
+            fieldName: fieldName,
+            answer: answerValue,
+            inscriptionId: inscriptionId
+          };
+        }
+        return null;
+      })
+      .filter((item) => item !== null);
+   
 
-    const data = [
-      {
-        questionId: "1",
-        valueText: ask1Field,
-        inscriptionId: 1,
-      },
-      {
-        questionId: "1",
-        valueText: ask2Field,
-        inscriptionId: 1,
-      }
-    ];
-
-    data.map(async (item) => {
+    responseDataWithIds.map(async (item) => {
+      console.log(item);
+      
       try {
-        // const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
-        //   "/answer/create",
-        //   item
-        // );
-
-        // const resultData = res.data;
-
-        // showToast(String(resultData.message), "success");
-        // formikHelpers.resetForm();
-
+        const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
+          "/answer/create",
+          item
+        );
+        const resultData = res.data;
+        showToast(String(resultData.message), "success");
+        formikHelpers.resetForm();
         // if (
         //   resultData.statusCode === HttpStatusCode.Created ||
         //   resultData.statusCode === HttpStatusCode.Ok
