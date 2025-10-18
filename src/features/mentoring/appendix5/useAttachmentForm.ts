@@ -47,109 +47,25 @@ const useAppendix1Form = (): FormikProps<IAppendix5Input> => {
     const ask14Field = values.ask14;
     const askMapField = values.questionMap;
 
-    const nameField = "Anexo 3";
-    const data = [
-      {
-        name: nameField,
-        textQuestion: "1",
-        textAnswer: ask1Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "2",
-        textAnswer: ask2Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "3",
-        textAnswer: ask3Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "4",
-        textAnswer: ask4Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "5",
-        textAnswer: ask5Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "6",
-        textAnswer: ask6Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "7",
-        textAnswer: ask7Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "8",
-        textAnswer: ask8Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "9",
-        textAnswer: ask9Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "10",
-        textAnswer: ask10Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "11",
-        textAnswer: ask11Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "12",
-        textAnswer: ask12Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "13",
-        textAnswer: ask13Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "14",
-        textAnswer: ask14Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      }
-    ];
+    const responseDataWithIds = Object?.keys(values)
+      .map((fieldName) => {
+        // Check if the fieldName is one of your dynamic questions
+        if (askMapField.hasOwnProperty(fieldName)) {
+          const questionId = askMapField[fieldName];
+          const answerValue = values[fieldName];
 
-    data.map(async (item) => {
+          return {
+            questionId: questionId,
+            fieldName: fieldName,
+            answer: answerValue,
+            inscriptionId: inscriptionId
+          };
+        }
+        return null;
+      })
+      .filter((item) => item !== null);
+
+    responseDataWithIds.map(async (item) => {
       try {
         const res: AxiosResponse<FetchResponse<IAppendix5Input>> = await useRequest.post(
           "/appendix-test/create",

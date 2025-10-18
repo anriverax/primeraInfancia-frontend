@@ -25,32 +25,25 @@ const useAppendix1Form = (): FormikProps<IAppendix3Input> => {
     const ask3Field = values.ask3;
     const askMapField = values.questionMap;
 
-    const nameField = "Anexo 3";
-    const data = [
-      {
-        name: nameField,
-        textQuestion: "1",
-        textAnswer: ask1Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "2",
-        textAnswer: ask2Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "3",
-        textAnswer: ask3Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      }
-    ];
+    const responseDataWithIds = Object?.keys(values)
+      .map((fieldName) => {
+        // Check if the fieldName is one of your dynamic questions
+        if (askMapField.hasOwnProperty(fieldName)) {
+          const questionId = askMapField[fieldName];
+          const answerValue = values[fieldName];
 
-    data.map(async (item) => {
+          return {
+            questionId: questionId,
+            fieldName: fieldName,
+            answer: answerValue,
+            inscriptionId: inscriptionId
+          };
+        }
+        return null;
+      })
+      .filter((item) => item !== null);
+
+    responseDataWithIds.map(async (item) => {
       try {
         const res: AxiosResponse<FetchResponse<IAppendix3Input>> = await useRequest.post(
           "/appendix-test/create",

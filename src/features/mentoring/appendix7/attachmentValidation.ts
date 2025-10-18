@@ -9,5 +9,6 @@ export const attachment7Schema: ObjectSchema<Attachment7Input> = object({
   ask3: stringField(validationMessages.required),
   ask4: stringField(validationMessages.required),
   ask5: stringField(validationMessages.required),
-  ask6: stringField(validationMessages.required)
+  ask6: stringField(validationMessages.required),
+  questionMap: mixedField()
 });

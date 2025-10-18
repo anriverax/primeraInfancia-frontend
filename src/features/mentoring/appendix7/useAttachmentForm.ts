@@ -16,7 +16,7 @@ const initialValues: Attachment7Input = {
   questionMap: {}
 };
 
-const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
+const useAttachment7Form = (inscriptionId?: number): FormikProps<IAttachment7Input> => {
   const useRequest = useAxios(true);
 
   const handleSubmit = async (
@@ -31,53 +31,25 @@ const useAttachment7Form = (): FormikProps<IAttachment7Input> => {
     const ask6Field = values.ask6;
     const askMapField = values.questionMap;
 
-    const nameField = "Anexo 7";
-    const data = [
-      {
-        name: nameField,
-        textQuestion: "1",
-        textAnswer: ask1Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "2",
-        textAnswer: ask2Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "3",
-        textAnswer: ask3Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "4",
-        textAnswer: ask4Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "5",
-        textAnswer: ask5Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "6",
-        textAnswer: ask6Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      }
-    ];
+    const responseDataWithIds = Object?.keys(values)
+      .map((fieldName) => {
+        // Check if the fieldName is one of your dynamic questions
+        if (askMapField.hasOwnProperty(fieldName)) {
+          const questionId = askMapField[fieldName];
+          const answerValue = values[fieldName];
 
-    data.map(async (item) => {
+          return {
+            questionId: questionId,
+            fieldName: fieldName,
+            answer: answerValue,
+            inscriptionId: inscriptionId
+          };
+        }
+        return null;
+      })
+      .filter((item) => item !== null);
+
+    responseDataWithIds.map(async (item) => {
       try {
         const res: AxiosResponse<FetchResponse<IAttachment7Input>> = await useRequest.post(
           "/appendix-test/create",

@@ -62,5 +62,6 @@ export const appendix8Schema: ObjectSchema<Appendix8Input> = object({
   ask56: stringField(validationMessages.required),
   ask57: stringField(validationMessages.required),
   ask58: stringField(validationMessages.required),
-  ask59: stringField(validationMessages.required)
+  ask59: stringField(validationMessages.required),
+  questionMap: mixedField()
 });

@@ -12,5 +12,6 @@ export const attachment6Schema: ObjectSchema<Appendix6Input> = object({
   ask6: stringField(validationMessages.required),
   ask7: stringField(validationMessages.required),
   ask8: stringField(validationMessages.required),
-  ask9: stringField(validationMessages.required)
+  ask9: stringField(validationMessages.required),
+  questionMap: mixedField()
 });
