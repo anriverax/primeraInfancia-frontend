@@ -1,4 +1,4 @@
-import { handleAxiosError, showToast } from "@/shared/utils/funtions";
+import { handleAxiosError, showToast } from "@/shared/utils/functions";
 import { AxiosResponse, HttpStatusCode } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
 import { FetchResponse } from "@/shared/types/globals";

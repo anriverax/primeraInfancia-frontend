@@ -3,7 +3,7 @@ import { AxiosResponse, isAxiosError } from "axios";
 import { FetchResponseWithPagination, IPagination } from "../types/globals";
 import useAxios from "./useAxios";
 import { useEffect, useRef } from "react";
-import { handleAxiosError } from "../utils/funtions";
+import { handleAxiosError } from "../utils/functions";
 import { TableWithPaginationResponse } from "../types/pagination";
 
 export const useQueryRequest = <T>(
@@ -37,13 +37,13 @@ export const useQueryRequest = <T>(
     retry: false,
     placeholderData: (previousData) => previousData
   });
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (error && !hasHandledError.current) {
       hasHandledError.current = true;
       handleAxiosError(isAxiosError(error), description, "obtener");
     }
   }, [error]);
-
+  /* eslint-enable react-hooks/exhaustive-deps */
   return { queryClient, data: data?.data as T, meta: data?.meta, isLoading, isError };
 };

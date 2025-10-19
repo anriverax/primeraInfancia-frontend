@@ -15,6 +15,7 @@ export const useUploadHandler = (
     _shouldValidate?: boolean
   ) => Promise<void> | Promise<FormikErrors<UploadFilesInput>>
 ): UploadHandlerResult => {
+  /* eslint-disable react-hooks/exhaustive-deps */
   const handleCvChange = useCallback((file: File | null) => {
     setFieldValue("file", file);
   }, []);
@@ -26,6 +27,6 @@ export const useUploadHandler = (
   const handleAvatarChange = useCallback((file: File | null) => {
     setFieldValue("avatar", file);
   }, []);
-
+  /* eslint-enable react-hooks/exhaustive-deps */
   return { handleCvChange, handleImagesChange, handleAvatarChange };
 };

@@ -25,10 +25,11 @@ const MentorForm = (): React.JSX.Element => {
     eventId: values.eventId,
     setFieldValue
   });
+
   if (!assignmentList) return <CustomProgress />;
 
   return (
-    <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-1/2">
+    <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-full md:w-3/4 lg:w-1/2">
       <form className="space-y-6" onSubmit={handleSubmit}>
         <Select
           items={assignmentList.events}
@@ -127,7 +128,7 @@ const MentorForm = (): React.JSX.Element => {
             />
           </div>
         )}
-        <Button fullWidth color="primary" variant="shadow" type="submit">
+        <Button fullWidth color="primary" type="submit">
           Iniciar jornada
         </Button>
       </form>

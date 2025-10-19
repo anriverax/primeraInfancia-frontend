@@ -100,9 +100,9 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
         className: "w-full",
         classNames: {
           trigger:
-            "border data-[hover=true]:border-blue-500 data-[open=true]:border-blue-500 data-[focus=true]:border-blue-500",
-          label: "group-data-[filled=true]:font-bold",
-          value: "group-data-[has-value=true]:text-gray-600"
+            "border h-auto data-[hover=true]:border-blue-500 data-[open=true]:border-blue-500 data-[focus=true]:border-blue-500",
+          label: "group-data-[filled=true]:font-bold top-4",
+          value: "group-data-[has-value=true]:text-gray-600 whitespace-pre-wrap"
         },
 
         selectedKeys,

@@ -1,7 +1,7 @@
 import { object, ObjectSchema } from "yup";
 import { Attachment6Input } from "./type";
 import { validationMessages } from "@/shared/constants";
-import { stringField } from "@/shared/utils/funtions";
+import { stringField } from "@/shared/utils/functions";
 
 export const attachment6Schema: ObjectSchema<Attachment6Input> = object({
   objectiveSessionMet: stringField(validationMessages.required),

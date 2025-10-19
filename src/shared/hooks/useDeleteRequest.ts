@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-import { confirmDelete, handleAxiosError } from "../utils/funtions";
+import { confirmDelete, handleAxiosError } from "../utils/functions";
 import { AxiosResponse, HttpStatusCode } from "axios";
 import useAxios from "./useAxios";
 import { FetchResponse } from "../types/globals";

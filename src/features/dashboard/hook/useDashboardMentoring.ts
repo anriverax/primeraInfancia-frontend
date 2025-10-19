@@ -1,5 +1,5 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { handleAxiosError } from "@/shared/utils/funtions";
+import { handleAxiosError } from "@/shared/utils/functions";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { IMentoringFiltersResponse } from "../dashboardType";
@@ -10,6 +10,7 @@ const useDashboardMentoring = (): {
   const [mentoringFilters, setMentoringFilters] = useState<IMentoringFiltersResponse | undefined>();
   const useRequest = useAxios(true);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     let isMounted = true;
 
@@ -32,6 +33,7 @@ const useDashboardMentoring = (): {
       isMounted = false;
     };
   }, [mentoringFilters]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return { mentoringFilters };
 };

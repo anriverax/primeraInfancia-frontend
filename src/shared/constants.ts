@@ -29,7 +29,6 @@ export const breakpoints: {
   "2xl": "1536px"
 };
 
-/* eslint-disable no-unused-vars */
 export enum TypeRole {
   ADMIN = "ADMIN",
   USER = "USER",
@@ -37,7 +36,7 @@ export enum TypeRole {
   USER_MENTOR = "USER_MENTOR",
   USER_TECNICO_APOYO = "USER_TECNICO_APOYO"
 }
-/* eslint-enable no-unused-vars */
+
 export const roleDisplayNames: Record<TypeRole, string> = {
   [TypeRole.ADMIN]: "Administrador",
   [TypeRole.USER]: "Usuario",
@@ -49,7 +48,7 @@ export const roleDisplayNames: Record<TypeRole, string> = {
 export const tableClassNames: { th: string } = {
   th: "text-bold text-sm text-black bg-blue-50"
 };
-/* eslint-disable no-unused-vars */
+
 export enum AttendanceEnum {
   PRESENTE = "Presente",
   AUSENTE = "Ausente"

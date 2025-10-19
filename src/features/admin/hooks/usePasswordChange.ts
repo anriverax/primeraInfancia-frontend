@@ -1,6 +1,6 @@
 import { FormikHelpers, useFormik } from "formik";
 import { changePasswordSchema } from "../modalValidation";
-import { encrypt, handleFormikResponseError } from "@/shared/utils/funtions";
+import { encrypt, handleFormikResponseError } from "@/shared/utils/functions";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
 import { useUpdatedProfileStore } from "../../../shared/hooks/store/useUpdatedProfileStore";

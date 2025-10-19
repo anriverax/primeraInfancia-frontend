@@ -1,5 +1,5 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { handleAxiosError } from "@/shared/utils/funtions";
+import { handleAxiosError } from "@/shared/utils/functions";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { IAttendanceFiltersResponse } from "../dashboardType";
@@ -12,7 +12,7 @@ const useDashboardAttendance = (
 } => {
   const [attendanceFilters, setAttendanceFilters] = useState<IAttendanceFiltersResponse | undefined>();
   const useRequest = useAxios(true);
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       try {
@@ -28,7 +28,7 @@ const useDashboardAttendance = (
     };
     fetchData();
   }, [attendanceFilter]);
-
+  /* eslint-enable react-hooks/exhaustive-deps */
   return { attendanceFilters };
 };
 

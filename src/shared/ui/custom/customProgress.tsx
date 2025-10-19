@@ -3,13 +3,11 @@ import { memo } from "react";
 
 const CustomProgress = memo(
   (): React.JSX.Element => (
-    <div
-      className="flex justify-center items-center h-[calc(100dvh-256px)]"
-    >
+    <div className="flex justify-center items-center h-[calc(100dvh-256px)]">
       <Progress
         isIndeterminate
         aria-label="Cargando..."
-        className="max-w-md"
+        className="max-w-sm"
         color="primary"
         size="sm"
         label="Cargando..."

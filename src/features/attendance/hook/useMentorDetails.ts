@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from "react";
 import { ILastAttendance } from "../attendance.type";
 import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 
@@ -46,12 +46,16 @@ const useMentorDetails = (
     "última asistencia"
   );
 
-  const events = lastAttendance
-    ? lastAttendance.map((item) => ({
-        id: item.id,
-        name: item.event
-      }))
-    : [];
+  const events = useMemo(
+    () =>
+      lastAttendance
+        ? lastAttendance.map((item) => ({
+            id: item.id,
+            name: item.event
+          }))
+        : [],
+    [lastAttendance]
+  );
 
   // Only set selectedId automatically the first time events become non-empty
   const prevEventsLength = useRef<number>(0);

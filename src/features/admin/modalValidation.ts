@@ -1,5 +1,5 @@
 import { validationMessages } from "@/shared/constants";
-import { stringField } from "@/shared/utils/funtions";
+import { stringField } from "@/shared/utils/functions";
 import { regex } from "@/shared/types/regex-validation";
 import { object, ObjectSchema, ref } from "yup";
 import { VerifyCodeInput, ChangePasswordInput } from "./adminType";

@@ -1,6 +1,6 @@
 import { IGroupByUser, IGroupByUserColumnKey } from "@/features/group/groupType";
 import { IColumns } from "@/shared/types/globals";
-import { getNestedValue } from "@/shared/utils/funtions";
+import { getNestedValue } from "@/shared/utils/functions";
 import { Link, Tooltip } from "@heroui/react";
 import { Notebook } from "lucide-react";
 import { useCallback } from "react";

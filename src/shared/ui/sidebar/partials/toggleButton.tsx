@@ -11,10 +11,12 @@ type ToggleButtonProps = {
   setExtended: Dispatch<SetStateAction<boolean>>;
 };
 
+/* eslint-disable react-hooks/exhaustive-deps */
 const ToggleButton = ({ isExtended, isMobile, setExtended }: ToggleButtonProps): React.JSX.Element => {
   const handleClick = useCallback(() => {
     setExtended((prev) => !prev);
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   const getToggleButtonAnimation: {
     transition: {
