@@ -41,15 +41,17 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
     /* eslint-enable @typescript-eslint/no-explicit-any */
 
     try {
-      await Promise.all(
+      const results = await Promise.all(
         responseDataWithIds.map(async (item) => {
           const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
             "/answer/create",
             item
           );
-          showToast(String(res.data.message), "success");
+          return res;
         })
       );
+
+      showToast("Operación realizada", "success");
       formikHelpers.resetForm();
     } catch (error) {
       handleFormikResponseError<IAppendix1Input>(error as AxiosError, formikHelpers!);
