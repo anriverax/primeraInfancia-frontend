@@ -41,7 +41,7 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
     /* eslint-enable @typescript-eslint/no-explicit-any */
 
     try {
-      const results = await Promise.all(
+      await Promise.all(
         responseDataWithIds.map(async (item) => {
           const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
             "/answer/create",
