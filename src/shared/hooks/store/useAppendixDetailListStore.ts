@@ -1,20 +1,20 @@
-import { IAppendixDetailTable } from "@/features/attachment/appendixDetailType";
+import { IAppendixDetailTable } from "@/features/mentoring/mentoringType";
 import { create, StoreApi, UseBoundStore } from "zustand";
 
 type AppendixDetailListStoreProps = {
-  appendixDetailsList: IAppendixDetailTable[];
+  appendixDetailsList: IAppendixDetailTable;
   setAppendixDetailsList: (
-    _appendixDetail: IAppendixDetailTable[] | ((_prev: IAppendixDetailTable[]) => IAppendixDetailTable[])
+    _appendixDetail: IAppendixDetailTable | ((_prev: IAppendixDetailTable) => IAppendixDetailTable)
   ) => void;
 };
 
 export const useAppendixDetailListStore: UseBoundStore<StoreApi<AppendixDetailListStoreProps>> =
   create<AppendixDetailListStoreProps>()((set) => ({
-    appendixDetailsList: [],
+    appendixDetailsList: {} as IAppendixDetailTable,
     setAppendixDetailsList: (
       appendixDetail:
-        | IAppendixDetailTable[]
-        | ((_prev: IAppendixDetailTable[]) => IAppendixDetailTable[])
+        | IAppendixDetailTable
+        | ((_prev: IAppendixDetailTable) => IAppendixDetailTable)
     ) =>
       set((state) => ({
         appendixDetailsList:

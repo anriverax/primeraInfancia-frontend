@@ -15,9 +15,10 @@ import {
 import type { FormikProps } from "@/shared/types/globals";
 import type { IAppendix1Input } from "../type";
 import Link from "next/link";
-import { useAppendixDetailsList } from "@/features/attachment/hooks/appendix/useAppendixDetailList";
+import { useAppendixDetailsList } from "@/features/mentoring/hooks/useAppendixDetailList";
 import { parseDate } from "@internationalized/date";
 import ProgressCustom from "@/shared/ui/custom/progressCustom";
+
 
 type Appendix1FormProps = {
   formik: FormikProps<IAppendix1Input>;
@@ -25,22 +26,48 @@ type Appendix1FormProps = {
   inscription?: number;
 };
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface QuestionInput {
+  id: number;
+  text: string;
+  questionType: string;
+  orderBy?: number;
+  subSection?: string;
+  isRequired?: boolean;
+  fieldName?: string;
+  options?: any;
+}
+/* eslint-enable @typescript-eslint/no-explicit-any */
+
 const TrainerDetailView = ({ formik, id, inscription }: Appendix1FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting } = formik;
   const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const getQuestionIdMap = (sections): void => {
-    const idMap = {};
-    sections?.forEach((section) => {
-      section.Question.forEach((question) => {
-        idMap[question.fieldName] = question.id;
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const getValue = (field: string) => (formik.values as Record<string, any>)[field];
+  const getTouched = (field: string) => (touched as Record<string, any>)[field];
+  const getError = (field: string) => (errors as Record<string, any>)[field];
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const getQuestionIdMap = (sections: any[] | undefined): Record<string, number> => {
+    const idMap: Record<string, number> = {};
+    if (!sections) return idMap;
+    sections.forEach((section) => {
+      section?.Question?.forEach((question: any) => {
+        if (question?.fieldName) {
+          idMap[question.fieldName] = question.id;
+        }
       });
     });
     return idMap;
   };
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 
-  const questionIdMap = getQuestionIdMap(appendixDetailsList?.Section || []);
+  const questionIdMap = getQuestionIdMap(appendixDetailsList?.Section);
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleOkSubmit = (e: React.FormEvent) => {
@@ -97,42 +124,40 @@ const TrainerDetailView = ({ formik, id, inscription }: Appendix1FormProps): Rea
                             <DatePicker
                               name={question.text}
                               value={
-                                formik.values[question.fieldName]
+                                getValue((question as any).fieldName)
                                   ? parseDate(
-                                    formik.values[question.fieldName].toISOString().slice(0, 10)
+                                    (getValue((question as any).fieldName) as Date).toISOString().slice(0, 10)
                                   )
                                   : null
                               }
                               isInvalid={Boolean(
-                                touched[question.fieldName] && errors[question.fieldName]
+                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
                               )}
                               errorMessage={
-                                touched[question.fieldName] && errors[question.fieldName]
-                                  ? errors[question.fieldName]
+                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                  ? getError((question as any).fieldName)
                                   : undefined
                               }
                               onChange={(dateValue) => {
                                 const jsDate = dateValue ? new Date(dateValue.toString()) : null;
-                                formik.setFieldValue(question.fieldName, jsDate);
+                                formik.setFieldValue((question as any).fieldName, jsDate);
                               }}
                             />
                           );
                         case "TEXT":
                           return (
                             <Input
-                              name={question.fieldName}
-                              value={formik.values[question.fieldName] || ""}
+                              name={(question as any).fieldName}
+                              value={getValue((question as any).fieldName)}
                               errorMessage={
-                                touched[question.fieldName] && errors[question.fieldName]
-                                  ? errors[question.fieldName]
-                                  : undefined
+                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
                               }
                               isInvalid={Boolean(
-                                touched[question.fieldName] && errors[question.fieldName]
+                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
                               )}
                               onChange={(stringValue) => {
                                 const answerValue = stringValue.target.value;
-                                formik.setFieldValue(question.fieldName, answerValue);
+                                formik.setFieldValue((question as any).fieldName, answerValue);
                               }}
                             />
                           );

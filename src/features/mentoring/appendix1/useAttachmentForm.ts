@@ -20,47 +20,40 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
     formikHelpers: FormikHelpers<IAppendix1Input>
   ): Promise<void> => {
     const askMapField = values.questionMap;
+    const keys = Object.keys(values) as (keyof Appendix1Input)[];
 
-    const responseDataWithIds = Object?.keys(values)
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    const responseDataWithIds = keys
       .map((fieldName) => {
-        /* eslint-disable no-prototype-builtins */
-        if (askMapField.hasOwnProperty(fieldName)) {
-          const questionId = askMapField[fieldName];
-          const answerValue = values[fieldName];
-
+        const fieldNameStr = String(fieldName);
+        if (Object.prototype.hasOwnProperty.call(askMapField, fieldNameStr)) {
+          const questionId = (askMapField as Record<string, number>)[fieldNameStr];
+          const answerValue = (values as Record<string, any>)[fieldNameStr];
           return {
-            questionId: questionId,
+            questionId,
             valueText: answerValue,
-            inscriptionId: inscriptionId
+            inscriptionId: inscriptionId ?? null
           };
         }
-        /* eslint-enable no-prototype-builtins */
         return null;
       })
-      .filter((item) => item !== null);
+      .filter((item): item is { questionId: number; valueText: any; inscriptionId: number | null } => item !== null);
+    /* eslint-enable @typescript-eslint/no-explicit-any */
 
-    responseDataWithIds.map(async (item) => {
-      try {
-        const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
-          "/answer/create",
-          item
-        );
-        const resultData = res.data;
-        showToast(String(resultData.message), "success");
-        formikHelpers.resetForm();
-        // if (
-        //   resultData.statusCode === HttpStatusCode.Created ||
-        //   resultData.statusCode === HttpStatusCode.Ok
-        // ) {
-        // /* eslint-disable @typescript-eslint/no-explicit-any */
-        // const newData: IAttendanceCreated = resultData.data as any;
-        // /* eslint-enable @typescript-eslint/no-explicit-any */
-        // setDataAttendance(newData);
-        //}
-      } catch (error) {
-        handleFormikResponseError<IAppendix1Input>(error as AxiosError, formikHelpers!);
-      }
-    });
+    try {
+      await Promise.all(
+        responseDataWithIds.map(async (item) => {
+          const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(
+            "/answer/create",
+            item
+          );
+          showToast(String(res.data.message), "success");
+        })
+      );
+      formikHelpers.resetForm();
+    } catch (error) {
+      handleFormikResponseError<IAppendix1Input>(error as AxiosError, formikHelpers!);
+    }
   };
 
   const formik = useFormik({

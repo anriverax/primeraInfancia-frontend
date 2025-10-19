@@ -17,10 +17,11 @@ export const useUpdatedProfileStore = create<UpdatedProfileProps>()(
   persist(
     (set) => ({
       formStatus: UpdatedProfileData,
-      setFormStatus: (data): void =>
+      setFormStatus: (data): void => {
         set((state) => ({
           formStatus: { ...state.formStatus, ...data }
-        }))
+        }));
+      }
     }),
     {
       name: "updated-profile-storage", // key in localStorage

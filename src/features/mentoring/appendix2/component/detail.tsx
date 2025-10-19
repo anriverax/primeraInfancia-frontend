@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { JSX } from "react";
 import { useState } from "react";
 import { FileText, Save, StepBack, Trash2 } from "lucide-react";
 import {
@@ -20,19 +20,34 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  useDisclosure,
-  RadioGroup,
-  Radio,
-  Listbox,
-  ListboxItem
+  useDisclosure
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import type { FormikProps } from "@/shared/types/globals";
 import type { IAppendix2Input } from "../type";
 import Link from "next/link";
-import { useAppendixDetailsList } from "@/features/attachment/hooks/appendix/useAppendixDetailList";
+import { useAppendixDetailsList } from "@/features/mentoring/hooks/useAppendixDetailList";
 import { parseDate } from "@internationalized/date";
 import ProgressCustom from "@/shared/ui/custom/progressCustom";
+
+type Appendix2FormProps = {
+  formik: FormikProps<IAppendix2Input>;
+  id: number;
+  inscription?: number;
+};
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export interface QuestionInput {
+  id: number;
+  text: string;
+  questionType: string;
+  orderBy?: number;
+  subSection?: string;
+  isRequired?: boolean;
+  fieldName?: string;
+  options?: any;
+}
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 interface ClasificationChildrenData {
   id: string;
@@ -44,15 +59,11 @@ interface ClasificationChildrenData {
   boyDisabilityNumber: number;
 }
 
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export const ListboxWrapper = ({ children }) => (
+export const ListboxWrapper = ({ children }: { children?: React.ReactNode }): JSX.Element => (
   <div className="w-96 border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
     {children}
   </div>
 );
-/* eslint-enable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-enable @typescript-eslint/explicit-function-return-type */
 
 export const dataList = [
   { name: "educationalLevelServed", key: "Inicial 3", label: "Inicial 3" },
@@ -72,23 +83,29 @@ export interface SelectItemData {
 const educationLevelServedList = dataList.filter((item) => item.name === "educationalLevelServed");
 const ampmList = dataList.filter((item) => item.name === "ampm");
 
-type Appendix2FormProps = {
-  formik: FormikProps<IAppendix2Input>;
-  id: number;
-};
-
 const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
   const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
 
+  /* eslint-disable @typescript-eslint/explicit-function-return-type */
   /* eslint-disable @typescript-eslint/no-explicit-any */
-  const getQuestionIdMap = (sections: any): any => {
-    const idMap = {};
-    sections?.forEach((section) => {
-      section.Question.forEach((question: any) => {
-        idMap[question.fieldName] = question.id;
+  const getValue = (field: string) => (formik.values as Record<string, any>)[field];
+  const getTouched = (field: string) => (touched as Record<string, any>)[field];
+  const getError = (field: string) => (errors as Record<string, any>)[field];
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+  /* eslint-enable @typescript-eslint/explicit-function-return-type */
+
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const getQuestionIdMap = (sections: any[] | undefined): Record<string, number> => {
+    const idMap: Record<string, number> = {};
+    if (!sections) return idMap;
+    sections.forEach((section) => {
+      section?.Question?.forEach((question: any) => {
+        if (question?.fieldName) {
+          idMap[question.fieldName] = question.id;
+        }
       });
     });
     return idMap;
@@ -97,14 +114,6 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
 
   const questionIdMap = getQuestionIdMap(appendixDetailsList?.Section || []);
 
-  const [setFormData] = useState({
-    shift: "",
-    section: "",
-    girlNumber: 0,
-    boyNumber: 0,
-    girlDisabilityNumber: 0,
-    boyDisabilityNumber: 0
-  });
   const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<
     ClasificationChildrenData[]
   >([]);
@@ -114,27 +123,28 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
     //   showToast(String("Por favor complete los campos obligatorios: Turno y Sección"), "danger");
     //   return
     // }
-
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     const newEntry: ClasificationChildrenData = {
       id: clasificationChildreEntries.length.toString(),
-      shift: values.shift,
-      section: values.section,
-      girlNumber: values.girlNumber,
-      boyNumber: values.boyNumber,
-      girlDisabilityNumber: values.girlDisabilityNumber,
-      boyDisabilityNumber: values.boyDisabilityNumber
+      shift: (values as Record<string, any>).shift,
+      section: (values as Record<string, any>).section,
+      girlNumber: (values as Record<string, any>).girlNumber,
+      boyNumber: (values as Record<string, any>).boyNumber,
+      girlDisabilityNumber: (values as Record<string, any>).girlDisabilityNumber,
+      boyDisabilityNumber: (values as Record<string, any>).boyDisabilityNumber
     };
+    /* eslint-enable @typescript-eslint/no-explicit-any */
 
     setClasificationChildrenEntries((prev) => [...prev, newEntry]);
 
-    setFormData({
-      shift: "",
-      section: "",
-      girlNumber: 0,
-      boyNumber: 0,
-      girlDisabilityNumber: 0,
-      boyDisabilityNumber: 0
-    });
+    // setFormData({
+    //   shift: "",
+    //   section: "",
+    //   girlNumber: 0,
+    //   boyNumber: 0,
+    //   girlDisabilityNumber: 0,
+    //   boyDisabilityNumber: 0
+    // });
   };
 
   const handleDelete = (id: string): void => {
@@ -197,7 +207,7 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                       <Select
                         items={ampmList}
                         {...getFieldProps("shift")}
-                        {...getInputProps("shift", "Turno: ", touched.shift, errors.shift)}
+                        {...getInputProps("shift", "Turno: ", getTouched("shift"), getError("shift"))}
                       >
                         {(item) => <SelectItem>{item.label}</SelectItem>}
                       </Select>
@@ -209,8 +219,8 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                         {...getInputProps(
                           "section",
                           "Nivel educativo que atiende: ",
-                          touched.section,
-                          errors.section
+                          getTouched("section"),
+                          getError("section")
                         )}
                       >
                         {(item) => <SelectItem>{item.label}</SelectItem>}
@@ -224,8 +234,8 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                         {...getInputProps(
                           "girlNumber",
                           "Total de niñas atendidos",
-                          touched.girlNumber,
-                          errors.girlNumber
+                          getTouched("girlNumber"),
+                          getError("girlNumber")
                         )}
                       />
                     </div>
@@ -236,8 +246,8 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                         {...getInputProps(
                           "boyNumber",
                           "Total de niños atendidos",
-                          touched.boyNumber,
-                          errors.boyNumber
+                          getTouched("boyNumber"),
+                          getError("boyNumber")
                         )}
                       />
                     </div>
@@ -249,8 +259,8 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                         {...getInputProps(
                           "girlDisabilityNumber",
                           "Cantidad de niñas con discapacidad diagnosticada",
-                          touched.girlDisabilityNumber,
-                          errors.girlDisabilityNumber
+                          getTouched("girlDisabilityNumber"),
+                          getError("girlDisabilityNumber")
                         )}
                       />
                     </div>
@@ -261,8 +271,8 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                         {...getInputProps(
                           "boyDisabilityNumber",
                           "Cantidad de niños con discapacidad diagnosticada",
-                          touched.boyDisabilityNumber,
-                          errors.boyDisabilityNumber
+                          getTouched("boyDisabilityNumber"),
+                          getError("boyDisabilityNumber")
                         )}
                       />
                     </div>
@@ -333,7 +343,10 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                 {section.Question.map((question, questionIndex) => (
                   <li key={questionIndex} className="text-lg text-gray-800">
                     <span className="font-medium mr-2">{question.text}</span>
-                    {/* eslint-disable @typescript-eslint/explicit-function-return-type */}
+                    {
+                      /* eslint-disable @typescript-eslint/explicit-function-return-type */
+                      /* eslint-disable @typescript-eslint/no-explicit-any */
+                    }
                     {(() => {
                       switch (question.questionType) {
                         case "DATE":
@@ -341,66 +354,65 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                             <DatePicker
                               name={question.text}
                               value={
-                                formik.values[question.fieldName]
+                                getValue((question as any).fieldName)
                                   ? parseDate(
-                                    formik.values[question.fieldName].toISOString().slice(0, 10)
+                                    (getValue((question as any).fieldName) as Date).toISOString().slice(0, 10)
                                   )
                                   : null
                               }
                               isInvalid={Boolean(
-                                touched[question.fieldName] && errors[question.fieldName]
+                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
                               )}
                               errorMessage={
-                                touched[question.fieldName] && errors[question.fieldName]
-                                  ? errors[question.fieldName]
+                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                  ? getError((question as any).fieldName)
                                   : undefined
                               }
                               onChange={(dateValue) => {
                                 const jsDate = dateValue ? new Date(dateValue.toString()) : null;
-                                formik.setFieldValue(question.fieldName, jsDate);
+                                formik.setFieldValue((question as any).fieldName, jsDate);
                               }}
                             />
                           );
                         case "TEXT":
                           return (
                             <Input
-                              name={question.fieldName}
-                              value={formik.values[question.fieldName] || ""}
+                              name={(question as any).fieldName}
+                              value={getValue((question as any).fieldName)}
                               errorMessage={
-                                touched[question.fieldName] && errors[question.fieldName]
-                                  ? errors[question.fieldName]
-                                  : undefined
+                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
                               }
                               isInvalid={Boolean(
-                                touched[question.fieldName] && errors[question.fieldName]
+                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
                               )}
                               onChange={(stringValue) => {
                                 const answerValue = stringValue.target.value;
-                                formik.setFieldValue(question.fieldName, answerValue);
+                                formik.setFieldValue((question as any).fieldName, answerValue);
                               }}
                             />
                           );
-                        case "SELECT": {
-                          const items: SelectItemData = question.options;
-                          return (
-                            <Select
-                              items={items}
-                              name={question.fieldName}
-                              value={formik.values[question.fieldName] || ""}
-                              errorMessage={
-                                touched[question.fieldName] && errors[question.fieldName]
-                                  ? errors[question.fieldName]
-                                  : undefined
-                              }
-                              isInvalid={Boolean(
-                                touched[question.fieldName] && errors[question.fieldName]
-                              )}
-                              onChange={(value) => formik.setFieldValue(question.fieldName, value)}
-                            >
-                              {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}
-                            </Select>
-                          );
-                        }
+                        // case "SELECT": {
+                        //   const items: SelectItemData = question.options;
+                        //   return (
+                        //     <Select
+                        //       items={items}
+                        //       name={question.fieldName}
+                        //       value={formik.values[question.fieldName] || ""}
+                        //       errorMessage={
+                        //         touched[question.fieldName] && errors[question.fieldName]
+                        //           ? errors[question.fieldName]
+                        //           : undefined
+                        //       }
+                        //       isInvalid={Boolean(
+                        //         touched[question.fieldName] && errors[question.fieldName]
+                        //       )}
+                        //       onChange={(value) => formik.setFieldValue(question.fieldName, value)}
+                        //     >
+                        //       {(item) => <SelectItem key={item.key}>{item.label}</SelectItem>}
+                        //     </Select>
+                        //   );
+                        // }
+                        //Mostrar el valor seleccionado
                         // case "RADIO": {
                         //   const items: SelectItemData[] = (question.options as any[]) || [];
                         //   const currentValue = formik.values[question.fieldName] ?? "";
@@ -425,122 +437,119 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                         //     </RadioGroup>
                         //   );
                         // }
-                        case "RADIO": {
-                          /* eslint-disable @typescript-eslint/no-explicit-any */
-                          const items: SelectItemData[] = (question.options as any[]) || [];
+                        // case "RADIO": {
 
-                          // current value from Formik (string)
-                          const currentValue = formik.values[question.fieldName] ?? "";
+                        //   const items: SelectItemData[] = ((question as any).options as any[]) || [];
+                        //   const currentValue = getValue((question as any).fieldName) || "";
 
-                          const handleChange = (val: any) => {
-                            const v = val == null ? "" : String(val);
-                            formik.setFieldValue(question.fieldName, v);
-                            formik.setFieldTouched(question.fieldName, true, false);
-                          };
+                        //   const handleChange = (val: any) => {
+                        //     const v = val == null ? "" : String(val);
+                        //     formik.setFieldValue((question as any).fieldName, v);
+                        //     formik.setFieldTouched((question as any).fieldName, true, false);
 
-                          return (
-                            <RadioGroup
-                              // try both handlers if needed by the library
-                              value={currentValue}
-                              orientation="horizontal"
-                              onChange={handleChange}
-                              onValueChange={handleChange}
-                            >
-                              {items.map((option) => {
-                                const optValue = (option as any).value ?? (option as any).key;
-                                return (
-                                  <Radio key={String(optValue)} value={String(optValue)}>
-                                    {(option as any).label}
-                                  </Radio>
-                                );
-                              })}
-                            </RadioGroup>
-                          );
-                          {
-                            /* eslint-enable @typescript-eslint/no-explicit-any */
-                          }
-                        }
-                        case "MULTI_CHOICE_DETAIL": {
-                          // items expected to be SelectItemData[]
-                          let items: SelectItemData[] = [];
-                          try {
-                            items = question.options;
-                          } catch {
-                            items = [];
-                          }
+                        //   };
 
-                          // form value shape: Array<{ key: string; detail?: string }>
-                          const current: { key: string; detail?: string }[] =
-                            formik.values[question.fieldName] || [];
+                        //   return (
+                        //     <RadioGroup
+                        //       value={currentValue}
+                        //       orientation="horizontal"
+                        //       onChange={handleChange}
+                        //       onValueChange={handleChange}
+                        //     >
+                        //       {items.map((option) => {
+                        //         const optValue = (option as any).value ?? (option as any).key;
+                        //         return (
+                        //           <Radio key={String(optValue)} value={String(optValue)}>
+                        //             {(option as any).label}
+                        //           </Radio>
+                        //         );
+                        //       })}
+                        //     </RadioGroup>
+                        //   );
 
-                          // derive selected keys set from current value
-                          const selectedKeys = new Set(current.map((v) => v.key));
+                        // }
+                        // case "MULTI_CHOICE_DETAIL": {
+                        //   // items expected to be SelectItemData[]
+                        //   let items: SelectItemData[] = [];
+                        //   try {
+                        //     items = (question as any).options;
+                        //   } catch {
+                        //     items = [];
+                        //   }
 
-                          /* eslint-disable @typescript-eslint/no-explicit-any */
-                          const handleSelectionChange = (keys: any) => {
-                            const newKeys = Array.from(keys as Iterable<string>);
-                            // keep existing details when possible
-                            const map = Object.fromEntries(current.map((c) => [c.key, c.detail || ""]));
-                            const newValue = newKeys.map((k) => ({ key: k, detail: map[k] ?? "" }));
-                            formik.setFieldValue(question.fieldName, newValue);
-                          };
-                          /* eslint-enable @typescript-eslint/no-explicit-any */
+                        //   // form value shape: Array<{ key: string; detail?: string }>
+                        //   const current: { key: string; detail?: string }[] =
+                        //     formik.values[question.fieldName] || [];
 
-                          const handleDetailChange = (key: string, detail: string) => {
-                            const next = current.map((c) => (c.key === key ? { ...c, detail } : c));
-                            // if input typed for a not-yet-selected item, add it
-                            if (!next.find((n) => n.key === key)) next.push({ key, detail });
-                            formik.setFieldValue(question.fieldName, next);
-                          };
+                        //   // derive selected keys set from current value
+                        //   const selectedKeys = new Set(current.map((v) => v.key));
 
-                          return (
-                            <div className="flex flex-col gap-2 ">
-                              <ListboxWrapper>
-                                <Listbox
-                                  disallowEmptySelection={false}
-                                  aria-label={question.text}
-                                  selectedKeys={selectedKeys}
-                                  selectionMode="multiple"
-                                  variant="flat"
-                                  onSelectionChange={handleSelectionChange}
-                                >
-                                  {items.map((item) => {
-                                    const detail = current.find((c) => c.key === item.key)?.detail || "";
-                                    return (
-                                      <ListboxItem key={item.key}>
-                                        <div className="flex items-center justify-between w-full">
-                                          <span>{item.label}</span>
-                                          <Input
-                                            type="text"
-                                            placeholder="Especificar"
-                                            value={detail}
-                                            className="ml-4 w-full"
-                                            onChange={(e) => {
-                                              e.stopPropagation();
-                                              handleDetailChange(item.key, e.currentTarget.value);
-                                            }}
-                                          />
-                                        </div>
-                                      </ListboxItem>
-                                    );
-                                  })}
-                                </Listbox>
-                              </ListboxWrapper>
+                        //   /* eslint-disable @typescript-eslint/no-explicit-any */
+                        //   const handleSelectionChange = (keys: any) => {
+                        //     const newKeys = Array.from(keys as Iterable<string>);
+                        //     // keep existing details when possible
+                        //     const map = Object.fromEntries(current.map((c) => [c.key, c.detail || ""]));
+                        //     const newValue = newKeys.map((k) => ({ key: k, detail: map[k] ?? "" }));
+                        //     formik.setFieldValue((question as any).fieldName, newValue);
+                        //   };
 
-                              <p className="text-small text-default-500">
-                                {/* eslint-disable @typescript-eslint/no-explicit-any */}
-                                {(formik.values[question.fieldName] || [])
-                                  .map((v: any) => (v.detail ? `${v.key}: ${v.detail}` : v.key))
-                                  .join(", ")}
-                                {/* eslint-enable @typescript-eslint/no-explicit-any */}
-                              </p>
 
-                              {touched[question.fieldName] && errors[question.fieldName] && (
-                                <span className="text-danger text-xs">{errors[question.fieldName]}</span>
-                              )}
-                            </div>
-                          );
-                        }
+                        //   const handleDetailChange = (key: string, detail: string) => {
+                        //     const next = current.map((c) => (c.key === key ? { ...c, detail } : c));
+
+                        //     if (!next.find((n) => n.key === key)) next.push({ key, detail });
+                        //     formik.setFieldValue((question as any).fieldName, next);
+                        //   };
+                        //   /* eslint-enable @typescript-eslint/no-explicit-any */
+
+                        //   return (
+                        //     <div className="flex flex-col gap-2 ">
+                        //       <ListboxWrapper>
+                        //         <Listbox
+                        //           disallowEmptySelection={false}
+                        //           aria-label={question.text}
+                        //           selectedKeys={selectedKeys}
+                        //           selectionMode="multiple"
+                        //           variant="flat"
+                        //           onSelectionChange={handleSelectionChange}
+                        //         >
+                        //           {items.map((item) => {
+                        //             const detail = current.find((c) => c.key === item.key)?.detail || "";
+                        //             return (
+                        //               <ListboxItem key={item.key}>
+                        //                 <div className="flex items-center justify-between w-full">
+                        //                   <span>{item.label}</span>
+                        //                   <Input
+                        //                     type="text"
+                        //                     placeholder="Especificar"
+                        //                     value={detail}
+                        //                     className="ml-4 w-full"
+                        //                     onChange={(e) => {
+                        //                       e.stopPropagation();
+                        //                       handleDetailChange(item.key, e.currentTarget.value);
+                        //                     }}
+                        //                   />
+                        //                 </div>
+                        //               </ListboxItem>
+                        //             );
+                        //           })}
+                        //         </Listbox>
+                        //       </ListboxWrapper>
+
+                        //       <p className="text-small text-default-500">
+                        //         {/* eslint-disable @typescript-eslint/no-explicit-any */}
+                        //         {(formik.values[question.fieldName] || [])
+                        //           .map((v: any) => (v.detail ? `${v.key}: ${v.detail}` : v.key))
+                        //           .join(", ")}
+                        //         {/* eslint-enable @typescript-eslint/no-explicit-any */}
+                        //       </p>
+
+                        //       {touched[question.fieldName] && errors[question.fieldName] && (
+                        //         <span className="text-danger text-xs">{errors[question.fieldName]}</span>
+                        //       )}
+                        //     </div>
+                        //   );
+                        // }
                         default:
                           return (
                             <span>
@@ -550,7 +559,9 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                           );
                       }
                     })()}
-                    {/* eslint-enable @typescript-eslint/explicit-function-return-type */}
+                    {
+                    /* eslint-enable @typescript-eslint/no-explicit-any */
+                    /* eslint-enable @typescript-eslint/explicit-function-return-type */}
                   </li>
                 ))}
               </ul>
