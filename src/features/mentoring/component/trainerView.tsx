@@ -12,7 +12,11 @@ const LucideIconRenderer = dynamic(
   }
 );
 
-const TrainerView = ({ inscriptionId }: number): React.JSX.Element => {
+type TrainerViewProps = {
+  inscriptionId: number;
+};
+
+const TrainerView = ({ inscriptionId }: TrainerViewProps): React.JSX.Element => {
   const { appendixsList } = useAppendixList();
 
   const truncateText = (text: string, maxLength: number): string => {
