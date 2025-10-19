@@ -7,12 +7,6 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/funtions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Appendix2Input = {
-  anx2Ask1: [],
-  // ask2: "",
-  // ask3: "",
-  // ask4: "",
-  // ask5: "",
-  // ask6: "",
   anx2Ask7: "",
   anx2Ask8: "",
   anx2Ask9: "",
@@ -41,27 +35,7 @@ const useAppendix2Form = (inscriptionId?: number): FormikProps<IAppendix2Input> 
     values: Appendix2Input,
     formikHelpers: FormikHelpers<IAppendix2Input>
   ): Promise<void> => {
-    const anx2Ask1Field = values.anx2Ask1;
-    const anx2Ask7Field = values.anx2Ask7;
-    const anx2Ask8Field = values.anx2Ask8;
-    const anx2Ask9Field = values.anx2Ask9;
-    const anx2Ask10Field = values.anx2Ask10;
-    const anx2Ask11Field = values.anx2Ask11;
-    const anx2Ask12Field = values.anx2Ask12;
-    const anx2Ask13Field = values.anx2Ask13;
-    const anx2Ask14Field = values.anx2Ask14;
-    const anx2Ask15Field = values.anx2Ask15;
-    const anx2Ask16Field = values.anx2Ask16;
-    const anx2Ask17Field = values.anx2Ask17;
-    const anx2Ask18Field = values.anx2Ask18;
-    const anx2Ask19Field = values.anx2Ask19;
-    const anx2Ask20Field = values.anx2Ask20;
-    const anx2Ask21Field = values.anx2Ask21;
-    const anx2Ask22Field = values.anx2Ask22;
-    const anx2Ask23Field = values.anx2Ask23;
-    const anx2Ask24Field = values.anx2Ask24;
     const askMapField = values.questionMap;
-    const nameField = "Anexo 2";
 
     const responseDataWithIds = Object?.keys(values)
       .map((fieldName) => {
@@ -80,155 +54,11 @@ const useAppendix2Form = (inscriptionId?: number): FormikProps<IAppendix2Input> 
         return null; // Ignore other Formik values if necessary
       })
       .filter((item) => item !== null);
-    console.log(responseDataWithIds, "###########");
 
-    const data = [
-      {
-        name: nameField,
-        textQuestion: "1",
-        textAnswer: ask1Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "2",
-        textAnswer: ask2Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "3",
-        textAnswer: ask3Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "4",
-        textAnswer: ask4Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "5",
-        textAnswer: ask5Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "6",
-        textAnswer: ask6Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "7",
-        textAnswer: ask7Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "8",
-        textAnswer: ask8Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "9",
-        textAnswer: ask9Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "10",
-        textAnswer: ask10Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "11",
-        textAnswer: ask11Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "12",
-        textAnswer: ask12Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "13",
-        textAnswer: ask13Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "14",
-        textAnswer: ask14Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "15",
-        textAnswer: ask15Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "16",
-        textAnswer: ask16Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "17",
-        textAnswer: ask17Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "18",
-        textAnswer: ask18Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "19",
-        textAnswer: ask19Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      },
-      {
-        name: nameField,
-        textQuestion: "20",
-        textAnswer: ask20Field,
-        teacherRoleId: 1,
-        mentorRoleId: 2
-      }
-    ];
-
-    data.map(async (item) => {
+    responseDataWithIds.map(async (item) => {
       try {
         const res: AxiosResponse<FetchResponse<IAppendix2Input>> = await useRequest.post(
-          "/appendix-test/create",
+          "/answer/create",
           item
         );
 

@@ -32,6 +32,7 @@ import type { IAppendix2Input } from "../type";
 import Link from "next/link";
 import { useAppendixDetailsList } from "@/features/attachment/hooks/appendix/useAppendixDetailList";
 import { parseDate } from "@internationalized/date";
+import ProgressCustom from "@/shared/ui/custom/progressCustom";
 
 interface ClasificationChildrenData {
   id: string;
@@ -71,30 +72,32 @@ export interface SelectItemData {
 const educationLevelServedList = dataList.filter((item) => item.name === "educationalLevelServed");
 const ampmList = dataList.filter((item) => item.name === "ampm");
 
-type Appendix1FormProps = {
+type Appendix2FormProps = {
   formik: FormikProps<IAppendix2Input>;
   id: number;
 };
 
-const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element => {
+const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
   const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
 
-  const getQuestionIdMap = (sections:any) => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const getQuestionIdMap = (sections: any): any => {
     const idMap = {};
     sections?.forEach((section) => {
-      section.Question.forEach((question:any) => {
+      section.Question.forEach((question: any) => {
         idMap[question.fieldName] = question.id;
       });
     });
     return idMap;
   };
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   const questionIdMap = getQuestionIdMap(appendixDetailsList?.Section || []);
 
-  const [formData, setFormData] = useState({
+  const [setFormData] = useState({
     shift: "",
     section: "",
     girlNumber: 0,
@@ -102,7 +105,6 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
     girlDisabilityNumber: 0,
     boyDisabilityNumber: 0
   });
-  const [selectedParticipated, setselectedParticipated] = useState();
   const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<
     ClasificationChildrenData[]
   >([]);
@@ -151,18 +153,13 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
-    console.log(questionIdMap,"$$$");
-    
     formik.values.questionMap = questionIdMap;
-
     handleSubmit();
     onOpenChange();
   };
   /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set(["text"]));
-
-  const selectedValue = React.useMemo(() => Array.from(selectedKeys).join(", "), [selectedKeys]);
+  if (!appendixDetailsList) return <ProgressCustom />;
 
   return (
     <div className="flex justify-center">
@@ -346,8 +343,8 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                               value={
                                 formik.values[question.fieldName]
                                   ? parseDate(
-                                    formik.values[question.fieldName].toISOString().slice(0, 10)
-                                  )
+                                      formik.values[question.fieldName].toISOString().slice(0, 10)
+                                    )
                                   : null
                               }
                               isInvalid={Boolean(
@@ -364,6 +361,22 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                               }}
                             />
                           );
+                        // case "TEXT":
+                        //   return (
+                        //     <Input
+                        //       name={question.fieldName}
+                        //       value={formik.values[question.fieldName] || ""}
+                        //       errorMessage={
+                        //         touched[question.fieldName] && errors[question.fieldName]
+                        //           ? errors[question.fieldName]
+                        //           : undefined
+                        //       }
+                        //       isInvalid={Boolean(
+                        //         touched[question.fieldName] && errors[question.fieldName]
+                        //       )}
+                        //       onChange={formik.handleChange}
+                        //     />
+                        //   );
                         case "TEXT":
                           return (
                             <Input
@@ -377,7 +390,10 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                               isInvalid={Boolean(
                                 touched[question.fieldName] && errors[question.fieldName]
                               )}
-                              onChange={formik.handleChange}
+                              onChange={(stringValue) => {
+                                const answerValue = stringValue.target.value;
+                                formik.setFieldValue(question.fieldName, answerValue);
+                              }}
                             />
                           );
                         case "SELECT": {
@@ -401,26 +417,64 @@ const Appendix2View = ({ formik, id }: Appendix1FormProps): React.JSX.Element =>
                             </Select>
                           );
                         }
+                        // case "RADIO": {
+                        //   const items: SelectItemData[] = (question.options as any[]) || [];
+                        //   const currentValue = formik.values[question.fieldName] ?? "";
+                        //   return (
+                        //     <RadioGroup
+                        //       value={selectedParticipated}
+                        //       orientation="horizontal"
+                        //       onChange={(val: string) =>
+                        //       {console.log(val,"aquiav");
+
+                        //         formik.setFieldValue(question.fieldName, val)}
+
+                        //       }
+                        //     >
+                        //       {items.map((option, index) => {
+                        //         const optValue = (option as any).value ?? (option as any).key;
+                        //         return (
+                        //           <Radio key={optValue} value={optValue}>
+                        //             {(option as any).label}
+                        //           </Radio>);
+                        //       })}
+                        //     </RadioGroup>
+                        //   );
+                        // }
                         case "RADIO": {
+                          /* eslint-disable @typescript-eslint/no-explicit-any */
                           const items: SelectItemData[] = (question.options as any[]) || [];
+
+                          // current value from Formik (string)
                           const currentValue = formik.values[question.fieldName] ?? "";
+
+                          const handleChange = (val: any) => {
+                            const v = val == null ? "" : String(val);
+                            formik.setFieldValue(question.fieldName, v);
+                            formik.setFieldTouched(question.fieldName, true, false);
+                          };
+
                           return (
                             <RadioGroup
-                              value={selectedParticipated}
+                              // try both handlers if needed by the library
+                              value={currentValue}
                               orientation="horizontal"
-                              onChange={(val: string) =>
-                                formik.setFieldValue(question.fieldName, val)
-                              }
+                              onChange={handleChange}
+                              onValueChange={handleChange}
                             >
-                              {items.map((option, index) => {
+                              {items.map((option) => {
                                 const optValue = (option as any).value ?? (option as any).key;
                                 return (
-                                  <Radio key={optValue} value={optValue}>
+                                  <Radio key={String(optValue)} value={String(optValue)}>
                                     {(option as any).label}
-                                  </Radio>);
+                                  </Radio>
+                                );
                               })}
                             </RadioGroup>
                           );
+                          {
+                            /* eslint-enable @typescript-eslint/no-explicit-any */
+                          }
                         }
                         case "MULTI_CHOICE_DETAIL": {
                           // items expected to be SelectItemData[]

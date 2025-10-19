@@ -10,12 +10,6 @@ export interface DetailChildren {
 }
 
 export interface Appendix2Input {
-  anx2Ask1: DetailChildren[];
-  // ask2: string;
-  // ask3: string;
-  // ask4: string;
-  // ask5: string;
-  // ask6: string;
   anx2Ask7: string;
   anx2Ask8: string;
   anx2Ask9: string;

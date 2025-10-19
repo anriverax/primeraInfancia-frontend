@@ -38,7 +38,6 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
         return null;
       })
       .filter((item) => item !== null);
-console.log(responseDataWithIds);
 
     responseDataWithIds.map(async (item) => {
       try {
