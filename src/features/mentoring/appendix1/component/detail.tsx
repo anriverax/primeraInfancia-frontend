@@ -22,9 +22,10 @@ import ProgressCustom from "@/shared/ui/custom/progressCustom";
 type Appendix1FormProps = {
   formik: FormikProps<IAppendix1Input>;
   id: number;
+  inscription?: number;
 };
 
-const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Element => {
+const TrainerDetailView = ({ formik, id, inscription }: Appendix1FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting } = formik;
   const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -98,8 +99,8 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
                               value={
                                 formik.values[question.fieldName]
                                   ? parseDate(
-                                      formik.values[question.fieldName].toISOString().slice(0, 10)
-                                    )
+                                    formik.values[question.fieldName].toISOString().slice(0, 10)
+                                  )
                                   : null
                               }
                               isInvalid={Boolean(
@@ -157,7 +158,7 @@ const TrainerDetailView = ({ formik, id }: Appendix1FormProps): React.JSX.Elemen
               variant="shadow"
               type="button"
               as={Link}
-              href="/admin/mentoria"
+              href={`/admin/grupos/anexos/${inscription}`}
               startContent={<StepBack />}
             >
               Regresar

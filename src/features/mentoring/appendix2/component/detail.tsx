@@ -343,8 +343,8 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                               value={
                                 formik.values[question.fieldName]
                                   ? parseDate(
-                                      formik.values[question.fieldName].toISOString().slice(0, 10)
-                                    )
+                                    formik.values[question.fieldName].toISOString().slice(0, 10)
+                                  )
                                   : null
                               }
                               isInvalid={Boolean(
@@ -361,22 +361,6 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                               }}
                             />
                           );
-                        // case "TEXT":
-                        //   return (
-                        //     <Input
-                        //       name={question.fieldName}
-                        //       value={formik.values[question.fieldName] || ""}
-                        //       errorMessage={
-                        //         touched[question.fieldName] && errors[question.fieldName]
-                        //           ? errors[question.fieldName]
-                        //           : undefined
-                        //       }
-                        //       isInvalid={Boolean(
-                        //         touched[question.fieldName] && errors[question.fieldName]
-                        //       )}
-                        //       onChange={formik.handleChange}
-                        //     />
-                        //   );
                         case "TEXT":
                           return (
                             <Input
