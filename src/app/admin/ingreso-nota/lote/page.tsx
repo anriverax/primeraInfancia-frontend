@@ -10,15 +10,9 @@ export default function GroupsPage(): React.JSX.Element {
     const [disabledSave, setDisabledSave] = useState(true)
     const [previewData, setPreviewData] = useState<string[][]>([]);
 
-    useEffect(() => {
-        if(previewData.length === 0){
-            setDisabledSave(true);
-        }
-        setDisabledSave(false);
-        console.log(disabledSave)
-    }, [previewData]);
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log('handle file upload ');
         const file = e.target.files?.[0];
         if (!file) return;
 
@@ -32,8 +26,8 @@ export default function GroupsPage(): React.JSX.Element {
                         .split(",")
                         .map((cell) => cell.replace(/\r/g, "").trim()) // limpia retornos de carro
                 );
-            console.log('here ', rows);
             setPreviewData(rows);
+            setDisabledSave(false);
             setFileUploadError(null);
         } catch (error) {
             console.error(error);
@@ -98,8 +92,8 @@ export default function GroupsPage(): React.JSX.Element {
                         </div>
                         <div className="flex flex-col space-y-3 pt-3">
                             <button
-                                disabled={previewData.length === 0}
-                                className={"w-full bg-gray-100 text-gray-500 py-2 rounded-md cursor-not-allowed"}
+                                disabled={disabledSave}
+                                className={`w-full  ${disabledSave? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-100'} text-gray-500 py-2 rounded-md `}
                                 onClick={() => {
                                     setPreviewData([]);
                                 }}
@@ -108,7 +102,7 @@ export default function GroupsPage(): React.JSX.Element {
                             </button>
                             <button
                                 disabled={disabledSave}
-                                className="w-full bg-gray-100 text-gray-500 py-2 rounded-md cursor-not-allowed"
+                                className={`w-full  ${disabledSave ? 'bg-gray-100 cursor-not-allowed' : 'bg-blue-100'} text-gray-500 py-2 rounded-md`}
                             >
                                 Almacenar archivo
                             </button>
