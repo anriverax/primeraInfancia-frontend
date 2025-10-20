@@ -3,6 +3,13 @@
 import { FileText, Download } from "lucide-react";
 import { useRef, useState } from "react";
 
+const expectedColumns = [
+    { key: "email", label: "Correo electrónico" },
+    { key: "evaluationInstrumentId", label: "ID Instrumento de Evaluación" },
+    { key: "evaluationInstrumentDetailId", label: "ID Detalle (opcional)" },
+    { key: "score", label: "Nota" },
+];
+
 export default function Lote(): React.JSX.Element {
     const [fileUploadError, setFileUploadError] = useState<string | null>(null);
     const [disabledSave, setDisabledSave] = useState(true);
@@ -10,6 +17,7 @@ export default function Lote(): React.JSX.Element {
     const [file, setFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [loading, setLoading] = useState(false);
+    const [mapping, setMapping] = useState<Record<string, string>>({});
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
@@ -25,6 +33,17 @@ export default function Lote(): React.JSX.Element {
                     row.split(",").map((cell) => cell.replace(/\r/g, "").trim())
                 );
             setPreviewData(rows);
+
+            const headers = rows[0];
+            const autoMap: Record<string, string> = {};
+            expectedColumns.forEach(({ key }) => {
+                const match = headers.find((h) =>
+                    h.toLowerCase().includes(key.toLowerCase())
+                );
+                if (match) autoMap[key] = match;
+            });
+            setMapping(autoMap);
+
             setDisabledSave(false);
             setFileUploadError(null);
         } catch (error) {
@@ -37,28 +56,35 @@ export default function Lote(): React.JSX.Element {
         setPreviewData([]);
         setDisabledSave(true);
         setFile(null);
+        setMapping({});
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
         }
     };
 
-    const handleSaveToS3 = async () => {
+    const handleMappingChange = (key: string, value: string) => {
+        setMapping((prev) => ({ ...prev, [key]: value }));
+    };
+
+    const handleSaveToBackend = async () => {
         if (!file) return;
         setLoading(true);
         try {
             const formData = new FormData();
             formData.append("file", file);
+            formData.append("mapping", JSON.stringify(mapping));
 
-            // const res = await fetch("/api/upload", {
-            //     method: "POST",
-            //     body: formData,
-            // });
-            //
-            // if (!res.ok) throw new Error("Error al subir el archivo");
-            // const data = await res.json();
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!res.ok) throw new Error("Error al subir el archivo");
+            alert("Archivo procesado correctamente ✅");
+            handleRetry();
         } catch (err) {
             console.error(err);
-            setFileUploadError("No se pudo subir el archivo a S3.");
+            setFileUploadError("No se pudo subir el archivo al backend.");
         } finally {
             setLoading(false);
         }
@@ -80,8 +106,7 @@ export default function Lote(): React.JSX.Element {
                 </div>
 
                 <div className="w-full flex justify-center">
-                    <div
-                        className="bg-white rounded-xl shadow-md border border-gray-100 p-6 w-full max-w-2xl text-center space-y-5">
+                    <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 w-full max-w-2xl text-center space-y-5">
                         <h4 className="text-lg font-semibold text-gray-800">
                             Cargar archivo de calificaciones
                         </h4>
@@ -124,7 +149,9 @@ export default function Lote(): React.JSX.Element {
                             <button
                                 disabled={disabledSave}
                                 className={`w-full ${
-                                    disabledSave ? "bg-gray-100 cursor-not-allowed" : "bg-blue-100"
+                                    disabledSave
+                                        ? "bg-gray-100 cursor-not-allowed"
+                                        : "bg-blue-100"
                                 } text-gray-700 py-2 rounded-md`}
                                 onClick={handleRetry}
                             >
@@ -134,13 +161,48 @@ export default function Lote(): React.JSX.Element {
                             <button
                                 disabled={disabledSave || loading}
                                 className={`w-full ${
-                                    disabledSave ? "bg-gray-100 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 text-white"
+                                    disabledSave
+                                        ? "bg-gray-100 cursor-not-allowed"
+                                        : "bg-blue-600 hover:bg-blue-700 text-white"
                                 } py-2 rounded-md transition`}
-                                onClick={handleSaveToS3}
+                                onClick={handleSaveToBackend}
                             >
                                 {loading ? "Guardando..." : "Almacenar archivo"}
                             </button>
                         </div>
+
+                        {/* Nuevo bloque: mapeo de columnas */}
+                        {previewData.length > 0 && (
+                            <div className="mt-6 text-left">
+                                <h5 className="font-semibold text-gray-700 mb-2 text-sm">
+                                    Mapeo de columnas
+                                </h5>
+                                <div className="space-y-2">
+                                    {expectedColumns.map(({ key, label }) => (
+                                        <div
+                                            key={key}
+                                            className="flex items-center justify-between border-b border-gray-100 pb-1"
+                                        >
+                      <span className="text-sm text-gray-700 w-1/2">
+                        {label}
+                      </span>
+                                            <select
+                                                className="border border-gray-300 rounded-md px-2 py-1 text-sm text-gray-700 w-1/2"
+                                                value={mapping[key] || ""}
+                                                onChange={(e) => handleMappingChange(key, e.target.value)}
+                                            >
+                                                <option value="">-- Seleccionar columna --</option>
+                                                {previewData[0].map((header) => (
+                                                    <option key={header} value={header}>
+                                                        {header}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {previewData.length > 0 && (
                             <div className="overflow-x-auto mt-6 border border-gray-200 rounded-md">
