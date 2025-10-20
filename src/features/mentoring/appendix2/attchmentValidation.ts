@@ -1,9 +1,15 @@
 import { object, ObjectSchema } from "yup";
 import { Appendix2Input } from "./type";
 import { validationMessages } from "@/shared/constants";
-import { stringField, mixedField } from "@/shared/utils/functions";
+import { stringField, numberField } from "@/shared/utils/functions";
 
 export const appendix2Schema: ObjectSchema<Appendix2Input> = object({
+  anx2Ask1: stringField(validationMessages.required),
+  anx2Ask2: stringField(validationMessages.required),
+  anx2Ask3: numberField(validationMessages.required),
+  anx2Ask4: numberField(validationMessages.required),
+  anx2Ask5: numberField(validationMessages.required),
+  anx2Ask6: numberField(validationMessages.required),
   anx2Ask7: stringField(validationMessages.required),
   anx2Ask8: stringField(validationMessages.required),
   anx2Ask9: stringField(validationMessages.required),
@@ -21,6 +27,5 @@ export const appendix2Schema: ObjectSchema<Appendix2Input> = object({
   anx2Ask21: stringField(validationMessages.required),
   anx2Ask22: stringField(validationMessages.required),
   anx2Ask23: stringField(validationMessages.required),
-  anx2Ask24: stringField(validationMessages.required),
-  questionMap: mixedField()
+  anx2Ask24: stringField(validationMessages.required)
 });
