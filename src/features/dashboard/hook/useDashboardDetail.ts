@@ -15,8 +15,7 @@ const useDashboardDetail = (): {
 
     const fetchData = async (): Promise<void> => {
       try {
-        const res: AxiosResponse<IDashboardResume> =
-          await useRequest.get("/dashboard/resume");
+        const res: AxiosResponse<IDashboardResume> = await useRequest.get("/dashboard/resume");
 
         if (isMounted) {
           const { data } = res;

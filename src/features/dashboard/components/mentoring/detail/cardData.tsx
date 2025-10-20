@@ -3,12 +3,12 @@ import React from "react";
 import CardLayoutDashboard from "../../cardLayoutDashboard";
 import { IGroupCount } from "@/features/dashboard/dashboardType";
 
-type GenderProps = {
+type DataProps = {
   title: string;
   data: IGroupCount[];
 };
 
-const GenderBy = ({ title, data }: GenderProps): React.JSX.Element => (
+const DataBy = ({ title, data }: DataProps): React.JSX.Element => (
   <CardLayoutDashboard title={title}>
     <ul className="grid grid-cols-2 gap-6 items-center mb-6 justify-between">
       {data.map((gender, index: number) => (
@@ -34,4 +34,4 @@ const GenderBy = ({ title, data }: GenderProps): React.JSX.Element => (
   </CardLayoutDashboard>
 );
 
-export default GenderBy;
+export default DataBy;

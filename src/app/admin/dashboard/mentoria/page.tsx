@@ -1,17 +1,18 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useDashboardMentoring } from "@/features/dashboard/hook/useDashboardMentoring";
+
+import DataBy from "@/features/dashboard/components/mentoring/detail/cardData";
+import EarlyEducation from "@/features/dashboard/components/mentoring/detail/earlyEducation"
+import ExtraEducation from "@/features/dashboard/components/mentoring/detail/extraEducation"
+// import { useDashboardMentoring } from "@/features/dashboard/hook/useDashboardMentoring";
 import { useDashboardDetail } from "@/features/dashboard/hook/useDashboardDetail";
-import { IAppendix, IGroupCount, IDashboardResume } from "@/features/dashboard/dashboardType";
-import PieChartLayout from "@/features/dashboard/components/pieChartLayout";
+//import { IAppendix, IGroupCount, IDashboardResume } from "@/features/dashboard/dashboardType";
+//import PieChartLayout from "@/features/dashboard/components/pieChartLayout";
 
 const DashboardMentoringPage = (): React.JSX.Element => {
-  const { mentoringFilters } = useDashboardMentoring();
+  // const { mentoringFilters } = useDashboardMentoring();
   const { dashboardDetail } = useDashboardDetail();
 
-  if (!mentoringFilters) return <></>;
-  if (!dashboardDetail) return <></>;
-
+  // if (!mentoringFilters) return <></>;
   // return (
   //   <div>
   //     <>
@@ -52,45 +53,27 @@ const DashboardMentoringPage = (): React.JSX.Element => {
   //   </div>
   // );
 
+  if (!dashboardDetail) return <></>;
+  const teacherGender = [{ label: "Hombres", count: dashboardDetail.teacherMale }, { label: "Mujeres", count: dashboardDetail.teacherFemale }]
+  const teacherShift = [{ label: "Matutino", count: dashboardDetail.teacherShiftAm }, { label: "Vespertino", count: dashboardDetail.teacherShiftPm }]
+
+
   return (
     <div>
       <>
-        {/* {dashboardDetail.map((appendix: IDashboardResume, index) => ( */}
-        <div className="my-6 gap-6 ">
-          <div>{dashboardDetail.teacherFemale}</div>
-          <div>{dashboardDetail.teacherMale}</div>
-          <div className="grid grid-cols-2 gap-12 items-center">
-            {/* <div>
-                {appendix.answers
-                  .filter((a) => a.time === 1)
-                  .map((item: any, idx: number) => (
-                    <div key={idx} className="mb-4">
-                      <PieChartLayout
-                        title="Asistencia por mentoría"
-                        height="h-[400px]"
-                        data={item.labels as IGroupCount[]}
-                      />
-                    </div>
-                  ))}
-              </div>
-              <div>
-                {appendix.answers
-                  .filter((a) => a.time === 2)
-                  .map((item: any, idx: number) => (
-                    <div key={idx} className="mb-4">
-                      <PieChartLayout
-                        title="Asistencia por mentoría"
-                        height="h-[400px]"
-                        data={item.labels as IGroupCount[]}
-                      />
-                    </div>
-                  ))}
-              </div> */}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-12 h-auto">
+          <DataBy title="Docentes" data={teacherGender} />
+          <DataBy title="Turno" data={teacherShift} />
+
         </div>
-        {/* ))} */}
+        <div className="2xl:flex my-12 gap-12">
+          <EarlyEducation data={dashboardDetail.earlyEducation} />
+        </div>
+          <div className="2xl:flex my-12 gap-12">
+          <ExtraEducation data={dashboardDetail.extraEducation} />
+        </div>
       </>
-    </div>
+    </div >
   );
 };
 
