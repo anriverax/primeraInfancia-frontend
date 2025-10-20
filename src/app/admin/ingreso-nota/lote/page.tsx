@@ -5,9 +5,10 @@ import { useRef, useState } from "react";
 
 const expectedColumns = [
     { key: "email", label: "Correo electrónico" },
-    { key: "evaluationInstrumentId", label: "ID Instrumento de Evaluación" },
-    { key: "evaluationInstrumentDetailId", label: "ID Detalle (opcional)" },
+    { key: "evaluationInstrumentId", label: "Código del Módulo" },
+    { key: "evaluationInstrumentDetailId", label: "Instrumento" },
     { key: "score", label: "Nota" },
+    { key: "evaluation_number", label: "Numero de evaluacion" },
 ];
 
 export default function Lote(): React.JSX.Element {
@@ -29,19 +30,17 @@ export default function Lote(): React.JSX.Element {
             const rows = text
                 .trim()
                 .split("\n")
-                .map((row) =>
-                    row.split(",").map((cell) => cell.replace(/\r/g, "").trim())
-                );
+                .map((row) => row.split(",").map((cell) => cell.replace(/\r/g, "").trim()));
+
             setPreviewData(rows);
 
-            const headers = rows[0];
+            const headers = rows[0].map((h) => h.trim());
             const autoMap: Record<string, string> = {};
             expectedColumns.forEach(({ key }) => {
-                const match = headers.find((h) =>
-                    h.toLowerCase().includes(key.toLowerCase())
-                );
+                const match = headers.find((h) => h.toLowerCase().includes(key.toLowerCase()));
                 if (match) autoMap[key] = match;
             });
+
             setMapping(autoMap);
 
             setDisabledSave(false);
@@ -57,9 +56,7 @@ export default function Lote(): React.JSX.Element {
         setDisabledSave(true);
         setFile(null);
         setMapping({});
-        if (fileInputRef.current) {
-            fileInputRef.current.value = "";
-        }
+        if (fileInputRef.current) fileInputRef.current.value = "";
     };
 
     const handleMappingChange = (key: string, value: string) => {
@@ -94,22 +91,16 @@ export default function Lote(): React.JSX.Element {
         <div className="space-y-8">
             <div className="flex flex-col w-full gap-6">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">
-                        Ingreso de calificaciones
-                    </h2>
+                    <h2 className="text-2xl font-bold text-gray-900">Ingreso de calificaciones</h2>
                 </div>
 
                 <div>
-                    <h3 className="text-gray-700 font-semibold text-lg">
-                        Procesamiento por lotes
-                    </h3>
+                    <h3 className="text-gray-700 font-semibold text-lg">Procesamiento por lotes</h3>
                 </div>
 
                 <div className="w-full flex justify-center">
                     <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 w-full max-w-2xl text-center space-y-5">
-                        <h4 className="text-lg font-semibold text-gray-800">
-                            Cargar archivo de calificaciones
-                        </h4>
+                        <h4 className="text-lg font-semibold text-gray-800">Cargar archivo de calificaciones</h4>
 
                         <div className="flex justify-end">
                             <a
@@ -122,9 +113,7 @@ export default function Lote(): React.JSX.Element {
                         </div>
 
                         <div className="space-y-3">
-                            <label className="block text-sm text-gray-600">
-                                Seleccione el archivo
-                            </label>
+                            <label className="block text-sm text-gray-600">Seleccione el archivo</label>
 
                             <label className="flex flex-col items-center justify-center border border-gray-300 rounded-md py-3 cursor-pointer hover:bg-gray-50 transition">
                                 <FileText className="w-5 h-5 text-gray-400 mb-1" />
@@ -149,9 +138,7 @@ export default function Lote(): React.JSX.Element {
                             <button
                                 disabled={disabledSave}
                                 className={`w-full ${
-                                    disabledSave
-                                        ? "bg-gray-100 cursor-not-allowed"
-                                        : "bg-blue-100"
+                                    disabledSave ? "bg-gray-100 cursor-not-allowed" : "bg-blue-100"
                                 } text-gray-700 py-2 rounded-md`}
                                 onClick={handleRetry}
                             >
@@ -183,9 +170,7 @@ export default function Lote(): React.JSX.Element {
                                             key={key}
                                             className="flex items-center justify-between border-b border-gray-100 pb-1"
                                         >
-                      <span className="text-sm text-gray-700 w-1/2">
-                        {label}
-                      </span>
+                                            <span className="text-sm text-gray-700 w-1/2">{label}</span>
                                             <select
                                                 className="border border-gray-300 rounded-md px-2 py-1 text-sm text-gray-700 w-1/2"
                                                 value={mapping[key] || ""}

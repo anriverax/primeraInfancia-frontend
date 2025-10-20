@@ -15,25 +15,25 @@ export default function NotasFormacion(): React.JSX.Element {
         grade: number;
     }
     type IGradeColumnKey =
-        | "Docente"
-        | "Instrumento"
-        | "Nota"
-        | "Comentario";
+        | "docente"
+        | "instrumento"
+        | "nota"
+        | "comentario";
     const headerColumns: IColumns<IGradeColumnKey>[] = [
         {
-            key: 'Docente',
+            key: 'docente',
             label: 'Docente'
         },
         {
-            key: 'Instrumento',
+            key: 'instrumento',
             label: 'Instrumento de evaluación'
         },
         {
-            key: 'Nota',
+            key: 'nota',
             label: 'Calificación'
         },
         {
-            key: 'Comentario',
+            key: 'comentario',
             label: 'Comentario'
         }
     ]

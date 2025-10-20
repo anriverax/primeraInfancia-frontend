@@ -12,15 +12,21 @@ export default function Notas(): React.JSX.Element {
     }
     type IGradeColumnKey =
         | "Docente"
-        | "Modulo";
+        | "Modulo"
+        | "Instrumento"
+        | "Calificacion";
     const headerColumns: IColumns<IGradeColumnKey>[] = [
         {
             key: 'Docente',
-            label: 'docente'
+            label: 'Docente'
         },
         {
             key: 'Modulo',
-            label: 'modulo'
+            label: 'Módulo'
+        },
+        {
+            key: 'Calificacion',
+            label: 'Calificación'
         }
     ]
     const gradesList:[] = [];

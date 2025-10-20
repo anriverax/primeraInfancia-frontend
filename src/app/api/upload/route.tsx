@@ -3,49 +3,97 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/features/auth/service/nextAuth";
 
-const s3 = new S3Client({
-    region: process.env.AWS_REGION!,
-    credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-    },
-});
+const s3 = new S3Client({ region: process.env.AWS_REGION });
 
 export async function POST(req: Request) {
+
+    const session = await getServerSession(authOptions);
+    if(session === null){
+        return NextResponse.json(
+            { message: "No session" },
+            { status: 401 }
+        );
+    }
+    if(session.user === null){
+        return NextResponse.json(
+            { message: "No user" },
+            { status: 401 }
+        );
+    }
+    console.log(' access token ', session?.accessToken);
+    console.log(' access token ', session.user?.email);
+
+    if (!session || !session.user.email || !session.accessToken) {
+        return NextResponse.json(
+            { message: "No autorizado o sesión expirada" },
+            { status: 401 }
+        );
+    }
+    const formData = await req.formData();
+    const file = formData.get("file") as File;
+    const mapping = JSON.parse(formData.get("mapping") as string);
+    const userEmail = session.user.email;
+    const token = session.accessToken ? session.accessToken.toString() : '';
+    if (!file) {
+        return NextResponse.json({ message: "Archivo no proporcionado" }, { status: 400 });
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const fileName = `grades/${Date.now()}_${file.name}`;
+    const bucket = process.env.AWS_S3_BUCKET!;
+
     try {
-        const session = await getServerSession(authOptions);
-        if (!session || !session.user?.email) {
-            return NextResponse.json(
-                { error: "Usuario no autenticado" },
-                { status: 401 }
-            );
-        }
-
-        console.log('session --> ', session)
-
-        const formData = await req.formData();
-        const file = formData.get("file") as File;
-        if (!file) {
-            return NextResponse.json({ error: "Archivo no proporcionado" }, { status: 400 });
-        }
-
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const fileName = `grades/${Date.now()}_${file.name}`;
-
         await s3.send(
             new PutObjectCommand({
-                Bucket: process.env.AWS_S3_BUCKET!,
+                Bucket: bucket,
                 Key: fileName,
                 Body: buffer,
-                ContentType: "text/csv",
             })
         );
 
-        const url = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+        const s3Uri = `s3://${bucket}/${fileName}`;
+        console.log(s3Uri);
+        console.log('url ', `${process.env.NEXT_PUBLIC_BACKEND}/grade/upload`);
+        console.log('body ', {
+            fileName: file.name,
+            s3Uri,
+            mapping,
+            userEmail,
+        });
 
-        return NextResponse.json({ success: true, url });
-    } catch (err: any) {
-        console.error(err);
-        return NextResponse.json({ error: err.message }, { status: 500 });
+        const nestResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/grade/upload`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+
+            body: JSON.stringify({
+                filename: file.name,
+                s3uri: s3Uri,
+                mapping,
+                userEmail,
+            }),
+        });
+        console.log('nest response ', nestResponse);
+        if (!nestResponse.ok)
+            throw new Error("Error al registrar el archivo en NestJS");
+
+        const { id } = await nestResponse.json();
+
+        const processResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/grades/process-upload`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ uploadId: id }),
+        });
+
+        const result = await processResponse.json();
+
+        return NextResponse.json(result);
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ message: "Error al subir o procesar el archivo" }, { status: 500 });
     }
 }
