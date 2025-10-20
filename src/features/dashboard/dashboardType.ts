@@ -49,3 +49,17 @@ export interface IAppendix8 {
     labels: IGroupCount[];
   }[];
 }
+
+export interface CategoryAppendix {
+  label: string;
+  count: number;
+}
+
+export interface IDashboardResume {
+  teacherFemale: number;
+  teacherMale: number;
+  teacherShiftAm: number;
+  teacherShiftPm: number;
+  earlyEducation: CategoryAppendix[];
+  extraEducation: CategoryAppendix[];
+}
