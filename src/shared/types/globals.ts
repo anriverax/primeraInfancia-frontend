@@ -39,11 +39,10 @@ export interface FormikProps<T> {
     _value: any,
     _shouldValidate?: boolean
   ) => Promise<FormikErrors<T>> | Promise<void>;
-  /* eslint-disable no-unused-vars */
+
   setTouched?: (touched: FormikTouched<T>, shouldValidate?: boolean) => void;
   setFieldTouched?: (field: string, touched?: boolean, shouldValidate?: boolean) => void;
   getFieldProps: (_nameOrOptions: string | FieldConfig<any>) => FieldInputProps<any>;
-  /* eslint-disable no-unused-vars */
 }
 
 export interface IColumns<T> {

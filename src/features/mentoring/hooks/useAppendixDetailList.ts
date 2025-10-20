@@ -2,14 +2,9 @@ import useAxios from "@/shared/hooks/useAxios";
 import { useEffect } from "react";
 import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
-<<<<<<< HEAD:src/features/attachment/hooks/appendix/useAppendixDetailList.ts
-import { IAppendixDetailTable, AppendixDetailListResult } from "../../appendixDetailType";
-import { handleAxiosError } from "@/shared/utils/functions";
-=======
 import { IAppendixDetailTable, AppendixDetailListResult } from "../mentoringType";
-import { handleAxiosError } from "@/shared/utils/funtions";
+import { handleAxiosError } from "@/shared/utils/functions";
 import { useAppendixDetailListStore } from "@/shared/hooks/store/useAppendixDetailListStore";
->>>>>>> feat/dynamic-appendix:src/features/mentoring/hooks/useAppendixDetailList.ts
 
 const useAppendixDetailsList = (id: number): AppendixDetailListResult => {
   const { appendixDetailsList, setAppendixDetailsList } = useAppendixDetailListStore();
@@ -38,11 +33,8 @@ const useAppendixDetailsList = (id: number): AppendixDetailListResult => {
       isMounted = false;
     };
   }, []);
-<<<<<<< HEAD:src/features/attachment/hooks/appendix/useAppendixDetailList.ts
 
   /* eslint-enable react-hooks/exhaustive-deps */
-=======
->>>>>>> feat/dynamic-appendix:src/features/mentoring/hooks/useAppendixDetailList.ts
   return { appendixDetailsList, setAppendixDetailsList };
 };
 

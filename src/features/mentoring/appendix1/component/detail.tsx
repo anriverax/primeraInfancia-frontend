@@ -17,7 +17,7 @@ import type { IAppendix1Input } from "../type";
 import Link from "next/link";
 import { useAppendixDetailsList } from "@/features/mentoring/hooks/useAppendixDetailList";
 import { parseDate } from "@internationalized/date";
-import ProgressCustom from "@/shared/ui/custom/progressCustom";
+import ProgressCustom from "@/shared/ui/custom/customProgress";
 
 type Appendix1FormProps = {
   formik: FormikProps<IAppendix1Input>;
