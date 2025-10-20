@@ -1,5 +1,4 @@
 import { AxiosMessage } from "@/shared/types/globals";
-import { number } from "framer-motion";
 
 export interface Appendix2Input {
   anx2Ask1: string;

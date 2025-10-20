@@ -186,7 +186,7 @@ const useAppendix2Form = (inscriptionId?: number): FormikProps<IAppendix2Input> 
         valueText: anx2Ask24Field,
         inscriptionId: inscriptionId ?? 0
       }
-    ]
+    ];
 
     try {
       await Promise.all(
@@ -195,6 +195,7 @@ const useAppendix2Form = (inscriptionId?: number): FormikProps<IAppendix2Input> 
             "/answer/create",
             item
           );
+          return res;
         })
       );
       showToast("Operación realizada", "success");

@@ -5,8 +5,6 @@ import { FileText, Save, StepBack, Trash2 } from "lucide-react";
 import {
   Button,
   Input,
-  Card,
-  CardBody,
   RadioGroup,
   Radio,
   Textarea,
@@ -23,14 +21,12 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  getKeyValue,
   useDisclosure
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { Appendix2Input } from "../type";
 import Link from "next/link";
-import { showToast } from "@/shared/utils/functions";
 
 interface ClasificationChildrenData {
   id: string;
@@ -63,7 +59,7 @@ export const dataList = [
   { name: "additionalEducation", key: "Maestría", label: "Maestría" },
   { name: "additionalEducation", key: "Doctorado", label: "Doctorado" },
   { name: "additionalEducation", key: "Especializacion/Diplomado", label: "Especializacion/Diplomado" },
-  { name: "additionalEducation", key: "Otro", label: "Otro" },
+  { name: "additionalEducation", key: "Otro", label: "Otro" }
 ];
 
 const experienceList = dataList.filter((item) => item.name === "experiencie");
@@ -81,22 +77,14 @@ type Attachment2FormProps = {
 
 const Attachment2Form = ({ formik, inscription }: Attachment2FormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
 
-  const [formData, setFormData] = useState({
-    shift: "",
-    section: "",
-    girlNumber: 0,
-    boyNumber: 0,
-    girlDisabilityNumber: 0,
-    boyDisabilityNumber: 0
-  });
   const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<
     ClasificationChildrenData[]
   >([]);
 
-  const handleDetailTeacher = () => {
+  const handleDetailTeacher = (): void => {
     // if (!values.shift || !values.section) {
     //   showToast(String("Por favor complete los campos obligatorios: Turno y Sección"), "danger");
     //   return
@@ -113,31 +101,15 @@ const Attachment2Form = ({ formik, inscription }: Attachment2FormProps): React.J
     };
 
     setClasificationChildrenEntries((prev) => [...prev, newEntry]);
-
-    setFormData({
-      shift: "",
-      section: "",
-      girlNumber: 0,
-      boyNumber: 0,
-      girlDisabilityNumber: 0,
-      boyDisabilityNumber: 0
-    });
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: string): void => {
     setClasificationChildrenEntries((prev) => prev.filter((entry) => entry.id !== id));
   };
 
   const getClasificacion = (entry: ClasificationChildrenData): number => {
     return Number(entry.girlNumber || 0) + Number(entry.boyNumber || 0);
   };
-
-  /* eslint-disable @typescript-eslint/explicit-function-return-type */
-  const handleOkSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onOpen();
-  };
-  /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   const handleConfirmSubmit = () => {
@@ -289,8 +261,8 @@ const Attachment2Form = ({ formik, inscription }: Attachment2FormProps): React.J
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => handleDelete(item.id)}
                             className="text-destructive hover:text-destructive"
+                            onClick={() => handleDelete(item.id)}
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
