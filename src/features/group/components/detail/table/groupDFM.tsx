@@ -9,6 +9,8 @@ const GroupDFM = (): React.JSX.Element => {
   const { groupDetailList } = useGroupDFM();
   const renderGroupDFM = useRenderGroupDFMCell();
 
+  groupDetailList?.sort((a, b) => (a.Person?.fullName ?? "").localeCompare(b.Person?.fullName ?? ""));
+
   return (
     <TableLayout>
       <Table

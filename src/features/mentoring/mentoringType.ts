@@ -30,8 +30,8 @@ export interface IAppendixDetailTable extends AppendixDetailInput {
 }
 
 export interface AppendixDetailListResult {
-  appendixDetailsList: IAppendixDetailTable[];
-  setAppendixDetailsList: (_appendixDetails: IAppendixDetailTable[]) => void;
+  appendixDetailsList: IAppendixDetailTable;
+  setAppendixDetailsList: (_appendixDetails: IAppendixDetailTable) => void;
 }
 
 export interface AppendixInput {

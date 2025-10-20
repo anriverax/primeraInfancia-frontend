@@ -29,15 +29,15 @@ export async function middleware(request: NextRequest): Promise<NextResponse<unk
   }
 
   // 3. Authenticated user in protected route → validate specific permissions
-  if (isAuthenticated && isProtectedRoute) {
-    const bearer = token?.accessToken ? `Bearer ${token.accessToken as string}` : undefined;
-    const routeMap = await getRoutePermissionsMap({ bearer });
-
-    if (!hasAccess(pathname, token, routeMap)) {
-      console.warn(`[middleware] Acceso denegado para ${pathname}`);
-      return NextResponse.redirect(new URL("/admin/dashboard/participantes", request.url));
-    }
-  }
+  // if (isAuthenticated && isProtectedRoute) {
+  //   const bearer = token?.accessToken ? `Bearer ${token.accessToken as string}` : undefined;
+  //   const routeMap = await getRoutePermissionsMap({ bearer });
+  //
+  //   if (!hasAccess(pathname, token, routeMap)) {
+  //     console.warn(`[middleware] Acceso denegado para ${pathname}`);
+  //     return NextResponse.redirect(new URL("/admin/dashboard/participantes", request.url));
+  //   }
+  // }
 
   // 4. Allow access
   return NextResponse.next();

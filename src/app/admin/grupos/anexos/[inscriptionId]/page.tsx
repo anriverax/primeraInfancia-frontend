@@ -1,9 +1,12 @@
 "use client";
 
-import TrainerView from "@/features/mentoring/components/trainerView";
+import TrainerView from "@/features/mentoring/component/trainerView";
 import { ListTodo } from "lucide-react";
+import { useParams } from "next/navigation";
 
 export default function MentoringPage(): React.JSX.Element {
+  const params = useParams();
+
   return (
     <div className="space-y-8">
       <div className="flex w-full gap-3 justify-between">
@@ -13,7 +16,7 @@ export default function MentoringPage(): React.JSX.Element {
         </div>
       </div>
       <div className="space-y-4">
-        <TrainerView />
+        <TrainerView inscriptionId={Number(params.inscriptionId)} />
       </div>
     </div>
   );
