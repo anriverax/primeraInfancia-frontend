@@ -12,9 +12,7 @@ export const useAppendixDetailListStore: UseBoundStore<StoreApi<AppendixDetailLi
   create<AppendixDetailListStoreProps>()((set) => ({
     appendixDetailsList: {} as IAppendixDetailTable,
     setAppendixDetailsList: (
-      appendixDetail:
-        | IAppendixDetailTable
-        | ((_prev: IAppendixDetailTable) => IAppendixDetailTable)
+      appendixDetail: IAppendixDetailTable | ((_prev: IAppendixDetailTable) => IAppendixDetailTable)
     ) =>
       set((state) => ({
         appendixDetailsList:

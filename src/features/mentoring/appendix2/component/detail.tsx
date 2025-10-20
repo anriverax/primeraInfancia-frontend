@@ -343,10 +343,8 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                 {section.Question.map((question, questionIndex) => (
                   <li key={questionIndex} className="text-lg text-gray-800">
                     <span className="font-medium mr-2">{question.text}</span>
-                    {
-                      /* eslint-disable @typescript-eslint/explicit-function-return-type */
-                      /* eslint-disable @typescript-eslint/no-explicit-any */
-                    }
+                    {/* eslint-disable @typescript-eslint/explicit-function-return-type */
+                    /* eslint-disable @typescript-eslint/no-explicit-any */}
                     {(() => {
                       switch (question.questionType) {
                         case "DATE":
@@ -356,15 +354,19 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                               value={
                                 getValue((question as any).fieldName)
                                   ? parseDate(
-                                    (getValue((question as any).fieldName) as Date).toISOString().slice(0, 10)
-                                  )
+                                      (getValue((question as any).fieldName) as Date)
+                                        .toISOString()
+                                        .slice(0, 10)
+                                    )
                                   : null
                               }
                               isInvalid={Boolean(
-                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                getTouched((question as any).fieldName) &&
+                                  getError((question as any).fieldName)
                               )}
                               errorMessage={
-                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                getTouched((question as any).fieldName) &&
+                                getError((question as any).fieldName)
                                   ? getError((question as any).fieldName)
                                   : undefined
                               }
@@ -380,10 +382,12 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                               name={(question as any).fieldName}
                               value={getValue((question as any).fieldName)}
                               errorMessage={
-                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                getTouched((question as any).fieldName) &&
+                                getError((question as any).fieldName)
                               }
                               isInvalid={Boolean(
-                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                getTouched((question as any).fieldName) &&
+                                  getError((question as any).fieldName)
                               )}
                               onChange={(stringValue) => {
                                 const answerValue = stringValue.target.value;
@@ -493,7 +497,6 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                         //     formik.setFieldValue((question as any).fieldName, newValue);
                         //   };
 
-
                         //   const handleDetailChange = (key: string, detail: string) => {
                         //     const next = current.map((c) => (c.key === key ? { ...c, detail } : c));
 
@@ -559,8 +562,7 @@ const Appendix2View = ({ formik, id }: Appendix2FormProps): React.JSX.Element =>
                           );
                       }
                     })()}
-                    {
-                    /* eslint-enable @typescript-eslint/no-explicit-any */
+                    {/* eslint-enable @typescript-eslint/no-explicit-any */
                     /* eslint-enable @typescript-eslint/explicit-function-return-type */}
                   </li>
                 ))}

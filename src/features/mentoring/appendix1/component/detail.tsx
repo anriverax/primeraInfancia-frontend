@@ -19,7 +19,6 @@ import { useAppendixDetailsList } from "@/features/mentoring/hooks/useAppendixDe
 import { parseDate } from "@internationalized/date";
 import ProgressCustom from "@/shared/ui/custom/progressCustom";
 
-
 type Appendix1FormProps = {
   formik: FormikProps<IAppendix1Input>;
   id: number;
@@ -126,15 +125,19 @@ const TrainerDetailView = ({ formik, id, inscription }: Appendix1FormProps): Rea
                               value={
                                 getValue((question as any).fieldName)
                                   ? parseDate(
-                                    (getValue((question as any).fieldName) as Date).toISOString().slice(0, 10)
-                                  )
+                                      (getValue((question as any).fieldName) as Date)
+                                        .toISOString()
+                                        .slice(0, 10)
+                                    )
                                   : null
                               }
                               isInvalid={Boolean(
-                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                getTouched((question as any).fieldName) &&
+                                  getError((question as any).fieldName)
                               )}
                               errorMessage={
-                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                getTouched((question as any).fieldName) &&
+                                getError((question as any).fieldName)
                                   ? getError((question as any).fieldName)
                                   : undefined
                               }
@@ -150,10 +153,12 @@ const TrainerDetailView = ({ formik, id, inscription }: Appendix1FormProps): Rea
                               name={(question as any).fieldName}
                               value={getValue((question as any).fieldName)}
                               errorMessage={
-                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                getTouched((question as any).fieldName) &&
+                                getError((question as any).fieldName)
                               }
                               isInvalid={Boolean(
-                                getTouched((question as any).fieldName) && getError((question as any).fieldName)
+                                getTouched((question as any).fieldName) &&
+                                  getError((question as any).fieldName)
                               )}
                               onChange={(stringValue) => {
                                 const answerValue = stringValue.target.value;

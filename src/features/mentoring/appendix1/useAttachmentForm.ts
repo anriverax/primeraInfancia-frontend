@@ -37,7 +37,10 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
         }
         return null;
       })
-      .filter((item): item is { questionId: number; valueText: any; inscriptionId: number | null } => item !== null);
+      .filter(
+        (item): item is { questionId: number; valueText: any; inscriptionId: number | null } =>
+          item !== null
+      );
     /* eslint-enable @typescript-eslint/no-explicit-any */
 
     try {

@@ -19,7 +19,11 @@ const AttachmentDetailPage = (): React.JSX.Element => {
   return (
     <>
       {Number(params.anexoId) === 1 && (
-        <TrainerDetailView formik={formikAppendix1} id={Number(params.anexoId)} inscription={inscriptionId} />
+        <TrainerDetailView
+          formik={formikAppendix1}
+          id={Number(params.anexoId)}
+          inscription={inscriptionId}
+        />
       )}
 
       {Number(params.anexoId) === 2 && (
