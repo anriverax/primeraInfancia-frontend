@@ -12,7 +12,11 @@ const LucideIconRenderer = dynamic(
   }
 );
 
-const TrainerView = (): React.JSX.Element => {
+type TrainerViewProps = {
+  inscriptionId: number;
+};
+
+const TrainerView = ({ inscriptionId }: TrainerViewProps): React.JSX.Element => {
   const { appendixsList } = useAppendixList();
 
   const truncateText = (text: string, maxLength: number): string => {
@@ -59,7 +63,7 @@ const TrainerView = (): React.JSX.Element => {
                   variant="shadow"
                   type="submit"
                   as={Link}
-                  href={`/admin/mentoria/${item.id}`}
+                  href={`/admin/mentoria/${item.id}?inscriptionId=${inscriptionId}`}
                   startContent={<Eye />}
                 >
                   Visualizar
