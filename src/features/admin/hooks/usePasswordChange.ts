@@ -55,8 +55,7 @@ const usePasswordChange = (): FormikProps<IPasswordChange> => {
   });
 
   useEffect(() => {
-    if (formStatus.isOk)
-      signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_URL || ""}${LOGIN_REDIRECT_URL}` });
+    if (formStatus.isOk) signOut({ callbackUrl: LOGIN_REDIRECT_URL });
   }, [formStatus]);
 
   return formik;

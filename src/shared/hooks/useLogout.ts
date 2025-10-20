@@ -15,7 +15,8 @@ const useLogout = (): {
       if (avatarResponse.status === 201 && avatarResponse.data) {
         signOut({
           redirect: true,
-          callbackUrl: `${process.env.NEXT_PUBLIC_URL}/auth/iniciar-sesion`
+          // Use relative path to let NextAuth resolve against NEXTAUTH_URL in prod
+          callbackUrl: "/auth/iniciar-sesion"
         });
       }
     } catch (error) {

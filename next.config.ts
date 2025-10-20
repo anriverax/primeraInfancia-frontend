@@ -11,16 +11,7 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-
-  async redirects() {
-    return [
-      {
-        source: "/", // Desde la raíz (localhost:3000)
-        destination: "/auth/iniciar-sesion", // Hacia la página deseada
-        permanent: false // false = redirección temporal (307)
-      }
-    ];
-  }
+  // Root redirect is handled via middleware for auth-aware behavior
 };
 
 export default nextConfig;

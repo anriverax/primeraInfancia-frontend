@@ -18,6 +18,12 @@ export async function middleware(request: NextRequest): Promise<NextResponse<unk
   const isAuthRoute = pathname.startsWith("/auth");
   const isProtectedRoute = pathname.startsWith("/admin");
 
+  // 0. Root path redirect handled here to avoid double hops with next.config redirects
+  if (pathname === "/") {
+    const target = isAuthenticated ? "/admin/dashboard/participantes" : "/auth/iniciar-sesion";
+    return NextResponse.redirect(new URL(target, request.url));
+  }
+
   // 1. Authenticated user attempting to access /auth → redirect to dashboard
   if (isAuthenticated && isAuthRoute) {
     return NextResponse.redirect(new URL("/admin/dashboard/participantes", request.url));
