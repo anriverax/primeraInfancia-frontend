@@ -74,8 +74,8 @@ const refreshAccessToken = async (
     } catch (refreshError) {
       console.error("[useAxios] Error al refrescar token:", refreshError);
       // Log out and redirect to login
-  // Use relative path so hosting base URL is respected (via NEXTAUTH_URL)
-  signOut({ callbackUrl: LOGIN_REDIRECT_URL });
+      // Use relative path so hosting base URL is respected (via NEXTAUTH_URL)
+      signOut({ callbackUrl: LOGIN_REDIRECT_URL });
       throw refreshError;
     } finally {
       // Release the mutex

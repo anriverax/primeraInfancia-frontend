@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         pathname: "/**"
       }
     ]
-  },
+  }
   // Root redirect is handled via middleware for auth-aware behavior
 };
 
