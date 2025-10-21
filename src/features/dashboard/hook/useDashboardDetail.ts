@@ -2,12 +2,12 @@ import useAxios from "@/shared/hooks/useAxios";
 import { handleAxiosError } from "@/shared/utils/funtions";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { IDashboardResume } from "../dashboardType";
+import { DashboardDetailMentoring } from "../dashboardType";
 
 const useDashboardDetail = (): {
-  dashboardDetail: IDashboardResume | undefined;
+  dashboardDetail: DashboardDetailMentoring | undefined;
 } => {
-  const [dashboardDetail, setDashboardDetail] = useState<IDashboardResume | undefined>();
+  const [dashboardDetail, setDashboardDetail] = useState<DashboardDetailMentoring | undefined>();
   const useRequest = useAxios(true);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const useDashboardDetail = (): {
 
     const fetchData = async (): Promise<void> => {
       try {
-        const res: AxiosResponse<IDashboardResume> = await useRequest.get("/dashboard/resume");
+        const res: AxiosResponse<DashboardDetailMentoring> = await useRequest.get("/dashboard/est");
 
         if (isMounted) {
           const { data } = res;

@@ -50,6 +50,22 @@ export interface IAppendix8 {
   }[];
 }
 
+// export interface CategoryAppendix {
+//   label: string;
+//   count: number;
+// }
+
+// export interface IDashboardResume {
+//   teacherFemale: number;
+//   teacherMale: number;
+//   teacherShiftAm: number;
+//   teacherShiftPm: number;
+//   earlyEducation: CategoryAppendix[];
+//   extraEducation: CategoryAppendix[];
+// }
+
+
+// Docentes por sexo, turno, educación primaria y educación extra
 export interface CategoryAppendix {
   label: string;
   count: number;
@@ -62,4 +78,18 @@ export interface IDashboardResume {
   teacherShiftPm: number;
   earlyEducation: CategoryAppendix[];
   extraEducation: CategoryAppendix[];
+}
+
+// Cuántos docentes han contestado los anexos
+export interface AppendixCountItem {
+  appendixId: number;
+  appendixTitle: string;
+  peopleAnswered: number;
+}
+
+export type IAppendixAnswerCount = AppendixCountItem[];
+
+export interface DashboardDetailMentoring {
+  dashboardResume: IDashboardResume;
+  appendixAnswerCount: IAppendixAnswerCount;
 }

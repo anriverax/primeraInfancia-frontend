@@ -1,12 +1,13 @@
 "use client";
 
 import DataBy from "@/features/dashboard/components/mentoring/detail/cardData";
-import EarlyEducation from "@/features/dashboard/components/mentoring/detail/earlyEducation"
-import ExtraEducation from "@/features/dashboard/components/mentoring/detail/extraEducation"
+import EarlyEducation from "@/features/dashboard/components/mentoring/detail/earlyEducation";
+import ExtraEducation from "@/features/dashboard/components/mentoring/detail/extraEducation";
 // import { useDashboardMentoring } from "@/features/dashboard/hook/useDashboardMentoring";
 import { useDashboardDetail } from "@/features/dashboard/hook/useDashboardDetail";
 //import { IAppendix, IGroupCount, IDashboardResume } from "@/features/dashboard/dashboardType";
 //import PieChartLayout from "@/features/dashboard/components/pieChartLayout";
+import AppendixCount from "@/features/dashboard/components/mentoring/detail/appendixCount"
 
 const DashboardMentoringPage = (): React.JSX.Element => {
   // const { mentoringFilters } = useDashboardMentoring();
@@ -54,8 +55,15 @@ const DashboardMentoringPage = (): React.JSX.Element => {
   // );
 
   if (!dashboardDetail) return <></>;
-  const teacherGender = [{ label: "Hombres", count: dashboardDetail.teacherMale }, { label: "Mujeres", count: dashboardDetail.teacherFemale }]
-  const teacherShift = [{ label: "Matutino", count: dashboardDetail.teacherShiftAm }, { label: "Vespertino", count: dashboardDetail.teacherShiftPm }]
+  const teacherGender = [
+    { label: "Hombres", count: dashboardDetail.dashboardResume.teacherMale },
+    { label: "Mujeres", count: dashboardDetail.dashboardResume.teacherFemale }
+  ];
+  const teacherShift = [
+    { label: "Matutino", count: dashboardDetail.dashboardResume.teacherShiftAm },
+    { label: "Vespertino", count: dashboardDetail.dashboardResume.teacherShiftPm }
+  ];
+console.log(dashboardDetail,"$$$$");
 
 
   return (
@@ -64,16 +72,18 @@ const DashboardMentoringPage = (): React.JSX.Element => {
         <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-12 h-auto">
           <DataBy title="Docentes" data={teacherGender} />
           <DataBy title="Turno" data={teacherShift} />
-
         </div>
         <div className="2xl:flex my-12 gap-12">
-          <EarlyEducation data={dashboardDetail.earlyEducation} />
+          <EarlyEducation data={dashboardDetail.dashboardResume.earlyEducation} />
         </div>
-          <div className="2xl:flex my-12 gap-12">
-          <ExtraEducation data={dashboardDetail.extraEducation} />
+        <div className="2xl:flex my-12 gap-12">
+          <ExtraEducation data={dashboardDetail.dashboardResume.extraEducation} />
+        </div>
+        <div className="2xl:flex my-12 gap-12">
+            <AppendixCount data={dashboardDetail.appendixAnswerCount}/>
         </div>
       </>
-    </div >
+    </div>
   );
 };
 

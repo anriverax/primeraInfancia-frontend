@@ -22,7 +22,7 @@ interface Props {
 
 const EarlyEducation = ({ data }: Props): React.JSX.Element => (
   <CardLayoutDashboard
-    title="Formación y Educación Inicial"
+    title="Formación y educación inicial"
     clsCard="2xl:w-[75%]"
     clsCardBody="sm:overflow-hidden"
   >
