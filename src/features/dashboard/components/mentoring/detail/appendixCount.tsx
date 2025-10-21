@@ -17,8 +17,11 @@ type AppendixCountProps = {
 };
 
 const AppendixCount = ({ data }: AppendixCountProps): React.JSX.Element => (
-  <CardLayoutDashboard title="Docentes que han completado anexos" clsCard="2xl:w-[75%]"
-    clsCardBody="sm:overflow-hidden">
+  <CardLayoutDashboard
+    title="Docentes que han completado anexos"
+    clsCard="2xl:w-[75%]"
+    clsCardBody="sm:overflow-hidden"
+  >
     <div className="w-full h-[480px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} barCategoryGap={5}>

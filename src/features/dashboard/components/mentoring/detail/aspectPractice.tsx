@@ -1,4 +1,4 @@
-  import {
+import {
   BarChart,
   Bar,
   XAxis,
@@ -10,7 +10,6 @@
   LabelList
 } from "recharts";
 import CardLayoutDashboard from "../../cardLayoutDashboard";
-import { AspectPracticeItem } from "@/features/dashboard/dashboardType";
 
 interface DataItem {
   practiceAspect: string;
@@ -22,10 +21,13 @@ interface Props {
 }
 
 const AspectPracticeCount = ({ data }: Props): React.JSX.Element => (
-  <CardLayoutDashboard title="Aspectos de la práctica" clsCard="2xl:w-[75%]"
-    clsCardBody="sm:overflow-hidden">
+  <CardLayoutDashboard
+    title="Aspectos de la práctica"
+    clsCard="2xl:w-[75%]"
+    clsCardBody="sm:overflow-hidden"
+  >
     <div className="w-full h-[480px]">
-     <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%">
         <BarChart layout="vertical" data={data} barCategoryGap={5}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis type="number" axisLine={{ stroke: "#e0e0e0", strokeWidth: 1 }} />

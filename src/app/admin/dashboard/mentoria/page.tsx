@@ -3,9 +3,9 @@
 import DataBy from "@/features/dashboard/components/mentoring/detail/cardData";
 import EarlyEducation from "@/features/dashboard/components/mentoring/detail/earlyEducation";
 import ExtraEducation from "@/features/dashboard/components/mentoring/detail/extraEducation";
-import AspectPractice from "@/features/dashboard/components/mentoring/detail/aspectPractice"
+import AspectPractice from "@/features/dashboard/components/mentoring/detail/aspectPractice";
 import { useDashboardDetail } from "@/features/dashboard/hook/useDashboardDetail";
-import AppendixCount from "@/features/dashboard/components/mentoring/detail/appendixCount"
+import AppendixCount from "@/features/dashboard/components/mentoring/detail/appendixCount";
 
 const DashboardMentoringPage = (): React.JSX.Element => {
   // const { mentoringFilters } = useDashboardMentoring();
@@ -62,7 +62,6 @@ const DashboardMentoringPage = (): React.JSX.Element => {
     { label: "Vespertino", count: dashboardDetail.dashboardResume.teacherShiftPm }
   ];
   console.log(dashboardDetail, "$$$$");
-
 
   return (
     <div>

@@ -64,7 +64,6 @@ export interface IAppendix8 {
 //   extraEducation: CategoryAppendix[];
 // }
 
-
 // Docentes por sexo, turno, educación primaria y educación extra
 export interface CategoryAppendix {
   label: string;
