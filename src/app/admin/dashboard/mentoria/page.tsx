@@ -3,10 +3,8 @@
 import DataBy from "@/features/dashboard/components/mentoring/detail/cardData";
 import EarlyEducation from "@/features/dashboard/components/mentoring/detail/earlyEducation";
 import ExtraEducation from "@/features/dashboard/components/mentoring/detail/extraEducation";
-// import { useDashboardMentoring } from "@/features/dashboard/hook/useDashboardMentoring";
+import AspectPractice from "@/features/dashboard/components/mentoring/detail/aspectPractice"
 import { useDashboardDetail } from "@/features/dashboard/hook/useDashboardDetail";
-//import { IAppendix, IGroupCount, IDashboardResume } from "@/features/dashboard/dashboardType";
-//import PieChartLayout from "@/features/dashboard/components/pieChartLayout";
 import AppendixCount from "@/features/dashboard/components/mentoring/detail/appendixCount"
 
 const DashboardMentoringPage = (): React.JSX.Element => {
@@ -63,7 +61,7 @@ const DashboardMentoringPage = (): React.JSX.Element => {
     { label: "Matutino", count: dashboardDetail.dashboardResume.teacherShiftAm },
     { label: "Vespertino", count: dashboardDetail.dashboardResume.teacherShiftPm }
   ];
-console.log(dashboardDetail,"$$$$");
+  console.log(dashboardDetail, "$$$$");
 
 
   return (
@@ -80,7 +78,10 @@ console.log(dashboardDetail,"$$$$");
           <ExtraEducation data={dashboardDetail.dashboardResume.extraEducation} />
         </div>
         <div className="2xl:flex my-12 gap-12">
-            <AppendixCount data={dashboardDetail.appendixAnswerCount}/>
+          <AppendixCount data={dashboardDetail.appendixAnswerCount} />
+        </div>
+        <div className="2xl:flex my-12 gap-12">
+          <AspectPractice data={dashboardDetail.aspectPracticeCount} />
         </div>
       </>
     </div>

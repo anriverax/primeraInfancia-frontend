@@ -70,7 +70,6 @@ export interface CategoryAppendix {
   label: string;
   count: number;
 }
-
 export interface IDashboardResume {
   teacherFemale: number;
   teacherMale: number;
@@ -86,10 +85,18 @@ export interface AppendixCountItem {
   appendixTitle: string;
   peopleAnswered: number;
 }
-
 export type IAppendixAnswerCount = AppendixCountItem[];
+
+// Respuestas a 'Aspectos de la práctica'
+export interface AspectPracticeItem {
+  appendixId: number;
+  practiceAspect: string;
+  peopleAnswered: number;
+}
+export type IAspectPracticeCount = AspectPracticeItem[];
 
 export interface DashboardDetailMentoring {
   dashboardResume: IDashboardResume;
   appendixAnswerCount: IAppendixAnswerCount;
+  aspectPracticeCount: IAspectPracticeCount;
 }
