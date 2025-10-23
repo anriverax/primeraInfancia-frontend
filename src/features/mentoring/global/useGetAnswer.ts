@@ -2,30 +2,7 @@ import useAxios from "@/shared/hooks/useAxios";
 import { handleAxiosError } from "@/shared/utils/functions";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-
-interface QuestionAnswerDto {
-  questionText: string;
-  answer: string;
-}
-
-interface AppendixDto {
-  title: string;
-  questions: QuestionAnswerDto[];
-}
-
-interface PersonAppendixDto {
-  Person: {
-    firstName: string;
-    lastName1: string;
-    lastName2: string | null;
-  };
-  Appendix: AppendixDto[];
-}
-
-interface Answer {
-  valueText: string
-  questionId: string
-}
+import { PersonAppendixDto } from "@/features/mentoring/mentoringType";
 
 const useGetAnswer = (inscriptionId: number[]): {
   dashboardDetail: PersonAppendixDto | undefined;

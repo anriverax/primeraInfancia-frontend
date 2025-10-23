@@ -5,7 +5,7 @@ import { groupDetailByUserColumns, useRenderGroupDFMCell } from "./groupColumns"
 import { tableClassNames } from "@/shared/constants";
 import { IGroupByUser, IGroupByUserColumnKey } from "@/features/group/groupType";
 import { TableLayout } from "@/shared/ui/custom/tableLayout";
-
+import {PersonAppendixDto} from "@/features/mentoring/mentoringType";
 const GroupDFM = (): React.JSX.Element => {
   const { groupDetailList } = useGroupDFM();
   const renderGroupDFM = useRenderGroupDFMCell();
@@ -15,7 +15,8 @@ const GroupDFM = (): React.JSX.Element => {
   let value = "2"
   const idArray = groupList.map(item => item.id);
   const { dashboardDetail } = useGetAnswer(idArray);
-  console.log(dashboardDetail, "###");
+  
+  console.log(groupDetailList, "###");
 
   if (value == "1")
     return (
@@ -55,8 +56,8 @@ const GroupDFM = (): React.JSX.Element => {
           {(col) => <TableColumn key={col.key}>{col.label}</TableColumn>}
         </TableHeader>
         <TableBody isLoading={!dashboardDetail} items={dashboardDetail || []}>
-          {(groupDetailByUserItem: IGroupByUser) => (
-            <TableRow key={groupDetailByUserItem.id}>
+          {(groupDetailByUserItem: PersonAppendixDto) => (
+            <TableRow key={groupDetailByUserItem.Person.firstName}>
               {(groupDetailByUserKey) => (
                 <TableCell>
                   {renderGroupDFM(groupDetailByUserItem, groupDetailByUserKey as IGroupByUserColumnKey)}
