@@ -81,16 +81,22 @@ export async function POST(req: Request) {
         if (!nestResponse.ok)
             throw new Error("Error al registrar el archivo en NestJS");
 
-        const { id } = await nestResponse.json();
-
-        const processResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/grades/process-upload`, {
+        const decodedResponse:{
+            data:{
+                id: number
+            }
+        } = await nestResponse.json();
+        console.log('decoded repsonse ', decodedResponse);
+        const processResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/grade/process-upload`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ uploadId: id }),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ uploadId: decodedResponse.data.id }),
         });
-
+        console.log('grades response ', processResponse );
         const result = await processResponse.json();
-
         return NextResponse.json(result);
     } catch (error) {
         console.error(error);
