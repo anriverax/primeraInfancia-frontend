@@ -1,15 +1,12 @@
 import { AxiosMessage } from "@/shared/types/globals";
 
-export interface DetailChildren {
-  shift: string;
-  section: string;
-  girlNumber: number;
-  boyNumber: number;
-  girlDisabilityNumber: number;
-  boyDisabilityNumber: number;
-}
-
 export interface Appendix2Input {
+  anx2Ask1: string;
+  anx2Ask2: string;
+  anx2Ask3: number;
+  anx2Ask4: number;
+  anx2Ask5: number;
+  anx2Ask6: number;
   anx2Ask7: string;
   anx2Ask8: string;
   anx2Ask9: string;
@@ -28,9 +25,12 @@ export interface Appendix2Input {
   anx2Ask22: string;
   anx2Ask23: string;
   anx2Ask24: string;
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  questionMap?: any;
-  /* eslint-enable @typescript-eslint/no-explicit-any */
+}
+
+export interface DataAppendix2 {
+  questionId: number;
+  valueText: string;
+  inscriptionId: number;
 }
 
 export type IAppendix2Input = Appendix2Input & AxiosMessage;

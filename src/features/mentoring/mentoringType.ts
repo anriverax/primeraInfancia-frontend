@@ -55,3 +55,27 @@ export interface AppendixListResult {
   appendixsList: IAppendixTable[];
   setAppendixsList: (_appendixs: IAppendixTable[]) => void;
 }
+
+interface QuestionAnswerDto {
+  questionText: string;
+  answer: string;
+}
+
+interface AppendixDto {
+  title: string;
+  questions: QuestionAnswerDto[];
+}
+
+export interface PersonAppendixDto {
+  Person: {
+    firstName: string;
+    lastName1: string;
+    lastName2: string | null;
+  };
+  Appendix: AppendixDto[];
+}
+
+// interface Answer {
+//   valueText: string;
+//   questionId: string;
+// }
