@@ -1,5 +1,5 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { handleAxiosError } from "@/shared/utils/funtions";
+import { handleAxiosError } from "@/shared/utils/functions";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { DashboardDetailMentoring } from "../dashboardType";
