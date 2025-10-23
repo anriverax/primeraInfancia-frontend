@@ -56,7 +56,6 @@ export interface AppendixListResult {
   setAppendixsList: (_appendixs: IAppendixTable[]) => void;
 }
 
-
 interface QuestionAnswerDto {
   questionText: string;
   answer: string;
@@ -76,7 +75,7 @@ export interface PersonAppendixDto {
   Appendix: AppendixDto[];
 }
 
-interface Answer {
-  valueText: string
-  questionId: string
-}
+// interface Answer {
+//   valueText: string;
+//   questionId: string;
+// }

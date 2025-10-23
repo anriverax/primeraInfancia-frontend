@@ -8,7 +8,6 @@ import { TableLayout } from "@/shared/ui/custom/tableLayout";
 const ViewAnswerAppendix = (): React.JSX.Element => {
   const { groupDetailList } = useGroupDFM();
   const renderGroup = useRenderGroupCell();
-  console.log("groupDetailList");
 
   groupDetailList?.sort((a, b) => (a.Person?.fullName ?? "").localeCompare(b.Person?.fullName ?? ""));
 
