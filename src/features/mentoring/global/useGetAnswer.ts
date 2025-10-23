@@ -3,7 +3,6 @@ import { handleAxiosError } from "@/shared/utils/functions";
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 
-
 interface QuestionAnswerDto {
   questionText: string;
   answer: string;
@@ -28,60 +27,43 @@ interface Answer {
   questionId: string
 }
 
-// Define the extended Answer type returned by Prisma for deep nested joins
-type DetailedAnswer = Answer & {
-  Question: {
-    text: string;
-    orderBy: number;
-    Section: {
-      orderBy: number;
-      Appendix: { title: string };
-    };
-  };
-  Inscription: {
-    PersonRole: {
-      Person: {
-        id: number;
-        firstName: string;
-        lastName1: string;
-        lastName2: string | null;
-      };
-    };
-  };
-};
-
-// const useGetAnswer = async (inscriptionId: number[]): Promise<DetailedAnswer[]> => {
-//     const useRequest = useAxios(true);
-
-//     const res = await useRequest.post<FetchResponse<DetailedAnswer[]>>(
-//         "/appendix/by-inscription",
-//         inscriptionId
-//     );
-
-//     // return payload or empty array
-//     return res.data?.data ?? [];
-// };
-
-// export { useGetAnswer };
-
-
 const useGetAnswer = (inscriptionId: number[]): {
-  dashboardDetail: DetailedAnswer | undefined;
+  dashboardDetail: PersonAppendixDto | undefined;
 } => {
-  const [dashboardDetail, setDashboardDetail] = useState<DetailedAnswer | undefined>();
+  const [dashboardDetail, setDashboardDetail] = useState<PersonAppendixDto | undefined>();
   const useRequest = useAxios(true);
 
   useEffect(() => {
     let isMounted = true;
-
     const fetchData = async (): Promise<void> => {
       try {
-        const res: AxiosResponse<DetailedAnswer> = await useRequest.post("/appendix/by-inscription", inscriptionId);
-
+        const res: AxiosResponse<PersonAppendixDto> = await useRequest.post(`/appendix/by-inscription`, [
+          5154,
+          5156,
+          5164,
+          5161,
+          5163,
+          5165,
+          5155,
+          5162,
+          5160,
+          5168,
+          5159,
+          5171,
+          5172,
+          5169,
+          5174,
+          5167,
+          5166,
+          5175,
+          5170,
+          5157,
+          5173,
+          5230,
+          5158
+        ]);
         if (isMounted) {
           const { data } = res;
-          console.log(res,":*");
-          
           setDashboardDetail(data);
         }
       } catch (error) {

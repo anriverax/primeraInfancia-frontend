@@ -14,8 +14,8 @@ const GroupDFM = (): React.JSX.Element => {
   groupList?.sort((a, b) => (a.Person?.fullName ?? "").localeCompare(b.Person?.fullName ?? ""));
   let value = "2"
   const idArray = groupList.map(item => item.id);
-  const {dashboardDetail} = useGetAnswer(idArray);
-console.log(dashboardDetail,"###");
+  const { dashboardDetail } = useGetAnswer(idArray);
+  console.log(dashboardDetail, "###");
 
   if (value == "1")
     return (
@@ -44,30 +44,30 @@ console.log(dashboardDetail,"###");
       </TableLayout>
     );
   else return (
-      <TableLayout>
-        <Table
-          removeWrapper
-          className="min-w-[max-content]"
-          classNames={tableClassNames}
-          aria-label="Tabla para mostrar las rutas de aprendizaje registradas"
-        >
-          <TableHeader columns={groupDetailByUserColumns}>
-            {(col) => <TableColumn key={col.key}>{col.label}</TableColumn>}
-          </TableHeader>
-          <TableBody isLoading={!groupList} items={groupList || []}>
-            {(groupDetailByUserItem: IGroupByUser) => (
-              <TableRow key={groupDetailByUserItem.id}>
-                {(groupDetailByUserKey) => (
-                  <TableCell>
-                    {renderGroupDFM(groupDetailByUserItem, groupDetailByUserKey as IGroupByUserColumnKey)}
-                  </TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableLayout>
-    );
+    <TableLayout>
+      <Table
+        removeWrapper
+        className="min-w-[max-content]"
+        classNames={tableClassNames}
+        aria-label="Tabla para mostrar las rutas de aprendizaje registradas"
+      >
+        <TableHeader columns={groupDetailByUserColumns}>
+          {(col) => <TableColumn key={col.key}>{col.label}</TableColumn>}
+        </TableHeader>
+        <TableBody isLoading={!dashboardDetail} items={dashboardDetail || []}>
+          {(groupDetailByUserItem: IGroupByUser) => (
+            <TableRow key={groupDetailByUserItem.id}>
+              {(groupDetailByUserKey) => (
+                <TableCell>
+                  {renderGroupDFM(groupDetailByUserItem, groupDetailByUserKey as IGroupByUserColumnKey)}
+                </TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </TableLayout>
+  );
 };
 
 export default GroupDFM;
