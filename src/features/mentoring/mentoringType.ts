@@ -85,3 +85,14 @@ export interface TeacherAppendixData {
   appendixId?: number;
   fullName: string;
 }
+
+export interface TrainerViewResult {
+  teacherAppendixsList: TeacherAppendixData[];
+  setTeacherAppendixsList: (_teacherAppendixs: TeacherAppendixData[]) => void;
+}
+
+export interface AppendixByInscription {
+  title: string;
+  color: string;
+  answer_count: number;
+}

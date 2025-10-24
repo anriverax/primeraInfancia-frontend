@@ -1,4 +1,4 @@
-import { IAppendixDetailTable , TeacherAppendixData} from "@/features/mentoring/mentoringType";
+import { IAppendixDetailTable } from "@/features/mentoring/mentoringType";
 import { create, StoreApi, UseBoundStore } from "zustand";
 
 type AppendixDetailListStoreProps = {
@@ -21,5 +21,3 @@ export const useAppendixDetailListStore: UseBoundStore<StoreApi<AppendixDetailLi
             : appendixDetail
       }))
   }));
-
-  export const useTeacherAppendixData: TeacherAppendixData=()=>()

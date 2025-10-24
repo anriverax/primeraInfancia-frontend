@@ -63,7 +63,7 @@ const TrainerView = ({ inscriptionId }: TrainerViewProps): React.JSX.Element => 
                   variant="shadow"
                   type="submit"
                   as={Link}
-                  href={`/admin/mentoria/${item.id}?inscriptionId=${inscriptionId}`}
+                  href={`/admin/grupos/anexos/${inscriptionId}/mentoria/${item.id}?inscripcionId=${inscriptionId}`}
                   startContent={<Eye />}
                 >
                   Visualizar

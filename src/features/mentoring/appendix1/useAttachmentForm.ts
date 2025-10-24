@@ -14,6 +14,7 @@ const initialValues: Appendix1Input = {
 
 const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> => {
   const useRequest = useAxios(true);
+  console.log(inscriptionId);
 
   const handleSubmit = async (
     values: Appendix1Input,
@@ -42,6 +43,7 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
           item !== null
       );
     /* eslint-enable @typescript-eslint/no-explicit-any */
+    console.log(responseDataWithIds);
 
     try {
       await Promise.all(

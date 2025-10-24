@@ -53,3 +53,10 @@ export interface IGroupByUser {
 }
 
 export type IGroupByUserColumnKey = "Person.fullName" | "Person.school" | "Person.district" | "actions";
+
+export interface IDetailAppendixTable {
+  title: string;
+  answer_count: number;
+}
+
+export type IDetailAppendixColumnKey = "title" | "answer_count";
