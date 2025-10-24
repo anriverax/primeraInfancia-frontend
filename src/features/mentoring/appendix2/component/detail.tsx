@@ -27,7 +27,7 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { Appendix2Input } from "../type";
 import Link from "next/link";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from "next/navigation";
 
 interface ClasificationChildrenData {
   id: string;
