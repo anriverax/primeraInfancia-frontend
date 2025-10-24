@@ -68,145 +68,145 @@ const useAppendix2Form = (inscriptionId?: number): FormikProps<IAppendix2Input> 
     const data: DataAppendix2[] = [
       {
         questionId: 228,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask1Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 229,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask2Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 230,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask3Field.toString(),
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 231,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask4Field.toString(),
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 232,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask5Field.toString(),
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 233,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask6Field.toString(),
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 110,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask7Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 113,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask8Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 112,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask9Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 114,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask10Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 109,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask11Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 115,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask12Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 116,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask13Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 118,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask14Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 119,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask15Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 120,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask16Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 121,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask17Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 4,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask18Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 117,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask19Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 107,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask20Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 108,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask21Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 111,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask22Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 122,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask23Field,
         inscriptionId: inscriptionId ?? 0
       },
       {
         questionId: 123,
-        appendixId:2,
+        appendixId: 2,
         valueText: anx2Ask24Field,
         inscriptionId: inscriptionId ?? 0
       }

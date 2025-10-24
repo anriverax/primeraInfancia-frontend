@@ -15,6 +15,7 @@ import {
 import type { FormikProps } from "@/shared/types/globals";
 import type { IAppendix1Input } from "../type";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useAppendixDetailsList } from "@/features/mentoring/hooks/useAppendixDetailList";
 import { parseDate } from "@internationalized/date";
 import ProgressCustom from "@/shared/ui/custom/customProgress";
@@ -42,6 +43,8 @@ const TrainerDetailView = ({ formik, id, inscription }: Appendix1FormProps): Rea
   const { handleSubmit, touched, errors, isSubmitting } = formik;
   const { appendixDetailsList } = useAppendixDetailsList(id);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const searchParams = useSearchParams();
+  const search = searchParams ? `?${searchParams.toString()}` : "";
 
   /* eslint-disable @typescript-eslint/explicit-function-return-type */
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -188,7 +191,7 @@ const TrainerDetailView = ({ formik, id, inscription }: Appendix1FormProps): Rea
               variant="shadow"
               type="button"
               as={Link}
-              href={`/admin/grupos/anexos/${inscription}`}
+              href={`/admin/grupos/anexos/${inscription}${search}`}
               startContent={<StepBack />}
             >
               Regresar
@@ -221,7 +224,6 @@ const TrainerDetailView = ({ formik, id, inscription }: Appendix1FormProps): Rea
                     Cancelar
                   </Button>
                   <Button color="primary" isLoading={isSubmitting} onPress={handleConfirmSubmit}>
-                    {" "}
                     Enviar
                   </Button>
                 </ModalFooter>

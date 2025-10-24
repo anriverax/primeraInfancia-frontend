@@ -27,6 +27,7 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
 import { Appendix2Input } from "../type";
 import Link from "next/link";
+import { useSearchParams } from 'next/navigation';
 
 interface ClasificationChildrenData {
   id: string;
@@ -79,7 +80,8 @@ const Attachment2Form = ({ formik, inscription }: Attachment2FormProps): React.J
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps, values } = formik;
   const { isOpen, onOpenChange } = useDisclosure();
   const { getInputProps } = useCustomFormFields();
-
+  const searchParams = useSearchParams();
+  const search = searchParams ? `?${searchParams.toString()}` : "";
   const [clasificationChildreEntries, setClasificationChildrenEntries] = useState<
     ClasificationChildrenData[]
   >([]);
@@ -520,7 +522,7 @@ const Attachment2Form = ({ formik, inscription }: Attachment2FormProps): React.J
               variant="shadow"
               type="button"
               as={Link}
-              href={`/admin/grupos/anexos/${inscription}`}
+              href={`/admin/grupos/anexos/${inscription}${search}`}
               startContent={<StepBack />}
             >
               Regresar

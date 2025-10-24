@@ -28,7 +28,7 @@ const AttachmentDetailPage = (): React.JSX.Element => {
         <TrainerDetailView formik={formikAppendix1} id={1} inscription={inscriptionId} />
       )}
 
-      {anexoId === 2 && <Appendix2View formik={formikAppnedix2} id={2} />}
+      {anexoId === 2 && <Appendix2View formik={formikAppnedix2} id={2} inscription={inscriptionId} />}
     </>
   );
 };
