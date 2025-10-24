@@ -14,6 +14,7 @@ const initialValues: Appendix1Input = {
 
 const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> => {
   const useRequest = useAxios(true);
+  console.log(inscriptionId);
 
   const handleSubmit = async (
     values: Appendix1Input,
@@ -32,16 +33,19 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
           return {
             questionId,
             valueText: answerValue,
+            appendixId:1,
             inscriptionId: inscriptionId ?? null
+            
           };
         }
         return null;
       })
       .filter(
-        (item): item is { questionId: number; valueText: any; inscriptionId: number | null } =>
+        (item): item is {appendixId:number, questionId: number; valueText: any; inscriptionId: number | null } =>
           item !== null
       );
     /* eslint-enable @typescript-eslint/no-explicit-any */
+    console.log(responseDataWithIds);
 
     try {
       await Promise.all(

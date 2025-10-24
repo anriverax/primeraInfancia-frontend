@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { PersonAppendixDto } from "@/features/mentoring/mentoringType";
 
 const useGetAnswer = (
-  inscriptionId: number[]
+  inscriptionId: number
 ): {
   dashboardDetail: PersonAppendixDto | undefined;
 } => {
