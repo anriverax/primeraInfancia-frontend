@@ -51,7 +51,7 @@ export const useRenderGroupDFMCell = (): {
         case "actions": {
           const href = `/admin/grupos/anexos/${encodeURIComponent(String(groupDetailList.id!))}?inscripcionId=${groupDetailList.id}&fullName=${groupDetailList.Person?.fullName}`;
 
-          const handleClick = (e: React.MouseEvent) :void=> {
+          const handleClick = (e: React.MouseEvent): void => {
             e.preventDefault();
             addSelectedRow({ id: groupDetailList.id!, fullName: groupDetailList.Person?.fullName });
             router.push(href);
