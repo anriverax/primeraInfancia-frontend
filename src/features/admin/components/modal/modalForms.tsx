@@ -1,7 +1,6 @@
 "use client";
 
 import ModalLayout from "@/shared/ui/modal/modalLayout";
-import { TransitionPanel } from "@/shared/ui/motionPrimitive/TransitionPanel";
 import PasswordChange from "./partials/passwordChange";
 
 type ModalFormsProps = {
