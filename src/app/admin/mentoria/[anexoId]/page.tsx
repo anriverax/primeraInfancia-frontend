@@ -11,10 +11,7 @@ const AttachmentDetailPage = (): React.JSX.Element => {
 
   const search = useParams();
   const inscriptionIdParam = search.inscriptionId;
-  //const inscriptionId = inscriptionIdParam ? Number(inscriptionIdParam) : undefined;
-
-   const inscriptionId = params?.inscriptionId ? Number(params.inscriptionId) : undefined;
-  const anexoId = params?.anexoId ? Number(params.anexoId) : undefined;
+  const inscriptionId = inscriptionIdParam ? Number(inscriptionIdParam) : undefined;
 
   const formikAppendix1 = useAppendix1Form(inscriptionId);
   const formikAppnedix2 = useAppendix2Form(inscriptionId);
