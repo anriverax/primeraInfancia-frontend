@@ -1,11 +1,12 @@
 "use client";
 
+import { Children } from "react";
 import { AnimatePresence, Transition, Variant, motion, MotionProps } from "framer-motion";
 
 export type TransitionPanelProps = {
-  children: React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[];
   transition?: Transition;
-  activeIndex: number;
+  activeIndex?: number;
   variants?: { enter: Variant; center: Variant; exit: Variant };
 } & MotionProps;
 
@@ -13,8 +14,10 @@ export function TransitionPanel({
   children,
   transition,
   variants,
-  activeIndex
+  activeIndex = 0
 }: TransitionPanelProps): React.JSX.Element {
+  const panels = Children.toArray(children);
+
   return (
     <div className="relative">
       <AnimatePresence initial={false}>
@@ -26,7 +29,7 @@ export function TransitionPanel({
           animate="center"
           exit="exit"
         >
-          {children[activeIndex]}
+          {panels[activeIndex] ?? null}
         </motion.div>
       </AnimatePresence>
     </div>

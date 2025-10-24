@@ -10,6 +10,7 @@ export interface UploadFilesInput {
   avatar: File | null;
 }
 export interface ChangePasswordInput {
+  email: string;
   currentPassword: string;
   newPassword: string;
   confirmNewPassword: string;

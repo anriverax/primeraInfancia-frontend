@@ -9,6 +9,10 @@ export const verifyCodeSchema: ObjectSchema<VerifyCodeInput> = object({
 });
 
 export const changePasswordSchema: ObjectSchema<ChangePasswordInput> = object({
+  email: stringField(validationMessages.required)
+    .email("Dirección de correo electrónico inválida")
+    .matches(regex.email, "Debe ser una dirección de correo electrónico válida")
+    .matches(/@oei\.int$/i, "El correo debe pertenecer al dominio @oei.int"),
   currentPassword: stringField(validationMessages.required),
   newPassword: stringField(validationMessages.required)
     .min(8, "La contraseña debe tener al menos 8 caracteres")

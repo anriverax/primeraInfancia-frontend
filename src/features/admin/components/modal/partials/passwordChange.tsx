@@ -24,6 +24,11 @@ const PasswordChange = (): React.JSX.Element => {
       <ModalBody>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <Input
+            {...getFieldProps("email")}
+            {...getInputProps("email", "Correo electrónico institucional", touched.email, errors.email)}
+            autoComplete="email"
+          />
+          <Input
             {...getFieldProps("currentPassword")}
             {...getInputProps(
               isPasswordVisible1 ? "text" : "password",

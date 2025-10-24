@@ -1,6 +1,6 @@
 import { FormikHelpers, useFormik } from "formik";
 import { changePasswordSchema } from "../modalValidation";
-import { encrypt, handleFormikResponseError } from "@/shared/utils/functions";
+import { encrypt, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/useAxios";
 import { useUpdatedProfileStore } from "../../../shared/hooks/store/useUpdatedProfileStore";
@@ -11,6 +11,7 @@ import { LOGIN_REDIRECT_URL } from "@/shared/constants";
 import { ChangePasswordInput, IPasswordChange, UpdatedPasswordResponse } from "../adminType";
 
 const initialPasswordValues: ChangePasswordInput = {
+  email: "",
   currentPassword: "",
   newPassword: "",
   confirmNewPassword: ""
@@ -24,6 +25,7 @@ const usePasswordChange = (): FormikProps<IPasswordChange> => {
     values: ChangePasswordInput,
     formikHelpers: FormikHelpers<IPasswordChange>
   ): Promise<void> => {
+    const encryptedEmail = encrypt(values.email);
     const encryptedCurrentPassword = encrypt(values.currentPassword);
     const encryptedNewPassword = encrypt(values.newPassword);
 
@@ -31,14 +33,18 @@ const usePasswordChange = (): FormikProps<IPasswordChange> => {
       const response: AxiosResponse<FetchResponse<UpdatedPasswordResponse>> = await useRequest.post(
         "/auth/change-password",
         {
-          value1: encryptedCurrentPassword,
-          value2: encryptedNewPassword
+          value1: encryptedEmail,
+          value2: encryptedCurrentPassword,
+          value3: encryptedNewPassword
         }
       );
 
-      const result = response.data;
+      const { data } = response;
 
-      if (result.data) setFormStatus({ isOk: true, msg: result.message as string });
+      if (data.statusCode === 200) setFormStatus({ isOk: true, msg: data.message as string });
+      else {
+        showToast(String(data.message), "danger");
+      }
     } catch (error) {
       // Handle login error.
       handleFormikResponseError<IPasswordChange>(error as AxiosError, formikHelpers);
