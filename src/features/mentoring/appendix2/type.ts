@@ -31,6 +31,7 @@ export interface DataAppendix2 {
   questionId: number;
   valueText: string;
   inscriptionId: number;
+  appendixId:number;
 }
 
 export type IAppendix2Input = Appendix2Input & AxiosMessage;
