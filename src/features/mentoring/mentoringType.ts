@@ -79,3 +79,9 @@ export interface PersonAppendixDto {
 //   valueText: string;
 //   questionId: string;
 // }
+
+export interface TeacherAppendixData {
+  inscriptionId: number;
+  appendixId?: number;
+  fullName: string;
+}
