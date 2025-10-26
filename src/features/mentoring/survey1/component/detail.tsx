@@ -86,7 +86,6 @@ const TrainerDetailView = ({ formik, id, inscription }: Appendix1FormProps): Rea
   };
   /* eslint-enable @typescript-eslint/explicit-function-return-type */
   if (!appendixDetailsList) return <ProgressCustom />;
-console.log(appendixDetailsList,"----");
 
   return (
     <div className="flex justify-center">

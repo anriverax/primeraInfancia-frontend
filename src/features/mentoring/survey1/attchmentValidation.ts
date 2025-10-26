@@ -4,7 +4,7 @@ import { validationMessages } from "@/shared/constants";
 import { stringField, dateField, mixedField } from "@/shared/utils/functions";
 
 export const appendix1Schema: ObjectSchema<Appendix1Input> = object({
-  anx1Ask1: dateField(validationMessages.required),
-  anx1Ask2: stringField(validationMessages.required),
+  ask1: dateField(validationMessages.required),
+  ask2: stringField(validationMessages.required),
   questionMap: mixedField()
 });

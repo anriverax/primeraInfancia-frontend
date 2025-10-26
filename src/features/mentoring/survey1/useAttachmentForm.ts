@@ -7,13 +7,14 @@ import { handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import useAxios from "@/shared/hooks/useAxios";
 
 const initialValues: Appendix1Input = {
-  anx1Ask1: new Date(),
-  anx1Ask2: "",
+  ask1: new Date(),
+  ask2: "",
   questionMap: {}
 };
 
 const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> => {
   const useRequest = useAxios(true);
+  console.log(inscriptionId);
 
   const handleSubmit = async (
     values: Appendix1Input,
@@ -21,7 +22,6 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
   ): Promise<void> => {
     const askMapField = values.questionMap;
     const keys = Object.keys(values) as (keyof Appendix1Input)[];
-    console.log(askMapField, "----");
 
     /* eslint-disable @typescript-eslint/no-explicit-any */
     const responseDataWithIds = keys
@@ -31,9 +31,10 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
           const questionId = (askMapField as Record<string, number>)[fieldNameStr];
           const answerValue = (values as Record<string, any>)[fieldNameStr];
           return {
-            questionId,
-            valueText: answerValue,
+            bash: 0,
             appendixId: 1,
+            questionId,
+            responseDetail: answerValue,
             inscriptionId: inscriptionId ?? null
           };
         }
@@ -45,11 +46,13 @@ const useAppendix1Form = (inscriptionId?: number): FormikProps<IAppendix1Input> 
         ): item is {
           appendixId: number;
           questionId: number;
-          valueText: any;
+          responseDetail: any;
           inscriptionId: number | null;
+          bash: number;
         } => item !== null
       );
     /* eslint-enable @typescript-eslint/no-explicit-any */
+    console.log(responseDataWithIds);
 
     try {
       await Promise.all(
