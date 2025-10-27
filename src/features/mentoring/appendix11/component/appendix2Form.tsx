@@ -61,7 +61,7 @@ const Appendix2Form = () => {
           </div>
         </Card>
 
-        <Card className="p-6 md:p-8">
+       <Card className="p-6 md:p-8">
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0 mt-1">
               <span className="text-accent font-bold">II</span>
@@ -200,7 +200,7 @@ const Appendix2Form = () => {
             </div>
           </div>
         </Card>
-
+ {/* 
         <Card className="p-6 md:p-8">
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
@@ -432,7 +432,7 @@ const Appendix2Form = () => {
               </div>
             </div>
           </div>
-        </Card>
+        </Card> */}
 
         <Divider className="my-8" />
         <div className="flex flex-col sm:flex-row gap-4 justify-between items-center pt-4">
