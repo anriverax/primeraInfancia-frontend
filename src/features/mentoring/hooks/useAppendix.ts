@@ -2,7 +2,7 @@ import useAxios from "@/shared/hooks/useAxios";
 import { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
-import { IAppendixDetailTable, AppendixDetailInput } from "../../mentoringType";
+import { IAppendixDetailTable, AppendixDetailInput } from "../mentoringType";
 import { handleAxiosError } from "@/shared/utils/functions";
 
 const useAppendix = (id: number): { appendix: AppendixDetailInput | null } => {
@@ -15,7 +15,7 @@ const useAppendix = (id: number): { appendix: AppendixDetailInput | null } => {
     const fetchData = async (): Promise<void> => {
       try {
         const res: AxiosResponse<FetchResponse<IAppendixDetailTable>> = await useRequest.get(
-          `/appendix/detail/${id}`
+          `/appendix/${id}`
         );
 
         if (isMounted) {

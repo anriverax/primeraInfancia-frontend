@@ -25,7 +25,7 @@ import {
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
-import { Appendix2Input } from "../type";
+import { Appendix2Input } from "../appendix2Type";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
