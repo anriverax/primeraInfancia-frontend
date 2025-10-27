@@ -1,14 +1,12 @@
-import { JSX, memo, useState } from "react";
+import { JSX, memo } from "react";
 import { DividerCustom } from "./partials/dividerCustom";
 import UserAvatar from "./partials/userAvatar";
 import Image from "next/image";
 import { Button } from "@heroui/react";
-import ModalLayout from "../modal/modalLayout";
 import Link from "next/link";
 
-const TopBar = memo((): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
+const TopBar = memo(
+  (): JSX.Element => (
     <header className="flex items-center h-[58px] bg-white border-b border-gray-200 px-4 shrink-0">
       <div className="flex items-center justify-between w-full px-14 md:px-10 gap-4">
         <div className="flex items-center gap-2">
@@ -46,14 +44,13 @@ const TopBar = memo((): JSX.Element => {
         color="primary"
         variant="shadow"
         className="mr-2 px-6"
-        onPress={() => setIsOpen(true)}
       >
         Formulario de incidencias
       </Button>
       <UserAvatar />
     </header>
-  );
-});
+  )
+);
 
 TopBar.displayName = "MemorizedTopBar";
 
