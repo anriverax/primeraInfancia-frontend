@@ -38,12 +38,16 @@ const TrainerView = ({ teacher }: TrainerViewProps): React.JSX.Element => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 mb-4">
+              <div className="flex items-start gap-3 mb-4 overflow-y-scroll h-5">
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-card-foreground text-balance leading-tight mb-2">
-                    {teacher}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed"></p>
+                  <h3 className="font-semibold mb-2">{teacher}</h3>
+                  <ul>
+                    {appendixsList.map((item: IAppendixTable) => (
+                      <li key={item.id}>
+                        {item.title} - {item.subTitle}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </CardBody>
@@ -65,15 +69,11 @@ const TrainerView = ({ teacher }: TrainerViewProps): React.JSX.Element => {
                     <LucideIconRenderer iconName={item.iconName} className="h-5 w-5 text-accent" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-card-foreground text-balance leading-tight mb-2">
-                      {item.subTitle}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {truncateText(item.description, 94)}
-                    </p>
+                    <h3 className="font-semibold mb-2">{item.subTitle}</h3>
+                    <p className="text-sm">{truncateText(item.description, 94)}</p>
                   </div>
                 </div>
-                <div className="flex justify-center text">
+                <div className="flex justify-center">
                   <Button
                     fullWidth
                     color="primary"

@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-
 import { addToast } from "@heroui/react";
 import { useUpdatedProfileStore } from "@/shared/hooks/store/useUpdatedProfileStore";
 import IllustratedAuthPortal from "@/features/auth/components/illustratedLoginDashboard";
-import ModalLayout from "@/shared/ui/modal/modalLayout";
 
 type AuthLayoutProps = {
   children: React.ReactNode;
