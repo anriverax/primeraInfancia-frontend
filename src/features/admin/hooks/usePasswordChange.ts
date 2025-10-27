@@ -41,8 +41,9 @@ const usePasswordChange = (): FormikProps<IPasswordChange> => {
 
       const { data } = response;
 
-      if (data.statusCode === 200) setFormStatus({ isOk: true, msg: data.message as string });
-      else {
+      if (data.statusCode === 200) {
+        setFormStatus({ isOk: true, msg: data.message as string });
+      } else {
         showToast(String(data.message), "danger");
       }
     } catch (error) {

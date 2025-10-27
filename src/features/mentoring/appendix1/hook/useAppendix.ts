@@ -1,13 +1,12 @@
 import useAxios from "@/shared/hooks/useAxios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
-import { IAppendixDetailTable, AppendixDetailListResult } from "../mentoringType";
+import { IAppendixDetailTable, AppendixDetailInput } from "../../mentoringType";
 import { handleAxiosError } from "@/shared/utils/functions";
-import { useAppendixDetailListStore } from "@/shared/hooks/store/useAppendixDetailListStore";
 
-const useAppendixDetailsList = (id: number): AppendixDetailListResult => {
-  const { appendixDetailsList, setAppendixDetailsList } = useAppendixDetailListStore();
+const useAppendix = (id: number): { appendix: AppendixDetailInput | null } => {
+  const [appendix, setAppendix] = useState<IAppendixDetailTable | null>(null);
   const useRequest = useAxios(true);
 
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -21,7 +20,7 @@ const useAppendixDetailsList = (id: number): AppendixDetailListResult => {
 
         if (isMounted) {
           const { data } = res.data;
-          setAppendixDetailsList(data);
+          setAppendix(data);
         }
       } catch (error) {
         handleAxiosError(error, "Anexos de mentoria", "obtener");
@@ -34,8 +33,7 @@ const useAppendixDetailsList = (id: number): AppendixDetailListResult => {
     };
   }, []);
 
-  /* eslint-enable react-hooks/exhaustive-deps */
-  return { appendixDetailsList, setAppendixDetailsList };
+  return { appendix };
 };
 
-export { useAppendixDetailsList };
+export { useAppendix };

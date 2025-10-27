@@ -8,6 +8,7 @@ import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCurrentLocation } from "./useCurrentLocation";
 import { useEffect, useState } from "react";
+import { AttendanceEnum } from "@/shared/constants";
 
 const initialValuesAttendance: AttendanceInput = {
   eventId: -1,
@@ -42,8 +43,12 @@ const useAttendanceForm = (): FormikProps<IAttendance> => {
       );
 
       const resultData = res.data;
-
-      showToast(String(resultData.message), "success");
+      if (values?.status === AttendanceEnum.AUSENTE) {
+        showToast(String(resultData.message), "primary");
+        formikHelpers?.resetForm();
+      } else {
+        showToast(String(resultData.message), "success");
+      }
 
       if (resultData.statusCode === HttpStatusCode.Created) {
         /* eslint-disable @typescript-eslint/no-explicit-any */

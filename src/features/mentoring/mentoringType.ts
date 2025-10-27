@@ -29,16 +29,10 @@ export interface IAppendixDetailTable extends AppendixDetailInput {
   };
 }
 
+//SE TIENE QUE BORRAR ESTO
 export interface AppendixDetailListResult {
   appendixDetailsList: IAppendixDetailTable;
   setAppendixDetailsList: (_appendixDetails: IAppendixDetailTable) => void;
-}
-
-export interface AppendixInput {
-  id?: null;
-  instrumentName: string;
-  periodicity: string;
-  percentage: number;
 }
 
 export interface IAppendixTable {
@@ -75,20 +69,10 @@ export interface PersonAppendixDto {
   Appendix: AppendixDto[];
 }
 
-// interface Answer {
-//   valueText: string;
-//   questionId: string;
-// }
-
 export interface TeacherAppendixData {
   inscriptionId: number;
   appendixId?: number;
   fullName: string;
-}
-
-export interface TrainerViewResult {
-  teacherAppendixsList: TeacherAppendixData[];
-  setTeacherAppendixsList: (_teacherAppendixs: TeacherAppendixData[]) => void;
 }
 
 export interface AppendixByInscription {

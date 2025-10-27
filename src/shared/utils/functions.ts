@@ -1,40 +1,17 @@
-import {
-  AnyObject,
-  string,
-  StringSchema,
-  date,
-  DateSchema,
-  number,
-  NumberSchema,
-  array,
-  ArraySchema,
-  mixed,
-  MixedSchema
-} from "yup";
-import { ERR_BAD_REQUEST } from "../constants";
+import { AnyObject, string, StringSchema, number, NumberSchema } from "yup";
+import { ERR_BAD_REQUEST, TypeRole } from "../constants";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import crypto from "crypto-js";
 import { FormikHelpers } from "formik";
 import { addToast } from "@heroui/react";
 import Swal from "sweetalert2";
+import { Session } from "next-auth";
 
 export const stringField = (requiredMessage: string): StringSchema<string, AnyObject, undefined, ""> =>
   string().required(requiredMessage);
 
 export const numberField = (requiredMessage: string): NumberSchema<number, AnyObject, undefined, ""> =>
   number().required(requiredMessage);
-
-export const dateField = (requiredMessage: string): DateSchema<Date, AnyObject, undefined, ""> =>
-  date().required(requiredMessage);
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const mixedField = (): MixedSchema<any, AnyObject, undefined, ""> => mixed().optional();
-/* eslint-enable @typescript-eslint/no-explicit-any */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const arrayField = (requiredMessage: string): ArraySchema<any[], AnyObject, undefined, ""> =>
-  array().required(requiredMessage);
-/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export const encrypt = (plainText: string): string =>
   crypto.AES.encrypt(plainText, process.env.NEXT_PUBLIC_PLAIN_TEXT as string).toString();
@@ -67,27 +44,21 @@ export function handleFormikResponseError<T>(error: AxiosError, formikHelpers: F
 
 export function showToast(
   message: string,
-  severity: "default" | "primary" | "secondary" | "success" | "warning" | "danger"
+  color: "default" | "primary" | "secondary" | "success" | "warning" | "danger"
 ): void {
-  const color =
-    severity === "success"
-      ? "text-green-500"
-      : severity === "danger"
-        ? "text-red-500"
-        : severity === "warning"
-          ? "text-yellow-500"
-          : severity === "primary"
-            ? "text-blue-500"
-            : severity === "secondary"
-              ? "text-gray-500"
-              : "text-gray-700";
+  const lowerColor = color.toLowerCase() as
+    | "default"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "warning"
+    | "danger";
 
   addToast({
     title: message,
-    severity,
-    variant: "bordered",
+    color: lowerColor,
     classNames: {
-      icon: `w-6 h-6 fill-current ${color}`
+      icon: `w-6 h-6 fill-current ${lowerColor}`
     }
   });
 }
@@ -110,8 +81,16 @@ export function handleAxiosError(
   showToast(`${title} ${message}`, "danger");
 }
 
-export async function confirmDelete(options?: { title?: string; text?: string }): Promise<boolean> {
-  const { title = "¿Estás seguro?", text = "Esta acción no se puede deshacer." } = options || {};
+export async function confirmAction(options?: {
+  title?: string;
+  text?: string;
+  btnText?: string;
+}): Promise<boolean> {
+  const {
+    title = "¿Estás seguro?",
+    text = "Esta acción no se puede deshacer.",
+    btnText = "Sí, eliminar"
+  } = options || {};
 
   const result = await Swal.fire({
     title,
@@ -120,7 +99,7 @@ export async function confirmDelete(options?: { title?: string; text?: string })
     showCancelButton: true,
     confirmButtonColor: "#006eeb",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Sí, eliminar",
+    confirmButtonText: btnText,
     cancelButtonText: "Cancelar"
   });
 
@@ -136,3 +115,10 @@ export const getNestedValue = (obj: any, path: string): any => {
   return path.split(".").reduce((acc, key) => acc?.[key], obj);
 };
 /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
+
+export const getTypeRole = (session: Session | null): boolean => {
+  const role = session?.user.role;
+
+  // Retorn false if its FORMADOR o MENTOR, true en any other case
+  return ![TypeRole.USER_FORMADOR, TypeRole.USER_MENTOR].includes(role as TypeRole);
+};

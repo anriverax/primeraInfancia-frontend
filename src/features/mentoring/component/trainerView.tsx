@@ -14,9 +14,10 @@ const LucideIconRenderer = dynamic(
 
 type TrainerViewProps = {
   inscriptionId: number;
+  teacher: string;
 };
 
-const TrainerView = ({ inscriptionId }: TrainerViewProps): React.JSX.Element => {
+const TrainerView = ({ teacher }: TrainerViewProps): React.JSX.Element => {
   const { appendixsList } = useAppendixList();
 
   const truncateText = (text: string, maxLength: number): string => {
@@ -26,52 +27,68 @@ const TrainerView = ({ inscriptionId }: TrainerViewProps): React.JSX.Element => 
   };
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {appendixsList.map((item: IAppendixTable) => (
-          <Card
-            key={item.id}
-            className="p-6 hover:shadow-lg transition-all duration-300 border-border/50 hover:border-accent/20"
-          >
+    <div>
+      <div className="flex items-center gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Card className="p-6">
             <CardBody className="pt-3">
               <div className="flex items-start justify-between mb-6">
-                <div
-                  className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${item.color}`}
-                >
-                  {item.periodicity} • {item.title}
+                <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white text-secondary-500">
+                  Docente seleccionado
                 </div>
-                {/* Indicador de la realización */}
               </div>
 
               <div className="flex items-start gap-3 mb-4">
-                <div className={`p-2 rounded-lg shrink-0 ${item.color}`}>
-                  <LucideIconRenderer iconName={item.iconName} className="h-5 w-5 text-accent" />
-                </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-card-foreground text-balance leading-tight mb-2">
-                    {item.subTitle}
+                    {teacher}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {truncateText(item.description, 94)}
-                  </p>
+                  <p className="text-sm text-muted-foreground leading-relaxed"></p>
                 </div>
-              </div>
-              <div className="flex justify-center text">
-                <Button
-                  fullWidth
-                  color="primary"
-                  variant="shadow"
-                  type="submit"
-                  as={Link}
-                  href={`/admin/grupos/anexos/${inscriptionId}/mentoria/${item.id}?inscripcionId=${inscriptionId}`}
-                  startContent={<Eye />}
-                >
-                  Visualizar
-                </Button>
               </div>
             </CardBody>
           </Card>
-        ))}
+          {appendixsList.map((item: IAppendixTable) => (
+            <Card key={item.id} className="p-6">
+              <CardBody className="pt-3">
+                <div className="flex items-start justify-between mb-6">
+                  <div
+                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${item.color}`}
+                  >
+                    {item.periodicity} • {item.title}
+                  </div>
+                  {/* Indicador de la realización */}
+                </div>
+
+                <div className="flex items-start gap-3 mb-4">
+                  <div className={`p-2 rounded-lg shrink-0 ${item.color}`}>
+                    <LucideIconRenderer iconName={item.iconName} className="h-5 w-5 text-accent" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold text-card-foreground text-balance leading-tight mb-2">
+                      {item.subTitle}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {truncateText(item.description, 94)}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex justify-center text">
+                  <Button
+                    fullWidth
+                    color="primary"
+                    type="submit"
+                    as={Link}
+                    href={`anexos/${item.id}/${encodeURIComponent(item.subTitle)}`}
+                    startContent={<Eye />}
+                  >
+                    Visualizar
+                  </Button>
+                </div>
+              </CardBody>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-import { confirmDelete, handleAxiosError } from "../utils/functions";
+import { confirmAction, handleAxiosError } from "../utils/functions";
 import { AxiosResponse, HttpStatusCode } from "axios";
 import useAxios from "./useAxios";
 import { FetchResponse } from "../types/globals";
@@ -38,7 +38,7 @@ export const useDeleteRequest = (
   };
 
   const onConfirmDelete = async (id: number, info: string): Promise<boolean> => {
-    const confirmed = await confirmDelete({ text: info });
+    const confirmed = await confirmAction({ text: info });
     if (confirmed) {
       await handleDelete(id);
       return true;

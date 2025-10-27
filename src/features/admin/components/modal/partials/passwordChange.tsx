@@ -4,10 +4,11 @@ import { KeyIcon } from "lucide-react";
 import ModalRegisterHeader from "../modalRegisterHeader";
 import { usePasswordChange } from "@/features/admin/hooks/usePasswordChange";
 import { usePasswdVisible } from "@/features/admin/hooks/usePasswdVisible";
+import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 
 const PasswordChange = (): React.JSX.Element => {
   const formikPasswd = usePasswordChange();
-  const { handleSubmit, touched, errors, getFieldProps, isSubmitting } = formikPasswd;
+  const { handleSubmit, touched, errors, getFieldProps, isSubmitting, status, setStatus } = formikPasswd;
   const { getInputProps } = useCustomFormFields();
 
   const [isPasswordVisible1, PasswordVisible1] = usePasswdVisible();
@@ -22,6 +23,9 @@ const PasswordChange = (): React.JSX.Element => {
         icon={<KeyIcon className="h-6 w-6 text-gray-600" />}
       />
       <ModalBody>
+        {Object.keys(errors).length > 0 && status === 401 && (
+          <ConditionalAlert status={status} errors={errors} setStatus={setStatus} />
+        )}
         <form className="space-y-6" onSubmit={handleSubmit}>
           <Input
             {...getFieldProps("email")}
