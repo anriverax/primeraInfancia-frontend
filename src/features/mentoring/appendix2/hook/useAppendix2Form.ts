@@ -1,5 +1,5 @@
 import { FormikHelpers, useFormik } from "formik";
-import { questionsAppendix1, questionsAppendix2 } from "@/shared/appendixData";
+import { questionsAppendix2 } from "@/shared/appendixData";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import useAxios from "@/shared/hooks/useAxios";
@@ -55,7 +55,7 @@ const useAppendix2Form = (appendixId: number, inscriptionId: number) => {
       survey: result,
       inscriptionId
     };
-    console.log(appendixData);
+
     try {
       const res: AxiosResponse<FetchResponse<IAppendix2Input>> = await useRequest.post(
         "/surveyData/create",

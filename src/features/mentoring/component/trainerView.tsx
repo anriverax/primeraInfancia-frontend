@@ -19,7 +19,7 @@ type TrainerViewProps = {
 
 const TrainerView = ({ teacher }: TrainerViewProps): React.JSX.Element => {
   const { appendixsList } = useAppendixList();
-
+  console.log(teacher);
   const truncateText = (text: string, maxLength: number): string => {
     if (text.length > maxLength) return text.substring(0, maxLength) + "...";
 
@@ -38,7 +38,7 @@ const TrainerView = ({ teacher }: TrainerViewProps): React.JSX.Element => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 mb-4">
+              {/*<div className="flex items-start gap-3 mb-4">
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold mb-2">{teacher}</h3>
                   <ul>
@@ -49,7 +49,7 @@ const TrainerView = ({ teacher }: TrainerViewProps): React.JSX.Element => {
                     ))}
                   </ul>
                 </div>
-              </div>
+              </div>*/}
             </CardBody>
           </Card>
           {appendixsList.map((item: IAppendixTable) => (
