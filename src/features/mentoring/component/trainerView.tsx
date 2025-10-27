@@ -38,18 +38,18 @@ const TrainerView = ({ teacher }: TrainerViewProps): React.JSX.Element => {
                 </div>
               </div>
 
-              {/*<div className="flex items-start gap-3 mb-4">
+              <div className="flex items-start gap-3 mb-4">
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold mb-2">{teacher}</h3>
-                  <ul>
+                  {/*<ul>
                     {appendixsList.map((item: IAppendixTable) => (
                       <li key={item.id}>
                         {item.title} - {item.subTitle}
                       </li>
                     ))}
-                  </ul>
+                  </ul>*/}
                 </div>
-              </div>*/}
+              </div>
             </CardBody>
           </Card>
           {appendixsList.map((item: IAppendixTable) => (

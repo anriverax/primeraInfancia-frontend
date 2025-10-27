@@ -97,7 +97,11 @@ const MentorForm = (): React.JSX.Element => {
           label="Seleccione una opción"
           orientation="horizontal"
           value={values.status}
-          onValueChange={(value: string) => setFieldValue("status", value)}
+          onValueChange={(value: string) => {
+            setFieldValue("comment", "");
+            setFieldValue("justificationUrl", "");
+            setFieldValue("status", value);
+          }}
         >
           <Radio value={AttendanceEnum.PRESENTE} color="primary">
             {AttendanceEnum.PRESENTE}
