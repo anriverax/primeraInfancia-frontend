@@ -1,6 +1,6 @@
 import { useParams } from "next/navigation";
 import { useAppendix } from "../hook/useAppendix";
-import { ArrowLeft, CheckCircle2, FileText, Send, User } from "lucide-react";
+import { ArrowLeft, FileText, Send, User } from "lucide-react";
 import { Button, Card, Divider, Input, RadioGroup, Radio, Select, SelectItem } from "@heroui/react";
 import { useAppendix2Form } from "../hook/useAppendixForm";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
