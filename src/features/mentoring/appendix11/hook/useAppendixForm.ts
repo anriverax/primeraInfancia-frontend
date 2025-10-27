@@ -8,7 +8,7 @@ import useAxios from "@/shared/hooks/useAxios";
 import { confirmAction, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { useRouter } from "next/navigation";
 
-const initialValuesAppendix1: Appendix2Input = {
+const initialValuesAppendix2: Appendix2Input = {
   shift: "",
   section: "",
   girlNumber: 0,
@@ -30,7 +30,9 @@ const initialValuesAppendix1: Appendix2Input = {
   challengesInYourClassroom: "",
   expectFromTheMentoring: "",
   anythingYouThinkIsImportant: "",
-  mentorStaffObservations: ""
+  mentorStaffObservations: "",
+  initialTrainingOther: "",
+  levelPracticeInclusion: ""
 };
 
 const useAppendix2Form = (appendixId: number, inscriptionId: number) => {
@@ -42,7 +44,7 @@ const useAppendix2Form = (appendixId: number, inscriptionId: number) => {
     formikHelpers: FormikHelpers<IAppendix2Input>
   ): Promise<void> => {
     console.log("a guardar");
-    
+
     const confirmed = await confirmAction({
       title: "Confirmar envío",
       text: "¿Estás seguro de que deseas enviar el acuerdo?",
@@ -62,6 +64,7 @@ const useAppendix2Form = (appendixId: number, inscriptionId: number) => {
       survey: result,
       inscriptionId
     };
+    console.log(appendixData);
 
     try {
       const res: AxiosResponse<FetchResponse<IAppendix2Input>> = await useRequest.post(
@@ -81,16 +84,16 @@ const useAppendix2Form = (appendixId: number, inscriptionId: number) => {
     }
   };
 
-  const formikAppendix1 = useFormik({
+  const formikAppendix2 = useFormik({
     enableReinitialize: true,
-    initialValues: initialValuesAppendix1,
+    initialValues: initialValuesAppendix2,
     validationSchema: appendix2Schema,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: handleSubmit
   });
 
-  return formikAppendix1;
+  return formikAppendix2;
 };
 
 export { useAppendix2Form };
