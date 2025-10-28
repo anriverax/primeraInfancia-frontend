@@ -7,13 +7,15 @@ export interface Appendix3Input {
   activities: string;
   resources: string;
   timing: string;
+  successIndicator: string;
+  levelOfAchievement: string;
   classroomObservation: string;
   dialoguedFeedback: string;
   coPlanning: string
   portfolioReview: string;
   teachingMaterial: string;
-  others:string;
-  nextVisit:string;
+  others: string;
+  nextVisit: string;
 }
 
 export type IAppendix3Input = Appendix3Input & AxiosMessage;
