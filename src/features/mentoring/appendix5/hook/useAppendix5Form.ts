@@ -1,6 +1,6 @@
 import { FormikHelpers, useFormik } from "formik";
-import { Appendix3Input, IAppendix3Input } from "../appendix5Type";
-import { appendix3Schema } from "../appendix3Validation";
+import { Appendix5Input, IAppendix5Input } from "../appendix5Type";
+import { appendix5Schema } from "../appendix5Validation";
 import { questionsAppendix1 } from "@/shared/appendixData";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
@@ -8,29 +8,30 @@ import useAxios from "@/shared/hooks/useAxios";
 import { confirmAction, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { useRouter } from "next/navigation";
 
-const initialValuesAppendix3: Appendix3Input = {
-  dimension: "",
-  subDimension: "",
-  goal: "",
-  activities: "",
-  resources: "",
-  timing: "",
-  classroomObservation: "",
-  dialoguedFeedback: "",
-  coPlanning: "",
-  portfolioReview: "",
-  teachingMaterial: "",
-  others:"",
-  nextVisit:"",
+const initialValuesAppendix5: Appendix5Input = {
+  teacherFocusArea: "",
+  recentDifficulties: "",
+  improvementGoals: "",
+  practiceHighlights: "",
+  emotionalConnection: "",
+  emotionalAwareness: "",
+  identifiedStrengths: "",
+  dilemasTensions: "",
+  keyLearning: "",
+  commitmentNextSession: "",
+  changesSinceLast: "",
+  observedEvidence: "",
+  recomendation: "",
+  othersNotes: "",
 };
 
-const useAppendix3Form = (appendixId: number, inscriptionId: number) => {
+const useAppendix5Form = (appendixId: number, inscriptionId: number) => {
   const useRequest = useAxios(true);
   const router = useRouter();
 
   const handleSubmit = async (
-    values: Appendix3Input,
-    formikHelpers: FormikHelpers<IAppendix3Input>
+    values: Appendix5Input,
+    formikHelpers: FormikHelpers<IAppendix5Input>
   ): Promise<void> => {
     const confirmed = await confirmAction({
       title: "Confirmar envío",
@@ -53,7 +54,7 @@ const useAppendix3Form = (appendixId: number, inscriptionId: number) => {
     };
 
     try {
-      const res: AxiosResponse<FetchResponse<IAppendix3Input>> = await useRequest.post(
+      const res: AxiosResponse<FetchResponse<IAppendix5Input>> = await useRequest.post(
         "/surveyData/create",
         appendixData
       );
@@ -66,14 +67,14 @@ const useAppendix3Form = (appendixId: number, inscriptionId: number) => {
         router.back();
       }
     } catch (error) {
-      handleFormikResponseError<IAppendix3Input>(error as AxiosError, formikHelpers!);
+      handleFormikResponseError<IAppendix5Input>(error as AxiosError, formikHelpers!);
     }
   };
 
   const formikAppendix1 = useFormik({
     enableReinitialize: true,
-    initialValues: initialValuesAppendix3,
-    validationSchema: appendix3Schema,
+    initialValues: initialValuesAppendix5,
+    validationSchema: appendix5Schema,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: handleSubmit
@@ -82,4 +83,4 @@ const useAppendix3Form = (appendixId: number, inscriptionId: number) => {
   return formikAppendix1;
 };
 
-export { useAppendix3Form };
+export { useAppendix5Form };

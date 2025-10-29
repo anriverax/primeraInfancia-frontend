@@ -70,98 +70,109 @@ const Appendix3Form = () => {
               <span className="text-accent font-bold">I</span>
             </div>
             <div className="flex-1 space-y-6">
-              <div className="space-y-6">
-                <Select
-                  items={[
-                    { key: "Desarrollo y Aprendizaje Activos. Currículo integrado", label: "Desarrollo y Aprendizaje Activos. Currículo integrado" },
-                    { key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia." },
-                    { key: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.", label: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias." },
-                    { key: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos.", label: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos." }
-                  ]}
-                  {...getFieldProps("dimension")}
-                  {...getInputProps(
-                    "dimension",
-                    "Dimensión: ",
-                    Boolean(touched.dimension),
-                    errors.dimension as string
-                  )}
-                  className="max-w-md"
-                >
-                  {(item: any) => <SelectItem>{item.label}</SelectItem>}
-                </Select>
-                {/* Select dependiente: sólo muestra opciones cuando hay una dimensión seleccionada */}
-                {dimensionValue && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
                   <Select
-                    items={subItems}
-                    {...getFieldProps("subDimension")}
+                    items={[
+                      { key: "Desarrollo y Aprendizaje Activos. Currículo integrado", label: "Desarrollo y Aprendizaje Activos. Currículo integrado" },
+                      { key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia." },
+                      { key: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.", label: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias." },
+                      { key: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos.", label: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos." }
+                    ]}
+                    {...getFieldProps("dimension")}
                     {...getInputProps(
-                      "subDimension",
-                      "Sub-dimensión",
-                      Boolean(touched.subDimension),
-                      errors.subDimension as string
+                      "dimension",
+                      "Dimensión: ",
+                      Boolean(touched.dimension),
+                      errors.dimension as string
                     )}
                     className="max-w-md"
                   >
                     {(item: any) => <SelectItem>{item.label}</SelectItem>}
                   </Select>
-                )}
-                <Input
-                  {...getFieldProps("goal")}
-                  {...getInputProps(
-                    "text",
-                    "Objetivos",
-                    touched.goal,
-                    errors.goal
-                  )}
-                  className="max-w-md"
-                />
-                <Input
-                  {...getFieldProps("activities")}
-                  {...getInputProps(
-                    "text",
-                    "Actividades",
-                    touched.activities,
-                    errors.activities
-                  )}
-                  className="max-w-md"
-                />
-                <Input
-                  {...getFieldProps("resources")}
-                  {...getInputProps(
-                    "text",
-                    "Recursos",
-                    touched.resources,
-                    errors.resources
-                  )}
-                  className="max-w-md"
-                /><Input
-                  {...getFieldProps("timing")}
-                  {...getInputProps(
-                    "text",
-                    "Temporización",
-                    touched.timing,
-                    errors.timing
-                  )}
-                  className="max-w-md"
-                /><Input
-                  {...getFieldProps("successIndicator")}
-                  {...getInputProps(
-                    "text",
-                    "Indicadores de éxito",
-                    touched.successIndicator,
-                    errors.successIndicator
-                  )}
-                  className="max-w-md"
-                /><Input
-                  {...getFieldProps("levelOfAchievement")}
-                  {...getInputProps(
-                    "text",
-                    "Nivel de logro",
-                    touched.levelOfAchievement,
-                    errors.levelOfAchievement
-                  )}
-                  className="max-w-md"
-                />
+                  {/* Select dependiente: sólo muestra opciones cuando hay una dimensión seleccionada */}
+                  
+                    <Select
+                      items={subItems}
+                      {...getFieldProps("subDimension")}
+                      {...getInputProps(
+                        "subDimension",
+                        "Sub-dimensión",
+                        Boolean(touched.subDimension),
+                        errors.subDimension as string
+                      )}
+                      className="max-w-md"
+                    >
+                      {(item: any) => <SelectItem>{item.label}</SelectItem>}
+                    </Select>
+                  
+                </div>
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("goal")}
+                    {...getInputProps(
+                      "text",
+                      "Objetivos",
+                      touched.goal,
+                      errors.goal
+                    )}
+                    className="max-w-md"
+                  />
+                  <Input
+                    {...getFieldProps("activities")}
+                    {...getInputProps(
+                      "text",
+                      "Actividades",
+                      touched.activities,
+                      errors.activities
+                    )}
+                    className="max-w-md"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("resources")}
+                    {...getInputProps(
+                      "text",
+                      "Recursos",
+                      touched.resources,
+                      errors.resources
+                    )}
+                    className="max-w-md"
+                  />
+                  <Input
+                    {...getFieldProps("timing")}
+                    {...getInputProps(
+                      "text",
+                      "Temporización",
+                      touched.timing,
+                      errors.timing
+                    )}
+                    className="max-w-md"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Input
+                    {...getFieldProps("successIndicator")}
+                    {...getInputProps(
+                      "text",
+                      "Indicadores de éxito",
+                      touched.successIndicator,
+                      errors.successIndicator
+                    )}
+                    className="max-w-md"
+                  />
+                  <Input
+                    {...getFieldProps("levelOfAchievement")}
+                    {...getInputProps(
+                      "text",
+                      "Nivel de logro",
+                      touched.levelOfAchievement,
+                      errors.levelOfAchievement
+                    )}
+                    className="max-w-md"
+                  />
+                </div>
               </div>
             </div>
           </div>

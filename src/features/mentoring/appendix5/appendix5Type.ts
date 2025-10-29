@@ -8,7 +8,7 @@ export interface Appendix5Input {
   emotionalConnection: string;
   emotionalAwareness: string;
   identifiedStrengths: string;
-  dimlemasTensions: string;
+  dilemasTensions: string;
   keyLearning: string;
   commitmentNextSession: string;
   changesSinceLast: string
