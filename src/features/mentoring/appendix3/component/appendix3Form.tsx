@@ -11,8 +11,8 @@ const Appendix3Form = () => {
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
 
-  const formikAppendix1 = useAppendix3Form(Number(anexoId), Number(groupId));
-  const { getFieldProps, touched, errors, handleSubmit } = formikAppendix1;
+  const formikAppendix3 = useAppendix3Form(Number(anexoId), Number(groupId));
+  const { getFieldProps, touched, errors, handleSubmit } = formikAppendix3;
 
   const { getInputProps } = useCustomFormFields();
 
@@ -217,8 +217,8 @@ const Appendix3Form = () => {
                                 if (idx > -1) current.splice(idx, 1);
                               }
                               // actualizar el valor en formik
-                              // formik instance está en formikAppendix1
-                              (formikAppendix1 as any).setFieldValue("strategies", current);
+                              // formik instance está en formikAppendix3
+                              (formikAppendix3 as any).setFieldValue("strategies", current);
                             }}
                             className="w-4 h-4"
                           />
