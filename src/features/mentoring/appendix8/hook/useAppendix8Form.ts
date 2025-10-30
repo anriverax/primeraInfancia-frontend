@@ -1,6 +1,6 @@
 import { FormikHelpers, useFormik } from "formik";
-import { Appendix7Input, IAppendix7Input } from "../appendix8Type";
-import { appendix7Schema } from "../appendix8Validation";
+import { Appendix8Input, IAppendix8Input } from "../appendix8Type";
+import { appendix8Schema } from "../appendix8Validation";
 import { questionsAppendix1 } from "@/shared/appendixData";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
@@ -8,33 +8,80 @@ import useAxios from "@/shared/hooks/useAxios";
 import { confirmAction, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { useRouter } from "next/navigation";
 
-const initialValuesAppendix5: Appendix7Input = {
-  mentoringProcessDescription: "",
-  achieveOutcomes: "",
-  improvementAreas: "",
-  classroomObservation: "",
-  pedagogicalModel: "",
-  coPlanning: "",
-  reflectiveDialogue: "",
-  individualCoaching: "",
-  other: "",
-  deliveryInPerson: "",
-  deliveryInPairs: "",
-  deliverySituational: "",
-  virtualIndividual: "",
-  virtualInPairs: "",
-  virtualSituational: "",
-  followUpRecommendations: "",
-  nextCohortImprovements: "",
+const initialValuesAppendix8: Appendix8Input = {
+  //Section A
+  relateToDailyLife: '',
+  usePriorKnowledge: '',
+  promoteParticipation: '',
+  intentionalDevelopment: '',
+  integratePlay: '',
+  buildSecureSpace: '',
+  spaceAlignmentToGoals: '',
+  organizeZoneCriteria: '',
+  selectAppropriateMaterials: '',
+  renewZoneCapacity: '',
+  promoteFreeZoneRotation: '',
+  holisticDevelopmentFocus: '',
+  facilitatePeerInteraction: '',
+  promoteEmotionalExpression: '',
+  observeListenMediateSupport: '',
+  knowledgeAndUse: '',
+  curriculumAdaptation: '',
+  implementWorkshops: '',
+  implementProjects: '',
+  implementAssembly: '',
+  varyStudentGrouping: '',
+  planTransitions: '',
+  organizeRoutineCriteria: '',
+  useAnticipationTools: '',
+  addressNeedsViaSchedule: '',
+  flexibleRespectfulTiming: '',
+  clearCoherentSchedule: '',
+  integratesDesignElements: '',
+  involveFamilies: '',
+  usesVariedTools: '',
+  documentsObservations: '',
+  flexibleInclusiveDesign: '',
+  individualizedSupportiveAssessment: '',
+  //Section B
+  affectiveEnvironment: '',
+  fosterResponsibilityAutonomy: '',
+  cozySafeEnjoyable: '',
+  positiveAttitudeRoutines: '',
+  usePositiveFeedback: '',
+  respectfulAffectionateTreatment: '',
+  listenToInterests: '',
+  addressChildNeeds: '',
+  promoteEmpathyConflict: '',
+  fosterTeamworkCollaboration: '',
+  promoteFreeExpression: '',
+  //Section C
+  promoteFamilyParticipation: '',
+  listenToOpinions: '',
+  receptiveToProposals: '',
+  facilitateCollaborationActivities: '',
+  considerFamilyContext: '',
+  communicateProgressMechanisms: '',
+  adherenceToComprehensiveCare: '',
+  //Section D
+  setRealisticGoals: '',
+  selfAssessPractice: '',
+  peerEvaluateForImprovement: '',
+  sharePracticeActivities: '',
+  teamConsensusPlanning: '',
+  manageVirtualClassroom: '',
+  useGoogleProductivity: '',
+  useAgeAppropriateResources: '',
+  integrateAudiovisualTools: '',
 };
 
-const useAppendix7Form = (appendixId: number, inscriptionId: number) => {
+const useAppendix8Form = (appendixId: number, inscriptionId: number) => {
   const useRequest = useAxios(true);
   const router = useRouter();
 
   const handleSubmit = async (
-    values: Appendix7Input,
-    formikHelpers: FormikHelpers<IAppendix7Input>
+    values: Appendix8Input,
+    formikHelpers: FormikHelpers<IAppendix8Input>
   ): Promise<void> => {
     const confirmed = await confirmAction({
       title: "Confirmar envío",
@@ -57,7 +104,7 @@ const useAppendix7Form = (appendixId: number, inscriptionId: number) => {
     };
 
     try {
-      const res: AxiosResponse<FetchResponse<IAppendix7Input>> = await useRequest.post(
+      const res: AxiosResponse<FetchResponse<IAppendix8Input>> = await useRequest.post(
         "/surveyData/create",
         appendixData
       );
@@ -70,20 +117,20 @@ const useAppendix7Form = (appendixId: number, inscriptionId: number) => {
         router.back();
       }
     } catch (error) {
-      handleFormikResponseError<IAppendix7Input>(error as AxiosError, formikHelpers!);
+      handleFormikResponseError<IAppendix8Input>(error as AxiosError, formikHelpers!);
     }
   };
 
-  const formikAppendix1 = useFormik({
+  const formikAppendix8 = useFormik({
     enableReinitialize: true,
-    initialValues: initialValuesAppendix5,
-    validationSchema: appendix7Schema,
+    initialValues: initialValuesAppendix8,
+    validationSchema: appendix8Schema,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: handleSubmit
   });
 
-  return formikAppendix1;
+  return formikAppendix8;
 };
 
-export { useAppendix7Form };
+export { useAppendix8Form };

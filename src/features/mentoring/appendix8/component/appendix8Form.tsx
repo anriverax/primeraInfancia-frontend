@@ -1,18 +1,18 @@
 import { useParams } from "next/navigation";
 import { useAppendix } from "../../hooks/useAppendix";
-import { ArrowLeft, CheckCircle2, FileText, Send, User } from "lucide-react";
-import { Button, Card, Divider, Input, Select, SelectItem, RadioGroup, Radio } from "@heroui/react";
-import { useAppendix7Form } from "../hook/useAppendix8Form";
+import { ArrowLeft,  FileText, Send, User } from "lucide-react";
+import { Button, Card, Divider, RadioGroup, Radio } from "@heroui/react";
+import { useAppendix8Form } from "../hook/useAppendix8Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
 
-const Appendix7Form = () => {
+const Appendix8Form = () => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
 
-  const formikAppendix7 = useAppendix7Form(Number(anexoId), Number(groupId));
-  const { getFieldProps, setFieldValue, touched, errors, handleSubmit, values } = formikAppendix7;
+  const formikAppendix8 = useAppendix8Form(Number(anexoId), Number(groupId));
+  const { getFieldProps, setFieldValue, touched, errors, handleSubmit, values } = formikAppendix8;
 
   const { getInputProps } = useCustomFormFields();
 
@@ -1035,4 +1035,4 @@ const Appendix7Form = () => {
   );
 };
 
-export default Appendix7Form;
+export default Appendix8Form;
