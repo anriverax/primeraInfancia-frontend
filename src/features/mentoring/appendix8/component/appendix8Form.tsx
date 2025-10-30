@@ -1,6 +1,6 @@
 import { useParams } from "next/navigation";
 import { useAppendix } from "../../hooks/useAppendix";
-import { ArrowLeft,  FileText, Send, User } from "lucide-react";
+import { ArrowLeft, FileText, Send, User } from "lucide-react";
 import { Button, Card, Divider, RadioGroup, Radio } from "@heroui/react";
 import { useAppendix8Form } from "../hook/useAppendix8Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
@@ -57,12 +57,12 @@ const Appendix8Form = () => {
               <div className="space-y-3">
                 <RadioGroup
                   isRequired
-                  label="Visita al aula"
+                  label="El docente vincula las experiencias de desarrollo y aprendizaje con situaciones cotidianas de las niñas y los niños de Primera Infancia."
                   orientation="horizontal"
-                  value={values.classroomObservation}
-                  isInvalid={!!errors.classroomObservation}
-                  errorMessage={errors.classroomObservation}
-                  onValueChange={(value: string) => setFieldValue("classroomObservation", value)}
+                  value={values.relateToDailyLife}
+                  isInvalid={!!errors.relateToDailyLife}
+                  errorMessage={errors.relateToDailyLife}
+                  onValueChange={(value: string) => setFieldValue("relateToDailyLife", value)}
                 >
                   {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
@@ -72,14 +72,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Modelo pedagógico"
+                  label="El docente retoma los conocimientos previos de las niñas y los niños de Primera Infancia en la construcción de nuevos aprendizajes."
                   orientation="horizontal"
-                  value={values.pedagogicalModel}
-                  isInvalid={!!errors.pedagogicalModel}
-                  errorMessage={errors.pedagogicalModel}
-                  onValueChange={(value: string) => setFieldValue("pedagogicalModel", value)}
+                  value={values.usePriorKnowledge}
+                  isInvalid={!!errors.usePriorKnowledge}
+                  errorMessage={errors.usePriorKnowledge}
+                  onValueChange={(value: string) => setFieldValue("usePriorKnowledge", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -87,14 +87,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Coplanificación"
+                  label="El docente promueve la participación y el aprendizaje de todas las niñas y los niños del aula respetando sus características individuales."
                   orientation="horizontal"
-                  value={values.coPlanning}
-                  isInvalid={!!errors.coPlanning}
-                  errorMessage={errors.coPlanning}
-                  onValueChange={(value: string) => setFieldValue("coPlanning", value)}
+                  value={values.promoteParticipation}
+                  isInvalid={!!errors.promoteParticipation}
+                  errorMessage={errors.promoteParticipation}
+                  onValueChange={(value: string) => setFieldValue("promoteParticipation", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -102,14 +102,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Diálogo Reflexivo"
+                  label="El docente intenciona los procesos de desarrollo y aprendizaje de todas las niñas y los niños de Primera Infancia en el aula y lo hace con respeto a su ritmo e intereses."
                   orientation="horizontal"
-                  value={values.reflectiveDialogue}
-                  isInvalid={!!errors.reflectiveDialogue}
-                  errorMessage={errors.reflectiveDialogue}
-                  onValueChange={(value: string) => setFieldValue("reflectiveDialogue", value)}
+                  value={values.intentionalDevelopment}
+                  isInvalid={!!errors.intentionalDevelopment}
+                  errorMessage={errors.intentionalDevelopment}
+                  onValueChange={(value: string) => setFieldValue("intentionalDevelopment", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -117,14 +117,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Asesoría personalizada"
+                  label="El docente reconoce e integra el juego como elemento natural para el desarrollo y aprendizaje."
                   orientation="horizontal"
-                  value={values.individualCoaching}
-                  isInvalid={!!errors.individualCoaching}
-                  errorMessage={errors.individualCoaching}
-                  onValueChange={(value: string) => setFieldValue("individualCoaching", value)}
+                  value={values.integratePlay}
+                  isInvalid={!!errors.integratePlay}
+                  errorMessage={errors.integratePlay}
+                  onValueChange={(value: string) => setFieldValue("integratePlay", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -132,14 +132,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente crea espacios seguros, creativos y acogedores en el aula que favorecen la libre expresión y el juego."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.buildSecureSpace}
+                  isInvalid={!!errors.buildSecureSpace}
+                  errorMessage={errors.buildSecureSpace}
+                  onValueChange={(value: string) => setFieldValue("buildSecureSpace", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -147,14 +147,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente reconoce la importancia de la ambientación de los espacios del aula de Primera Infancia de acuerdo a los objetivos didácticos de la planificación."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.spaceAlignmentToGoals}
+                  isInvalid={!!errors.spaceAlignmentToGoals}
+                  errorMessage={errors.spaceAlignmentToGoals}
+                  onValueChange={(value: string) => setFieldValue("spaceAlignmentToGoals", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -162,14 +162,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente organiza las zonas de desarrollo y aprendizaje de manera que cumplan con características mínimas: activas, participativas, situadas que promuevan la experimentación, el juego, la exploración y favorecedoras del desarrollo y el aprendizaje integral de las niñas y los niños de Primera Infancia."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.organizeZoneCriteria}
+                  isInvalid={!!errors.organizeZoneCriteria}
+                  errorMessage={errors.organizeZoneCriteria}
+                  onValueChange={(value: string) => setFieldValue("organizeZoneCriteria", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -177,14 +177,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente selecciona materiales y recursos didácticos seguros, accesibles, variados teniendo en cuenta los intereses y características individuales de las niñas y niños del aula."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.selectAppropriateMaterials}
+                  isInvalid={!!errors.selectAppropriateMaterials}
+                  errorMessage={errors.selectAppropriateMaterials}
+                  onValueChange={(value: string) => setFieldValue("selectAppropriateMaterials", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -192,14 +192,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente enriquece y renueva las zonas de desarrollo y aprendizaje según las planificaciones considerando que cada zona tenga la capacidad para ser utilizada por 6 niñas o niños de Primera Infancia."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.renewZoneCapacity}
+                  isInvalid={!!errors.renewZoneCapacity}
+                  errorMessage={errors.renewZoneCapacity}
+                  onValueChange={(value: string) => setFieldValue("renewZoneCapacity", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -207,14 +207,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente incluye, promueve y acompañamiento la rotación libre entre las zonas de desarrollo y aprendizaje instaladas en el aula. Algunos ejemplos de zona según el marco curricular pueden ser: zona de lectura, zona de expresión gráfica, plástica y visual,  zona de pensamiento lógico y matemática, sensoriomotora (página 107)."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.promoteFreeZoneRotation}
+                  isInvalid={!!errors.promoteFreeZoneRotation}
+                  errorMessage={errors.promoteFreeZoneRotation}
+                  onValueChange={(value: string) => setFieldValue("promoteFreeZoneRotation", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -222,14 +222,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente planifica actividades que favorecen el desarrollo integral físico y  emocional."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.holisticDevelopmentFocus}
+                  isInvalid={!!errors.holisticDevelopmentFocus}
+                  errorMessage={errors.holisticDevelopmentFocus}
+                  onValueChange={(value: string) => setFieldValue("holisticDevelopmentFocus", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -237,14 +237,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente selecciona y organiza materiales para facilitar la libre interacción entre pares, en pequeños o grandes grupos o trabajo individual."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.facilitatePeerInteraction}
+                  isInvalid={!!errors.facilitatePeerInteraction}
+                  errorMessage={errors.facilitatePeerInteraction}
+                  onValueChange={(value: string) => setFieldValue("facilitatePeerInteraction", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -252,14 +252,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente promueve la expresión de emociones a través de diferentes formas de expresión."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.promoteEmotionalExpression}
+                  isInvalid={!!errors.promoteEmotionalExpression}
+                  errorMessage={errors.promoteEmotionalExpression}
+                  onValueChange={(value: string) => setFieldValue("promoteEmotionalExpression", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -267,14 +267,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente acompañará desde la observación, la escucha y la mediación, realizando preguntas que profundicen el pensamiento o brindando apoyos cuando se requiera a las niñas y los niños de Primera Infancia(107)."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.observeListenMediateSupport}
+                  isInvalid={!!errors.observeListenMediateSupport}
+                  errorMessage={errors.observeListenMediateSupport}
+                  onValueChange={(value: string) => setFieldValue("observeListenMediateSupport", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -282,14 +282,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente conoce y utiliza estrategias pedagógicas pertinentes para la primera infancia: abordadas en la formación: talleres pedagógicos, proyectos, zonas de desarrollo y aprendizaje y asamblea (96)."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.knowledgeAndUse}
+                  isInvalid={!!errors.knowledgeAndUse}
+                  errorMessage={errors.knowledgeAndUse}
+                  onValueChange={(value: string) => setFieldValue("knowledgeAndUse", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -297,14 +297,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente ajusta las estrategias pedagógicas orientadas por el marco curricular a la naturaleza de la niñas y los niños de Primera Infancia, favoreciendo el desarrollo integral y la promoción de aprendizajes pertinentes y significativos."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.curriculumAdaptation}
+                  isInvalid={!!errors.curriculumAdaptation}
+                  errorMessage={errors.curriculumAdaptation}
+                  onValueChange={(value: string) => setFieldValue("curriculumAdaptation", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -312,14 +312,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente integra la estrategia pedagógica pertinente de talleres en su aula de acuerdo a las edades de su grupo, con una frecuencia que puede ser diaria con una duración de 30 a 60 minutos o de acuerdo a las necesidades e interese de las niñas y niños de Primera Infancia."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.implementWorkshops}
+                  isInvalid={!!errors.implementWorkshops}
+                  errorMessage={errors.implementWorkshops}
+                  onValueChange={(value: string) => setFieldValue("implementWorkshops", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -327,14 +327,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente integra la estrategia pedagógica pertinente de proyecto en su aula de acuerdo a las edades e intereses genuinos de su grupo con una frecuencia que puede ser diaria con una duración de 40 a 50 minutos, donde se vincule la vida cotidiana y la educación."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.implementProjects}
+                  isInvalid={!!errors.implementProjects}
+                  errorMessage={errors.implementProjects}
+                  onValueChange={(value: string) => setFieldValue("implementProjects", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -342,14 +342,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente integra la estrategia pedagógica pertinente de asamblea al inicio o al final de la jornada, donde se promueve el pensamiento crítico la deliberación colectiva y la construcción de acuerdos retomando los momentos para su desarrollo (apertura, propósito, conversación abierta y cierre) con una frecuencia que puede ser diaria con una duración de 20 a 50 minutos."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.implementAssembly}
+                  isInvalid={!!errors.implementAssembly}
+                  errorMessage={errors.implementAssembly}
+                  onValueChange={(value: string) => setFieldValue("implementAssembly", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -357,14 +357,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente utiliza distintos tipos de agrupamientos (individual, grupos pequeños o grandes), según las distintas estrategias pedagógicas pertinentes planificadas en la rutina de desarrollo y aprendizaje."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.varyStudentGrouping}
+                  isInvalid={!!errors.varyStudentGrouping}
+                  errorMessage={errors.varyStudentGrouping}
+                  onValueChange={(value: string) => setFieldValue("varyStudentGrouping", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -372,14 +372,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente cuida, anticipa y planifica las transiciones entre momentos y rutinas."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.planTransitions}
+                  isInvalid={!!errors.planTransitions}
+                  errorMessage={errors.planTransitions}
+                  onValueChange={(value: string) => setFieldValue("planTransitions", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -387,14 +387,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente organiza las rutinas de la jornada con criterios de estabilidad, flexibilidad y secuencialidad."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.organizeRoutineCriteria}
+                  isInvalid={!!errors.organizeRoutineCriteria}
+                  errorMessage={errors.organizeRoutineCriteria}
+                  onValueChange={(value: string) => setFieldValue("organizeRoutineCriteria", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -402,14 +402,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente utiliza herramientas que facilitan a las niñas y los niños la anticipación de la secuencia de las rutinas del día."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.useAnticipationTools}
+                  isInvalid={!!errors.useAnticipationTools}
+                  errorMessage={errors.useAnticipationTools}
+                  onValueChange={(value: string) => setFieldValue("useAnticipationTools", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -417,14 +417,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente responde a necesidades básicas (aseo, comida y descanso), afectivas, educativas y de interacción social a través de la organización del tiempo de acuerdo a la secuencia de rutinas."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.addressNeedsViaSchedule}
+                  isInvalid={!!errors.addressNeedsViaSchedule}
+                  errorMessage={errors.addressNeedsViaSchedule}
+                  onValueChange={(value: string) => setFieldValue("addressNeedsViaSchedule", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -432,14 +432,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente tiene en cuenta el criterio de flexibilidad en la organización de la rutina y respeta los intereses y características individuales de las niñas y los niños de Primera Infancia."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.flexibleRespectfulTiming}
+                  isInvalid={!!errors.flexibleRespectfulTiming}
+                  errorMessage={errors.flexibleRespectfulTiming}
+                  onValueChange={(value: string) => setFieldValue("flexibleRespectfulTiming", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -447,14 +447,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente organiza el tiempo de la jornada con rutinas claras, coherentes y adecuadas a los procesos de desarrollo y aprendizaje de la Primera Infancia."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.clearCoherentSchedule}
+                  isInvalid={!!errors.clearCoherentSchedule}
+                  errorMessage={errors.clearCoherentSchedule}
+                  onValueChange={(value: string) => setFieldValue("clearCoherentSchedule", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -462,14 +462,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente considera en su planificación los elementos clave del diseño pedagógico: objetivos, recursos, rutinas y tiempos, estrategias pedagógicas pertinentes, los agrupamientos diferentes de niñas y niños, la evaluación y los reajustes derivados de ella."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.integratesDesignElements}
+                  isInvalid={!!errors.integratesDesignElements}
+                  errorMessage={errors.integratesDesignElements}
+                  onValueChange={(value: string) => setFieldValue("integratesDesignElements", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -477,14 +477,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente involucra a las familias en la planificación educativa."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.involveFamilies}
+                  isInvalid={!!errors.involveFamilies}
+                  errorMessage={errors.involveFamilies}
+                  onValueChange={(value: string) => setFieldValue("involveFamilies", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -492,30 +492,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente utiliza herramientas de evaluación variadas y pertinentes (observaciones, registros, anecdotarios, recursos audiovisuales)."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.usesVariedTools}
+                  isInvalid={!!errors.usesVariedTools}
+                  errorMessage={errors.usesVariedTools}
+                  onValueChange={(value: string) => setFieldValue("usesVariedTools", value)}
                 >
-                  {effectivenessList.map((opt) => (
-                    <Radio key={opt.key} value={opt.key}>
-                      {opt.label}
-                    </Radio>
-                  ))}
-                </RadioGroup>
-
-                <RadioGroup
-                  isRequired
-                  label="Otras"
-                  orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
-                >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -523,14 +507,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente registra y documenta las observaciones sobre las niñas y los niños del aula de Primera Infancia, tanto en las actividades individuales como en las grupales."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.documentsObservations}
+                  isInvalid={!!errors.documentsObservations}
+                  errorMessage={errors.documentsObservations}
+                  onValueChange={(value: string) => setFieldValue("documentsObservations", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -538,14 +522,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente planifica teniendo en cuenta el principio de flexibilidad, adaptándose a los intereses del grupo y prioriza enfoques inclusivos y participativos."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.flexibleInclusiveDesign}
+                  isInvalid={!!errors.flexibleInclusiveDesign}
+                  errorMessage={errors.flexibleInclusiveDesign}
+                  onValueChange={(value: string) => setFieldValue("flexibleInclusiveDesign", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -553,20 +537,19 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Otras"
+                  label="El docente evalúa para acompañar  las niñas y los niños de Primera Infancia de acuerdo a sus características socioeducativas y grupo etario."
                   orientation="horizontal"
-                  value={values.other}
-                  isInvalid={!!errors.other}
-                  errorMessage={errors.other}
-                  onValueChange={(value: string) => setFieldValue("other", value)}
+                  value={values.individualizedSupportiveAssessment}
+                  isInvalid={!!errors.individualizedSupportiveAssessment}
+                  errorMessage={errors.individualizedSupportiveAssessment}
+                  onValueChange={(value: string) => setFieldValue("individualizedSupportiveAssessment", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
                   ))}
                 </RadioGroup>
-
               </div>
             </div>
           </div>
@@ -581,14 +564,14 @@ const Appendix8Form = () => {
               <div className="space-y-3">
                 <RadioGroup
                   isRequired
-                  label="Presencial individual"
+                  label="El docente establece ambientes de aprendizaje afectivos, que reconocen las características individuales de las niñas y los niños de Primera Infancia y promueve la interacción de calidad."
                   orientation="horizontal"
-                  value={values.deliveryInPerson}
-                  isInvalid={!!errors.deliveryInPerson}
-                  errorMessage={errors.deliveryInPerson}
-                  onValueChange={(value: string) => setFieldValue("deliveryInPerson", value)}
+                  value={values.affectiveEnvironment}
+                  isInvalid={!!errors.affectiveEnvironment}
+                  errorMessage={errors.affectiveEnvironment}
+                  onValueChange={(value: string) => setFieldValue("affectiveEnvironment", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -596,14 +579,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Presencial en parejas"
+                  label="El docente ofrece oportunidades a las niñas y los niños para asumir responsabilidades en el aula, adecuadas a su edad, fomentando su autonomía."
                   orientation="horizontal"
-                  value={values.deliveryInPairs}
-                  isInvalid={!!errors.deliveryInPairs}
-                  errorMessage={errors.deliveryInPairs}
-                  onValueChange={(value: string) => setFieldValue("deliveryInPairs", value)}
+                  value={values.fosterResponsibilityAutonomy}
+                  isInvalid={!!errors.fosterResponsibilityAutonomy}
+                  errorMessage={errors.fosterResponsibilityAutonomy}
+                  onValueChange={(value: string) => setFieldValue("fosterResponsibilityAutonomy", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -611,14 +594,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Presencial situacional"
+                  label="El docente crea un ambiente acogedor y seguro que hace que las niñas y los niños de Primera Infancia disfruten en el aula."
                   orientation="horizontal"
-                  value={values.deliverySituational}
-                  isInvalid={!!errors.deliverySituational}
-                  errorMessage={errors.deliverySituational}
-                  onValueChange={(value: string) => setFieldValue("deliverySituational", value)}
+                  value={values.cozySafeEnjoyable}
+                  isInvalid={!!errors.cozySafeEnjoyable}
+                  errorMessage={errors.cozySafeEnjoyable}
+                  onValueChange={(value: string) => setFieldValue("cozySafeEnjoyable", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -626,14 +609,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual individual"
+                  label="El docente muestra actitudes positivas y genera ambientes seguros en las rutinas de desarrollo y aprendizaje de las niñas y los niños de Primera Infancia."
                   orientation="horizontal"
-                  value={values.virtualIndividual}
-                  isInvalid={!!errors.virtualIndividual}
-                  errorMessage={errors.virtualIndividual}
-                  onValueChange={(value: string) => setFieldValue("virtualIndividual", value)}
+                  value={values.positiveAttitudeRoutines}
+                  isInvalid={!!errors.positiveAttitudeRoutines}
+                  errorMessage={errors.positiveAttitudeRoutines}
+                  onValueChange={(value: string) => setFieldValue("positiveAttitudeRoutines", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -641,14 +624,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual en parejas"
+                  label="El docente usa lenguaje positivo para dar retroalimentación a las niñas y los niños de Primera Infancia, reforzando su desarrollo, autoestima y autonomía."
                   orientation="horizontal"
-                  value={values.virtualInPairs}
-                  isInvalid={!!errors.virtualInPairs}
-                  errorMessage={errors.virtualInPairs}
-                  onValueChange={(value: string) => setFieldValue("virtualInPairs", value)}
+                  value={values.usePositiveFeedback}
+                  isInvalid={!!errors.usePositiveFeedback}
+                  errorMessage={errors.usePositiveFeedback}
+                  onValueChange={(value: string) => setFieldValue("usePositiveFeedback", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -656,14 +639,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente trata respetuosamente y con cariño a todas las niñas y los niños del aula de Primera Infancia."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.respectfulAffectionateTreatment}
+                  isInvalid={!!errors.respectfulAffectionateTreatment}
+                  errorMessage={errors.respectfulAffectionateTreatment}
+                  onValueChange={(value: string) => setFieldValue("respectfulAffectionateTreatment", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -671,14 +654,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente realiza sus prácticas pedagógicas a partir de la escucha atenta de los intereses de las niñas y niños de Primera Infancia."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.listenToInterests}
+                  isInvalid={!!errors.listenToInterests}
+                  errorMessage={errors.listenToInterests}
+                  onValueChange={(value: string) => setFieldValue("listenToInterests", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -686,14 +669,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente da respuesta a las necesidades de las niñas y los niños del aula de Primera Infancia."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.addressChildNeeds}
+                  isInvalid={!!errors.addressChildNeeds}
+                  errorMessage={errors.addressChildNeeds}
+                  onValueChange={(value: string) => setFieldValue("addressChildNeeds", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -701,14 +684,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente promueve entre las niñas y los niños actitudes como la empatía en la resolución de conflictos."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.promoteEmpathyConflict}
+                  isInvalid={!!errors.promoteEmpathyConflict}
+                  errorMessage={errors.promoteEmpathyConflict}
+                  onValueChange={(value: string) => setFieldValue("promoteEmpathyConflict", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -716,14 +699,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente fomenta el trabajo en equipo en el aula para compartir ideas y lograr un objetivo común."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.fosterTeamworkCollaboration}
+                  isInvalid={!!errors.fosterTeamworkCollaboration}
+                  errorMessage={errors.fosterTeamworkCollaboration}
+                  onValueChange={(value: string) => setFieldValue("fosterTeamworkCollaboration", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -731,14 +714,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente promueve la libre expresión de opiniones e intereses en las niñas y los niños del aula de Primera Infancia."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.promoteFreeExpression}
+                  isInvalid={!!errors.promoteFreeExpression}
+                  errorMessage={errors.promoteFreeExpression}
+                  onValueChange={(value: string) => setFieldValue("promoteFreeExpression", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -758,98 +741,104 @@ const Appendix8Form = () => {
               <div className="space-y-6">
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente promueve la participación de las familias en el aula o el centro escolar en acciones puntuales que favorezcan el desarrollo y aprendizaje de las niñas y niños de Primera Infancia."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.promoteFamilyParticipation}
+                  isInvalid={!!errors.promoteFamilyParticipation}
+                  errorMessage={errors.promoteFamilyParticipation}
+                  onValueChange={(value: string) => setFieldValue("promoteFamilyParticipation", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
                   ))}
-                </RadioGroup> <RadioGroup
+                </RadioGroup>
+                <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente escucha y respeta la opinión de las familias."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.listenToOpinions}
+                  isInvalid={!!errors.listenToOpinions}
+                  errorMessage={errors.listenToOpinions}
+                  onValueChange={(value: string) => setFieldValue("listenToOpinions", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
                   ))}
-                </RadioGroup> <RadioGroup
+                </RadioGroup>
+                <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente muestra una actitud receptiva a las propuestas de las familias para colaborar en el aula."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.receptiveToProposals}
+                  isInvalid={!!errors.receptiveToProposals}
+                  errorMessage={errors.receptiveToProposals}
+                  onValueChange={(value: string) => setFieldValue("receptiveToProposals", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
                   ))}
-                </RadioGroup> <RadioGroup
+                </RadioGroup>
+                <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente incluye a las familias en alguna actividad facilitando su colaboración y espacios donde realizarla."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.facilitateCollaborationActivities}
+                  isInvalid={!!errors.facilitateCollaborationActivities}
+                  errorMessage={errors.facilitateCollaborationActivities}
+                  onValueChange={(value: string) => setFieldValue("facilitateCollaborationActivities", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
                   ))}
-                </RadioGroup> <RadioGroup
+                </RadioGroup>
+                <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente tiene en cuenta el contexto social y familiar de las niñas y los niños de Primera Infancia, para favorecer su desarrollo y aprendizaje."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.considerFamilyContext}
+                  isInvalid={!!errors.considerFamilyContext}
+                  errorMessage={errors.considerFamilyContext}
+                  onValueChange={(value: string) => setFieldValue("considerFamilyContext", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
                   ))}
-                </RadioGroup> <RadioGroup
+                </RadioGroup>
+                <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente implementa mecanismo de comunicación con las familias para informar el progreso de las niñas y niños de primera infancia, como : informes escritos,  cuaderno viajero, u otras"
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.communicateProgressMechanisms}
+                  isInvalid={!!errors.communicateProgressMechanisms}
+                  errorMessage={errors.communicateProgressMechanisms}
+                  onValueChange={(value: string) => setFieldValue("communicateProgressMechanisms", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
                   ))}
-                </RadioGroup> <RadioGroup
+                </RadioGroup>
+                <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente realiza prácticas pedagógicas en el aula basadas en el modelo de Atención Integral a la Primera Infancia."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.adherenceToComprehensiveCare}
+                  isInvalid={!!errors.adherenceToComprehensiveCare}
+                  errorMessage={errors.adherenceToComprehensiveCare}
+                  onValueChange={(value: string) => setFieldValue("adherenceToComprehensiveCare", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -869,14 +858,14 @@ const Appendix8Form = () => {
               <div className="space-y-6">
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente se marca metas y objetivos realistas, razonables y alcanzables en colaboración con el resto del cuerpo docente de su centro escolar."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.setRealisticGoals}
+                  isInvalid={!!errors.setRealisticGoals}
+                  errorMessage={errors.setRealisticGoals}
+                  onValueChange={(value: string) => setFieldValue("setRealisticGoals", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -884,14 +873,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente se autoevalúa respecto de su labor en el aula y la propia planificación."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.selfAssessPractice}
+                  isInvalid={!!errors.selfAssessPractice}
+                  errorMessage={errors.selfAssessPractice}
+                  onValueChange={(value: string) => setFieldValue("selfAssessPractice", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -899,14 +888,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente evalúa con el resto del cuerpo docente para buscar la mejora continua en su práctica docente."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.peerEvaluateForImprovement}
+                  isInvalid={!!errors.peerEvaluateForImprovement}
+                  errorMessage={errors.peerEvaluateForImprovement}
+                  onValueChange={(value: string) => setFieldValue("peerEvaluateForImprovement", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -914,14 +903,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente planifica actividades, talleres o proyectos que le permiten compartir su práctica con otros docentes y otras aulas."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.sharePracticeActivities}
+                  isInvalid={!!errors.sharePracticeActivities}
+                  errorMessage={errors.sharePracticeActivities}
+                  onValueChange={(value: string) => setFieldValue("sharePracticeActivities", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -929,14 +918,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente tiene conciencia de equipo y llega a acuerdos sobre cómo planificar, el diseño de ambientes de las aulas o el uso de materiales."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.teamConsensusPlanning}
+                  isInvalid={!!errors.teamConsensusPlanning}
+                  errorMessage={errors.teamConsensusPlanning}
+                  onValueChange={(value: string) => setFieldValue("teamConsensusPlanning", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -944,14 +933,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente gestiona el aula virtual."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.manageVirtualClassroom}
+                  isInvalid={!!errors.manageVirtualClassroom}
+                  errorMessage={errors.manageVirtualClassroom}
+                  onValueChange={(value: string) => setFieldValue("manageVirtualClassroom", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -959,14 +948,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente usa Google Drive y Google Docs para crear materiales."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.useGoogleProductivity}
+                  isInvalid={!!errors.useGoogleProductivity}
+                  errorMessage={errors.useGoogleProductivity}
+                  onValueChange={(value: string) => setFieldValue("useGoogleProductivity", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -974,14 +963,14 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente utiliza recursos tecnológicos adaptados a la Primera Infancia."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.useAgeAppropriateResources}
+                  isInvalid={!!errors.useAgeAppropriateResources}
+                  errorMessage={errors.useAgeAppropriateResources}
+                  onValueChange={(value: string) => setFieldValue("useAgeAppropriateResources", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
@@ -989,20 +978,19 @@ const Appendix8Form = () => {
                 </RadioGroup>
                 <RadioGroup
                   isRequired
-                  label="Virtual situacional"
+                  label="El docente usa significativamente audiovisuales (grabadoras de sonido, cámaras fotográficas) con las niñas y niños de Primera Infancia."
                   orientation="horizontal"
-                  value={values.virtualSituational}
-                  isInvalid={!!errors.virtualSituational}
-                  errorMessage={errors.virtualSituational}
-                  onValueChange={(value: string) => setFieldValue("virtualSituational", value)}
+                  value={values.integrateAudiovisualTools}
+                  isInvalid={!!errors.integrateAudiovisualTools}
+                  errorMessage={errors.integrateAudiovisualTools}
+                  onValueChange={(value: string) => setFieldValue("integrateAudiovisualTools", value)}
                 >
-                  {effectivenessList.map((opt) => (
+                  {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
                       {opt.label}
                     </Radio>
                   ))}
                 </RadioGroup>
-
               </div>
             </div>
           </div>
