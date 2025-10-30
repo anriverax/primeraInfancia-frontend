@@ -8,7 +8,7 @@ import CustomPagination from "@/shared/ui/custom/customPagination";
 
 const MentorAttendanceHistory = (): React.JSX.Element => {
   const { attendanceList, meta, handleChangePage } = useAttendanceList();
-  const renderHistoryCell = useHistoryAttendanceCell();
+  const renderCell = useHistoryAttendanceCell();
 
   return (
     <>
@@ -19,16 +19,12 @@ const MentorAttendanceHistory = (): React.JSX.Element => {
           aria-label="Tabla para mostrar el historial de asistencias"
         >
           <TableHeader columns={headerColumns}>
-            {(historyCol) => <TableColumn key={historyCol.key}>{historyCol.label}</TableColumn>}
+            {(col) => <TableColumn key={col.key}>{col.label}</TableColumn>}
           </TableHeader>
           <TableBody items={attendanceList ?? []}>
-            {(historyItem: IAttendanceTable) => (
-              <TableRow key={historyItem.personRoleId}>
-                {(historyKey) => (
-                  <TableCell>
-                    {renderHistoryCell(historyItem, historyKey as IAttendanceColumnKey)}
-                  </TableCell>
-                )}
+            {(item: IAttendanceTable) => (
+              <TableRow key={item.personRoleId}>
+                {(key) => <TableCell>{renderCell(item, key as IAttendanceColumnKey)}</TableCell>}
               </TableRow>
             )}
           </TableBody>

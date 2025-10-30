@@ -1,11 +1,24 @@
-import { object, ObjectSchema, string } from "yup";
+import { number, object, ObjectSchema, string } from "yup";
 import { Appendix2Input } from "./appendix2Type";
 import { validationMessages } from "@/shared/constants";
 import { stringField } from "@/shared/utils/functions";
 
 export const appendix2Schema: ObjectSchema<Appendix2Input> = object({
+  shift: stringField(validationMessages.required),
+  section: stringField(validationMessages.required),
+  boyNumber: number()
+    .min(0, "El valor debe ser mayor o igual a cero")
+    .required(validationMessages.required),
+  girlNumber: number()
+    .min(0, "El valor debe ser mayor o igual a cero")
+    .required(validationMessages.required),
+  boyDisabilityNumber: number()
+    .min(0, "El valor debe ser mayor o igual a cero")
+    .required(validationMessages.required),
+  girlDisabilityNumber: number()
+    .min(0, "El valor debe ser mayor o igual a cero")
+    .required(validationMessages.required),
   experienceYear: stringField(validationMessages.required),
-
   initialTraining: stringField(validationMessages.required),
   initialTrainingOther: string().when("initialTraining", ([initialTraining]) => {
     return initialTraining === "Otros" ? stringField(validationMessages.required) : string().optional();

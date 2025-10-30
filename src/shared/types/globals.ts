@@ -55,6 +55,7 @@ export interface IPerson {
   id: number;
   fullName?: string;
   phoneNumber?: string;
+  email?: string;
 }
 
 export interface IDistrictWithZone {
@@ -67,4 +68,9 @@ export interface IDistrictWithZone {
       };
     };
   };
+}
+
+export interface IOptions {
+  key: string | number;
+  label: string;
 }

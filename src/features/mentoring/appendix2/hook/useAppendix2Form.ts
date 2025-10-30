@@ -8,7 +8,17 @@ import { useRouter } from "next/navigation";
 import { Appendix2Input, IAppendix2Input } from "../appendix2Type";
 import { appendix2Schema } from "../appendix2Validation.ts";
 
+export const initialValuesTeacherShift = {
+  shift: "",
+  section: "",
+  boyNumber: 0,
+  girlNumber: 0,
+  boyDisabilityNumber: 0,
+  girlDisabilityNumber: 0
+};
+
 const initialValuesAppendix2: Appendix2Input = {
+  ...initialValuesTeacherShift,
   experienceYear: "",
   initialTraining: "",
   complementaryStudies: "",

@@ -45,8 +45,9 @@ export const roleDisplayNames: Record<TypeRole, string> = {
   [TypeRole.USER_TECNICO_APOYO]: "Técnico de apoyo"
 };
 
-export const tableClassNames: { th: string } = {
-  th: "text-bold text-sm text-black bg-blue-50"
+export const tableClassNames = {
+  th: "text-bold text-sm text-black bg-blue-50",
+  td: "text-xs"
 };
 
 export enum AttendanceEnum {

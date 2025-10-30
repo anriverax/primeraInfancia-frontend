@@ -1,5 +1,5 @@
 import { useMentorDetails } from "../../hook/useMentorDetails";
-import MentorForm from "./mentorForm";
+import MentorForm from "../../mentor/mentorForm";
 import { useCallback, useState } from "react";
 import CustomProgress from "@/shared/ui/custom/customProgress";
 import MentorDetail from "./mentorDetails";

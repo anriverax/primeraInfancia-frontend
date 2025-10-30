@@ -2,7 +2,7 @@ export interface AppendixDetailInput {
   id?: null;
   title: string;
   subTitle: string;
-  description: number;
+  description: string;
   Section: SectionInput[];
 }
 

@@ -3,7 +3,7 @@
 import { MentorAttendance } from "@/features/attendance/components/mentor/metorAttendance";
 import { TypeRole } from "@/shared/constants";
 import { PageTitle } from "@/shared/ui/pageTitle";
-import { getTypeRole } from "@/shared/utils/functions";
+import { isRolAdmin } from "@/shared/utils/functions";
 import { Tab, Tabs } from "@heroui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -27,7 +27,7 @@ export default function AttendancePage(): React.JSX.Element {
       <div className="flex flex-col justify-center w-full gap-4 md:flex-row md:justify-between">
         <PageTitle title="Control de Asistencia" iconName="ClipboardList" />
 
-        {!getTypeRole(session) && (
+        {!isRolAdmin(session) && (
           <Tabs
             aria-label="Tabs para asistencia"
             radius="full"

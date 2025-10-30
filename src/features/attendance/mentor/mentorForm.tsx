@@ -8,10 +8,10 @@ import {
   SharedSelection,
   Textarea
 } from "@heroui/react";
-import { useAttendanceForm } from "../../hook/useAttendanceForm";
-import { useAttendanceNew } from "../../hook/useAttendanceNew";
+import { useAttendanceForm } from "../hook/useAttendanceForm";
+import { useAttendanceNew } from "../hook/useAttendanceNew";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import { IEvent, TeachersAssignmentMentor } from "../../attendance.type";
+import { IEvent, TeachersAssignmentMentor } from "../attendance.type";
 import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
 import CustomProgress from "@/shared/ui/custom/customProgress";
 

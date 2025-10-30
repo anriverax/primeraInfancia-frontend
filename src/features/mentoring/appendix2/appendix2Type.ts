@@ -1,6 +1,7 @@
 import { AxiosMessage } from "@/shared/types/globals";
 
-export interface DetailChildren {
+export interface TeacherShift {
+  id?: number;
   shift: string;
   section: string;
   girlNumber: number;
@@ -9,7 +10,7 @@ export interface DetailChildren {
   boyDisabilityNumber: number;
 }
 
-export interface Appendix2Input {
+export interface Appendix2Input extends Omit<TeacherShift, "id"> {
   experienceYear: string;
   initialTraining: string;
   initialTrainingOther?: string;
@@ -35,3 +36,13 @@ export interface Appendix2Input {
 }
 
 export type IAppendix2Input = Appendix2Input & AxiosMessage;
+
+export type ITeacherShiftColumnKey =
+  | "turn"
+  | "section"
+  | "boyNumber"
+  | "girlNumber"
+  | "boyDisabilityNumber"
+  | "girlDisabilityNumber"
+  | "total"
+  | "action";

@@ -7,41 +7,81 @@ import { addToast } from "@heroui/react";
 import Swal from "sweetalert2";
 import { Session } from "next-auth";
 
+/**
+ * Creates a Yup string schema that is required with a custom message.
+ *
+ * @param requiredMessage - The message shown when the field is empty.
+ * @returns A Yup StringSchema with the required rule applied.
+ */
 export const stringField = (requiredMessage: string): StringSchema<string, AnyObject, undefined, ""> =>
   string().required(requiredMessage);
 
+/**
+ * Creates a Yup number schema that is required with a custom message.
+ *
+ * @param requiredMessage - The message shown when the field is empty.
+ * @returns A Yup NumberSchema with the required rule applied.
+ */
 export const numberField = (requiredMessage: string): NumberSchema<number, AnyObject, undefined, ""> =>
   number().required(requiredMessage);
 
+/**
+ * Encrypts a plain text string using AES with the configured environment key.
+ *
+ * NOTE: This function is a convenience wrapper over the `crypto-js` AES implementation.
+ * The key is taken from `process.env.NEXT_PUBLIC_PLAIN_TEXT` and must be available at runtime.
+ *
+ * @param plainText - The text to encrypt.
+ * @returns The encrypted cipher text as a base64 string.
+ */
 export const encrypt = (plainText: string): string =>
   crypto.AES.encrypt(plainText, process.env.NEXT_PUBLIC_PLAIN_TEXT as string).toString();
 
+/**
+ * Normalize and handle errors coming from an Axios response inside a Formik form.
+ *
+ * This will set the Formik status and assign a field-level error named `axiosMessage`.
+ * Behavior:
+ * - If the Axios error corresponds to a bad request (ERR_BAD_REQUEST), it will extract
+ *   the `statusCode` and `message` from the response body and use them to set the form state.
+ * - If no response is present or the error is not a bad request, it sets a generic error status/message.
+ *
+ * @param error - The AxiosError instance captured from a failed request.
+ * @param formikHelpers - The Formik helpers object used to set status and field errors.
+ */
 export function handleFormikResponseError<T>(error: AxiosError, formikHelpers: FormikHelpers<T>): void {
-  // Handle registration error.
   const { setStatus, setFieldError } = formikHelpers;
 
   if (error.code === ERR_BAD_REQUEST) {
-    // Extract error details from the Axios response.
+    // Extract error details from the Axios response when available.
     const { response } = error;
     if (response) {
       const { data } = response as AxiosResponse;
       const { statusCode, message } = data;
 
-      // Set form status and field error.
       setStatus(statusCode);
       setFieldError("axiosMessage", message);
     } else {
-      // Handle non-Axios error (e.g., network error)
+      // Network issue or no response provided by the server.
       setStatus(400);
       setFieldError("axiosMessage", `Network error: ${error}`);
     }
   } else {
-    // Handle non-Axios error (e.g., network error)
+    // Non 400 error paths: mark as server/internal error and set message.
     setStatus(500);
     setFieldError("axiosMessage", error.message);
   }
 }
 
+/**
+ * Show a toast notification using the project's toast helper.
+ *
+ * This wrapper normalizes the color to lowercase and forwards the message
+ * and classNames to the underlying `addToast` implementation.
+ *
+ * @param message - The textual message to display in the toast.
+ * @param color - One of the allowed semantic colors for the toast.
+ */
 export function showToast(
   message: string,
   color: "default" | "primary" | "secondary" | "success" | "warning" | "danger"
@@ -63,6 +103,13 @@ export function showToast(
   });
 }
 
+/**
+ * Generic Axios error handler that logs (in development) and shows a toast.
+ *
+ * @param error - The thrown error (may be an Axios error or any other type).
+ * @param message - A human readable message describing the operation that failed.
+ * @param action - Action type used to compose the toast title (keeps existing Spanish action values).
+ */
 export function handleAxiosError(
   error: unknown,
   message: string,
@@ -81,6 +128,14 @@ export function handleAxiosError(
   showToast(`${title} ${message}`, "danger");
 }
 
+/**
+ * Shows a confirmation dialog using SweetAlert2 and returns whether the user confirmed.
+ *
+ * Options and default texts are kept in Spanish to match the existing UI strings.
+ *
+ * @param options - Optional overrides for dialog title, text and confirm button text.
+ * @returns A promise that resolves to true when the user confirms, false otherwise.
+ */
 export async function confirmAction(options?: {
   title?: string;
   text?: string;
@@ -106,19 +161,52 @@ export async function confirmAction(options?: {
   return result.isConfirmed;
 }
 
+/**
+ * Parse a query parameter value to a number id or return undefined when invalid.
+ *
+ * Accepts either a string, an array of strings (first element used) or undefined.
+ *
+ * @param queryId - The raw query id from Next.js router/query object.
+ * @returns The parsed number id or undefined when parsing fails.
+ */
 export function getIdParam(queryId: string | string[] | undefined): number | undefined {
   const idParam = Array.isArray(queryId) ? parseInt(queryId[0], 10) : parseInt(queryId ?? "", 10);
   return isNaN(idParam) ? undefined : idParam;
 }
+
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
-export const getNestedValue = (obj: any, path: string): any => {
+/**
+ * Safely retrieve a nested property value from an object using a dot-separated path.
+ *
+ * Example: getNestedValue(obj, 'user.profile.name')
+ *
+ * Note: This utility intentionally uses `any` to remain generic.
+ */
+export function getNestedValue(obj: any, path: string): any {
   return path.split(".").reduce((acc, key) => acc?.[key], obj);
-};
+}
 /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
 
-export const getTypeRole = (session: Session | null): boolean => {
+/**
+ * Determine whether the session corresponds to a non-mentor/formador role.
+ *
+ * Returns `false` for FORMADOR or MENTOR and `true` otherwise. The function
+ * preserves the original behavior and uses the project's `TypeRole` enum.
+ *
+ * @param session - The NextAuth session object (may be null).
+ * @returns boolean indicating whether the session role is not FORMADOR or MENTOR.
+ */
+export function isRolAdmin(session: Session | null): boolean {
   const role = session?.user.role;
 
-  // Retorn false if its FORMADOR o MENTOR, true en any other case
+  // Return false if role is FORMADOR or MENTOR, true in any other case
   return ![TypeRole.USER_FORMADOR, TypeRole.USER_MENTOR].includes(role as TypeRole);
-};
+}
+
+export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+  return Object.fromEntries(Object.entries(obj).filter(([k]) => keys.includes(k as K))) as Pick<T, K>;
+}
+
+export function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+  return Object.fromEntries(Object.entries(obj).filter(([k]) => !keys.includes(k as K))) as Omit<T, K>;
+}

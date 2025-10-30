@@ -15,7 +15,6 @@ const GroupDFM = (): React.JSX.Element => {
   return (
     <TableLayout>
       <Table
-        removeWrapper
         className="min-w-[max-content]"
         classNames={tableClassNames}
         aria-label="Tabla para mostrar los docentes de cada mentor"
@@ -40,6 +39,3 @@ const GroupDFM = (): React.JSX.Element => {
 };
 
 export default GroupDFM;
-
-// you can now read selectedRows anywhere in this component
-// console.log(selectedRows);
