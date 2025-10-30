@@ -8,7 +8,7 @@ import useAxios from "@/shared/hooks/useAxios";
 import { confirmAction, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { useRouter } from "next/navigation";
 
-const initialValuesAppendix5: Appendix7Input = {
+const initialValuesAppendix7: Appendix7Input = {
   mentoringProcessDescription: "",
   achieveOutcomes: "",
   improvementAreas: "",
@@ -74,16 +74,16 @@ const useAppendix7Form = (appendixId: number, inscriptionId: number) => {
     }
   };
 
-  const formikAppendix1 = useFormik({
+  const formikAppendix7 = useFormik({
     enableReinitialize: true,
-    initialValues: initialValuesAppendix5,
+    initialValues: initialValuesAppendix7,
     validationSchema: appendix7Schema,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: handleSubmit
   });
 
-  return formikAppendix1;
+  return formikAppendix7;
 };
 
 export { useAppendix7Form };

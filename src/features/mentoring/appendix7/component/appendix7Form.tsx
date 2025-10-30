@@ -100,12 +100,12 @@ const Appendix7Form = () => {
               <h2 className="text-xl font-semibold">Dimensiones de mejora</h2>
               <div className="space-y-6">
                 <Input
-                  {...getFieldProps("mentoringProcessDescription")}
+                  {...getFieldProps("improvementAreas")}
                   {...getInputProps(
                     "text",
                     "Identificación de las dimensiones y subdimensiones que aún necesitan mejora en el proceso de mentoría y en la práctica docente de los acompañados",
-                    touched.mentoringProcessDescription,
-                    errors.mentoringProcessDescription
+                    touched.improvementAreas,
+                    errors.improvementAreas
                   )}
                   className="max-w-md"
                 />
@@ -347,12 +347,12 @@ const Appendix7Form = () => {
             <div className="flex-1 space-y-6">
               <div className="space-y-6">
                 <Input
-                  {...getFieldProps("mentoringProcessDescription")}
+                  {...getFieldProps("nextCohortImprovements")}
                   {...getInputProps(
                     "text",
                     "¿Qué aspectos se han de mejorar en la mentoría para la siguiente cohorte?",
-                    touched.mentoringProcessDescription,
-                    errors.mentoringProcessDescription
+                    touched.nextCohortImprovements,
+                    errors.nextCohortImprovements
                   )}
                   className="max-w-md"
                 />
