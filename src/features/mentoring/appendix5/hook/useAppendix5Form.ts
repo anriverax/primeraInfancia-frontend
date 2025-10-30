@@ -1,7 +1,7 @@
 import { FormikHelpers, useFormik } from "formik";
 import { Appendix5Input, IAppendix5Input } from "../appendix5Type";
 import { appendix5Schema } from "../appendix5Validation";
-import { questionsAppendix1 } from "@/shared/appendixData";
+import { questionsAppendix5 } from "@/shared/appendixData";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
 import useAxios from "@/shared/hooks/useAxios";
@@ -43,7 +43,7 @@ const useAppendix5Form = (appendixId: number, inscriptionId: number) => {
 
     const result = Object.entries(values).map(([key, value], index) => ({
       index: index + 1,
-      question: (questionsAppendix1 as Record<string, string>)[key],
+      question: (questionsAppendix5 as Record<string, string>)[key],
       answer: value instanceof Date ? value.toISOString() : value
     }));
 
