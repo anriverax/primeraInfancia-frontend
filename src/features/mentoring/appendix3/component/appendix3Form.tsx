@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
 import { useAppendix } from "../../hooks/useAppendix";
 import { ArrowLeft, CheckCircle2, FileText, Send, User } from "lucide-react";
-import { Button, Card, Divider, Input, Select, SelectItem } from "@heroui/react";
+import { Button, Card, Divider, Input, Select, SelectItem, Checkbox, CheckboxGroup } from "@heroui/react";
 import { useAppendix3Form } from "../hook/useAppendix3Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
@@ -186,7 +186,7 @@ const Appendix3Form = () => {
             <div className="flex-1">
               <h2 className="text-xl font-semibold mb-4">Estrategias de Acompañamiento</h2>
               <div className="space-y-3">
-                {/* Controles para múltiples respuestas */}
+                
                 {(() => {
                   const options = [
                     "Observación de aula",
@@ -197,50 +197,38 @@ const Appendix3Form = () => {
                     "Análisis de materiales pedagógicos",
                     "Otras"
                   ];
-                  const strategiesValue = getFieldProps("strategies").value as string[] | undefined;
+                  const strategiesValue = (getFieldProps("strategies").value as string[] | undefined) || [];
 
                   return (
-                    <div className="space-y-2">
-                      {options.map((opt) => (
-                        <label key={opt} className="flex items-center gap-3 p-2">
-                          <input
-                            type="checkbox"
-                            value={opt}
-                            checked={Array.isArray(strategiesValue) ? strategiesValue.includes(opt) : false}
-                            onChange={(e) => {
-                              const checked = e.target.checked;
-                              const current = Array.isArray(strategiesValue) ? [...strategiesValue] : [];
-                              if (checked && !current.includes(opt)) {
-                                current.push(opt);
-                              } else if (!checked && current.includes(opt)) {
-                                const idx = current.indexOf(opt);
-                                if (idx > -1) current.splice(idx, 1);
-                              }
-                              // actualizar el valor en formik
-                              // formik instance está en formikAppendix3
-                              (formikAppendix3 as any).setFieldValue("strategies", current);
-                            }}
-                            className="w-4 h-4"
-                          />
-                          <span className="text-sm">{opt === "Otras" ? "Otras:" : opt}</span>
-                          {opt === "Otras" && Array.isArray(strategiesValue) && strategiesValue.includes("Otras") && (
+                    <CheckboxGroup
+                      value={strategiesValue}
+                      onValueChange={(val: string[]) => (formikAppendix3 as any).setFieldValue("strategies", val)}
+                      className="flex flex-col space-y-2"
+                    >
+                      {options.map((opt, idx) => (
+                        <div key={opt} className="flex items-center gap-3 p-2">
+                          <Checkbox id={`strategy-${idx}`} value={opt} />
+                          <label htmlFor={`strategy-${idx}`} className="text-sm">
+                            {opt === "Otras" ? "Otras:" : opt}
+                          </label>
+                          {opt === "Otras" && strategiesValue.includes("Otras") && (
                             <Input
-                              {...getFieldProps("otherStrategy")}
+                              {...getFieldProps("otherStrategys")}
                               {...getInputProps(
-                                "otherStrategy",
+                                "otherStrategys",
                                 "Especifique",
-                                Boolean((touched as any).otherStrategy),
-                                (errors as any).otherStrategy as string
+                                Boolean((touched as any).otherStrategys),
+                                (errors as any).otherStrategys as string
                               )}
                               className="max-w-md ml-3"
                             />
                           )}
-                        </label>
+                        </div>
                       ))}
-                    </div>
+                    </CheckboxGroup>
                   );
                 })()}
-                <Input
+                {/* <Input
                   {...getFieldProps("nextVisit")}
                   {...getInputProps(
                     "text",
@@ -248,7 +236,7 @@ const Appendix3Form = () => {
                     touched.nextVisit,
                     errors.nextVisit
                   )}
-                />
+                /> */}
               </div>
             </div>
           </div>
