@@ -10,12 +10,14 @@ export const appendix3Schema: ObjectSchema<Appendix3Input> = object({
   activities: stringField(validationMessages.required),
   resources: stringField(validationMessages.required),
   timing: stringField(validationMessages.required),
+  successIndicator: stringField(validationMessages.required),
+  levelOfAchievement: stringField(validationMessages.required),
   classroomObservation: stringField(validationMessages.required),
   dialoguedFeedback: stringField(validationMessages.required),
+  pedagogicalModeling: stringField(validationMessages.required),
   coPlanning: stringField(validationMessages.required),
   portfolioReview: stringField(validationMessages.required),
   teachingMaterial: stringField(validationMessages.required),
   others: stringField(validationMessages.required),
-  nextVisit: stringField(validationMessages.required),
-  estimatedFrequencyMeetings: stringField(validationMessages.required)
+  nextVisit: stringField(validationMessages.required)
 });

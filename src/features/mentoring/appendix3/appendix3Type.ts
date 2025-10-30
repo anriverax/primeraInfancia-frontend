@@ -11,6 +11,7 @@ export interface Appendix3Input {
   levelOfAchievement: string;
   classroomObservation: string;
   dialoguedFeedback: string;
+  pedagogicalModeling: string;
   coPlanning: string
   portfolioReview: string;
   teachingMaterial: string;
