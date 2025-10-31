@@ -3,7 +3,17 @@ export const questionsAppendix1 = {
   estimatedClosingDate: "Frecuencia estimada de encuentros"
 };
 
+export const questionTeacherShift = {
+  shift: "Turno",
+  section: "Sección",
+  boyNumber: "Total de niños atendidos",
+  girlNumber: "Total de niñas atendidas",
+  boyDisabilityNumber: "Niños con discapacidad diagnosticada",
+  girlDisabilityNumber: "Niñas con discapacidad diagnosticada",
+  experienceYear: "Años de experiencia en docencia"
+};
 export const questionsAppendix2 = {
+  teacherShiftTable: "Datos generales del docente",
   experienceYear: "Años de experiencia en docencia",
   initialTraining: "¿Cuál es su formación inicial?",
   initialTrainingOther: "Especifique",

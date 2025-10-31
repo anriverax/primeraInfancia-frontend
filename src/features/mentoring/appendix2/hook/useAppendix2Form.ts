@@ -5,21 +5,11 @@ import { FetchResponse } from "@/shared/types/globals";
 import useAxios from "@/shared/hooks/useAxios";
 import { confirmAction, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { useRouter } from "next/navigation";
-import { Appendix2Input, IAppendix2Input } from "../appendix2Type";
+import { Appendix2Input, IAnswerTeacherShift, IAppendix2Input } from "../appendix2Type";
 import { appendix2Schema } from "../appendix2Validation.ts";
 
-export const initialValuesTeacherShift = {
-  shift: "",
-  section: "",
-  boyNumber: 0,
-  girlNumber: 0,
-  boyDisabilityNumber: 0,
-  girlDisabilityNumber: 0
-};
-
 const initialValuesAppendix2: Appendix2Input = {
-  ...initialValuesTeacherShift,
-  experienceYear: "",
+  teacherShiftTable: [],
   initialTraining: "",
   complementaryStudies: "",
   participationContinuingEducation: "",
@@ -38,7 +28,7 @@ const initialValuesAppendix2: Appendix2Input = {
   levelPracticeInclusion: ""
 };
 
-const useAppendix2Form = (appendixId: number, inscriptionId: number) => {
+const useAppendix2Form = (appendixId: number, inscriptionId: number, answers: IAnswerTeacherShift[]) => {
   const useRequest = useAxios(true);
   const router = useRouter();
 
@@ -54,15 +44,29 @@ const useAppendix2Form = (appendixId: number, inscriptionId: number) => {
 
     if (!confirmed) return;
 
+    if (values.teacherShiftTable.length === 0) {
+      showToast("Debe agregar al menos un turno del docente en la tabla.", "warning");
+      return;
+    }
+
     const result = Object.entries(values).map(([key, value], index) => ({
       index: index + 1,
       question: (questionsAppendix2 as Record<string, string>)[key],
       answer: value instanceof Date ? value.toISOString() : value
     }));
 
+    const joinAnswers = [
+      ...result,
+      {
+        index: result.length + 1,
+        question: "Datos generales del docente - Tabla Turno del docente",
+        answer: answers
+      }
+    ];
+
     const appendixData = {
       appendixId,
-      survey: result,
+      survey: joinAnswers,
       inscriptionId
     };
 

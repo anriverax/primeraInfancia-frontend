@@ -182,9 +182,9 @@ export function getIdParam(queryId: string | string[] | undefined): number | und
  *
  * Note: This utility intentionally uses `any` to remain generic.
  */
-export function getNestedValue(obj: any, path: string): any {
+export const getNestedValue = (obj: any, path: string): any => {
   return path.split(".").reduce((acc, key) => acc?.[key], obj);
-}
+};
 /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
 
 /**
@@ -196,17 +196,9 @@ export function getNestedValue(obj: any, path: string): any {
  * @param session - The NextAuth session object (may be null).
  * @returns boolean indicating whether the session role is not FORMADOR or MENTOR.
  */
-export function isRolAdmin(session: Session | null): boolean {
+export const isRolAdmin = (session: Session | null): boolean => {
   const role = session?.user.role;
 
   // Return false if role is FORMADOR or MENTOR, true in any other case
   return ![TypeRole.USER_FORMADOR, TypeRole.USER_MENTOR].includes(role as TypeRole);
-}
-
-export function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
-  return Object.fromEntries(Object.entries(obj).filter(([k]) => keys.includes(k as K))) as Pick<T, K>;
-}
-
-export function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
-  return Object.fromEntries(Object.entries(obj).filter(([k]) => !keys.includes(k as K))) as Omit<T, K>;
-}
+};

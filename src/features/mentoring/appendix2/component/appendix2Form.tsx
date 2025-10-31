@@ -1,51 +1,33 @@
 import { useParams } from "next/navigation";
-import { Input, RadioGroup, Radio, Select, SelectItem, SharedSelection, Button } from "@heroui/react";
+import { Input, RadioGroup, Radio, Select, SelectItem, SharedSelection } from "@heroui/react";
 import { useAppendix2Form } from "../hook/useAppendix2Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { useAppendix } from "../../hooks/useAppendix";
 import {
   complementaryStudies,
-  experienceYearData,
   initialTrainingData,
   knowledgeData,
-  participationContinuingEducationData,
-  sectionData,
-  shiftData
+  participationContinuingEducationData
 } from "../appendix2Data";
 import { AppendixLayout } from "../../component/appendixLayout";
 import { AppendixCard } from "../../component/appendixCard";
 import { AppendixForm } from "../../component/appendixForm";
 import { IOptions } from "@/shared/types/globals";
-import { pick } from "@/shared/utils/functions";
-import { useTeacherShift } from "../hook/useTeacherShift";
-import TeacherShiftTable from "./table/teacherShiftTable";
-//import { useState } from "react";
+import TeacherShiftForm from "./teacherShiftForm";
+import { useState } from "react";
+import { IAnswerTeacherShift } from "../appendix2Type";
 
 const Appendix2Form = (): React.JSX.Element => {
   const params = useParams();
+  const [answers, setAnswers] = useState<IAnswerTeacherShift[]>([]);
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
 
-  const formikAppendix1 = useAppendix2Form(Number(anexoId), Number(groupId));
-  const { getFieldProps, setFieldValue, touched, errors, handleSubmit, values } = formikAppendix1;
+  const formikAppendix2 = useAppendix2Form(Number(anexoId), Number(groupId), answers);
+
+  const { getFieldProps, setFieldValue, touched, errors, handleSubmit, values } = formikAppendix2;
 
   const { getInputProps, getSelectProps } = useCustomFormFields();
-  const { teacherShiftTable, onSubmitTeacherShift, onDeleteTeacherShift } = useTeacherShift({
-    setFieldValue
-  });
-
-  const handleAddTeacherShift = () => {
-    const result = pick(values, [
-      "shift",
-      "section",
-      "boyNumber",
-      "girlNumber",
-      "boyDisabilityNumber",
-      "girlDisabilityNumber"
-    ]);
-
-    onSubmitTeacherShift(result);
-  };
 
   return (
     <AppendixLayout
@@ -54,118 +36,14 @@ const Appendix2Form = (): React.JSX.Element => {
       teacher={decodeURIComponent(fullName?.toString() || "")}
       description={appendix?.description || ""}
     >
+      <>
+        <TeacherShiftForm
+          setFieldValue={setFieldValue}
+          teacherShiftData={values.teacherShiftTable}
+          setAnswers={setAnswers}
+        />
+      </>
       <AppendixForm onSubmit={handleSubmit}>
-        <AppendixCard step="II" title="Datos generales del docente">
-          <div className="space-y-6">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <RadioGroup
-                  isRequired
-                  label="Turno"
-                  orientation="horizontal"
-                  value={values.shift}
-                  isInvalid={!!errors.shift}
-                  errorMessage={errors.shift}
-                  onValueChange={(value: string) => setFieldValue("shift", value)}
-                >
-                  {shiftData.map((option) => (
-                    <Radio key={option.key} value={option.label}>
-                      {option.label}
-                    </Radio>
-                  ))}
-                </RadioGroup>
-              </div>
-              <div>
-                <Select
-                  items={sectionData}
-                  name="section"
-                  {...getSelectProps(
-                    "Nivel educativo que atiende:",
-                    "Seleccione el nivel",
-                    sectionData.length || 0,
-                    values.section as any,
-                    errors.section
-                  )}
-                  onSelectionChange={(keys: SharedSelection) => {
-                    const selected = Array.from(keys as Set<string>)[0];
-                    const id = selected;
-                    setFieldValue("section", id);
-                  }}
-                >
-                  {sectionData.map((event: IOptions) => (
-                    <SelectItem key={event.key}>{event.label}</SelectItem>
-                  ))}
-                </Select>
-              </div>
-              <div>
-                <Input
-                  {...getFieldProps("boyNumber")}
-                  {...getInputProps(
-                    "number",
-                    "Total de niños atendidos",
-                    touched.boyNumber,
-                    errors.boyNumber
-                  )}
-                />
-              </div>
-              <div>
-                <Input
-                  {...getFieldProps("girlNumber")}
-                  {...getInputProps(
-                    "number",
-                    "Total de niñas atendidas",
-                    touched.girlNumber,
-                    errors.girlNumber
-                  )}
-                />
-              </div>
-              <div>
-                <Input
-                  {...getFieldProps("boyDisabilityNumber")}
-                  {...getInputProps(
-                    "number",
-                    "Niños con discapacidad diagnosticada",
-                    touched.boyDisabilityNumber,
-                    errors.boyDisabilityNumber
-                  )}
-                />
-              </div>
-              <div>
-                <Input
-                  {...getFieldProps("girlDisabilityNumber")}
-                  {...getInputProps(
-                    "number",
-                    "Niñas con discapacidad diagnosticada",
-                    touched.girlDisabilityNumber,
-                    errors.girlDisabilityNumber
-                  )}
-                />
-              </div>
-              <Button className="w-full" onPress={handleAddTeacherShift}>
-                Agregar
-              </Button>
-            </div>
-            <div>
-              <TeacherShiftTable items={teacherShiftTable} onDelete={onDeleteTeacherShift} />
-            </div>
-            <RadioGroup
-              isRequired
-              label="Años de experiencia en docencia"
-              orientation="horizontal"
-              value={values.experienceYear}
-              isInvalid={!!errors.experienceYear}
-              errorMessage={errors.experienceYear}
-              onValueChange={(value: string) => setFieldValue("experienceYear", value)}
-            >
-              {experienceYearData.map((option) => (
-                <Radio key={option.key} value={option.label}>
-                  {option.label}
-                </Radio>
-              ))}
-            </RadioGroup>
-          </div>
-        </AppendixCard>
-
         <AppendixCard step="III" title="Formación y actualización profesional">
           <div className="space-y-6">
             <RadioGroup

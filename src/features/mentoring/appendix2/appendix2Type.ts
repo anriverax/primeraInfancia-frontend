@@ -8,10 +8,11 @@ export interface TeacherShift {
   boyNumber: number;
   girlDisabilityNumber: number;
   boyDisabilityNumber: number;
+  experienceYear: string;
 }
 
-export interface Appendix2Input extends Omit<TeacherShift, "id"> {
-  experienceYear: string;
+export interface Appendix2Input {
+  teacherShiftTable: TeacherShift[];
   initialTraining: string;
   initialTrainingOther?: string;
   complementaryStudies: string;
@@ -46,3 +47,9 @@ export type ITeacherShiftColumnKey =
   | "girlDisabilityNumber"
   | "total"
   | "action";
+
+export interface IAnswerTeacherShift {
+  index: number;
+  question: string;
+  answer: string | number;
+}

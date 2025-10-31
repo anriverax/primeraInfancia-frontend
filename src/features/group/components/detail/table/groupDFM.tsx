@@ -14,11 +14,7 @@ const GroupDFM = (): React.JSX.Element => {
 
   return (
     <TableLayout>
-      <Table
-        className="min-w-[max-content]"
-        classNames={tableClassNames}
-        aria-label="Tabla para mostrar los docentes de cada mentor"
-      >
+      <Table classNames={tableClassNames} aria-label="Tabla para mostrar los docentes de cada mentor">
         <TableHeader columns={groupDetailByUserColumns}>
           {(col) => <TableColumn key={col.key}>{col.label}</TableColumn>}
         </TableHeader>
