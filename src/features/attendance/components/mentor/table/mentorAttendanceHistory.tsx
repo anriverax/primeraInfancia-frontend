@@ -3,7 +3,6 @@ import { tableClassNames } from "@/shared/constants";
 import { Table, TableBody, TableHeader, TableRow, TableCell, TableColumn } from "@heroui/react";
 import { headerColumns, useHistoryAttendanceCell } from "./historyAttendanceColumns";
 import { IAttendanceColumnKey, IAttendanceTable } from "@/features/attendance/attendance.type";
-import { TableLayout } from "@/shared/ui/custom/tableLayout";
 import CustomPagination from "@/shared/ui/custom/customPagination";
 
 const MentorAttendanceHistory = (): React.JSX.Element => {
@@ -12,9 +11,9 @@ const MentorAttendanceHistory = (): React.JSX.Element => {
 
   return (
     <>
-      <TableLayout>
+      <>
         <Table
-          className="min-w-[max-content]"
+          className="w-full pr-5 md:pr-0"
           classNames={tableClassNames}
           aria-label="Tabla para mostrar el historial de asistencias"
         >
@@ -29,7 +28,7 @@ const MentorAttendanceHistory = (): React.JSX.Element => {
             )}
           </TableBody>
         </Table>
-      </TableLayout>
+      </>
 
       {meta && attendanceList.length > 0 && (
         <CustomPagination

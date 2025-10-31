@@ -14,7 +14,7 @@ const TeacherShiftTable = ({ items, onDelete }: TeacherShiftTableProps) => {
   return (
     <Table
       classNames={tableClassNames}
-      className="w-full"
+      className="max-w-xs md:max-w-md lg:max-w-full"
       aria-label="Tabla para mostrar los registrs de datos personales"
     >
       <TableHeader columns={teacherShiftheaderColumns}>

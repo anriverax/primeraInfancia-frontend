@@ -3,7 +3,6 @@ import useGroupDFM from "../../../hooks/useGroupDFM";
 import { groupDetailByUserColumns, useRenderGroupDFMCell } from "./groupColumns";
 import { tableClassNames } from "@/shared/constants";
 import { IGroupByUser, IGroupByUserColumnKey } from "@/features/group/groupType";
-import { TableLayout } from "@/shared/ui/custom/tableLayout";
 
 const GroupDFM = (): React.JSX.Element => {
   const { groupDetailList } = useGroupDFM();
@@ -13,8 +12,12 @@ const GroupDFM = (): React.JSX.Element => {
   groupList?.sort((a, b) => (a.Person?.fullName ?? "").localeCompare(b.Person?.fullName ?? ""));
 
   return (
-    <TableLayout>
-      <Table classNames={tableClassNames} aria-label="Tabla para mostrar los docentes de cada mentor">
+    <>
+      <Table
+        classNames={tableClassNames}
+        className="max-w-sm pr-2 md:max-w-full md:pr-0"
+        aria-label="Tabla para mostrar los docentes de cada mentor"
+      >
         <TableHeader columns={groupDetailByUserColumns}>
           {(col) => <TableColumn key={col.key}>{col.label}</TableColumn>}
         </TableHeader>
@@ -30,7 +33,7 @@ const GroupDFM = (): React.JSX.Element => {
           )}
         </TableBody>
       </Table>
-    </TableLayout>
+    </>
   );
 };
 

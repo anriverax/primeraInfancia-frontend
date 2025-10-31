@@ -354,6 +354,6 @@ body {
 
 @media screen and (min-width: 390px) and (max-width: 767px) {
   .newQuery {
-    max-width: 90vw;
+    max-width: 10vw;
   }
 }

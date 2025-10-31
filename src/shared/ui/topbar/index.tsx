@@ -7,22 +7,15 @@ import Link from "next/link";
 
 const TopBar = memo(
   (): JSX.Element => (
-    <header className="flex items-center h-[58px] bg-white border-b border-gray-200 px-4 shrink-0">
-      <div className="flex items-center justify-between w-full px-14 md:px-10 gap-4">
+    <header className="flex items-center h-[58px] bg-white border-b border-gray-200 px-0 shrink-0">
+      <div className="flex items-center justify-between w-full px-5 md:px-8 gap-4">
         <div className="flex items-center gap-2">
           <DividerCustom />
           <div className="flex items-center gap-2">
             <Image
               priority
-              src="/crecer-juntos-logo.png"
+              src="/logo-crecer.png"
               alt="logo de Crecer Juntos"
-              width={94}
-              height={25}
-              className="h-auto w-auto"
-            />
-            <Image
-              src="/mined-logo.png"
-              alt="logo del MINED"
               width={94}
               height={25}
               className="h-auto w-auto"

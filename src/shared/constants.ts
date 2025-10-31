@@ -46,8 +46,7 @@ export const roleDisplayNames: Record<TypeRole, string> = {
 };
 
 export const tableClassNames = {
-  th: "text-bold text-sm text-black bg-blue-50",
-  td: "text-xs"
+  th: "text-bold text-sm text-black bg-blue-50"
 };
 
 export enum AttendanceEnum {

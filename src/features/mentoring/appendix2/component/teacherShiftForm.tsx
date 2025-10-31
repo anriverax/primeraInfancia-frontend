@@ -126,12 +126,12 @@ const TeacherShiftForm = ({
               </Radio>
             ))}
           </RadioGroup>
-          <div className="overflow-auto shadow">
+          <div>
             <TeacherShiftTable items={teacherShiftData} onDelete={onDeleteTeacherShift} />
           </div>
         </div>
         <div className="mt-6">
-          <Button className="w-full" type="submit">
+          <Button className="w-full bg-primary-100" type="submit">
             Agregar
           </Button>
         </div>
