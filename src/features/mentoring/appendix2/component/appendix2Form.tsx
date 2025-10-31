@@ -23,14 +23,13 @@ const complementaryStudies = [
   { key: "otros", label: "Otros" }
 ];
 
-const Appendix2Form = () => {
+const Appendix2Form = (): React.JSX.Element => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
 
   const formikAppendix2 = useAppendix2Form(Number(anexoId), Number(groupId));
   const { getFieldProps, setFieldValue, touched, errors, handleSubmit, values } = formikAppendix2;
-  console.log(errors);
   const { getInputProps, getSelectProps } = useCustomFormFields();
 
   return (

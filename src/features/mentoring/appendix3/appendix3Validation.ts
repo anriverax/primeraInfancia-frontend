@@ -12,5 +12,5 @@ export const appendix3Schema = object({
   timing: stringField(validationMessages.required),
   successIndicator: stringField(validationMessages.required),
   levelOfAchievement: stringField(validationMessages.required),
-  otherStrategys: string().notRequired(),
+  otherStrategys: string().notRequired()
 }) as ObjectSchema<Appendix3Input>;

@@ -1,12 +1,12 @@
 import { useParams } from "next/navigation";
 import { useAppendix } from "../../hooks/useAppendix";
-import { ArrowLeft, CheckCircle2, FileText, Send, User } from "lucide-react";
+import { ArrowLeft, FileText, Send, User } from "lucide-react";
 import { Button, Card, Divider, Input, Select, SelectItem, RadioGroup, Radio } from "@heroui/react";
 import { useAppendix5Form } from "../hook/useAppendix5Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
 
-const Appendix5Form = () => {
+const Appendix5Form = (): React.JSX.Element => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
@@ -24,11 +24,17 @@ const Appendix5Form = () => {
       sub: [
         { key: "Aprendizaje significativo", label: "Aprendizaje significativo" },
         { key: "Enfoque constructivista", label: "Enfoque constructivista" },
-        { key: "Respeto a las características individuales e inclusión educativa", label: "Respeto a las características individuales e inclusión educativa" },
+        {
+          key: "Respeto a las características individuales e inclusión educativa",
+          label: "Respeto a las características individuales e inclusión educativa"
+        },
         { key: "Juego como estrategia pedagógica", label: "Juego como estrategia pedagógica" },
         { key: "Ambientes, espacios y materiales", label: "Ambientes, espacios y materiales" },
         { key: "Motricidad y expresión emocional", label: "Motricidad y expresión emocional" },
-        { key: "Instalaciones de interacción entre iguales y los objetos", label: "Instalaciones de interacción entre iguales y los objetos" },
+        {
+          key: "Instalaciones de interacción entre iguales y los objetos",
+          label: "Instalaciones de interacción entre iguales y los objetos"
+        },
         { key: "Estrategias pedagógicas pertinentes", label: "Estrategias pedagógicas pertinentes" },
         { key: "Rutinas y organización (pág 92)", label: "Rutinas y organización (pág 92)" },
         { key: "Rutinas y organización", label: "Rutinas y organización" },
@@ -37,20 +43,37 @@ const Appendix5Form = () => {
     },
     {
       key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.",
-      label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.",
+      label:
+        "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.",
       sub: [
-        { key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible" },
-        { key: "Comunicación positiva, atención y respeto", label: "Comunicación positiva, atención y respeto" },
-        { key: "Desarrollo socioemocional, colaboración y valores", label: "Desarrollo socioemocional, colaboración y valores" }
+        {
+          key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible",
+          label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible"
+        },
+        {
+          key: "Comunicación positiva, atención y respeto",
+          label: "Comunicación positiva, atención y respeto"
+        },
+        {
+          key: "Desarrollo socioemocional, colaboración y valores",
+          label: "Desarrollo socioemocional, colaboración y valores"
+        }
       ]
     },
     {
       key: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.",
-      label: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.",
+      label:
+        "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.",
       sub: [
-        { key: "Integración de las familias en los procesos de desarrollo y aprendizaje", label: "Integración de las familias en los procesos de desarrollo y aprendizaje" },
+        {
+          key: "Integración de las familias en los procesos de desarrollo y aprendizaje",
+          label: "Integración de las familias en los procesos de desarrollo y aprendizaje"
+        },
         { key: "Acompañamiento docente a las familias", label: "Acompañamiento docente a las familias" },
-        { key: "Participación del docente en el Modelo de Atención Integral", label: "Participación del docente en el Modelo de Atención Integral" }
+        {
+          key: "Participación del docente en el Modelo de Atención Integral",
+          label: "Participación del docente en el Modelo de Atención Integral"
+        }
       ]
     },
     {
@@ -71,7 +94,7 @@ const Appendix5Form = () => {
       : selectedParent && typeof selectedParent === "object"
         ? (selectedParent as any).key
         : undefined;
-  const subItems = dimensionValue ? (dimensionList.find((d) => d.key === dimensionValue)?.sub || []) : [];
+  const subItems = dimensionValue ? dimensionList.find((d) => d.key === dimensionValue)?.sub || [] : [];
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
@@ -94,7 +117,9 @@ const Appendix5Form = () => {
               <span className="text-accent font-bold">A</span>
             </div>
             <div className="flex-1 space-y-6">
-              <h2 className="text-xl font-semibold">Reflexión sobre el docente: ANTES DE LA VISITA AL AULA/OBSERVACIÓN</h2>
+              <h2 className="text-xl font-semibold">
+                Reflexión sobre el docente: ANTES DE LA VISITA AL AULA/OBSERVACIÓN
+              </h2>
               <div className="space-y-6">
                 <Select
                   items={dimensionList}
@@ -280,12 +305,7 @@ const Appendix5Form = () => {
               <div className="space-y-3">
                 <Input
                   {...getFieldProps("othersNotes")}
-                  {...getInputProps(
-                    "text",
-                    "",
-                    touched.othersNotes,
-                    errors.othersNotes
-                  )}
+                  {...getInputProps("text", "", touched.othersNotes, errors.othersNotes)}
                 />
               </div>
             </div>

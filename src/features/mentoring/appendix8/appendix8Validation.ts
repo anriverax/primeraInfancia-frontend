@@ -67,5 +67,5 @@ export const appendix8Schema: ObjectSchema<Appendix8Input> = object({
   manageVirtualClassroom: stringField(validationMessages.required),
   useGoogleProductivity: stringField(validationMessages.required),
   useAgeAppropriateResources: stringField(validationMessages.required),
-  integrateAudiovisualTools: stringField(validationMessages.required),
+  integrateAudiovisualTools: stringField(validationMessages.required)
 });

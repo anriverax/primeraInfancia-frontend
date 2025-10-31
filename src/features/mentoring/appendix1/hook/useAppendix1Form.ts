@@ -1,4 +1,4 @@
-import { FormikHelpers, useFormik } from "formik";
+import { FormikHelpers, useFormik, FormikProps } from "formik";
 import { Appendix1Input, IAppendix1Input } from "../appendix1Type";
 import { appendix1Schema } from "../appendix1Validation";
 import { questionsAppendix1 } from "@/shared/appendixData";
@@ -13,7 +13,7 @@ const initialValuesAppendix1: Appendix1Input = {
   estimatedFrequencyMeetings: ""
 };
 
-const useAppendix1Form = (appendixId: number, inscriptionId: number) => {
+const useAppendix1Form = (appendixId: number, inscriptionId: number): FormikProps<Appendix1Input> => {
   const useRequest = useAxios(true);
   const router = useRouter();
 

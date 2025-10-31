@@ -1,12 +1,12 @@
 import { useParams } from "next/navigation";
 import { useAppendix } from "../../hooks/useAppendix";
-import { ArrowLeft, CheckCircle2, FileText, Send, User } from "lucide-react";
-import { Button, Card, Divider, Input, Select, SelectItem, RadioGroup, Radio } from "@heroui/react";
+import { ArrowLeft, FileText, Send, User } from "lucide-react";
+import { Button, Card, Divider, Input, RadioGroup, Radio } from "@heroui/react";
 import { useAppendix7Form } from "../hook/useAppendix7Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
 
-const Appendix7Form = () => {
+const Appendix7Form = (): React.JSX.Element => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
@@ -17,18 +17,22 @@ const Appendix7Form = () => {
   const { getInputProps } = useCustomFormFields();
 
   // Opciones (dimensiones) con sus sub-opciones integradas
-  const effectivenessList: { key: string; label: string; }[] = [
+  const effectivenessList: { key: string; label: string }[] = [
     {
-      key: "Nada eficaz", label: "Nada eficaz",
+      key: "Nada eficaz",
+      label: "Nada eficaz"
     },
     {
-      key: "Poco eficaz", label: "Poco eficaz",
+      key: "Poco eficaz",
+      label: "Poco eficaz"
     },
     {
-      key: "Eficaz", label: "Eficaz",
+      key: "Eficaz",
+      label: "Eficaz"
     },
     {
-      key: "Muy eficaz", label: "Muy eficaz",
+      key: "Muy eficaz",
+      label: "Muy eficaz"
     }
   ];
 
@@ -119,7 +123,9 @@ const Appendix7Form = () => {
               <span className="text-primary font-bold">V</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold mb-4">Valoración de la eficacia de las estrategias acompañamiento</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Valoración de la eficacia de las estrategias acompañamiento
+              </h2>
               <div className="space-y-3">
                 <RadioGroup
                   isRequired
@@ -221,7 +227,9 @@ const Appendix7Form = () => {
               <span className="text-primary font-bold">VI</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold mb-4">Valoración de la eficacia de las modalidades de acompañamiento</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Valoración de la eficacia de las modalidades de acompañamiento
+              </h2>
               <div className="space-y-3">
                 <RadioGroup
                   isRequired

@@ -11,7 +11,7 @@ export interface Appendix5Input {
   dilemasTensions: string;
   keyLearning: string;
   commitmentNextSession: string;
-  changesSinceLast: string
+  changesSinceLast: string;
   observedEvidence: string;
   recomendation: string;
   othersNotes: string;

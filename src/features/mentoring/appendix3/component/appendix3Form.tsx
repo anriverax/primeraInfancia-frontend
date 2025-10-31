@@ -1,25 +1,41 @@
 import { useParams } from "next/navigation";
 import { useAppendix } from "../../hooks/useAppendix";
 import { ArrowLeft, Trash2, FileText, Send, User } from "lucide-react";
-import { Button, Card, Divider, Input, Select, SelectItem, Checkbox, CheckboxGroup, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@heroui/react";
+import {
+  Button,
+  Card,
+  Divider,
+  Input,
+  Select,
+  SelectItem,
+  Checkbox,
+  CheckboxGroup,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell
+} from "@heroui/react";
 import { useAppendix3Form } from "../hook/useAppendix3Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
 import { useState } from "react";
 
 interface DimensionDetail {
-  id: string
-  dimension: string
-  subDimension: string
-  goals: string
-  activities: string
-  resources: string
-  timing: string
-  successIndicator: string
-  levelOfAchievement: string
+  id: string;
+  dimension: string;
+  subDimension: string;
+  goals: string;
+  activities: string;
+  resources: string;
+  timing: string;
+  successIndicator: string;
+  levelOfAchievement: string;
 }
+type SubItem = { key: string; label: string };
 
-const Appendix3Form = () => {
+const Appendix3Form = (): React.JSX.Element => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
@@ -28,9 +44,9 @@ const Appendix3Form = () => {
   const { getFieldProps, touched, errors, handleSubmit, values } = formikAppendix3;
 
   const { getInputProps } = useCustomFormFields();
-  const [clasificationDimension, setClasificationDimension] = useState<DimensionDetail[]>([])
+  const [clasificationDimension, setClasificationDimension] = useState<DimensionDetail[]>([]);
 
-  const handleDetailTeacher = () => {
+  const handleDetailTeacher = (): void => {
     const newEntry: DimensionDetail = {
       id: clasificationDimension.length.toString(),
       dimension: values.dimension,
@@ -40,10 +56,10 @@ const Appendix3Form = () => {
       resources: values.resources,
       timing: values.timing,
       successIndicator: values.successIndicator,
-      levelOfAchievement: values.levelOfAchievement,
-    }
+      levelOfAchievement: values.levelOfAchievement
+    };
 
-    setClasificationDimension((prev) => [...prev, newEntry])
+    setClasificationDimension((prev) => [...prev, newEntry]);
 
     setFormData({
       dimension: values.dimension,
@@ -53,9 +69,9 @@ const Appendix3Form = () => {
       resources: values.resources,
       timing: values.timing,
       successIndicator: values.successIndicator,
-      levelOfAchievement: values.levelOfAchievement,
-    })
-  }
+      levelOfAchievement: values.levelOfAchievement
+    });
+  };
 
   const [formData, setFormData] = useState({
     dimension: "",
@@ -65,12 +81,12 @@ const Appendix3Form = () => {
     resources: "",
     timing: "",
     successIndicator: "",
-    levelOfAchievement: "",
-  })
+    levelOfAchievement: ""
+  });
 
-  const handleDelete = (id: string) => {
-    setClasificationDimension((prev) => prev.filter((entry) => entry.id !== id))
-  }
+  const handleDelete = (id: string): void => {
+    setClasificationDimension((prev) => prev.filter((entry) => entry.id !== id));
+  };
 
   // Opciones dependientes según la dimensión seleccionada
   const dimensionValue = getFieldProps("dimension").value as string | undefined;
@@ -78,32 +94,54 @@ const Appendix3Form = () => {
     "Desarrollo y Aprendizaje Activos. Currículo integrado": [
       { key: "Aprendizaje significativo", label: "Aprendizaje significativo" },
       { key: "Enfoque constructivista", label: "Enfoque constructivista" },
-      { key: "Respeto a las características individuales e inclusión educativa", label: "Respeto a las características individuales e inclusión educativa" },
+      {
+        key: "Respeto a las características individuales e inclusión educativa",
+        label: "Respeto a las características individuales e inclusión educativa"
+      },
       { key: "Juego como estrategia pedagógica", label: "Juego como estrategia pedagógica" },
       { key: "Ambientes, espacios y materiales", label: "Ambientes, espacios y materiales" },
       { key: "Motricidad y expresión emocional", label: "Motricidad y expresión emocional" },
-      { key: "Instalaciones de interacción entre iguales y los objetos", label: "Instalaciones de interacción entre iguales y los objetos" },
+      {
+        key: "Instalaciones de interacción entre iguales y los objetos",
+        label: "Instalaciones de interacción entre iguales y los objetos"
+      },
       { key: "Estrategias pedagógicas pertinentes", label: "Estrategias pedagógicas pertinentes" },
       { key: "Rutinas y organización (pág 92)", label: "Rutinas y organización (pág 92)" },
       { key: "Rutinas y organización", label: "Rutinas y organización" },
       { key: "Planificación y evaluación", label: "Planificación y evaluación" }
     ],
     "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.": [
-      { key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible" },
-      { key: "Comunicación positiva, atención y respeto", label: "Comunicación positiva, atención y respeto" },
-      { key: "Desarrollo socioemocional, colaboración y valores", label: "Desarrollo socioemocional, colaboración y valores" },
+      {
+        key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible",
+        label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible"
+      },
+      {
+        key: "Comunicación positiva, atención y respeto",
+        label: "Comunicación positiva, atención y respeto"
+      },
+      {
+        key: "Desarrollo socioemocional, colaboración y valores",
+        label: "Desarrollo socioemocional, colaboración y valores"
+      }
     ],
-    "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.": [
-      { key: "Integración de las familias en los procesos de desarrollo y aprendizaje", label: "Integración de las familias en los procesos de desarrollo y aprendizaje" },
-      { key: "Acompañamiento docente a las familias", label: "Acompañamiento docente a las familias" },
-      { key: "Participación del docente en el Modelo de Atención Integral", label: "Participación del docente en el Modelo de Atención Integral" }
-    ],
+    "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.":
+      [
+        {
+          key: "Integración de las familias en los procesos de desarrollo y aprendizaje",
+          label: "Integración de las familias en los procesos de desarrollo y aprendizaje"
+        },
+        { key: "Acompañamiento docente a las familias", label: "Acompañamiento docente a las familias" },
+        {
+          key: "Participación del docente en el Modelo de Atención Integral",
+          label: "Participación del docente en el Modelo de Atención Integral"
+        }
+      ],
     "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos.": [
       { key: "Trabajo cooperativo y en equipo", label: "Trabajo cooperativo y en equipo" },
-      { key: "Aula y recursos virtuales", label: "Aula y recursos virtuales" },
+      { key: "Aula y recursos virtuales", label: "Aula y recursos virtuales" }
     ]
   };
-  const subItems = dimensionValue ? (subOptionsMap[dimensionValue] || []) : [];
+  const subItems = dimensionValue ? subOptionsMap[dimensionValue] || [] : [];
 
   // helper inside the component
   const truncate = (s: string | undefined, n = 80): string =>
@@ -129,7 +167,9 @@ const Appendix3Form = () => {
           <User className="w-3 h-3 mr-1" />
           {decodeURIComponent(fullName?.toString() || "")}
         </div>
-        <h1 className="text-4xl font-bold mb-3">Plan de mejora continua: registro de planificación y retroalimentación</h1>
+        <h1 className="text-4xl font-bold mb-3">
+          Plan de mejora continua: registro de planificación y retroalimentación
+        </h1>
         <p className="text-lg">{appendix?.description}</p>
       </div>
       <form className="space-y-6" onSubmit={handleSubmit}>
@@ -143,10 +183,25 @@ const Appendix3Form = () => {
                 <div className="space-y-2">
                   <Select
                     items={[
-                      { key: "Desarrollo y Aprendizaje Activos. Currículo integrado", label: "Desarrollo y Aprendizaje Activos. Currículo integrado" },
-                      { key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.", label: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia." },
-                      { key: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.", label: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias." },
-                      { key: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos.", label: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos." }
+                      {
+                        key: "Desarrollo y Aprendizaje Activos. Currículo integrado",
+                        label: "Desarrollo y Aprendizaje Activos. Currículo integrado"
+                      },
+                      {
+                        key: "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.",
+                        label:
+                          "Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia."
+                      },
+                      {
+                        key: "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.",
+                        label:
+                          "Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias."
+                      },
+                      {
+                        key: "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos.",
+                        label:
+                          "Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos."
+                      }
                     ]}
                     {...getFieldProps("dimension")}
                     {...getInputProps(
@@ -157,7 +212,7 @@ const Appendix3Form = () => {
                     )}
                     className="max-w-md"
                   >
-                    {(item: any) => <SelectItem>{item.label}</SelectItem>}
+                    {(item: SubItem) => <SelectItem>{item.label}</SelectItem>}
                   </Select>
                   {/* Select dependiente: sólo muestra opciones cuando hay una dimensión seleccionada */}
 
@@ -172,51 +227,30 @@ const Appendix3Form = () => {
                     )}
                     className="max-w-md"
                   >
-                    {(item: any) => <SelectItem>{item.label}</SelectItem>}
+                    {(item: SubItem) => <SelectItem>{item.label}</SelectItem>}
                   </Select>
-
                 </div>
                 <div className="space-y-2">
                   <Input
                     {...getFieldProps("goal")}
-                    {...getInputProps(
-                      "text",
-                      "Objetivos",
-                      touched.goal,
-                      errors.goal
-                    )}
+                    {...getInputProps("text", "Objetivos", touched.goal, errors.goal)}
                     className="max-w-md"
                   />
                   <Input
                     {...getFieldProps("activities")}
-                    {...getInputProps(
-                      "text",
-                      "Actividades",
-                      touched.activities,
-                      errors.activities
-                    )}
+                    {...getInputProps("text", "Actividades", touched.activities, errors.activities)}
                     className="max-w-md"
                   />
                 </div>
                 <div className="space-y-2">
                   <Input
                     {...getFieldProps("resources")}
-                    {...getInputProps(
-                      "text",
-                      "Recursos",
-                      touched.resources,
-                      errors.resources
-                    )}
+                    {...getInputProps("text", "Recursos", touched.resources, errors.resources)}
                     className="max-w-md"
                   />
                   <Input
                     {...getFieldProps("timing")}
-                    {...getInputProps(
-                      "text",
-                      "Temporización",
-                      touched.timing,
-                      errors.timing
-                    )}
+                    {...getInputProps("text", "Temporización", touched.timing, errors.timing)}
                     className="max-w-md"
                   />
                 </div>
@@ -244,59 +278,60 @@ const Appendix3Form = () => {
                 </div>
               </div>
             </div>
-
           </div>
           <div className="flex justify-end mt-2 mb-2 w-3/8">
-          <Button className="w-full" onClick={() => handleDetailTeacher()}>
-            Agregar Registro
-          </Button>
+            <Button className="w-full" onClick={() => handleDetailTeacher()}>
+              Agregar Registro
+            </Button>
           </div>
           <div>
             {clasificationDimension.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">No hay registros ingresados aún</div>
+              <div className="text-center py-8 text-muted-foreground">
+                No hay registros ingresados aún
+              </div>
             ) : (
               <div className="overflow-x-auto">
-                    <Table aria-label="Registros de planificación">
-                      <TableHeader>
-                        <TableColumn>Dimensión</TableColumn>
-                        <TableColumn>Sub dimensión</TableColumn>
-                        <TableColumn>Objetivos</TableColumn>
-                        <TableColumn>Acción</TableColumn>
-                      </TableHeader>
+                <Table aria-label="Registros de planificación">
+                  <TableHeader>
+                    <TableColumn>Dimensión</TableColumn>
+                    <TableColumn>Sub dimensión</TableColumn>
+                    <TableColumn>Objetivos</TableColumn>
+                    <TableColumn>Acción</TableColumn>
+                  </TableHeader>
 
-                      <TableBody items={clasificationDimension}>
-                        {(item) => (
-                          <TableRow key={item.id}>
-                            <TableCell>{item.dimension}</TableCell>
-                            <TableCell>{item.subDimension}</TableCell>
-                            <TableCell>
-                              {/* Goals visible; full details shown in native tooltip on hover */}
-                              <span
-                                title={buildTooltip(item)}
-                                className="cursor-help underline decoration-dotted"
-                              >
-                                {truncate(item.goals, 120) || "-"}
-                              </span>
-                            </TableCell>
-                            <TableCell>
-                              <div className="flex items-center gap-2">
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => handleDelete(item.id)}
-                                  className="text-destructive hover:text-destructive"
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </Button>
-                              </div>
-                            </TableCell>
-                          </TableRow>
-                        )}
-                      </TableBody>
-                    </Table>
-                  </div>
-                )}
+                  <TableBody items={clasificationDimension}>
+                    {(item) => (
+                      <TableRow key={item.id}>
+                        <TableCell>{item.dimension}</TableCell>
+                        <TableCell>{item.subDimension}</TableCell>
+                        <TableCell>
+                          {/* Goals visible; full details shown in native tooltip on hover */}
+                          <span
+                            title={buildTooltip(item)}
+                            className="cursor-help underline decoration-dotted"
+                          >
+                            {truncate(item.goals, 120) || "-"}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-destructive hover:text-destructive"
+                              onClick={() => handleDelete(item.id)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
               </div>
+            )}
+          </div>
         </Card>
 
         <Card className="p-6 md:p-8">
@@ -307,7 +342,6 @@ const Appendix3Form = () => {
             <div className="flex-1">
               <h2 className="text-xl font-semibold mb-4">Estrategias de Acompañamiento</h2>
               <div className="space-y-3">
-
                 {(() => {
                   const options = [
                     "Observación de aula",
@@ -318,13 +352,16 @@ const Appendix3Form = () => {
                     "Análisis de materiales pedagógicos",
                     "Otras"
                   ];
-                  const strategiesValue = (getFieldProps("strategies").value as string[] | undefined) || [];
+                  const strategiesValue =
+                    (getFieldProps("strategies").value as string[] | undefined) || [];
 
                   return (
                     <CheckboxGroup
                       value={strategiesValue}
-                      onValueChange={(val: string[]) => (formikAppendix3 as any).setFieldValue("strategies", val)}
                       className="flex flex-col space-y-2"
+                      onValueChange={(val: string[]) =>
+                        (formikAppendix3 as any).setFieldValue("strategies", val)
+                      }
                     >
                       {options.map((opt, idx) => (
                         <div key={opt} className="flex items-center gap-3 p-2">
@@ -354,8 +391,8 @@ const Appendix3Form = () => {
                   {...getInputProps(
                     "text",
                     "Próxima visita",
-                    touched.nextVisit,
-                    errors.nextVisit
+                    Boolean((touched as any).nextVisit),
+                    (errors as any).nextVisit as string
                   )}
                 />
               </div>

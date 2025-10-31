@@ -8,7 +8,7 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
 import useAxios from "@/shared/hooks/useAxios";
 
-const Appendix1Form = () => {
+const Appendix1Form = (): React.JSX.Element => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));

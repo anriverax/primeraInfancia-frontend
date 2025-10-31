@@ -3,32 +3,33 @@ import { useAppendix } from "../../hooks/useAppendix";
 import { ArrowLeft, FileText, Send, User } from "lucide-react";
 import { Button, Card, Divider, RadioGroup, Radio } from "@heroui/react";
 import { useAppendix8Form } from "../hook/useAppendix8Form";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
 
-const Appendix8Form = () => {
+const Appendix8Form = (): React.JSX.Element => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
 
   const formikAppendix8 = useAppendix8Form(Number(anexoId), Number(groupId));
-  const { getFieldProps, setFieldValue, touched, errors, handleSubmit, values } = formikAppendix8;
-
-  const { getInputProps } = useCustomFormFields();
+  const { setFieldValue, errors, handleSubmit, values } = formikAppendix8;
 
   // Opciones (dimensiones) con sus sub-opciones integradas
-  const levelList: { key: string; label: string; }[] = [
+  const levelList: { key: string; label: string }[] = [
     {
-      key: "Nunca", label: "Nunca",
+      key: "Nunca",
+      label: "Nunca"
     },
     {
-      key: "A veces", label: "A veces",
+      key: "A veces",
+      label: "A veces"
     },
     {
-      key: "Muy frecuentemente", label: "Muy frecuentemente",
+      key: "Muy frecuentemente",
+      label: "Muy frecuentemente"
     },
     {
-      key: "Siempre", label: "Siempre",
+      key: "Siempre",
+      label: "Siempre"
     }
   ];
 
@@ -53,7 +54,9 @@ const Appendix8Form = () => {
               <span className="text-primary font-bold">I</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold mb-4">Dimensión A. Desarrollo y Aprendizaje Activos. Currículo integrado</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Dimensión A. Desarrollo y Aprendizaje Activos. Currículo integrado
+              </h2>
               <div className="space-y-3">
                 <RadioGroup
                   isRequired
@@ -542,7 +545,9 @@ const Appendix8Form = () => {
                   value={values.individualizedSupportiveAssessment}
                   isInvalid={!!errors.individualizedSupportiveAssessment}
                   errorMessage={errors.individualizedSupportiveAssessment}
-                  onValueChange={(value: string) => setFieldValue("individualizedSupportiveAssessment", value)}
+                  onValueChange={(value: string) =>
+                    setFieldValue("individualizedSupportiveAssessment", value)
+                  }
                 >
                   {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
@@ -560,7 +565,10 @@ const Appendix8Form = () => {
               <span className="text-primary font-bold">II</span>
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold mb-4">Dimensión B. Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de Primera Infancia.</h2>
+              <h2 className="text-xl font-semibold mb-4">
+                Dimensión B. Ambiente de aprendizaje. Cuidado cariñoso y sensible. El rol del docente de
+                Primera Infancia.
+              </h2>
               <div className="space-y-3">
                 <RadioGroup
                   isRequired
@@ -644,7 +652,9 @@ const Appendix8Form = () => {
                   value={values.respectfulAffectionateTreatment}
                   isInvalid={!!errors.respectfulAffectionateTreatment}
                   errorMessage={errors.respectfulAffectionateTreatment}
-                  onValueChange={(value: string) => setFieldValue("respectfulAffectionateTreatment", value)}
+                  onValueChange={(value: string) =>
+                    setFieldValue("respectfulAffectionateTreatment", value)
+                  }
                 >
                   {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
@@ -737,7 +747,10 @@ const Appendix8Form = () => {
               <span className="text-accent font-bold">III</span>
             </div>
             <div className="flex-1 space-y-6">
-              <h2 className="text-xl font-semibold">Dimensión C. Integración de las familias en los procesos de desarrollo y aprendizaje. Acompañamiento docente a las familias.</h2>
+              <h2 className="text-xl font-semibold">
+                Dimensión C. Integración de las familias en los procesos de desarrollo y aprendizaje.
+                Acompañamiento docente a las familias.
+              </h2>
               <div className="space-y-6">
                 <RadioGroup
                   isRequired
@@ -791,7 +804,9 @@ const Appendix8Form = () => {
                   value={values.facilitateCollaborationActivities}
                   isInvalid={!!errors.facilitateCollaborationActivities}
                   errorMessage={errors.facilitateCollaborationActivities}
-                  onValueChange={(value: string) => setFieldValue("facilitateCollaborationActivities", value)}
+                  onValueChange={(value: string) =>
+                    setFieldValue("facilitateCollaborationActivities", value)
+                  }
                 >
                   {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
@@ -821,7 +836,9 @@ const Appendix8Form = () => {
                   value={values.communicateProgressMechanisms}
                   isInvalid={!!errors.communicateProgressMechanisms}
                   errorMessage={errors.communicateProgressMechanisms}
-                  onValueChange={(value: string) => setFieldValue("communicateProgressMechanisms", value)}
+                  onValueChange={(value: string) =>
+                    setFieldValue("communicateProgressMechanisms", value)
+                  }
                 >
                   {levelList.map((opt) => (
                     <Radio key={opt.key} value={opt.key}>
@@ -854,7 +871,10 @@ const Appendix8Form = () => {
               <span className="text-accent font-bold">IV</span>
             </div>
             <div className="flex-1 space-y-6">
-              <h2 className="text-xl font-semibold">Dimensión D. Trabajo cooperativo y en equipo de los docentes. Utilización de recursos tecnológicos.</h2>
+              <h2 className="text-xl font-semibold">
+                Dimensión D. Trabajo cooperativo y en equipo de los docentes. Utilización de recursos
+                tecnológicos.
+              </h2>
               <div className="space-y-6">
                 <RadioGroup
                   isRequired
