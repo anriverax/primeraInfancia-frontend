@@ -17,19 +17,8 @@ const initialValuesAppendix3: Appendix3Input = {
   timing: "",
   successIndicator: "",
   levelOfAchievement: "",
-   otherStrategys: "",
-  strategies: [],
-
-  // classroomObservation: "",
-  // dialoguedFeedback: "",
-  // coPlanning: "",
-  // portfolioReview: "",
-  // teachingMaterial: "",
-  // others: "",
-
-  //nextVisit: "",
-
-  //pedagogicalModeling: ""
+  otherStrategys: "",
+  nextVisit: "",
 };
 
 const useAppendix3Form = (appendixId: number, inscriptionId: number) => {
@@ -40,8 +29,6 @@ const useAppendix3Form = (appendixId: number, inscriptionId: number) => {
     values: Appendix3Input,
     formikHelpers: FormikHelpers<IAppendix3Input>
   ): Promise<void> => {
-    console.log("a ver.");
-    
     const confirmed = await confirmAction({
       title: "Confirmar envío",
       text: "¿Estás seguro de que deseas enviar el acuerdo?",
@@ -61,7 +48,6 @@ const useAppendix3Form = (appendixId: number, inscriptionId: number) => {
       survey: result,
       inscriptionId
     };
-console.log(appendixData,"$$$$");
 
     try {
       const res: AxiosResponse<FetchResponse<IAppendix3Input>> = await useRequest.post(

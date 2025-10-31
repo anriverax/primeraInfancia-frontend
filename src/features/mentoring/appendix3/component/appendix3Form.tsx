@@ -1,10 +1,23 @@
 import { useParams } from "next/navigation";
 import { useAppendix } from "../../hooks/useAppendix";
-import { ArrowLeft, CheckCircle2, FileText, Send, User } from "lucide-react";
-import { Button, Card, Divider, Input, Select, SelectItem, Checkbox, CheckboxGroup } from "@heroui/react";
+import { ArrowLeft, Trash2, FileText, Send, User } from "lucide-react";
+import { Button, Card, Divider, Input, Select, SelectItem, Checkbox, CheckboxGroup, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@heroui/react";
 import { useAppendix3Form } from "../hook/useAppendix3Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
+import { useState } from "react";
+
+interface DimensionDetail {
+  id: string
+  dimension: string
+  subDimension: string
+  goals: string
+  activities: string
+  resources: string
+  timing: string
+  successIndicator: string
+  levelOfAchievement: string
+}
 
 const Appendix3Form = () => {
   const params = useParams();
@@ -12,9 +25,52 @@ const Appendix3Form = () => {
   const { appendix } = useAppendix(Number(anexoId));
 
   const formikAppendix3 = useAppendix3Form(Number(anexoId), Number(groupId));
-  const { getFieldProps, touched, errors, handleSubmit } = formikAppendix3;
+  const { getFieldProps, touched, errors, handleSubmit, values } = formikAppendix3;
 
   const { getInputProps } = useCustomFormFields();
+  const [clasificationDimension, setClasificationDimension] = useState<DimensionDetail[]>([])
+
+  const handleDetailTeacher = () => {
+    const newEntry: DimensionDetail = {
+      id: clasificationDimension.length.toString(),
+      dimension: values.dimension,
+      subDimension: values.subDimension,
+      goals: values.goal,
+      activities: values.activities,
+      resources: values.resources,
+      timing: values.timing,
+      successIndicator: values.successIndicator,
+      levelOfAchievement: values.levelOfAchievement,
+    }
+
+    setClasificationDimension((prev) => [...prev, newEntry])
+
+    setFormData({
+      dimension: values.dimension,
+      subDimension: values.subDimension,
+      goals: values.goal,
+      activities: values.activities,
+      resources: values.resources,
+      timing: values.timing,
+      successIndicator: values.successIndicator,
+      levelOfAchievement: values.levelOfAchievement,
+    })
+  }
+
+  const [formData, setFormData] = useState({
+    dimension: "",
+    subDimension: "",
+    goals: "",
+    activities: "",
+    resources: "",
+    timing: "",
+    successIndicator: "",
+    levelOfAchievement: "",
+  })
+
+  const handleDelete = (id: string) => {
+    setClasificationDimension((prev) => prev.filter((entry) => entry.id !== id))
+  }
 
   // Opciones dependientes según la dimensión seleccionada
   const dimensionValue = getFieldProps("dimension").value as string | undefined;
@@ -48,6 +104,19 @@ const Appendix3Form = () => {
     ]
   };
   const subItems = dimensionValue ? (subOptionsMap[dimensionValue] || []) : [];
+
+  // helper inside the component
+  const truncate = (s: string | undefined, n = 80): string =>
+    !s ? "" : s.length > n ? `${s.slice(0, n)}...` : s;
+
+  const buildTooltip = (item: DimensionDetail): string =>
+    [
+      `Actividades: ${item.activities || "-"}`,
+      `Recursos: ${item.resources || "-"}`,
+      `Temporización: ${item.timing || "-"}`,
+      `Indicadores de éxito: ${item.successIndicator || "-"}`,
+      `Nivel de logro: ${item.levelOfAchievement || "-"}`
+    ].join("\n");
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
@@ -91,21 +160,21 @@ const Appendix3Form = () => {
                     {(item: any) => <SelectItem>{item.label}</SelectItem>}
                   </Select>
                   {/* Select dependiente: sólo muestra opciones cuando hay una dimensión seleccionada */}
-                  
-                    <Select
-                      items={subItems}
-                      {...getFieldProps("subDimension")}
-                      {...getInputProps(
-                        "subDimension",
-                        "Sub-dimensión",
-                        Boolean(touched.subDimension),
-                        errors.subDimension as string
-                      )}
-                      className="max-w-md"
-                    >
-                      {(item: any) => <SelectItem>{item.label}</SelectItem>}
-                    </Select>
-                  
+
+                  <Select
+                    items={subItems}
+                    {...getFieldProps("subDimension")}
+                    {...getInputProps(
+                      "subDimension",
+                      "Sub-dimensión",
+                      Boolean(touched.subDimension),
+                      errors.subDimension as string
+                    )}
+                    className="max-w-md"
+                  >
+                    {(item: any) => <SelectItem>{item.label}</SelectItem>}
+                  </Select>
+
                 </div>
                 <div className="space-y-2">
                   <Input
@@ -175,7 +244,59 @@ const Appendix3Form = () => {
                 </div>
               </div>
             </div>
+
           </div>
+          <div className="flex justify-end mt-2 mb-2 w-3/8">
+          <Button className="w-full" onClick={() => handleDetailTeacher()}>
+            Agregar Registro
+          </Button>
+          </div>
+          <div>
+            {clasificationDimension.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">No hay registros ingresados aún</div>
+            ) : (
+              <div className="overflow-x-auto">
+                    <Table aria-label="Registros de planificación">
+                      <TableHeader>
+                        <TableColumn>Dimensión</TableColumn>
+                        <TableColumn>Sub dimensión</TableColumn>
+                        <TableColumn>Objetivos</TableColumn>
+                        <TableColumn>Acción</TableColumn>
+                      </TableHeader>
+
+                      <TableBody items={clasificationDimension}>
+                        {(item) => (
+                          <TableRow key={item.id}>
+                            <TableCell>{item.dimension}</TableCell>
+                            <TableCell>{item.subDimension}</TableCell>
+                            <TableCell>
+                              {/* Goals visible; full details shown in native tooltip on hover */}
+                              <span
+                                title={buildTooltip(item)}
+                                className="cursor-help underline decoration-dotted"
+                              >
+                                {truncate(item.goals, 120) || "-"}
+                              </span>
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-2">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => handleDelete(item.id)}
+                                  className="text-destructive hover:text-destructive"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+              </div>
         </Card>
 
         <Card className="p-6 md:p-8">
@@ -186,7 +307,7 @@ const Appendix3Form = () => {
             <div className="flex-1">
               <h2 className="text-xl font-semibold mb-4">Estrategias de Acompañamiento</h2>
               <div className="space-y-3">
-                
+
                 {(() => {
                   const options = [
                     "Observación de aula",
@@ -228,7 +349,7 @@ const Appendix3Form = () => {
                     </CheckboxGroup>
                   );
                 })()}
-                {/* <Input
+                <Input
                   {...getFieldProps("nextVisit")}
                   {...getInputProps(
                     "text",
@@ -236,7 +357,7 @@ const Appendix3Form = () => {
                     touched.nextVisit,
                     errors.nextVisit
                   )}
-                /> */}
+                />
               </div>
             </div>
           </div>

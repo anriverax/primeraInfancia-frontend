@@ -7,23 +7,10 @@ export interface Appendix3Input {
   activities: string;
   resources: string;
   timing: string;
-
   successIndicator: string;
   levelOfAchievement: string;
-   otherStrategys?: string;
-  
-  // array of selected strategies (optional)
-  strategies?: string[];
-
-  // classroomObservation: string;
-  // dialoguedFeedback: string;
-  // pedagogicalModeling: string;
-  // coPlanning: string
-  // portfolioReview: string;
-  // teachingMaterial: string;
-  // others: string;
-  
-  //nextVisit: string;
+  otherStrategys?: string;
+  nextVisit: string;
 }
 
 export type IAppendix3Input = Appendix3Input & AxiosMessage;
