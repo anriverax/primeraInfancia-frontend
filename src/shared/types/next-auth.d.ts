@@ -21,6 +21,7 @@ interface IUser {
   picture: string;
   email: string | undefined | null;
   name: string | undefined | null;
+  accessToken: string | undefined;
 }
 declare module "next-auth" {
   interface User extends IToken {
