@@ -13,5 +13,4 @@ export const appendix3Schema = object({
   successIndicator: stringField(validationMessages.required),
   levelOfAchievement: stringField(validationMessages.required),
   otherStrategys: string().notRequired(),
-  nextVisit: stringField(validationMessages.required)
 }) as ObjectSchema<Appendix3Input>;

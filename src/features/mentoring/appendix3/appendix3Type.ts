@@ -10,7 +10,7 @@ export interface Appendix3Input {
   successIndicator: string;
   levelOfAchievement: string;
   otherStrategys?: string;
-  nextVisit: string;
+  strategies?: string[];
 }
 
 export type IAppendix3Input = Appendix3Input & AxiosMessage;

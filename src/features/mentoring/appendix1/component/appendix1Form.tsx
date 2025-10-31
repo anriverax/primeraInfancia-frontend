@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useAppendix } from "../../hooks/useAppendix";
 import { ArrowLeft, CheckCircle2, FileText, Send, User } from "lucide-react";
@@ -5,6 +6,7 @@ import { Button, Card, Divider, Input } from "@heroui/react";
 import { useAppendix1Form } from "../hook/useAppendix1Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
+import useAxios from "@/shared/hooks/useAxios";
 
 const Appendix1Form = () => {
   const params = useParams();
@@ -12,7 +14,57 @@ const Appendix1Form = () => {
   const { appendix } = useAppendix(Number(anexoId));
 
   const formikAppendix1 = useAppendix1Form(Number(anexoId), Number(groupId));
-  const { getFieldProps, touched, errors, handleSubmit } = formikAppendix1;
+  const { getFieldProps, touched, errors, handleSubmit, setFieldValue } = formikAppendix1;
+  const useRequest = useAxios(true);
+  const [lastSurveyId, setLastSurveyId] = useState<number | null>(null);
+
+  // mapeo de texto de pregunta -> nombre de campo del form
+  const QUESTION_TO_FIELD: Record<string, string> = {
+    "Fecha estimada de cierre:": "estimatedClosingDate",
+    "Fecha estimada de cierre": "estimatedClosingDate",
+    "Frecuencia estimada de encuentros:": "estimatedFrequencyMeetings",
+    "Frecuencia estimada de encuentros": "estimatedFrequencyMeetings"
+  };
+
+  useEffect(() => {
+    if (!groupId || !anexoId) return;
+
+    let mounted = true;
+    (async () => {
+      try {
+        // GET with query params to the endpoint you provided
+        const res = await useRequest.get("/surveyData/by-inscription", {
+          params: { inscriptionId: Number(groupId), appendixId: Number(anexoId) }
+        });
+
+        const list = res.data?.data ?? [];
+        if (!mounted || list.length === 0) return;
+
+        // tomar el último registro
+        const last = list[list.length - 1];
+        setLastSurveyId(last?.id ?? null);
+        const survey = last?.survey ?? [];
+
+        // cada item puede venir con distintas claves: valueAnswer/questionText o answer/question
+        survey.forEach((q: any) => {
+          const questionText = q.questionText ?? q.question ?? "";
+          const value = q.valueAnswer ?? q.answer ?? "";
+          const field = QUESTION_TO_FIELD[questionText];
+          if (field) {
+            // setFieldValue para rellenar el formik
+            setFieldValue(field, value);
+          }
+        });
+      } catch (err) {
+        // opcional: manejar/loguear error
+        // console.error("Error cargando surveys:", err);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
+  }, [groupId, anexoId, setFieldValue, useRequest]);
 
   const { getInputProps } = useCustomFormFields();
 
