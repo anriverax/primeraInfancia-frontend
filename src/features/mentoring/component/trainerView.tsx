@@ -49,7 +49,7 @@ const TrainerView = ({ inscriptionId }: TrainerViewProps): React.JSX.Element => 
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-card-foreground text-balance leading-tight mb-2">
-                    {item.title}
+                    {item.subTitle}
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {truncateText(item.description, 94)}

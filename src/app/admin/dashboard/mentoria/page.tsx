@@ -61,7 +61,6 @@ const DashboardMentoringPage = (): React.JSX.Element => {
     { label: "Matutino", count: dashboardDetail.dashboardResume.teacherShiftAm },
     { label: "Vespertino", count: dashboardDetail.dashboardResume.teacherShiftPm }
   ];
-  console.log(dashboardDetail, "$$$$");
 
   return (
     <div>
