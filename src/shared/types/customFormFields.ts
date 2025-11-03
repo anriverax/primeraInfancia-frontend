@@ -65,7 +65,7 @@ export interface CustomFormFieldsResult {
     _label: string,
     _placeholder: string,
     _itemsLength: number,
-    _itemValue: number | number[],
+    _itemValue: number | number[] | string | string[],
     _error: string | undefined,
     _isRequired?: boolean
   ) => SelectProps;

@@ -9,7 +9,7 @@ const useDashboardDetail = (): {
 } => {
   const [dashboardDetail, setDashboardDetail] = useState<DashboardDetailMentoring | undefined>();
   const useRequest = useAxios(true);
-
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     let isMounted = true;
 
@@ -30,8 +30,8 @@ const useDashboardDetail = (): {
     return (): void => {
       isMounted = false;
     };
-  }, [dashboardDetail]);
-
+  }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
   return { dashboardDetail };
 };
 

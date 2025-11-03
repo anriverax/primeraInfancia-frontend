@@ -1,7 +1,7 @@
 "use client";
 import UnderConstruction from "@/shared/ui/underConstruction";
 
-const Gradepage = () => {
+const Gradepage = (): React.JSX.Element => {
   return <UnderConstruction />;
 };
 

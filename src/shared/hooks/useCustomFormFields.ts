@@ -80,18 +80,19 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
       label: string,
       placeholder: string,
       itemsLength: number,
-      itemValue: number | number[],
+      itemValue: number | number[] | string | string[],
       error: string | undefined,
       isRequired: boolean = true
     ): SelectProps => {
       // Determine selectedKeys depending on whether it is an array or a single value
       let selectedKeys: string[];
       if (Array.isArray(itemValue)) {
-        // For multiple selections: convert array of numbers to array of strings
+        // For multiple selections: convert array of values to array of strings
         selectedKeys = itemValue.length > 0 ? itemValue.map((v) => v.toString()) : [];
       } else {
-        // For simple select: convert number to array with a string
-        selectedKeys = itemValue === 0 || itemValue === -1 ? [] : [itemValue.toString()];
+        // For simple select: convert value to array with a string
+        const emptySentinel = itemValue === 0 || itemValue === -1 || itemValue === "";
+        selectedKeys = emptySentinel ? [] : [itemValue.toString()];
       }
 
       return {
@@ -104,7 +105,6 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
           label: "group-data-[filled=true]:font-bold top-4",
           value: "group-data-[has-value=true]:text-gray-600 whitespace-pre-wrap"
         },
-
         selectedKeys,
         isLoading: itemsLength === 0,
         isDisabled: itemsLength === 0,

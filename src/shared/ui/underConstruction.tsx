@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Code2, Hammer, Sparkles } from "lucide-react";
 
-export function UnderConstruction() {
+export function UnderConstruction(): React.JSX.Element {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

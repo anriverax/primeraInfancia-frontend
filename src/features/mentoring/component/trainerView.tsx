@@ -19,7 +19,7 @@ type TrainerViewProps = {
 
 const TrainerView = ({ teacher }: TrainerViewProps): React.JSX.Element => {
   const { appendixsList } = useAppendixList();
-  console.log(teacher);
+
   const truncateText = (text: string, maxLength: number): string => {
     if (text.length > maxLength) return text.substring(0, maxLength) + "...";
 

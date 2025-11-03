@@ -43,6 +43,9 @@ export const useTeacherShiftCell = (
   _data: TeacherShift,
   _columnKey: ITeacherShiftColumnKey
 ) => string | number | undefined | null | React.JSX.Element) => {
+  {
+    /* eslint-disable react-hooks/exhaustive-deps */
+  }
   return useCallback((data: TeacherShift, columnKey: ITeacherShiftColumnKey) => {
     const cellValue = data[columnKey as keyof TeacherShift];
 
@@ -61,4 +64,7 @@ export const useTeacherShiftCell = (
         return cellValue;
     }
   }, []);
+  {
+    /* eslint-enable react-hooks/exhaustive-deps */
+  }
 };

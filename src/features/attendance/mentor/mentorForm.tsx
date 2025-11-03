@@ -14,33 +14,66 @@ import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { IEvent, TeachersAssignmentMentor } from "../attendance.type";
 import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
 import CustomProgress from "@/shared/ui/custom/customProgress";
+import { useSession } from "next-auth/react";
+import { TypeRole } from "@/shared/constants";
 
 const MentorForm = (): React.JSX.Element => {
-  const formik = useAttendanceForm();
+  const { data: session } = useSession();
+  const role = session?.user.role;
+
+  const formik = useAttendanceForm(role);
   const { getSelectProps, getTextAreaProps, getInputProps } = useCustomFormFields();
 
   const { values, touched, errors, getFieldProps, handleSubmit, setFieldValue } = formik;
 
-  const { assignmentList, handleSelectionChange, getErrorTeacher } = useAttendanceNew({
+  const { assignmentList, handleSelectionChange, getErrorTeacher, mentors } = useAttendanceNew({
     eventId: values.eventId,
-    setFieldValue
+    setFieldValue,
+    rol: role,
+    mentorId: values.mentorId as number
   });
-
-  if (!assignmentList) return <CustomProgress />;
+  // Loading gates: si es mentor, esperamos directamente el listado; si es técnico, primero mentores
+  if (!assignmentList && !mentors) return <CustomProgress />;
 
   return (
     <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-full md:w-3/4 lg:w-1/2">
       <form className="space-y-6" onSubmit={handleSubmit}>
+        {role === TypeRole.USER_TECNICO_APOYO && (
+          <Select
+            items={mentors ?? []}
+            name="mentorId"
+            {...getSelectProps(
+              "Mentor",
+              "Seleccione un mentor",
+              mentors?.length || 0,
+              values.mentorId as number,
+              errors.mentorId
+            )}
+            onSelectionChange={(keys: SharedSelection) => {
+              const selected = Array.from(keys as Set<string>)[0];
+              const id = selected ? Number(selected) : -1;
+              setFieldValue("mentorId", id);
+              setFieldValue("eventId", -1);
+              setFieldValue("teacherId", []);
+            }}
+          >
+            {(mentors ?? []).map((m) => (
+              <SelectItem key={m.id}>{m.fullName}</SelectItem>
+            ))}
+          </Select>
+        )}
+
         <Select
-          items={assignmentList.events}
+          items={assignmentList?.events ?? []}
           name="eventId"
           {...getSelectProps(
             "Evento",
             "Seleccione un evento",
-            assignmentList.events.length || 0,
+            assignmentList?.events?.length || 0,
             values.eventId,
             errors.eventId
           )}
+          isDisabled={role === TypeRole.USER_TECNICO_APOYO && !assignmentList}
           onSelectionChange={(keys: SharedSelection) => {
             const selected = Array.from(keys as Set<string>)[0];
             const id = selected ? Number(selected) : -1;
@@ -48,7 +81,7 @@ const MentorForm = (): React.JSX.Element => {
             setFieldValue("teacherId", []);
           }}
         >
-          {assignmentList.events.map((event: IEvent) => (
+          {(assignmentList?.events ?? []).map((event: IEvent) => (
             <SelectItem key={event.id}>{event.name}</SelectItem>
           ))}
         </Select>
@@ -69,20 +102,20 @@ const MentorForm = (): React.JSX.Element => {
           </Radio>
         </RadioGroup>
         <Select
-          items={assignmentList.teachers}
+          items={assignmentList?.teachers ?? []}
           {...getSelectProps(
             "Cuerpo docente",
             "Seleccione uno o más docentes",
-            assignmentList.teachers.length || 0,
+            assignmentList?.teachers?.length || 0,
             values.teacherId ?? [],
             getErrorTeacher(errors.teacherId)
           )}
-          isDisabled={!assignmentList.teachers.length || !values.eventId}
+          isDisabled={!(assignmentList?.teachers?.length || 0) || !values.eventId}
           selectionMode="multiple"
           selectedKeys={values.teacherId?.map((v: number) => v.toString()) ?? []}
           onSelectionChange={(keys: SharedSelection) => handleSelectionChange(keys)}
         >
-          {assignmentList.teachers.map((teacher: TeachersAssignmentMentor) => (
+          {(assignmentList?.teachers ?? []).map((teacher: TeachersAssignmentMentor) => (
             <SelectItem key={teacher.id} textValue={teacher.fullName}>
               <div className="flex gap-2 items-center">
                 <div className="flex flex-col">
@@ -129,6 +162,7 @@ const MentorForm = (): React.JSX.Element => {
                 touched.justificationUrl,
                 errors.justificationUrl
               )}
+              description="Ejemplos: https://oei365-my.sharepoint.com/... ó https://oei365.sharepoint.com/..."
             />
           </div>
         )}

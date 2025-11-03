@@ -1,5 +1,5 @@
 import { FormikHelpers, useFormik } from "formik";
-import { attendanceSchema } from "../attendanceValidation";
+import { attendanceSchema, attendanceSchemaTech } from "../attendanceValidation";
 import { handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { AttendanceInput, IAttendance, IAttendanceCreated } from "../attendance.type";
@@ -8,19 +8,21 @@ import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { useQueryClient } from "@tanstack/react-query";
 import { useCurrentLocation } from "./useCurrentLocation";
 import { useEffect, useState } from "react";
-import { AttendanceEnum } from "@/shared/constants";
+import { AttendanceEnum, TypeRole } from "@/shared/constants";
 
-const initialValuesAttendance: AttendanceInput = {
+const getInitialValues = (rol?: string): AttendanceInput => ({
   eventId: -1,
   coordenates: "",
   modality: "",
   teacherId: [],
+  // mentorId solo aplica para técnico
+  mentorId: rol === TypeRole.USER_TECNICO_APOYO ? -1 : undefined,
   comment: "",
   justificationUrl: "",
   status: "Presente"
-};
+});
 
-const useAttendanceForm = (): FormikProps<IAttendance> => {
+const useAttendanceForm = (rol?: string): FormikProps<IAttendance> => {
   const [dataAttendance, setDataAttendance] = useState<IAttendanceCreated>();
   const queryClient = useQueryClient();
   const getCurrentLocation = useCurrentLocation();
@@ -32,9 +34,12 @@ const useAttendanceForm = (): FormikProps<IAttendance> => {
   ): Promise<void> => {
     const location = await getCurrentLocation();
 
+    // No enviar mentorId al backend si existe en el formulario
+    const { mentorId: _mentorId, ...payload } = (values ?? {}) as AttendanceInput;
+
     const newValue = location
-      ? { ...values, coordenates: `${location.latitude},${location.longitude}` }
-      : values;
+      ? { ...payload, coordenates: `${location.latitude},${location.longitude}` }
+      : payload;
 
     try {
       const res: AxiosResponse<FetchResponse<IAttendance>> = await useRequest.post(
@@ -64,8 +69,8 @@ const useAttendanceForm = (): FormikProps<IAttendance> => {
 
   const formikAttendance = useFormik({
     enableReinitialize: true,
-    initialValues: initialValuesAttendance,
-    validationSchema: attendanceSchema,
+    initialValues: getInitialValues(rol),
+    validationSchema: rol === TypeRole.USER_TECNICO_APOYO ? attendanceSchemaTech : attendanceSchema,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: handleSubmit

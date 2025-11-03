@@ -6,6 +6,8 @@ export interface AttendanceInput {
   coordenates?: string;
   modality: string;
   teacherId: number[];
+  // Presente solo cuando el rol es técnico de apoyo (para filtrar docentes/eventos)
+  mentorId?: number;
   comment?: string;
   justificationUrl?: string;
   status?: string;

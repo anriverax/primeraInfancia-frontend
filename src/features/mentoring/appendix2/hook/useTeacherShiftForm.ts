@@ -1,5 +1,5 @@
 import { FormikErrors, FormikHelpers, FormikProps, useFormik } from "formik";
-import { Appendix2Input, IAnswerTeacherShift, TeacherShift } from "../appendix2Type";
+import { IAppendix2Input, IAnswerTeacherShift, TeacherShift } from "../appendix2Type";
 import { teacherShiftFormSchema } from "../teacherShiftValidation";
 import { questionTeacherShift } from "@/shared/appendixData";
 import { Dispatch, SetStateAction } from "react";
@@ -25,16 +25,17 @@ export const initialValuesTeacherShift: TeacherShift = {
  * - `setFieldValue` is typically provided by a parent Formik form managing Appendix 2.
  * - `teacherShiftData` is the current table of teacher shifts to which new entries are appended.
  */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type UseTeacherShiftFormProps = {
   setFieldValue: (
     field: string,
     value: any,
     shouldValidate?: boolean | undefined
-  ) => Promise<void> | Promise<FormikErrors<Appendix2Input>>;
+  ) => Promise<void | FormikErrors<IAppendix2Input>>;
   teacherShiftData: TeacherShift[];
   setAnswers: Dispatch<SetStateAction<IAnswerTeacherShift[]>>;
 };
-
+/* eslint-enable @typescript-eslint/no-explicit-any */
 /**
  * Type representing the return value of the `useTeacherShiftForm` hook.
  * It mirrors the Formik object for a `TeacherShift` form.

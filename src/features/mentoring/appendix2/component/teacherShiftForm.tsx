@@ -17,10 +17,15 @@ const TeacherShiftForm = ({
   const { getFieldProps, touched, errors, handleSubmit, values } = formikGeneral;
   const { getInputProps, getSelectProps } = useCustomFormFields();
 
-  const onDeleteTeacherShift = useCallback((id: number) => {
-    const result = teacherShiftData.filter((entry) => entry.id && entry.id !== id);
-    setFieldValue("teacherShiftTable", result);
-  }, []);
+  /* eslint-disable react-hooks/exhaustive-deps */
+  const onDeleteTeacherShift = useCallback(
+    (id: number) => {
+      const result = teacherShiftData.filter((entry) => entry.id && entry.id !== id);
+      setFieldValue("teacherShiftTable", result);
+    },
+    [teacherShiftData]
+  );
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -45,6 +50,7 @@ const TeacherShiftForm = ({
               </RadioGroup>
             </div>
             <div>
+              {/* eslint-disable @typescript-eslint/no-explicit-any */}
               <Select
                 items={sectionData}
                 name="section"
@@ -65,6 +71,7 @@ const TeacherShiftForm = ({
                   <SelectItem key={event.key}>{event.label}</SelectItem>
                 ))}
               </Select>
+              {/* eslint-enable @typescript-eslint/no-explicit-any */}
             </div>
             <div>
               <Input

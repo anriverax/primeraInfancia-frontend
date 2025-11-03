@@ -83,7 +83,7 @@ const Appendix2Form = (): React.JSX.Element => {
                 "¿Cuenta con estudios de posgrado u otra formación complementaria?",
                 "Seleccione sus estudios",
                 complementaryStudies.length || 0,
-                values.complementaryStudies as any,
+                values.complementaryStudies,
                 errors.complementaryStudies
               )}
               onSelectionChange={(keys: SharedSelection) => {
@@ -91,7 +91,7 @@ const Appendix2Form = (): React.JSX.Element => {
                 setFieldValue("complementaryStudies", selected);
               }}
             >
-              {(item: IOptions) => <SelectItem>{item.label}</SelectItem>}
+              {(item: IOptions) => <SelectItem key={item.key}>{item.label}</SelectItem>}
             </Select>
 
             {values.complementaryStudies !== "" && (

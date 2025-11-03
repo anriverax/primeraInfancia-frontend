@@ -8,7 +8,7 @@ type TeacherShiftTableProps = {
   onDelete: (id: number) => void;
 };
 
-const TeacherShiftTable = ({ items, onDelete }: TeacherShiftTableProps) => {
+const TeacherShiftTable = ({ items, onDelete }: TeacherShiftTableProps): React.JSX.Element => {
   const renderCell = useTeacherShiftCell(onDelete);
 
   return (

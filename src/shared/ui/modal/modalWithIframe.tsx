@@ -47,9 +47,9 @@ export default function ModalWithIframe({
             </a>
             <button
               type="button"
-              onClick={onClose}
               aria-label="Cerrar"
               className="px-3 py-1.5 rounded-md border bg-gray-50 hover:bg-gray-100 text-sm"
+              onClick={onClose}
             >
               Cerrar
             </button>
@@ -58,11 +58,11 @@ export default function ModalWithIframe({
 
         <div className="flex-1 bg-white">
           <iframe
+            allowFullScreen
+            sandbox={sandbox}
             src={url}
             title={title}
             style={{ width: "100%", height: "100%", border: "none" }}
-            sandbox={sandbox}
-            allowFullScreen
           />
         </div>
       </div>

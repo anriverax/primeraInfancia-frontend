@@ -7,6 +7,7 @@ import { isRolAdmin } from "@/shared/utils/functions";
 import { Tab, Tabs } from "@heroui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useTechnicianModeStore } from "@/shared/hooks/store/useTechnicianModeStore";
 
 type TabsType = "new" | "history";
 type RoleViewType = "mentor" | "leader";
@@ -14,13 +15,19 @@ type RoleViewType = "mentor" | "leader";
 export default function AttendancePage(): React.JSX.Element {
   const { data: session } = useSession();
   const role = session?.user.role;
+  const techMode = useTechnicianModeStore((s) => s.mode);
 
   const [selectedTab, setSelectedTab] = useState<TabsType>("new");
-  const [selectedView, setSelectedView] = useState<RoleViewType>(
-    role === TypeRole.USER_MENTOR ? "mentor" : "leader"
-  );
-
   const isSupportTech = role === TypeRole.USER_TECNICO_APOYO;
+  const initialView: RoleViewType = isSupportTech
+    ? techMode === "mentor"
+      ? "mentor"
+      : "leader"
+    : role === TypeRole.USER_MENTOR
+      ? "mentor"
+      : "leader";
+
+  const [selectedView, _setSelectedView] = useState<RoleViewType>(initialView);
 
   return (
     <div className="space-y-8">
@@ -42,21 +49,6 @@ export default function AttendancePage(): React.JSX.Element {
           </Tabs>
         )}
       </div>
-
-      {isSupportTech && (
-        <Tabs
-          aria-label="Selección de vista"
-          radius="full"
-          size="md"
-          color="secondary"
-          selectedKey={selectedView}
-          classNames={{ tabList: "bg-white shadow-sm" }}
-          onSelectionChange={(key) => setSelectedView(key as RoleViewType)}
-        >
-          <Tab key="mentor" title="Mentor" />
-          <Tab key="leader" title="Formador" />
-        </Tabs>
-      )}
 
       {selectedView === "mentor" &&
         (role === TypeRole.USER_MENTOR || role === TypeRole.USER_TECNICO_APOYO) && (

@@ -1,4 +1,4 @@
-import { FormikHelpers, useFormik } from "formik";
+import { FormikProps as FormikFormProps, FormikHelpers, useFormik } from "formik";
 import { questionsAppendix2 } from "@/shared/appendixData";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
@@ -28,7 +28,11 @@ const initialValuesAppendix2: Appendix2Input = {
   levelPracticeInclusion: ""
 };
 
-const useAppendix2Form = (appendixId: number, inscriptionId: number, answers: IAnswerTeacherShift[]) => {
+const useAppendix2Form = (
+  appendixId: number,
+  inscriptionId: number,
+  answers: IAnswerTeacherShift[]
+): FormikFormProps<IAppendix2Input> => {
   const useRequest = useAxios(true);
   const router = useRouter();
 

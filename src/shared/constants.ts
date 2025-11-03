@@ -11,7 +11,7 @@ export const ERR_BAD_REQUEST = "ERR_BAD_REQUEST";
 
 export const validationMessages: ValidationMessage = {
   required: "Este campo es obligatorio.",
-  invalidUrl: "Por favor, ingrese una URL válida.",
+  invalidUrl: "Por favor, ingrese una URL válida. ",
   selectRequired: "Por favor, seleccione una opción."
 };
 
