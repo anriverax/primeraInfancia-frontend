@@ -20,9 +20,16 @@ const useAttendanceNew = ({
   handleSelectionChange: (_keys: SharedSelection) => void;
   getErrorTeacher: (_teacherId?: string | string[] | undefined) => string | undefined;
 } => {
+  const { data: x } = useQueryRequest<TeachersAssignmentWithEvents>(
+    "teachers-with-events",
+    "/attendance/me/mentors",
+    true,
+    "listado de mentores"
+  );
+  console.log(x);
   const { data: assignmentList } = useQueryRequest<TeachersAssignmentWithEvents>(
     "teachers-with-events",
-    "/attendance/teachersWithEvents",
+    "/attendance/me/teachers-and-events",
     true,
     "listado de eventos"
   );

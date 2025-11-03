@@ -41,7 +41,7 @@ const useMentorDetails = (
 
   const { data: lastAttendance } = useQueryRequest<ILastAttendance[]>(
     "last-attendance",
-    "/attendance/lastAttendance",
+    "/attendance/last",
     true,
     "última asistencia"
   );

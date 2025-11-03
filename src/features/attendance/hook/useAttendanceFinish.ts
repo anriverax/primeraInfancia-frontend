@@ -11,7 +11,7 @@ const useAttendanceFinish = (): { handleSubmit: (_eventId: number) => Promise<vo
   const handleSubmit = async (eventId: number): Promise<void> => {
     try {
       const res: AxiosResponse<FetchResponse<{ count: number }>> = await useRequest.put(
-        `/attendance/update/${eventId}`
+        `/attendance/${eventId}`
       );
 
       const resultData = res.data;

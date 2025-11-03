@@ -38,7 +38,7 @@ const useAttendanceForm = (): FormikProps<IAttendance> => {
 
     try {
       const res: AxiosResponse<FetchResponse<IAttendance>> = await useRequest.post(
-        "/attendance/create",
+        "/attendance",
         newValue
       );
 

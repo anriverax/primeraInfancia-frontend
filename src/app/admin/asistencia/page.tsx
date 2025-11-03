@@ -20,7 +20,7 @@ export default function AttendancePage(): React.JSX.Element {
     role === TypeRole.USER_MENTOR ? "mentor" : "leader"
   );
 
-  const showRoleSelector = role === TypeRole.USER_TECNICO_APOYO;
+  const isSupportTech = role === TypeRole.USER_TECNICO_APOYO;
 
   return (
     <div className="space-y-8">
@@ -43,7 +43,7 @@ export default function AttendancePage(): React.JSX.Element {
         )}
       </div>
 
-      {showRoleSelector && (
+      {isSupportTech && (
         <Tabs
           aria-label="Selección de vista"
           radius="full"

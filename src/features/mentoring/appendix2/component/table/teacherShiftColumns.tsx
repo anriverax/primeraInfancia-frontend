@@ -48,7 +48,11 @@ export const useTeacherShiftCell = (
 
     switch (columnKey) {
       case "total":
-        return <div className="relative flex items-center justify-center gap-2">5 </div>;
+        return (
+          <div className="relative flex items-center justify-center gap-2">
+            {data.boyNumber + data.girlNumber}
+          </div>
+        );
       case "action":
         return (
           <Trash2 className="h-4 w-4 text-red-500 cursor-pointer" onClick={() => onDelete(data.id!)} />

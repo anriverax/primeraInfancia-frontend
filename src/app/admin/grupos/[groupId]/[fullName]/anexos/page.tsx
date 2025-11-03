@@ -11,7 +11,7 @@ const Gradepage = (): React.JSX.Element => {
     <>
       <Breadcrumbs className="mb-6">
         <BreadcrumbItem href="/admin/grupos">Grupos</BreadcrumbItem>
-        <BreadcrumbItem>Detalle</BreadcrumbItem>
+        <BreadcrumbItem>Anexos</BreadcrumbItem>
       </Breadcrumbs>
       <TrainerView
         inscriptionId={Number(params.groupId)}
