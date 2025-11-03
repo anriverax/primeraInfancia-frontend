@@ -18,6 +18,7 @@ import {
   TableCell
 } from "@heroui/react";
 import { useAppendix3Form } from "../hook/useAppendix3Form";
+import { FormikProps } from "formik";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
 import { useState } from "react";
@@ -35,13 +36,31 @@ interface DimensionDetail {
 }
 type SubItem = { key: string; label: string };
 
+// tipado mínimo de los valores del formulario para evitar any
+type Appendix3Values = {
+  dimension: string;
+  subDimension: string;
+  goal: string;
+  activities: string;
+  resources: string;
+  timing: string;
+  successIndicator: string;
+  levelOfAchievement: string;
+  strategies?: string[];
+  otherStrategys?: string;
+  nextVisit?: string;
+};
+
 const Appendix3Form = (): React.JSX.Element => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
 
-  const formikAppendix3 = useAppendix3Form(Number(anexoId), Number(groupId));
-  const { getFieldProps, touched, errors, handleSubmit, values } = formikAppendix3;
+  const formikAppendix3 = useAppendix3Form(
+    Number(anexoId),
+    Number(groupId)
+  ) as FormikProps<Appendix3Values>;
+  const { getFieldProps, touched, errors, handleSubmit, values, setFieldValue } = formikAppendix3;
 
   const { getInputProps } = useCustomFormFields();
   const [clasificationDimension, setClasificationDimension] = useState<DimensionDetail[]>([]);
@@ -342,7 +361,7 @@ const Appendix3Form = (): React.JSX.Element => {
             <div className="flex-1">
               <h2 className="text-xl font-semibold mb-4">Estrategias de Acompañamiento</h2>
               <div className="space-y-3">
-                {(() => {
+                {((): React.JSX.Element => {
                   const options = [
                     "Observación de aula",
                     "Retroalimentación dialogada",
@@ -359,9 +378,7 @@ const Appendix3Form = (): React.JSX.Element => {
                     <CheckboxGroup
                       value={strategiesValue}
                       className="flex flex-col space-y-2"
-                      onValueChange={(val: string[]) =>
-                        (formikAppendix3 as any).setFieldValue("strategies", val)
-                      }
+                      onValueChange={(val: string[]) => setFieldValue("strategies", val)}
                     >
                       {options.map((opt, idx) => (
                         <div key={opt} className="flex items-center gap-3 p-2">

@@ -5,19 +5,43 @@ import { Button, Card, Divider, Input, Select, SelectItem, RadioGroup, Radio } f
 import { useAppendix5Form } from "../hook/useAppendix5Form";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
+import { FormikProps } from "formik";
+
+type SubItem = { key: string; label: string };
+type DimensionItem = { key: string; label: string; sub: SubItem[] };
+
+type Appendix5Values = {
+  teacherFocusArea?: string | DimensionItem;
+  recentDifficulties?: string;
+  improvementGoals?: string;
+  practiceHighlights?: string;
+  emotionalConnection?: string;
+  emotionalAwareness?: string;
+  identifiedStrengths?: string;
+  dilemasTensions?: string;
+  keyLearning?: string;
+  commitmentNextSession?: string;
+  changesSinceLast?: string;
+  observedEvidence?: string;
+  recomendation?: string;
+  othersNotes?: string;
+};
 
 const Appendix5Form = (): React.JSX.Element => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
   const { appendix } = useAppendix(Number(anexoId));
 
-  const formikAppendix5 = useAppendix5Form(Number(anexoId), Number(groupId));
+  const formikAppendix5 = useAppendix5Form(
+    Number(anexoId),
+    Number(groupId)
+  ) as unknown as FormikProps<Appendix5Values>;
   const { getFieldProps, setFieldValue, touched, errors, handleSubmit, values } = formikAppendix5;
 
   const { getInputProps } = useCustomFormFields();
 
   // Opciones (dimensiones) con sus sub-opciones integradas
-  const dimensionList: { key: string; label: string; sub: { key: string; label: string }[] }[] = [
+  const dimensionList: DimensionItem[] = [
     {
       key: "Desarrollo y Aprendizaje Activos. Currículo integrado",
       label: "Desarrollo y Aprendizaje Activos. Currículo integrado",
@@ -86,14 +110,16 @@ const Appendix5Form = (): React.JSX.Element => {
     }
   ];
 
-  // obtener la clave seleccionada en el select padre (teacherFocusArea)
+  // obtener la clave seleccionada en el select padre (teacherFocusArea) sin usar any
   const selectedParent = values.teacherFocusArea;
-  const dimensionValue =
-    selectedParent && typeof selectedParent === "string"
-      ? selectedParent
-      : selectedParent && typeof selectedParent === "object"
-        ? (selectedParent as any).key
-        : undefined;
+  let dimensionValue: string | undefined;
+  if (typeof selectedParent === "string") {
+    dimensionValue = selectedParent;
+  } else if (selectedParent && typeof selectedParent === "object" && "key" in selectedParent) {
+    dimensionValue = selectedParent.key;
+  } else {
+    dimensionValue = undefined;
+  }
   const subItems = dimensionValue ? dimensionList.find((d) => d.key === dimensionValue)?.sub || [] : [];
 
   return (
@@ -132,7 +158,7 @@ const Appendix5Form = (): React.JSX.Element => {
                   )}
                   className="max-w-md"
                 >
-                  {(item: any) => <SelectItem key={item.key}>{item.label}</SelectItem>}
+                  {(item: DimensionItem) => <SelectItem key={item.key}>{item.label}</SelectItem>}
                 </Select>
                 {/* Select dependiente: sólo muestra opciones cuando hay una dimensión seleccionada */}
                 <Select
@@ -146,7 +172,7 @@ const Appendix5Form = (): React.JSX.Element => {
                   )}
                   className="max-w-md"
                 >
-                  {(item: any) => <SelectItem key={item.key}>{item.label}</SelectItem>}
+                  {(item: SubItem) => <SelectItem key={item.key}>{item.label}</SelectItem>}
                 </Select>
                 <Input
                   {...getFieldProps("improvementGoals")}
