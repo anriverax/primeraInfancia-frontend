@@ -8,11 +8,31 @@ import useAxios from "@/shared/hooks/useAxios";
 import { confirmAction, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { useRouter } from "next/navigation";
 
+/**
+ * Initial values for the Appendix 1 form.
+ * - estimatedClosingDate: initialized with the current date.
+ * - estimatedFrequencyMeetings: empty string.
+ */
 const initialValuesAppendix1: Appendix1Input = {
   estimatedClosingDate: new Date(),
   estimatedFrequencyMeetings: ""
 };
 
+/**
+ * Formik hook for Appendix 1.
+ *
+ * Main flow:
+ * 1. Asks for user confirmation before submitting.
+ * 2. Maps form values to the structure expected by the backend.
+ * 3. Sends a POST request to "/surveyData/create".
+ * 4. Notifies the result and navigates back on success.
+ *
+ * Validation: uses `appendix1Schema`.
+ *
+ * @param appendixId Appendix catalog identifier
+ * @param inscriptionId Enrollment/Group identifier
+ * @returns Formik props to bind to the form component
+ */
 const useAppendix1Form = (
   appendixId: number,
   inscriptionId: number
@@ -20,6 +40,12 @@ const useAppendix1Form = (
   const useRequest = useAxios(true);
   const router = useRouter();
 
+  /**
+   * Handles form submission.
+   *
+   * @param values Current form values
+   * @param formikHelpers Formik helpers to manage state and errors
+   */
   const handleSubmit = async (
     values: Appendix1Input,
     formikHelpers: FormikHelpers<IAppendix1Input>
@@ -67,7 +93,7 @@ const useAppendix1Form = (
     initialValues: initialValuesAppendix1,
     validationSchema: appendix1Schema,
     validateOnBlur: true,
-    validateOnChange: true,
+    validateOnChange: false,
     onSubmit: handleSubmit
   });
 

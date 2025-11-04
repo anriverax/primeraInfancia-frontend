@@ -1,3 +1,16 @@
+/**
+ * Predefined agreement lists for Appendix 1 (Mentoring Agreement).
+ * Displayed as bullet items in the form.
+ *
+ * - agreement3Data: commitments of the accompanied teacher.
+ * - agreement4Data: commitments of the mentor.
+ * - agreement5Data: shared commitments by both parties.
+ */
+/**
+ * Commitments of the accompanied teacher.
+ * @constant
+ * @type {string[]}
+ */
 export const agreement3Data: string[] = [
   "Participar activamente en las actividades de mentoría acordadas.",
   "Abrir mi práctica a la observación, la reflexión y la retroalimentación.",
@@ -7,6 +20,11 @@ export const agreement3Data: string[] = [
   "Compartir evidencias y documentos que contribuyan al seguimiento de mi proceso."
 ];
 
+/**
+ * Commitments of the mentor.
+ * @constant
+ * @type {string[]}
+ */
 export const agreement4Data: string[] = [
   "Acompañar el proceso con respeto, confidencialidad y actitud de escucha.",
   "Generar un ambiente de confianza y apoyo profesional.",
@@ -17,6 +35,11 @@ export const agreement4Data: string[] = [
   "Asistir puntualmente a las reuniones y encuentros programados"
 ];
 
+/**
+ * Shared commitments by both parties.
+ * @constant
+ * @type {string[]}
+ */
 export const agreement5Data: string[] = [
   "Establecer una relación profesional basada en el respeto, la honestidad y la colaboración.",
   "Revisar periódicamente los avances y realizar ajustes si es necesario.",

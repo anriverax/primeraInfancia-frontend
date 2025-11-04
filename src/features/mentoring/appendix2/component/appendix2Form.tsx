@@ -36,15 +36,14 @@ const Appendix2Form = (): React.JSX.Element => {
       teacher={decodeURIComponent(fullName?.toString() || "")}
       description={appendix?.description || ""}
     >
-      <>
-        <TeacherShiftForm
-          setFieldValue={setFieldValue}
-          teacherShiftData={values.teacherShiftTable}
-          setAnswers={setAnswers}
-        />
-      </>
+      <TeacherShiftForm
+        setFieldValue={setFieldValue}
+        teacherShiftData={values.teacherShiftTable}
+        setAnswers={setAnswers}
+      />
+
       <AppendixForm onSubmit={handleSubmit}>
-        <AppendixCard step="III" title="Formación y actualización profesional">
+        <AppendixCard step="II" title="Formación y actualización profesional">
           <div className="space-y-6">
             <RadioGroup
               isRequired
@@ -141,7 +140,7 @@ const Appendix2Form = (): React.JSX.Element => {
         </AppendixCard>
 
         <AppendixCard
-          step="IV"
+          step="III"
           title="Autopercepción de la práctica docente"
           detail="Seleccione su nivel en las siguientes áreas:"
         >
@@ -258,7 +257,7 @@ const Appendix2Form = (): React.JSX.Element => {
           </div>
         </AppendixCard>
 
-        <AppendixCard step="V" title="Áreas de interés o mejora identificadas por el docente">
+        <AppendixCard step="IV" title="Áreas de interés o mejora identificadas por el docente">
           <div className="space-y-6">
             <Input
               {...getFieldProps("aspectsWouldYouLikeToImprove")}
@@ -283,7 +282,7 @@ const Appendix2Form = (): React.JSX.Element => {
           </div>
         </AppendixCard>
 
-        <AppendixCard step="VI" title="Expectativas del acompañamiento">
+        <AppendixCard step="V" title="Expectativas del acompañamiento">
           <div className="space-y-6">
             <Input
               {...getFieldProps("expectFromTheMentoring")}
@@ -308,7 +307,7 @@ const Appendix2Form = (): React.JSX.Element => {
           </div>
         </AppendixCard>
 
-        <AppendixCard step="VII" title="">
+        <AppendixCard step="VI" title="">
           <div className="space-y-6">
             <Input
               {...getFieldProps("mentorStaffObservations")}

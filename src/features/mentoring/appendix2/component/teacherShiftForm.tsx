@@ -29,7 +29,7 @@ const TeacherShiftForm = ({
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
-      <AppendixCard step="II" title="Datos generales del docente">
+      <AppendixCard step="I" title="Datos generales del docente">
         <div className="space-y-6">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>

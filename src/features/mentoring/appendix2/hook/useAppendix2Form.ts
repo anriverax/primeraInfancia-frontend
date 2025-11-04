@@ -97,7 +97,7 @@ const useAppendix2Form = (
     initialValues: initialValuesAppendix2,
     validationSchema: appendix2Schema,
     validateOnBlur: true,
-    validateOnChange: true,
+    validateOnChange: false,
     onSubmit: handleSubmit
   });
 

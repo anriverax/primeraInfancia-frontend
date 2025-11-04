@@ -9,6 +9,17 @@ import { AppendixLayout } from "../../component/appendixLayout";
 import { AppendixCard } from "../../component/appendixCard";
 import { agreement3Data, agreement4Data, agreement5Data } from "../appendix1Data";
 
+/**
+ * Appendix 1 Form (Mentoring Agreement).
+ *
+ * - Loads appendix metadata (title, subtitle, teacher) via useAppendix.
+ * - Controls the form with Formik through useAppendix1Form.
+ * - Renders informational agreements (III–V) as checklists.
+ * - On submit, delegates POST and navigation logic to the hook.
+ *
+ * Receives no props: obtains anexoId, groupId and fullName from the URL.
+ * @returns JSX.Element
+ */
 const Appendix1Form = (): React.JSX.Element => {
   const params = useParams();
   const { anexoId, groupId, fullName } = params;
@@ -26,6 +37,7 @@ const Appendix1Form = (): React.JSX.Element => {
       teacher={decodeURIComponent(fullName?.toString() || "")}
       description={appendix?.description || ""}
     >
+      {/* Formik-controlled fields rendered with UI components */}
       <form className="space-y-6" onSubmit={handleSubmit}>
         <AppendixCard
           step="I"
