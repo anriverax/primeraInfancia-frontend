@@ -18,7 +18,7 @@ import {
   TableCell
 } from "@heroui/react";
 import { useAppendix3Form } from "../hook/useAppendix3Form";
-import { FormikProps } from "formik";
+import { FormikProps, FormikErrors, FormikTouched } from "formik";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import Link from "next/link";
 import { useState } from "react";
@@ -62,6 +62,10 @@ const Appendix3Form = (): React.JSX.Element => {
   ) as FormikProps<Appendix3Values>;
   const { getFieldProps, touched, errors, handleSubmit, values, setFieldValue } = formikAppendix3;
 
+  // tipado explícito para evitar `any`
+  const touchedFields = touched as FormikTouched<Appendix3Values>;
+  const errorsFields = errors as FormikErrors<Appendix3Values>;
+
   const { getInputProps } = useCustomFormFields();
   const [clasificationDimension, setClasificationDimension] = useState<DimensionDetail[]>([]);
 
@@ -79,29 +83,9 @@ const Appendix3Form = (): React.JSX.Element => {
     };
 
     setClasificationDimension((prev) => [...prev, newEntry]);
-
-    setFormData({
-      dimension: values.dimension,
-      subDimension: values.subDimension,
-      goals: values.goal,
-      activities: values.activities,
-      resources: values.resources,
-      timing: values.timing,
-      successIndicator: values.successIndicator,
-      levelOfAchievement: values.levelOfAchievement
-    });
   };
 
-  const [formData, setFormData] = useState({
-    dimension: "",
-    subDimension: "",
-    goals: "",
-    activities: "",
-    resources: "",
-    timing: "",
-    successIndicator: "",
-    levelOfAchievement: ""
-  });
+  // removed unused formData state
 
   const handleDelete = (id: string): void => {
     setClasificationDimension((prev) => prev.filter((entry) => entry.id !== id));
@@ -392,8 +376,8 @@ const Appendix3Form = (): React.JSX.Element => {
                               {...getInputProps(
                                 "otherStrategys",
                                 "Especifique",
-                                Boolean((touched as any).otherStrategys),
-                                (errors as any).otherStrategys as string
+                                Boolean(touchedFields.otherStrategys),
+                                String(errorsFields.otherStrategys ?? "")
                               )}
                               className="max-w-md ml-3"
                             />
@@ -408,8 +392,8 @@ const Appendix3Form = (): React.JSX.Element => {
                   {...getInputProps(
                     "text",
                     "Próxima visita",
-                    Boolean((touched as any).nextVisit),
-                    (errors as any).nextVisit as string
+                    Boolean(touchedFields.nextVisit),
+                    String(errorsFields.nextVisit ?? "")
                   )}
                 />
               </div>

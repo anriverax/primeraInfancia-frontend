@@ -30,7 +30,7 @@ const Appendix1Form = (): React.JSX.Element => {
     if (!groupId || !anexoId) return;
 
     let mounted = true;
-    (async () => {
+    (async (): Promise<void> => {
       try {
         // GET with query params to the endpoint you provided
         const res = await useRequest.get("/surveyData/by-inscription", {
