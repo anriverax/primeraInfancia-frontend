@@ -1,17 +1,25 @@
 import { array, object, ObjectSchema, string } from "yup";
 import { validationMessages } from "@/shared/constants";
 import { stringField } from "@/shared/utils/functions";
-import { Appendix3Input } from "./appendix3Type";
+import { Activity, Appendix3Schema, DimensionPlanSchema } from "./appendix3Type";
 
-export const appendix3Schema: ObjectSchema<Appendix3Input> = object({
+const activitySchema: ObjectSchema<Activity> = object({
+  activity: stringField(validationMessages.required),
+  resource: stringField(validationMessages.required),
+  timing: stringField(validationMessages.required),
+  successIndicator: stringField(validationMessages.required)
+});
+
+const dimensionPlanSchema: ObjectSchema<DimensionPlanSchema> = object({
   dimension: stringField(validationMessages.required),
   subDimension: stringField(validationMessages.required),
   goal: stringField(validationMessages.required),
-  activities: stringField(validationMessages.required),
-  resources: stringField(validationMessages.required),
-  timing: stringField(validationMessages.required),
-  successIndicator: stringField(validationMessages.required),
   levelOfAchievement: stringField(validationMessages.required),
-  otherStrategys: string().optional(),
-  strategies: array().of(string().required()).optional()
+  activities: array().of(activitySchema).min(1).required()
+});
+
+export const appendix3Schema: ObjectSchema<Appendix3Schema> = object({
+  dimensions: array().of(dimensionPlanSchema).min(1).required(),
+  otherStrategies: string().optional(),
+  strategies: array().of(string().trim().min(1).required()).optional()
 });

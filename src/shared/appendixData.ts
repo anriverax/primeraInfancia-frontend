@@ -38,22 +38,9 @@ export const questionsAppendix2 = {
 };
 
 export const questionsAppendix3 = {
-  dimension: "Dimensión",
-  subDimension: "Sub dimensión",
-  goal: "Objetivos",
-  activities: "Actividades",
-  resources: "Recursos",
-  timing: "Temporización",
-  successIndicator: "Indicadores de éxito",
-  levelOfAchievement: "Nivel de logro",
-  classroomObservation: "Observación de aula",
-  dialoguedFeedback: "Retroalimentación dialogada",
-  pedagogicalModeling: "Modelaje pedagógico",
-  coPlanning: "Co-planificación",
-  portfolioReview: "Revisión conjunta de portafolios",
-  teachingMaterial: "Análisis de materiales pedagógicos",
-  others: "Otras",
-  nextVisit: "Próxima visita"
+  dimensions: "Dimensión",
+  strategies: "Estrategias de acompañamiento",
+  otherStrategies: "Otras estrategias de acompañamiento"
 };
 
 export const questionsAppendix5 = {

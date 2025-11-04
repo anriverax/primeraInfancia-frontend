@@ -6,6 +6,7 @@ type AppendixLayoutProps = {
   subTitle: string;
   teacher: string;
   description: string;
+  width?: string;
 };
 
 export const AppendixLayout = ({
@@ -13,9 +14,10 @@ export const AppendixLayout = ({
   subTitle,
   teacher,
   description,
+  width = "max-w-4xl",
   children
 }: PropsWithChildren<AppendixLayoutProps>): React.JSX.Element => (
-  <div className="max-w-4xl mx-auto py-6 space-y-8">
+  <div className={`${width} mx-auto py-6 space-y-8`}>
     <div className="space-y-8">
       <div className="inline-flex mr-2 items-center px-3 py-1 rounded-full text-sm border-0 bg-secondary-300 text-white">
         <FileText className="w-3 h-3 mr-1" />

@@ -86,6 +86,7 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
     ): SelectProps => {
       // Determine selectedKeys depending on whether it is an array or a single value
       let selectedKeys: string[];
+      console.log("itemValue:", itemValue);
       if (Array.isArray(itemValue)) {
         // For multiple selections: convert array of values to array of strings
         selectedKeys = itemValue.length > 0 ? itemValue.map((v) => v.toString()) : [];

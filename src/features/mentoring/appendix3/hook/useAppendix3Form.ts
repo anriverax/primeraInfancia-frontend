@@ -6,18 +6,19 @@ import useAxios from "@/shared/hooks/useAxios";
 import { confirmAction, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { useRouter } from "next/navigation";
 import { Appendix3Input, IAppendix3Input } from "../appendix3Type";
-import { appendix3Schema } from '../appendix3Validation';
+import { appendix3Schema } from "../appendix3Validation";
 
 const initialValuesAppendix3: Appendix3Input = {
-  dimension: "",
-  subDimension: "",
-  goal: "",
-  activities: "",
-  resources: "",
-  timing: "",
-  successIndicator: "",
-  levelOfAchievement: "",
-  otherStrategys: "",
+  dimensions: [
+    {
+      dimension: "",
+      subDimension: "",
+      goal: "",
+      levelOfAchievement: "",
+      activities: [{ activity: "", resource: "", timing: "", successIndicator: "" }]
+    }
+  ],
+  otherStrategies: "",
   strategies: []
 };
 
