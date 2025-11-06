@@ -30,6 +30,7 @@ const useAttendanceNew = ({
 } => {
   const isTech = rol === TypeRole.USER_TECNICO_APOYO;
   const isMentor = rol === TypeRole.USER_MENTOR;
+  const isLeader = rol === TypeRole.USER_FORMADOR;
 
   // Cargar mentores asignados al técnico (solo si es técnico)
   const { data: mentors } = useQueryRequest<IPerson[]>(
@@ -41,7 +42,7 @@ const useAttendanceNew = ({
 
   // Endpoint y habilitación para teachers-with-events
   const { endpointTeachersEvents, enabledTeachersEvents, teachersEventsKey } = useMemo(() => {
-    if (isMentor) {
+    if (isMentor || isLeader) {
       return {
         endpointTeachersEvents: "/attendance/me/teachers-and-events",
         enabledTeachersEvents: true,
@@ -57,7 +58,7 @@ const useAttendanceNew = ({
       enabledTeachersEvents: enabled,
       teachersEventsKey: `teachers-with-events:${mentorId ?? "none"}`
     } as const;
-  }, [isMentor, isTech, mentorId]);
+  }, [isMentor, isLeader, isTech, mentorId]);
 
   const { data: assignmentList } = useQueryRequest<TeachersAssignmentWithEvents>(
     teachersEventsKey,

@@ -20,7 +20,7 @@ import { TypeRole } from "@/shared/constants";
 const MentorForm = (): React.JSX.Element => {
   const { data: session } = useSession();
   const role = session?.user.role;
-
+  console.log(role);
   const formik = useAttendanceForm(role);
   const { getSelectProps, getTextAreaProps, getInputProps } = useCustomFormFields();
 
@@ -32,6 +32,9 @@ const MentorForm = (): React.JSX.Element => {
     rol: role,
     mentorId: values.mentorId as number
   });
+
+  console.log(assignmentList);
+  console.log(mentors);
   // Loading gates: si es mentor, esperamos directamente el listado; si es técnico, primero mentores
   if (!assignmentList && !mentors) return <CustomProgress />;
 

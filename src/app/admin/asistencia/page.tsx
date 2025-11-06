@@ -56,7 +56,9 @@ export default function AttendancePage(): React.JSX.Element {
         )}
 
       {selectedView === "leader" &&
-        (role === TypeRole.USER_FORMADOR || role === TypeRole.USER_TECNICO_APOYO) && <div />}
+        (role === TypeRole.USER_FORMADOR || role === TypeRole.USER_TECNICO_APOYO) && (
+          <MentorAttendance isHistory={selectedTab === "history"} />
+        )}
 
       {role === TypeRole.ADMIN && <MentorAttendance isHistory={true} />}
     </div>

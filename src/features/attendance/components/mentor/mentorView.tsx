@@ -15,8 +15,11 @@ const MentorView = (): React.JSX.Element => {
   const selectedAttendance = lastAttendance
     ? lastAttendance.find((a) => a.id === selectedId)
     : undefined;
-
-  if (!lastAttendance) return <CustomProgress />;
+  console.log(lastAttendance);
+  if (!lastAttendance) {
+    console.log("! ", !lastAttendance);
+    return <CustomProgress />;
+  }
 
   // If there are no attendance records yet, show the form to start one
   if (lastAttendance.length === 0) return <MentorForm />;
