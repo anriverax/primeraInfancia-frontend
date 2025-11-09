@@ -58,9 +58,21 @@ const useAppendix1Form = (
 
     if (!confirmed) return;
 
+    // questionsAppendix1 is an array; build a lookup map that includes questionId and label
+    const QUESTIONS_MAP_FULL: Record<string, { questionId?: number | string; label: string }> =
+      (questionsAppendix1 as any[]).reduce((acc, item: Record<string, any>) => {
+        const qId = item.questionId ?? item.id ?? undefined;
+        Object.keys(item).forEach((k) => {
+          if (k === "questionId" || k === "id") return;
+          acc[k] = { questionId: qId, label: String(item[k]) };
+        });
+        return acc;
+      }, {} as Record<string, { questionId?: number | string; label: string }>);
+
     const result = Object.entries(values).map(([key, value], index) => ({
       index: index + 1,
-      question: (questionsAppendix1 as Record<string, string>)[key],
+      questionId: QUESTIONS_MAP_FULL[key]?.questionId,
+      question: QUESTIONS_MAP_FULL[key]?.label ?? key,
       answer: value instanceof Date ? value.toISOString() : value
     }));
 
@@ -69,6 +81,7 @@ const useAppendix1Form = (
       survey: result,
       inscriptionId
     };
+console.log(appendixData);
 
     try {
       const res: AxiosResponse<FetchResponse<IAppendix1Input>> = await useRequest.post(

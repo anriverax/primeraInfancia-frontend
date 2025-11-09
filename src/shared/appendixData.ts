@@ -1,7 +1,10 @@
-export const questionsAppendix1 = {
+export const questionsAppendix1 = [{
+  questionId: 1,
   estimatedFrequencyMeetings: "Fecha estimada de cierre",
+}, {
+  questionId: 3,
   estimatedClosingDate: "Frecuencia estimada de encuentros"
-};
+}];
 
 export const questionTeacherShift = {
   shift: "Turno",
@@ -12,30 +15,29 @@ export const questionTeacherShift = {
   girlDisabilityNumber: "Niñas con discapacidad diagnosticada",
   experienceYear: "Años de experiencia en docencia"
 };
-export const questionsAppendix2 = {
-  teacherShiftTable: "Datos generales del docente",
-  experienceYear: "Años de experiencia en docencia",
-  initialTraining: "¿Cuál es su formación inicial?",
-  initialTrainingOther: "Especifique",
-  complementaryStudies: "¿Cuenta con estudios de posgrado u otra formación complementaria?",
-  complementaryStudiesOther: "Detalle",
-  participationContinuingEducation: "¿Ha participado recientemente en procesos de formación continua?",
-  participationContinuingEducationOther: "Si respondio que sí, ¿cuáles?",
-  knowledgeOfChildDevelopmentInEarlyChildhood:
-    "Conocimiento del desarrollo infantil en la Primera Infancia",
-  planningLearningExperiences: "Planificación de experiencias",
-  levelPracticeInclusion: "Atención a la inclusión educativa",
-  gameAndExplorationStrategies: "Estrategias de juego y exploración",
-  assessmentOfLearning: "Estrategias de juego y exploración",
-  relationshipWithFamilies: "Relación con las familias",
-  managementOfTheEducationalEnvironment: "Gestión del ambiente educativo",
-  aspectsWouldYouLikeToImprove: "¿En qué aspectos le gustaría mejorar o profundizar su práctica?",
-  challengesInYourClassroom: "¿Qué desafíos enfrenta actualmente en su aula?",
-  expectFromTheMentoring: "¿Qué espera del proceso de mentoría o acompañamiento?",
-  anythingYouThinkIsImportant:
-    "¿Hay algo que considere importante que el personal mentor conozca para apoyar mejor su proceso?",
-  mentorStaffObservations: "Observaciones del personal mentor"
-};
+export const questionsAppendix2 =
+  [
+    { questionId: 0, teacherShiftTable: "Datos generales del docente", },
+    { questionId: 109, experienceYear: "Años de experiencia en docencia", },
+    { questionId: 110, initialTraining: "¿Cuál es su formación inicial?", },
+    { questionId: 0, initialTrainingOther: "Especifique", },
+    { questionId: 113, complementaryStudies: "¿Cuenta con estudios de posgrado u otra formación complementaria?", },
+    { questionId: 0, complementaryStudiesOther: "Detalle", },
+    { questionId: 112, participationContinuingEducation: "¿Ha participado recientemente en procesos de formación continua?", },
+    { questionId: 114, participationContinuingEducationOther: "Si respondio que sí, ¿cuáles?", },
+    { questionId: 115, knowledgeOfChildDevelopmentInEarlyChildhood: "Conocimiento del desarrollo infantil en la Primera Infancia", },
+    { questionId: 116, planningLearningExperiences: "Planificación de experiencias", },
+    { questionId: 118, levelPracticeInclusion: "Atención a la inclusión educativa", },
+    { questionId: 0, gameAndExplorationStrategies: "Estrategias de juego y exploración", },
+    { questionId: 119, assessmentOfLearning: "Estrategias de juego y exploración", },
+    { questionId: 121, relationshipWithFamilies: "Relación con las familias", },
+    { questionId: 4, managementOfTheEducationalEnvironment: "Gestión del ambiente educativo", },
+    { questionId: 107, aspectsWouldYouLikeToImprove: "¿En qué aspectos le gustaría mejorar o profundizar su práctica?", },
+    { questionId: 108, challengesInYourClassroom: "¿Qué desafíos enfrenta actualmente en su aula?", },
+    { questionId: 111, expectFromTheMentoring: "¿Qué espera del proceso de mentoría o acompañamiento?", },
+    { questionId: 122, anythingYouThinkIsImportant: "¿Hay algo que considere importante que el personal mentor conozca para apoyar mejor su proceso?", },
+    { questionId: 123, mentorStaffObservations: "Observaciones del personal mentor" }
+  ];
 
 export const questionsAppendix3 = {
   dimensions: "Dimensión",
@@ -43,46 +45,44 @@ export const questionsAppendix3 = {
   otherStrategies: "Otras estrategias de acompañamiento"
 };
 
-export const questionsAppendix5 = {
-  teacherFocusArea: "¿Qué le interesa al docente que observe durante mi visita?",
-  recentDifficulties: "¿Qué dificultades recientes ha tenido en el aula?",
-  improvementGoals: "¿En qué aspectos manifiesta quiere mejorar?",
-  practiceHighlights: "Aspectos destacados de la práctica",
-  emotionalConnection: "Creación de vínculo emocional que posibilite la confianza mutua",
-  emotionalAwareness: "¿Es consciente de su gestión emocional en las diferentes situaciones?",
-  identifiedStrengths: "Potencialidades identificadas",
-  dilemasTensions: "Dilemas o tensiones observadas",
-  keyLearning: "Aprendizajes DESTACADOS que emergieron",
-  commitmentNextSession: "Compromiso de mejora para la próxima sesión",
-  changesSinceLast: "¿Qué cambios implementó el docente desde la última sesión?",
-  observedEvidence: "Evidencias observadas",
-  recomendation: "Recomendaciones del mentor",
-  othersNotes: "Otras Observaciones"
-};
+export const questionsAppendix5 =
+  [
+    { questionId: 127, teacherFocusArea: "¿Qué le interesa al docente que observe durante mi visita?", },
+    { questionId: 124, recentDifficulties: "¿Qué dificultades recientes ha tenido en el aula?", },
+    { questionId: 128, improvementGoals: "¿En qué aspectos manifiesta quiere mejorar?", },
+    { questionId: 134, practiceHighlights: "Aspectos destacados de la práctica", },
+    { questionId: 129, emotionalConnection: "Creación de vínculo emocional que posibilite la confianza mutua", },
+    { questionId: 130, emotionalAwareness: "¿Es consciente de su gestión emocional en las diferentes situaciones?", },
+    { questionId: 131, identifiedStrengths: "Potencialidades identificadas", },
+    { questionId: 132, dilemasTensions: "Dilemas o tensiones observadas", },
+    { questionId: 133, keyLearning: "Aprendizajes DESTACADOS que emergieron", },
+    { questionId: 135, commitmentNextSession: "Compromiso de mejora para la próxima sesión", },
+    { questionId: 136, changesSinceLast: "¿Qué cambios implementó el docente desde la última sesión?", },
+    { questionId: 137, observedEvidence: "Evidencias observadas", },
+    { questionId: 138, recomendation: "Recomendaciones del mentor", },
+    { questionId: 139, othersNotes: "Otras Observaciones" }
+  ];
 
-export const questionAppendix7 = {
-  mentoringProcessDescription:
-    "Descripción breve del proceso de acompañamiento llevado a cabo, actividades realizadas, frecuencia de encuentros y estrategias utilizadas",
-  achieveOutcomes:
-    "Exportar la información de los planes de mejora por dimensión, subdimensión y logros, para que cada mentor lo analice",
-  improvementAreas:
-    "dentificación de las dimensiones y subdimensiones que aún necesitan mejora en el proceso de mentoría y en la práctica docente de los acompañados",
-  classroomObservation: "Visita al aula",
-  pedagogicalModel: "Modelo pedagógico",
-  coPlanning: "Coplanificación",
-  reflectiveDialogue: "Diálogo reflexivo",
-  individualCoaching: "Asesoría personalizada",
-  other: "Otras",
-  deliveryInPerson: "Presencial individual",
-  deliveryInPairs: "Presencial en parejas",
-  deliverySituational: "Presencial situacional",
-  virtualIndividual: "Virtual individual",
-  virtualInPairs: "Virtual en parejas",
-  virtualSituational: "Virtual situacional",
-  followUpRecommendations:
-    "Sugerencias para continuar con el desarrollo del docente, incluyendo posibles estrategias a implementar en la siguiente cohorte",
-  nextCohortImprovements: "¿Qué aspectos se han de mejorar en la mentoría para la siguiente cohorte?"
-};
+export const questionAppendix7 = [
+  { questionId: 151, mentoringProcessDescription: "Descripción breve del proceso de acompañamiento llevado a cabo, actividades realizadas, frecuencia de encuentros y estrategias utilizadas", },
+  { questionId: 152, achieveOutcomes: "Exportar la información de los planes de mejora por dimensión, subdimensión y logros, para que cada mentor lo analice", },
+  { questionId: 153, improvementAreas: "Identificación de las dimensiones y subdimensiones que aún necesitan mejora en el proceso de mentoría y en la práctica docente de los acompañados", },
+  { questionId: 154, classroomObservation: "Visita al aula", },
+  { questionId: 155, pedagogicalModel: "Modelo pedagógico", },
+  { questionId: 156, coPlanning: "Coplanificación", },
+  { questionId: 157, reflectiveDialogue: "Diálogo reflexivo", },
+  { questionId: 158, individualCoaching: "Asesoría personalizada", },
+  { questionId: 159, other: "Otras", },
+  { questionId: 160, deliveryInPerson: "Presencial individual", },
+  { questionId: 161, deliveryInPairs: "Presencial en parejas", },
+  { questionId: 162, deliverySituational: "Presencial situacional", },
+  { questionId: 163, virtualIndividual: "Virtual individual", },
+  { questionId: 164, virtualInPairs: "Virtual en parejas", },
+  { questionId: 165, virtualSituational: "Virtual situacional", },
+  { questionId: 166, followUpRecommendations: "Sugerencias para continuar con el desarrollo del docente, incluyendo posibles estrategias a implementar en la siguiente cohorte", },
+  { questionId: 167, nextCohortImprovements: "¿Qué aspectos se han de mejorar en la mentoría para la siguiente cohorte?" }
+]
+  ;
 
 export const questionsAppendix8 = {
   //Section A
