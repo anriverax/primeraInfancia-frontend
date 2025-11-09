@@ -84,123 +84,69 @@ export const questionAppendix7 = [
 ]
   ;
 
-export const questionsAppendix8 = {
+export const questionsAppendix8 = [
   //Section A
-  relateToDailyLife:
-    "El docente vincula las experiencias de desarrollo y aprendizaje con situaciones cotidianas de las niñas y los niños  de Primera Infancia",
-  usePriorKnowledge:
-    "El docente retoma los conocimientos previos de las niñas y los niños de Primera Infancia en la construcción de nuevos aprendizajes",
-  promoteParticipation:
-    "El docente promueve la participación y el aprendizaje de todas las niñas y los niños del aula respetando sus características individuales",
-  intentionalDevelopment:
-    "El docente intenciona los procesos de desarrollo y aprendizaje de todas las niñas y los niños de Primera Infancia en el aula y lo hace con respeto a su ritmo e intereses",
-  integratePlay:
-    "El docente reconoce e integra el juego como elemento natural para el desarrollo y aprendizaje",
-  buildSecureSpace:
-    "El docente crea espacios seguros, creativos y acogedores en el aula que favorecen la libre expresión y el juego",
-  spaceAlignmentToGoals:
-    "El docente reconoce la importancia de la ambientación de los espacios del aula de Primera Infancia de acuerdo a los objetivos didácticos de la planificación",
-  organizeZoneCriteria:
-    "El docente organiza las zonas de desarrollo y aprendizaje de manera que cumplan con características mínimas: activas, participativas, situadas que promuevan la experimentación, el juego, la exploración y favorecedoras del desarrollo y el aprendizaje integral de las niñas y los niños de Primera Infancia",
-  selectAppropriateMaterials:
-    "El docente selecciona materiales y recursos didácticos seguros, accesibles, variados  teniendo en cuenta los intereses y características individuales de las niñas y niños del aula",
-  renewZoneCapacity:
-    "El docente enriquece y renueva las zonas de desarrollo y aprendizaje según las planificaciones considerando que cada zona tenga la capacidad para ser utilizada por 6 niñas o niños de Primera Infancia",
-  promoteFreeZoneRotation:
-    "El docente Incluye, promueve, y acompañamiento la rotación libre entre las zonas de desarrollo y aprendizaje instaladas en el aula, algunos ejemplos de zona según el marco curricular pueden ser: zona de lectura, zona de expresión gráfica, plástica y visual,  zona de pensamiento lógico y matemática, sensoriomotora (página 107)",
-  holisticDevelopmentFocus:
-    "El docente planifica actividades que favorecen el desarrollo integral físico y  emocional",
-  facilitatePeerInteraction:
-    "El docente selecciona y organiza materiales para facilitar la libre interacción entre pares, en pequeños  o grandes grupos o trabajo individual",
-  promoteEmotionalExpression:
-    "El docente promueve la expresión de emociones a través de diferentes formas de expresión",
-  observeListenMediateSupport:
-    "El docente acompañará desde la observación, la escucha y la mediación, realizando preguntas que profundicen el pensamiento o brindando apoyos cuando se requiera a las niñas y los niños de Primera Infancia(107)",
-  knowledgeAndUse:
-    "El docente conoce y utiliza estrategias pedagógicas pertinentes para la primera infancia: abordadas en la formación: talleres pedagógicos, proyectos, zonas de desarrollo y aprendizaje y asamblea(96)",
-  curriculumAdaptation:
-    "El docente ajusta las estrategias pedagógicas orientadas por el marco curricular a la naturaleza de la niñas y los niños de Primera Infancia, favoreciendo el desarrollo integral y la promoción de aprendizajes pertinentes y significativos",
-  implementWorkshops:
-    "El docente integra la estrategia pedagógica pertinente de talleres en su aula de acuerdo a las edades de su grupo, con una frecuencia que puede ser diaria con una duración de 30 a 60 minutos o de acuerdo a las necesidades e interese de las niñas y niños de Primera Infancia",
-  implementProjects:
-    "El docente integra la estrategia pedagógica pertinente de proyecto en su aula de acuerdo a las edades e intereses genuinos de su grupo con una frecuencia que puede ser diaria con una duración de 40 a 50 minutos, donde se vincule la vida cotidiana y la educación",
-  implementAssembly:
-    "El docente integra la estrategia pedagógica pertinente de asamblea al inicio o al final de la jornada , donde se promueve el pensamiento crítico la deliberación colectiva y la construcción de acuerdos retomando los momentos para su desarrollo (apertura, propósito, conversación abierta y cierre) con una frecuencia que puede ser diaria con una duración de 20 a 50 minutos",
-  varyStudentGrouping:
-    "El docente utiliza distintos tipos de agrupamientos (individual, grupos pequeños o grandes), según las distintas estrategias pedagógicas pertinentes planificadas en la rutina de desarrollo y aprendizaje",
-  planTransitions: "El docente cuida, anticipa y planifica las transiciones entre momentos y rutinas",
-  organizeRoutineCriteria:
-    "El docente organiza las rutinas de la jornada con criterios de estabilidad, flexibilidad y secuencialidad",
-  useAnticipationTools:
-    "El docente utiliza herramientas que facilitan a las niñas y los niños la anticipación de la secuencia de las rutinas del día",
-  addressNeedsViaSchedule:
-    "El docente responde a necesidades básicas (aseo, comida y descanso), afectivas, educativas y de interacción social a través de la organización del tiempo de acuerdo a la secuencia de rutinas",
-  flexibleRespectfulTiming:
-    "El docente tiene en cuenta el criterio de flexibilidad en la organización de la rutina y respeta los intereses y características individuales de las niñas y los niños de Primera Infancia",
-  clearCoherentSchedule:
-    "El docente organiza el tiempo de la jornada con rutinas claras, coherentes y adecuadas a los procesos de desarrollo y aprendizaje de la Primera Infancia",
-  integratesDesignElements:
-    "El docente considera en su planificación los elementos clave del diseño pedagógico: objetivos, recursos, rutinas y tiempos, estrategias pedagógicas pertinentes, los agrupamientos diferentes de niñas y niños, la evaluación y los reajustes derivados de ella",
-  involveFamilies: "El docente involucra a las familias en la planificación educativa",
-  usesVariedTools:
-    "El docente utiliza herramientas de evaluación variadas y pertinentes (observaciones, registros, anecdotarios, recursos audiovisuales)",
-  documentsObservations:
-    "El docente registra y documenta las observaciones sobre las niñas y los niños del aula de Primera Infancia, tanto en las actividades individuales como en las grupales",
-  flexibleInclusiveDesign:
-    "El docente planifica teniendo en cuenta el principio de flexibilidad, adaptándose a los intereses del grupo y prioriza enfoques inclusivos y participativos.",
-  individualizedSupportiveAssessment:
-    "El docente evalúa para acompañar las niñas y los niños de Primera Infancia de acuerdo a sus características socioeducativas y grupo etario",
+  { questionId: 168, relateToDailyLife: "El docente vincula las experiencias de desarrollo y aprendizaje con situaciones cotidianas de las niñas y los niños  de Primera Infancia", },
+  { questionId: 0, usePriorKnowledge: "El docente retoma los conocimientos previos de las niñas y los niños de Primera Infancia en la construcción de nuevos aprendizajes", },
+  { questionId: 0, promoteParticipation: "El docente promueve la participación y el aprendizaje de todas las niñas y los niños del aula respetando sus características individuales", },
+  { questionId: 0, intentionalDevelopment: "El docente intenciona los procesos de desarrollo y aprendizaje de todas las niñas y los niños de Primera Infancia en el aula y lo hace con respeto a su ritmo e intereses", },
+  { questionId: 0, integratePlay: "El docente reconoce e integra el juego como elemento natural para el desarrollo y aprendizaje", },
+  { questionId: 0, buildSecureSpace: "El docente crea espacios seguros, creativos y acogedores en el aula que favorecen la libre expresión y el juego", },
+  { questionId: 0, spaceAlignmentToGoals: "El docente reconoce la importancia de la ambientación de los espacios del aula de Primera Infancia de acuerdo a los objetivos didácticos de la planificación", },
+  { questionId: 0, organizeZoneCriteria: "El docente organiza las zonas de desarrollo y aprendizaje de manera que cumplan con características mínimas: activas, participativas, situadas que promuevan la experimentación, el juego, la exploración y favorecedoras del desarrollo y el aprendizaje integral de las niñas y los niños de Primera Infancia", },
+  { questionId: 0, selectAppropriateMaterials: "El docente selecciona materiales y recursos didácticos seguros, accesibles, variados  teniendo en cuenta los intereses y características individuales de las niñas y niños del aula", },
+  { questionId: 0, renewZoneCapacity: "El docente enriquece y renueva las zonas de desarrollo y aprendizaje según las planificaciones considerando que cada zona tenga la capacidad para ser utilizada por 6 niñas o niños de Primera Infancia", },
+  { questionId: 0, promoteFreeZoneRotation: "El docente Incluye, promueve, y acompañamiento la rotación libre entre las zonas de desarrollo y aprendizaje instaladas en el aula, algunos ejemplos de zona según el marco curricular pueden ser: zona de lectura, zona de expresión gráfica, plástica y visual,  zona de pensamiento lógico y matemática, sensoriomotora (página 107)", },
+  { questionId: 0, holisticDevelopmentFocus: "El docente planifica actividades que favorecen el desarrollo integral físico y  emocional", },
+  { questionId: 0, facilitatePeerInteraction: "El docente selecciona y organiza materiales para facilitar la libre interacción entre pares, en pequeños  o grandes grupos o trabajo individual", },
+  { questionId: 0, promoteEmotionalExpression: "El docente promueve la expresión de emociones a través de diferentes formas de expresión", },
+  { questionId: 0, observeListenMediateSupport: "El docente acompañará desde la observación, la escucha y la mediación, realizando preguntas que profundicen el pensamiento o brindando apoyos cuando se requiera a las niñas y los niños de Primera Infancia(107)", },
+  { questionId: 0, knowledgeAndUse: "El docente conoce y utiliza estrategias pedagógicas pertinentes para la primera infancia: abordadas en la formación: talleres pedagógicos, proyectos, zonas de desarrollo y aprendizaje y asamblea(96)", },
+  { questionId: 0, curriculumAdaptation: "El docente ajusta las estrategias pedagógicas orientadas por el marco curricular a la naturaleza de la niñas y los niños de Primera Infancia, favoreciendo el desarrollo integral y la promoción de aprendizajes pertinentes y significativos", },
+  { questionId: 0, implementWorkshops: "El docente integra la estrategia pedagógica pertinente de talleres en su aula de acuerdo a las edades de su grupo, con una frecuencia que puede ser diaria con una duración de 30 a 60 minutos o de acuerdo a las necesidades e interese de las niñas y niños de Primera Infancia", },
+  { questionId: 0, implementProjects: "El docente integra la estrategia pedagógica pertinente de proyecto en su aula de acuerdo a las edades e intereses genuinos de su grupo con una frecuencia que puede ser diaria con una duración de 40 a 50 minutos, donde se vincule la vida cotidiana y la educación", },
+  { questionId: 0, implementAssembly: "El docente integra la estrategia pedagógica pertinente de asamblea al inicio o al final de la jornada , donde se promueve el pensamiento crítico la deliberación colectiva y la construcción de acuerdos retomando los momentos para su desarrollo (apertura, propósito, conversación abierta y cierre) con una frecuencia que puede ser diaria con una duración de 20 a 50 minutos", },
+  { questionId: 0, varyStudentGrouping: "El docente utiliza distintos tipos de agrupamientos (individual, grupos pequeños o grandes), según las distintas estrategias pedagógicas pertinentes planificadas en la rutina de desarrollo y aprendizaje", },
+  { questionId: 0, planTransitions: "El docente cuida, anticipa y planifica las transiciones entre momentos y rutinas", },
+  { questionId: 0, organizeRoutineCriteria: "El docente organiza las rutinas de la jornada con criterios de estabilidad, flexibilidad y secuencialidad", },
+  { questionId: 0, useAnticipationTools: "El docente utiliza herramientas que facilitan a las niñas y los niños la anticipación de la secuencia de las rutinas del día", },
+  { questionId: 0, addressNeedsViaSchedule: "El docente responde a necesidades básicas (aseo, comida y descanso), afectivas, educativas y de interacción social a través de la organización del tiempo de acuerdo a la secuencia de rutinas", },
+  { questionId: 0, flexibleRespectfulTiming: "El docente tiene en cuenta el criterio de flexibilidad en la organización de la rutina y respeta los intereses y características individuales de las niñas y los niños de Primera Infancia", },
+  { questionId: 0, clearCoherentSchedule: "El docente organiza el tiempo de la jornada con rutinas claras, coherentes y adecuadas a los procesos de desarrollo y aprendizaje de la Primera Infancia", },
+  { questionId: 0, integratesDesignElements: "El docente considera en su planificación los elementos clave del diseño pedagógico: objetivos, recursos, rutinas y tiempos, estrategias pedagógicas pertinentes, los agrupamientos diferentes de niñas y niños, la evaluación y los reajustes derivados de ella", },
+  { questionId: 0, involveFamilies: "El docente involucra a las familias en la planificación educativa", },
+  { questionId: 0, usesVariedTools: "El docente utiliza herramientas de evaluación variadas y pertinentes (observaciones, registros, anecdotarios, recursos audiovisuales)", },
+  { questionId: 0, documentsObservations: "El docente registra y documenta las observaciones sobre las niñas y los niños del aula de Primera Infancia, tanto en las actividades individuales como en las grupales", },
+  { questionId: 0, flexibleInclusiveDesign: "El docente planifica teniendo en cuenta el principio de flexibilidad, adaptándose a los intereses del grupo y prioriza enfoques inclusivos y participativos.", },
+  { questionId: 0, individualizedSupportiveAssessment: "El docente evalúa para acompañar las niñas y los niños de Primera Infancia de acuerdo a sus características socioeducativas y grupo etario", },
   //Section B
-  affectiveEnvironment:
-    "El docente establece ambientes de aprendizaje afectivos, que reconocen las características individuales de las niñas y los niños de Primera Infancia y promueve la interacción de calidad",
-  fosterResponsibilityAutonomy:
-    "El docente ofrece oportunidades a las niñas y los niños para asumir responsabilidades en el aula, adecuadas a su edad, fomentando su autonomía",
-  cozySafeEnjoyable:
-    "El docente crea un ambiente acogedor y seguro que hace que las niñas y los niños de Primera Infancia disfruten en el aula",
-  positiveAttitudeRoutines:
-    "El docente muestra actitudes positivas y genera ambientes seguros en las rutinas de desarrollo y aprendizaje de las niñas y los niños de Primera Infancia",
-  usePositiveFeedback:
-    "El docente usa lenguaje positivo para dar retroalimentación a las niñas y los niños de Primera Infancia, reforzando su desarrollo, autoestima y autonomía",
-  respectfulAffectionateTreatment:
-    "El docente trata respetuosamente y con cariño a todas las niñas y los niños del aula de Primera Infancia",
-  listenToInterests:
-    "El docente realiza sus prácticas pedagógicas a partir de la escucha atenta de los intereses de las niñas y niños de Primera Infancia",
-  addressChildNeeds:
-    "El docente da respuesta a las necesidades de las niñas y los niños del aula de Primera Infancia",
-  promoteEmpathyConflict:
-    "El docente promueve entre las niñas y los niños actitudes como la empatía en la resolución de conflictos",
-  fosterTeamworkCollaboration:
-    "El docente fomenta el trabajo en equipo en el aula para compartir ideas y lograr un objetivo común",
-  promoteFreeExpression:
-    "El docente promueve  la libre expresión de opiniones e intereses en las niñas y los niños del aula de Primera Infancia",
+  { questionId: 0, affectiveEnvironment: "El docente establece ambientes de aprendizaje afectivos, que reconocen las características individuales de las niñas y los niños de Primera Infancia y promueve la interacción de calidad", },
+  { questionId: 0, fosterResponsibilityAutonomy: "El docente ofrece oportunidades a las niñas y los niños para asumir responsabilidades en el aula, adecuadas a su edad, fomentando su autonomía", },
+  { questionId: 0, cozySafeEnjoyable: "El docente crea un ambiente acogedor y seguro que hace que las niñas y los niños de Primera Infancia disfruten en el aula", },
+  { questionId: 0, positiveAttitudeRoutines: "El docente muestra actitudes positivas y genera ambientes seguros en las rutinas de desarrollo y aprendizaje de las niñas y los niños de Primera Infancia", },
+  { questionId: 0, usePositiveFeedback: "El docente usa lenguaje positivo para dar retroalimentación a las niñas y los niños de Primera Infancia, reforzando su desarrollo, autoestima y autonomía", },
+  { questionId: 0, respectfulAffectionateTreatment: "El docente trata respetuosamente y con cariño a todas las niñas y los niños del aula de Primera Infancia", },
+  { questionId: 0, listenToInterests: "El docente realiza sus prácticas pedagógicas a partir de la escucha atenta de los intereses de las niñas y niños de Primera Infancia", },
+  { questionId: 0, addressChildNeeds: "El docente da respuesta a las necesidades de las niñas y los niños del aula de Primera Infancia", },
+  { questionId: 0, promoteEmpathyConflict: "El docente promueve entre las niñas y los niños actitudes como la empatía en la resolución de conflictos", },
+  { questionId: 0, fosterTeamworkCollaboration: "El docente fomenta el trabajo en equipo en el aula para compartir ideas y lograr un objetivo común", },
+  { questionId: 0, promoteFreeExpression: "El docente promueve  la libre expresión de opiniones e intereses en las niñas y los niños del aula de Primera Infancia", },
   //Section C
-  promoteFamilyParticipation:
-    "El docente promueve la participación de las familias en el aula o el centro escolar en acciones puntuales que favorezcan el desarrollo y aprendizaje de las niñas y niños de Primera Infancia",
-  listenToOpinions: "El docente escucha y respeta la opinión de las familias",
-  receptiveToProposals:
-    "El docente muestra una actitud receptiva a las propuestas de las familias para colaborar en el aula",
-  facilitateCollaborationActivities:
-    "El docente incluye a las familias en alguna actividad facilitando su colaboración y espacios donde realizarla",
-  considerFamilyContext:
-    "El docente tiene en cuenta el contexto social y familiar de las niñas y los niños de Primera Infancia, para favorecer su desarrollo y aprendizaje",
-  communicateProgressMechanisms:
-    "El docente implementa mecanismo de comunicación con las familias para informar el progreso de las niñas y niños de primera infancia, como: informes escritos, cuaderno viajero, u otras",
-  adherenceToComprehensiveCare:
-    "El docente realiza prácticas pedagógicas en el aula basadas en el modelo de Atención Integral a la Primera Infancia",
+  { questionId: 0, promoteFamilyParticipation: "El docente promueve la participación de las familias en el aula o el centro escolar en acciones puntuales que favorezcan el desarrollo y aprendizaje de las niñas y niños de Primera Infancia", },
+  { questionId: 0, listenToOpinions: "El docente escucha y respeta la opinión de las familias", },
+  { questionId: 0, receptiveToProposals: "El docente muestra una actitud receptiva a las propuestas de las familias para colaborar en el aula", },
+  { questionId: 0, facilitateCollaborationActivities: "El docente incluye a las familias en alguna actividad facilitando su colaboración y espacios donde realizarla", },
+  { questionId: 0, considerFamilyContext: "El docente tiene en cuenta el contexto social y familiar de las niñas y los niños de Primera Infancia, para favorecer su desarrollo y aprendizaje", },
+  { questionId: 0, communicateProgressMechanisms: "El docente implementa mecanismo de comunicación con las familias para informar el progreso de las niñas y niños de primera infancia, como: informes escritos, cuaderno viajero, u otras", },
+  { questionId: 0, adherenceToComprehensiveCare: "El docente realiza prácticas pedagógicas en el aula basadas en el modelo de Atención Integral a la Primera Infancia", },
   //Section D
-  setRealisticGoals:
-    "El docente se marca metas y objetivos realistas, razonables y alcanzables en colaboración con el resto del cuerpo docente de su centro escolar",
-  selfAssessPractice:
-    "El docente se autoevalúa respecto de su labor en el aula y la propia planificación",
-  peerEvaluateForImprovement:
-    "El docente evalúa con el resto del cuerpo docente para buscar la mejora continua en su práctica docente",
-  sharePracticeActivities:
-    "El docente planifica actividades, talleres o proyectos que le permiten compartir su práctica con otros docentes y otras aulas",
-  teamConsensusPlanning:
-    "El docente tiene conciencia de equipo y llega a acuerdos sobre cómo planificar, el diseño de ambientes de las aulas o el uso de materiales",
-  manageVirtualClassroom: "El docente gestiona el aula virtual",
-  useGoogleProductivity: "El docente usa Google Drive y Google Docs para crear materiales",
-  useAgeAppropriateResources: "El docente utiliza recursos tecnológicos adaptados a la Primera Infancia",
-  integrateAudiovisualTools:
-    "El docente usa significativamente audiovisuales (grabadoras de sonido, cámaras fotográficas) con las niñas y niños de Primera Infancia"
-};
+  { questionId: 0, setRealisticGoals: "El docente se marca metas y objetivos realistas, razonables y alcanzables en colaboración con el resto del cuerpo docente de su centro escolar", },
+  { questionId: 0, selfAssessPractice: "El docente se autoevalúa respecto de su labor en el aula y la propia planificación", },
+  { questionId: 0, peerEvaluateForImprovement: "El docente evalúa con el resto del cuerpo docente para buscar la mejora continua en su práctica docente", },
+  { questionId: 0, sharePracticeActivities: "El docente planifica actividades, talleres o proyectos que le permiten compartir su práctica con otros docentes y otras aulas", },
+  { questionId: 0, teamConsensusPlanning: "El docente tiene conciencia de equipo y llega a acuerdos sobre cómo planificar, el diseño de ambientes de las aulas o el uso de materiales", },
+  { questionId: 0, manageVirtualClassroom: "El docente gestiona el aula virtual", },
+  { questionId: 0, useGoogleProductivity: "El docente usa Google Drive y Google Docs para crear materiales", },
+  { questionId: 0, useAgeAppropriateResources: "El docente utiliza recursos tecnológicos adaptados a la Primera Infancia", },
+  { questionId: 0, integrateAudiovisualTools: "El docente usa significativamente audiovisuales (grabadoras de sonido, cámaras fotográficas) con las niñas y niños de Primera Infancia" }
+];
