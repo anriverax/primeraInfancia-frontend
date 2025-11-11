@@ -68,8 +68,8 @@ console.log("---",values,"***");
     // unir y reasignar índices secuenciales
     const survey = [...baseEntries, ...strategiesEntries].map((item, i) => ({
       index: i + 1,
-      question: item.question,
-      answer: item.answer
+      questionText: item.question,
+      valueAnswer: item.answer
     }));
 
     const appendixData = {

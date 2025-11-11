@@ -46,8 +46,8 @@ const useAppendix7Form = (appendixId: number, inscriptionId: number): FormikProp
 
     const result = Object.entries(values).map(([key, value], index) => ({
       index: index + 1,
-      question: (questionAppendix7 as Record<string, string>)[key],
-      answer: value instanceof Date ? value.toISOString() : value
+      questionText: (questionAppendix7 as Record<string, string>)[key],
+      valueAnswer: value instanceof Date ? value.toISOString() : value
     }));
 
     const appendixData = {
