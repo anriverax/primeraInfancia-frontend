@@ -1,5 +1,5 @@
 import { IZoneTable } from "./zoneType";
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useQueryRequest } from "@/shared/hooks/useApiQuery";
 
 const useZonesList = (): {
   zonesList: IZoneTable[];

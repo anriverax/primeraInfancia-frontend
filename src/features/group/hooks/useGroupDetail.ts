@@ -1,5 +1,5 @@
 import { IGroupDetail } from "../../group/groupType";
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useQueryRequest } from "@/shared/hooks/useApiQuery";
 
 const useGroupDetail = (
   groupId: number

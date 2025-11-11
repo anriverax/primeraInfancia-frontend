@@ -1,6 +1,6 @@
 import { SharedSelection } from "@heroui/react";
 import { IAttendance, TeachersAssignmentWithEvents } from "../attendance.type";
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useQueryRequest } from "@/shared/hooks/useApiQuery";
 import { FormikErrors } from "formik";
 import { useMemo } from "react";
 import { IPerson } from "@/shared/types/globals";

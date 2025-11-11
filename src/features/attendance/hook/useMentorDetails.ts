@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from "react";
 import { ILastAttendance } from "../attendance.type";
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useQueryRequest } from "@/shared/hooks/useApiQuery";
 
 const useMentorDetails = (
   setSelectedId: Dispatch<SetStateAction<number>>

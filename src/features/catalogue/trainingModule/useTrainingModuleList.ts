@@ -1,5 +1,5 @@
 import { ITrainingModuleTable } from "./trainingModuleType";
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useQueryRequest } from "@/shared/hooks/useApiQuery";
 
 const useTrainingModuleList = (): {
   trainingModuleList: ITrainingModuleTable[];

@@ -20,7 +20,6 @@ function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
   const { session } = useIsFirstFormRender();
   const mode = useTechnicianModeStore((s) => s.mode);
   const isSigningOut = useAppStateStore((s) => s.isSigningOut);
-  console.log(mode);
 
   const isTech = session?.user.role === TypeRole.USER_TECNICO_APOYO;
 

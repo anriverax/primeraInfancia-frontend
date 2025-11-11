@@ -6,9 +6,12 @@ import { Users } from "lucide-react";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 
-const GroupTable = dynamic(() => import("@/features/group/components/table").then((mod) => mod), {
-  ssr: false
-});
+const GroupTable = dynamic(
+  () => import("@/features/group/components/groupDistribution").then((mod) => mod),
+  {
+    ssr: false
+  }
+);
 
 export default function GroupsPage(): React.JSX.Element {
   const { data: session } = useSession();

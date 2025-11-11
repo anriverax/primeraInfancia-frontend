@@ -7,7 +7,7 @@ const CustomProgress = memo(
       <Progress
         isIndeterminate
         aria-label="Cargando..."
-        className="max-w-sm"
+        className="w-[10rem]"
         color="primary"
         size="sm"
         label="Cargando..."

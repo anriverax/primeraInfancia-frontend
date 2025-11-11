@@ -1,4 +1,4 @@
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useQueryRequest } from "@/shared/hooks/useApiQuery";
 import { ILearningPathTable } from "./learningPathType";
 
 const useLearningPathList = (): {

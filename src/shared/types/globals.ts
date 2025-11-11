@@ -16,7 +16,7 @@ export interface IPagination {
 }
 
 export interface FetchResponseWithPagination<T> extends FetchResponse<T> {
-  meta: IPagination;
+  meta?: IPagination;
 }
 export interface AxiosMessage {
   axiosMessage?: string | string[];

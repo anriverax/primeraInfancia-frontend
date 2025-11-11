@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useQueryRequest } from "@/shared/hooks/useApiQuery";
 import { GroupListResult, IGroupTable } from "../groupType";
 import { useDeleteRequest } from "@/shared/hooks/useDeleteRequest";
 

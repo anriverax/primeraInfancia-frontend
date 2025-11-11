@@ -1,14 +1,13 @@
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
+import { useApiQuery } from "@/shared/hooks/useApiQuery";
 import { IGroupByUser } from "../groupType";
 
 const useGroupDFM = (): {
   groupDetailList: IGroupByUser[];
 } => {
-  const { data: groupDetail } = useQueryRequest<IGroupByUser[]>(
+  const { data: groupDetail } = useApiQuery<IGroupByUser[]>(
     "group-detail-byUser",
     "/group/byTypePerson",
-    true,
-    "grupo"
+    { enabled: true, description: "lista de grupos" }
   );
 
   return { groupDetailList: groupDetail };

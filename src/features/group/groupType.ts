@@ -60,3 +60,8 @@ export interface IDetailAppendixTable {
 }
 
 export type IDetailAppendixColumnKey = "title" | "answer_count";
+
+export interface DepartmentList {
+  id: number;
+  name: string;
+}
