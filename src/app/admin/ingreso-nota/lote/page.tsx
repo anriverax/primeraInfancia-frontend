@@ -146,7 +146,7 @@ export default function Lote(): React.JSX.Element {
 
             if (validRows.length > 0) {
                 const res = await useRequest.post("/grade/current", { rows: validRows });
-                setExistingGrades(res.data.data);
+                setExistingGrades(res.data);
             } else {
                 setExistingGrades({});
             }
@@ -222,8 +222,19 @@ export default function Lote(): React.JSX.Element {
           </div>
 
           <div className="w-full flex justify-center">
-            <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 text-center space-y-5 w-full">
-              {/* File Upload */}
+            <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6 text-center space-y-5">
+              <h4 className="text-lg font-semibold text-gray-800">Cargar archivo de calificaciones</h4>
+
+              <div className="flex justify-end">
+                <a
+                  download
+                  href="/csv_example.csv"
+                  className="inline-flex items-center text-blue-600 text-sm hover:underline"
+                >
+                  <Download className="w-4 h-4 mr-1" /> Descargar ejemplo CSV
+                </a>
+              </div>
+
               <div className="space-y-3">
                 <label className="block text-sm text-gray-600">Seleccione el archivo</label>
                 <label className="flex flex-col items-center justify-center border border-gray-300 rounded-md py-3 cursor-pointer hover:bg-gray-50 transition">
@@ -257,7 +268,6 @@ export default function Lote(): React.JSX.Element {
                   className={`w-full ${(disabledSave || loading || invalidDetails.length) ? "bg-gray-100 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 text-white"} py-2 rounded-md transition`}
                   onClick={handleSaveToBackend}
                 >
-                    {invalidDetails.length} - {invalidDetails.length > 0}
                   {loading ? "Guardando..." : "Almacenar archivo"}
                 </button>
               </div>
@@ -272,7 +282,7 @@ export default function Lote(): React.JSX.Element {
                         {headers.map((header, idx) => {
                             const uniqueValues = Array.from(
                                 new Set(
-                                    filteredData
+                                    cleanData
                                         .slice(1)
                                         .map((r) => r[idx])
                                         .filter(Boolean)
@@ -318,6 +328,8 @@ export default function Lote(): React.JSX.Element {
                           const module = row[headers.indexOf(mapping["evaluationInstrumentId"] || "")] || "";
                           const instrument = row[headers.indexOf(mapping["evaluationInstrumentDetailId"] || "")] || "";
                           const key = `${email}-${module}-${instrument}`;
+                          console.log('key to seach', key);
+                          console.log('existing grades ', existingGrades);
                           const currentGrade =
                               existingGrades && key in existingGrades ? existingGrades[key] : "-";
                           const scoreRaw = row[headers.indexOf(mapping["score"] || "")] || "";
@@ -329,11 +341,10 @@ export default function Lote(): React.JSX.Element {
                           const errors: string[] = [];
                           if (!isValidEmail(email)) errors.push("Correo electrónico no válido");
                           if (isNaN(newGrade)) errors.push("Nota no es un número");
-                          console.log('raw evaluation number', rawEvaluationNumber);
                           try{
                               const evaluationNumber = parseInt(rawEvaluationNumber)
                               if (isNaN(evaluationNumber)) errors.push("Numero de evaluacion es un número");
-                          } catch { console.log('catch '); errors.push("Numero de evaluacion es un número")}
+                          } catch {  errors.push("Numero de evaluacion es un número")}
                           const isValid = errors.length === 0;
 
                           if (errors.length > 0) {
