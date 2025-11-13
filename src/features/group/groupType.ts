@@ -16,6 +16,13 @@ export interface Inscription {
     school: string;
   };
 }
+export interface GroupList extends ZoneInput {
+  memberCount: number;
+  department: string;
+  _count?: {
+    Inscription: number;
+  };
+}
 export interface IGroupTable extends ZoneInput {
   memberCount: number;
   department: string;
@@ -64,4 +71,16 @@ export type IDetailAppendixColumnKey = "title" | "answer_count";
 export interface DepartmentList {
   id: number;
   name: string;
+}
+
+export interface DepartmentGroupCount extends DepartmentList {
+  _count: {
+    Group: number;
+  };
+}
+
+export interface DepartmentGroupCountResponse {
+  departments: DepartmentGroupCount[];
+  totalGroups: number;
+  totalInscriptions: number;
 }

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from "react";
 import { ILastAttendance } from "../attendance.type";
-import { useQueryRequest } from "@/shared/hooks/useApiQuery";
+import { useApiQuery } from "@/shared/hooks/useApiQuery";
 
 const useMentorDetails = (
   setSelectedId: Dispatch<SetStateAction<number>>
@@ -39,11 +39,13 @@ const useMentorDetails = (
     return R * c;
   };
 
-  const { data: lastAttendance } = useQueryRequest<ILastAttendance[]>(
+  const { data: lastAttendance } = useApiQuery<ILastAttendance[]>(
     "last-attendance",
     "/attendance/last",
-    true,
-    "última asistencia"
+    {
+      enabled: true,
+      description: "última asistencia"
+    }
   );
 
   const events = useMemo(

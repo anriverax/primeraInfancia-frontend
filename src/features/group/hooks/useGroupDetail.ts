@@ -1,16 +1,15 @@
 import { IGroupDetail } from "../../group/groupType";
-import { useQueryRequest } from "@/shared/hooks/useApiQuery";
+import { useApiQuery } from "@/shared/hooks/useApiQuery";
 
 const useGroupDetail = (
   groupId: number
 ): {
   groupDetail: IGroupDetail | undefined;
 } => {
-  const { data: groupDetail } = useQueryRequest<IGroupDetail>(
+  const { data: groupDetail } = useApiQuery<IGroupDetail>(
     `group-detail-${groupId}`, // Unique key for each group
     `/group/detail/${groupId}`,
-    true,
-    "grupo"
+    { enabled: true, description: "grupo" }
   );
 
   return { groupDetail };

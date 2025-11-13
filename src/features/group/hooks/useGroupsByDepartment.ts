@@ -1,14 +1,20 @@
 import { useApiQuery } from "@/shared/hooks/useApiQuery";
-import type { IGroupTable } from "../groupType";
+import type { GroupList } from "../groupType";
 
 /**
  * Hook para obtener grupos por departamento usando el wrapper `useApiQuery` existente.
  * Solo dispara la petición cuando hay un `departmentId` válido.
  */
-export const useGroupsByDepartment = (departmentId: string) => {
+export const useGroupsByDepartment = (
+  departmentId: string
+): {
+  groups: GroupList[];
+  isLoading: boolean;
+  isError: boolean;
+} => {
   const dep = departmentId != null ? String(departmentId) : undefined;
 
-  const { data, isLoading, isError } = useApiQuery<IGroupTable[]>(
+  const { data, isLoading, isError } = useApiQuery<GroupList[]>(
     "groups-by-department",
     dep ? `/group/me/groups-by-department/${dep}` : "/group/me/groups-by-department/none",
     {
@@ -18,7 +24,7 @@ export const useGroupsByDepartment = (departmentId: string) => {
   );
 
   return {
-    groups: data,
+    groups: data || [],
     isLoading,
     isError
   };

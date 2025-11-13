@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 
 const GroupDistribution = dynamic(
-  () => import("@/features/group/components/groupDistribution").then((mod) => mod),
+  () => import("@/features/group/components/groupDistribution/groupsDepartment").then((mod) => mod),
   {
     ssr: false
   }

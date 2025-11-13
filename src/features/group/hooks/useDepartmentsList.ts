@@ -1,21 +1,17 @@
 import { useApiQuery } from "@/shared/hooks/useApiQuery";
-import { DepartmentList } from "../groupType";
-
-type SelectedIds = string[];
+import { DepartmentGroupCountResponse } from "../groupType";
 
 const useDepartmentsList = (): {
-  departmentList: DepartmentList[] | undefined;
+  departmentListResult: DepartmentGroupCountResponse | undefined;
 } => {
-  // Estado controlado por los Accordions (Selection puede ser Set<string> o 'all')
-
   // Firma actual: (key, endpoint, options)
-  const { data: departmentList } = useApiQuery<DepartmentList[]>(
+  const { data: departmentListResult } = useApiQuery<DepartmentGroupCountResponse>(
     "departments-list",
-    "/catalogue/department",
+    "/group/me/departments-with-groups",
     { enabled: true, description: "lista de departamentos" }
   );
-
-  return { departmentList };
+  console.log(departmentListResult);
+  return { departmentListResult };
 };
 
 export { useDepartmentsList };

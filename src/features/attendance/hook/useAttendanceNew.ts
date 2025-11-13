@@ -1,6 +1,6 @@
 import { SharedSelection } from "@heroui/react";
 import { IAttendance, TeachersAssignmentWithEvents } from "../attendance.type";
-import { useQueryRequest } from "@/shared/hooks/useApiQuery";
+import { useApiQuery } from "@/shared/hooks/useApiQuery";
 import { FormikErrors } from "formik";
 import { useMemo } from "react";
 import { IPerson } from "@/shared/types/globals";
@@ -33,12 +33,10 @@ const useAttendanceNew = ({
   const isLeader = rol === TypeRole.USER_FORMADOR;
 
   // Cargar mentores asignados al técnico (solo si es técnico)
-  const { data: mentors } = useQueryRequest<IPerson[]>(
-    `mentors-by-tech`,
-    "/attendance/me/mentors",
-    Boolean(isTech),
-    "listado de mentores"
-  );
+  const { data: mentors } = useApiQuery<IPerson[]>(`mentors-by-tech`, "/attendance/me/mentors", {
+    enabled: Boolean(isTech),
+    description: "listado de mentores"
+  });
 
   // Endpoint y habilitación para teachers-with-events
   const { endpointTeachersEvents, enabledTeachersEvents, teachersEventsKey } = useMemo(() => {
@@ -60,11 +58,10 @@ const useAttendanceNew = ({
     } as const;
   }, [isMentor, isLeader, isTech, mentorId]);
 
-  const { data: assignmentList } = useQueryRequest<TeachersAssignmentWithEvents>(
+  const { data: assignmentList } = useApiQuery<TeachersAssignmentWithEvents>(
     teachersEventsKey,
     endpointTeachersEvents,
-    enabledTeachersEvents,
-    "listado de eventos"
+    { enabled: enabledTeachersEvents, description: "listado de eventos" }
   );
 
   const handleSelectionChange = (keys: SharedSelection): void => {
