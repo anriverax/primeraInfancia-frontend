@@ -1,9 +1,5 @@
-interface inscriptionGroupProps {
-
-}
-
 const InscriptionGroup = () => {
-  return (  );
-}
+  return <div>Inscription Group Component</div>;
+};
 
 export default InscriptionGroup;
