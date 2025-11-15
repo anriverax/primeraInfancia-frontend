@@ -119,7 +119,8 @@ const TeacherShiftForm = ({
             </div>
           </div>
           <div>
-              <TeacherShiftTable items={teacherShiftData} onDelete={onDeleteTeacherShift} />
+            {Array.isArray(teacherShiftData) && teacherShiftData.length > 0 && (
+              <TeacherShiftTable items={teacherShiftData} onDelete={onDeleteTeacherShift} />)}
           </div>
         </div>
         <div className="mt-6 mb-4">
