@@ -118,29 +118,33 @@ const TeacherShiftForm = ({
               />
             </div>
           </div>
-          <RadioGroup
-            isRequired
-            label="Años de experiencia en docencia"
-            orientation="horizontal"
-            value={values.experienceYear}
-            isInvalid={!!errors.experienceYear}
-            errorMessage={errors.experienceYear}
-            onValueChange={(value: string) => formikGeneral.setFieldValue("experienceYear", value)}
-          >
-            {experienceYearData.map((option) => (
-              <Radio key={option.key} value={option.label}>
-                {option.label}
-              </Radio>
-            ))}
-          </RadioGroup>
           <div>
-            <TeacherShiftTable items={teacherShiftData} onDelete={onDeleteTeacherShift} />
+              <TeacherShiftTable items={teacherShiftData} onDelete={onDeleteTeacherShift} />
           </div>
         </div>
-        <div className="mt-6">
+        <div className="mt-6 mb-4">
           <Button className="w-full bg-primary-100" type="submit">
             Agregar
           </Button>
+        </div>
+        <div className="space-y-6">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <RadioGroup
+              isRequired
+              label="Años de experiencia en docencia"
+              orientation="horizontal"
+              value={values.experienceYear}
+              isInvalid={!!errors.experienceYear}
+              errorMessage={errors.experienceYear}
+              onValueChange={(value: string) => formikGeneral.setFieldValue("experienceYear", value)}
+            >
+              {experienceYearData.map((option) => (
+                <Radio key={option.key} value={option.label}>
+                  {option.label}
+                </Radio>
+              ))}
+            </RadioGroup>
+          </div>
         </div>
       </AppendixCard>
     </form>
