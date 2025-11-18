@@ -24,12 +24,12 @@ function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
   const isTech = session?.user.role === TypeRole.USER_TECNICO_APOYO;
 
   return (
-    <div className="relative flex h-dvh w-full bg-gray-50">
+    <div className="relative flex h-dvh w-full">
       <Sidebar logo={<Logo />} />
       <div className="relative flex h-full flex-1 flex-col ">
         <TopBar />
 
-        <div className="px-5 relative py-12 md:px-8 bg-gray-50">{children}</div>
+        <div className="px-5 relative py-12 md:px-8 ">{children}</div>
         {session && !session?.user.isVerified && <FormModal isOpen={true} />}
         {isTech && !mode && !isSigningOut && <TechnicianModeModal isOpen={true} />}
       </div>

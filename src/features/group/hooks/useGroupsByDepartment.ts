@@ -12,7 +12,7 @@ export const useGroupsByDepartment = (
   isLoading: boolean;
   isError: boolean;
 } => {
-  const dep = departmentId != null ? String(departmentId) : undefined;
+  const dep = departmentId != null ? String(departmentId) : false;
 
   const { data, isLoading, isError } = useApiQuery<GroupList[]>(
     "groups-by-department",

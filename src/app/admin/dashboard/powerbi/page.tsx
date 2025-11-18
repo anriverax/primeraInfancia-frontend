@@ -1,5 +1,3 @@
-interface DashboardPowerBIPageProps {}
-
 const DashboardPowerBIPage = () => {
   return (
     <div>
