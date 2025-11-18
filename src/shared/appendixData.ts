@@ -1,6 +1,6 @@
 export const questionsAppendix1 = {
-  estimatedFrequencyMeetings: "Fecha estimada de cierre",
-  estimatedClosingDate: "Frecuencia estimada de encuentros"
+  estimatedFrequencyMeetings: "Frecuencia estimada de encuentros",
+  estimatedClosingDate: "Fecha estimada de cierre"
 };
 
 export const questionTeacherShift = {

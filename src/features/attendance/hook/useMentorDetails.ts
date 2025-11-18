@@ -47,7 +47,7 @@ const useMentorDetails = (
       description: "última asistencia"
     }
   );
-
+  console.log(lastAttendance);
   const events = useMemo(
     () =>
       lastAttendance

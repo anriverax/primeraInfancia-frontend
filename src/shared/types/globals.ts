@@ -1,4 +1,9 @@
+import { AxiosResponse } from "axios";
 import { FieldConfig, FieldInputProps, FormikErrors, FormikTouched } from "formik";
+
+export interface AxiosResponseCustom<T> extends AxiosResponse<T> {
+  message: string[] | string;
+}
 
 export interface FetchResponse<T> {
   statusCode: number;

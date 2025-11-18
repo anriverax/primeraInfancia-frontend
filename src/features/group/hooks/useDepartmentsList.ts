@@ -10,7 +10,7 @@ const useDepartmentsList = (): {
     "/group/me/departments-with-groups",
     { enabled: true, description: "lista de departamentos" }
   );
-  console.log(departmentListResult);
+
   return { departmentListResult };
 };
 
