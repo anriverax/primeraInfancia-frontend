@@ -12,7 +12,7 @@ type AccordionLayoutProps = {
   isLoading: boolean;
   isError: boolean;
 };
-
+// px-4 bg-content1 shadow-medium rounded-medium hover:cursor-pointer
 const AccordionLayout = ({
   dataCol,
   selectedKeys,
@@ -23,30 +23,27 @@ const AccordionLayout = ({
 }: AccordionLayoutProps): React.JSX.Element => (
   <Accordion
     itemClasses={{
-      base: "hover:bg-default-50 hover:cursor-pointer"
+      base: "hover:cursor-pointer data-[open=true]:px-4 data-[open=true]:shadow-custom-shadow data-[open=true]:rounded-medium transition-all"
     }}
-    variant="light"
     selectedKeys={selectedKeys}
     onSelectionChange={setSelectedKeys}
   >
-    {dataCol.map((department) => {
-      const deptGroups = groups?.filter((g) => String(g.department) === String(department.name)) ?? [];
-
-      return (
-        <AccordionItem
-          key={department.id}
-          title={
-            <div className="flex justify-between">
-              <div>{department.name}</div>
-              <div>{`${department._count.Group} grupos`}</div>
+    {dataCol.map((department) => (
+      <AccordionItem
+        key={department.id}
+        title={
+          <div className="flex justify-between">
+            <div className="inline-flex items-center font-medium text-blue-700">
+              {department.name}
             </div>
-          }
-          subtitle="Haz clic para expandir"
-        >
-          <GroupListComponent groups={deptGroups} isLoading={isLoading} isError={isError} />
-        </AccordionItem>
-      );
-    })}
+            <div className='text-xs'>{`${department._count.Group} grupos`}</div>
+          </div>
+        }
+        subtitle="Haz clic para expandir"
+      >
+        <GroupListComponent groups={groups} isLoading={isLoading} isError={isError} />
+      </AccordionItem>
+    ))}
   </Accordion>
 );
 

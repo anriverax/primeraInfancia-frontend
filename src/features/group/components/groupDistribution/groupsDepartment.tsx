@@ -9,16 +9,8 @@ const GroupDistribution = (): React.JSX.Element => {
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set());
   const { departmentListResult } = useDepartmentsList();
 
-  const selectedDepartmentId = useMemo(() => {
-    const id = Array.from(selectedKeys)[0];
-    return id != null ? String(id) : "";
-  }, [selectedKeys]);
-
-  const { groups, isLoading, isError } = useGroupsByDepartment(selectedDepartmentId);
-
-  if (!departmentListResult) return <CustomProgress />;
-
   const columns = useMemo(() => {
+    if (!departmentListResult?.departments) return [[], [], []];
     const total = departmentListResult.departments.length;
     const size = Math.ceil(total / 3);
     return [
@@ -27,6 +19,15 @@ const GroupDistribution = (): React.JSX.Element => {
       departmentListResult.departments.slice(size * 2)
     ];
   }, [departmentListResult]);
+
+  const selectedDepartmentId = useMemo(() => {
+    const id = Array.from(selectedKeys)[0];
+    return id != null ? String(id) : "";
+  }, [selectedKeys]);
+
+  const { groups, isLoading, isError } = useGroupsByDepartment(selectedDepartmentId);
+  console.log(groups);
+  if (!departmentListResult) return <CustomProgress />;
 
   return (
     <>
@@ -43,7 +44,7 @@ const GroupDistribution = (): React.JSX.Element => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
         {columns.map((col, idx) => (
           <AccordionLayout
             key={idx}
