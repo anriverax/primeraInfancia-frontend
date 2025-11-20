@@ -23,9 +23,10 @@ const AccordionLayout = ({
 }: AccordionLayoutProps): React.JSX.Element => (
   <Accordion
     itemClasses={{
-      base: "hover:cursor-pointer data-[open=true]:px-4 data-[open=true]:shadow-custom-shadow data-[open=true]:rounded-medium transition-all"
+      base: "hover:cursor-pointer data-[open=true]:px-4 data-[open=true]:shadow-custom-shadow data-[open=true]:rounded-medium data-[open=true]:mb-8 transition-all"
     }}
     selectedKeys={selectedKeys}
+    showDivider={false}
     onSelectionChange={setSelectedKeys}
   >
     {dataCol.map((department) => (
@@ -33,10 +34,8 @@ const AccordionLayout = ({
         key={department.id}
         title={
           <div className="flex justify-between">
-            <div className="inline-flex items-center font-medium text-blue-700">
-              {department.name}
-            </div>
-            <div className='text-xs'>{`${department._count.Group} grupos`}</div>
+            <div className="inline-flex items-center font-medium text-blue-700">{department.name}</div>
+            <div className="text-xs">{`${department._count.Group} grupos`}</div>
           </div>
         }
         subtitle="Haz clic para expandir"

@@ -26,7 +26,7 @@ const GroupDistribution = (): React.JSX.Element => {
   }, [selectedKeys]);
 
   const { groups, isLoading, isError } = useGroupsByDepartment(selectedDepartmentId);
-  console.log(groups);
+
   if (!departmentListResult) return <CustomProgress />;
 
   return (
