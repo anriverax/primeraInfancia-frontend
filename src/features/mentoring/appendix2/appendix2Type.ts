@@ -8,11 +8,12 @@ export interface TeacherShift {
   boyNumber: number;
   girlDisabilityNumber: number;
   boyDisabilityNumber: number;
-  experienceYear: string;
+  experienceYear?: string;
 }
 
 export interface Appendix2Input {
   teacherShiftTable: TeacherShift[];
+  experienceYear: string;
   initialTraining: string;
   initialTrainingOther?: string;
   complementaryStudies: string;

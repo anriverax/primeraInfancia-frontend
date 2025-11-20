@@ -15,8 +15,7 @@ export const initialValuesTeacherShift: TeacherShift = {
   boyNumber: 0,
   girlNumber: 0,
   boyDisabilityNumber: 0,
-  girlDisabilityNumber: 0,
-  experienceYear: ""
+  girlDisabilityNumber: 0
 };
 
 /**

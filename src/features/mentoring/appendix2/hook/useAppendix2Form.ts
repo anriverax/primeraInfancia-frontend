@@ -10,6 +10,7 @@ import { appendix2Schema } from "../appendix2Validation.ts";
 
 const initialValuesAppendix2: Appendix2Input = {
   teacherShiftTable: [],
+  experienceYear: "",
   initialTraining: "",
   complementaryStudies: "",
   participationContinuingEducation: "",
@@ -73,10 +74,11 @@ const useAppendix2Form = (
       survey: joinAnswers,
       inscriptionId
     };
+console.log(appendixData);
 
     try {
       const res: AxiosResponse<FetchResponse<IAppendix2Input>> = await useRequest.post(
-        "/surveyData/create",
+        "/surveyData/cre/ate",
         appendixData
       );
 

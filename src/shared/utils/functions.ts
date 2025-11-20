@@ -16,6 +16,9 @@ import { Session } from "next-auth";
 export const stringField = (requiredMessage: string): StringSchema<string, AnyObject, undefined, ""> =>
   string().required(requiredMessage);
 
+export const stringOptionalField = (): StringSchema<string | undefined, AnyObject, undefined, ""> =>
+  string();
+
 /**
  * Creates a Yup number schema that is required with a custom message.
  *

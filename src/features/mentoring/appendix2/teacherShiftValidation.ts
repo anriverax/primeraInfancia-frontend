@@ -1,7 +1,7 @@
 import { number, object, ObjectSchema } from "yup";
 import { TeacherShift } from "./appendix2Type";
 import { validationMessages } from "@/shared/constants";
-import { stringField } from "@/shared/utils/functions";
+import { stringField, stringOptionalField } from "@/shared/utils/functions";
 
 export const teacherShiftFormSchema: ObjectSchema<TeacherShift> = object({
   id: number().optional(),
@@ -19,5 +19,5 @@ export const teacherShiftFormSchema: ObjectSchema<TeacherShift> = object({
   girlDisabilityNumber: number()
     .min(0, "El valor debe ser mayor o igual a cero")
     .required(validationMessages.required),
-  experienceYear: stringField(validationMessages.required)
+  experienceYear: stringOptionalField()
 });

@@ -5,6 +5,7 @@ import { stringField } from "@/shared/utils/functions";
 import { teacherShiftFormSchema } from "./teacherShiftValidation";
 export const appendix2Schema: ObjectSchema<Appendix2Input> = object({
   teacherShiftTable: array().of(teacherShiftFormSchema).required(),
+  experienceYear: stringField(validationMessages.required),
   initialTraining: stringField(validationMessages.required),
   initialTrainingOther: string().when("initialTraining", ([initialTraining]) => {
     return initialTraining === "Otros" ? stringField(validationMessages.required) : string().optional();
