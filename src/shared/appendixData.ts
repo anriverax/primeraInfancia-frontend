@@ -40,7 +40,9 @@ export const questionsAppendix2 = {
 export const questionsAppendix3 = {
   dimensions: "Dimensión",
   strategies: "Estrategias de acompañamiento",
-  otherStrategies: "Otras estrategias de acompañamiento"
+  otherStrategies: "Otras estrategias de acompañamiento",
+  descriptionAgreements: "Descripción de los acuerdos",
+  nextVisit: "Fecha de la próxima visita"
 };
 
 export const questionsAppendix5 = {

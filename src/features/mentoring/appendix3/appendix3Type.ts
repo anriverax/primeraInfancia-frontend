@@ -30,6 +30,8 @@ export interface Appendix3Input {
   dimensions: [DimensionPlan, ...DimensionPlan[]];
   otherStrategies?: string;
   strategies?: string[];
+  descriptionAgreements: string;
+  nextVisit: Date | null;
 }
 
 export type IAppendix3Input = Appendix3Input & AxiosMessage;

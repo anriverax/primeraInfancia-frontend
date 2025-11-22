@@ -19,7 +19,9 @@ const initialValuesAppendix3: Appendix3Input = {
     }
   ],
   otherStrategies: "",
-  strategies: []
+  strategies: [],
+  descriptionAgreements: "",
+  nextVisit: null
 };
 
 const useAppendix3Form = (appendixId: number, inscriptionId: number): FormikProps<Appendix3Input> => {
