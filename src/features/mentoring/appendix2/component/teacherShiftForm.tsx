@@ -94,7 +94,7 @@ const TeacherShiftForm = ({
             </div>
             <div>
               {/* eslint-disable @typescript-eslint/no-explicit-any */}
-              <Select
+              {/* <Select
                 items={sectionData}
                 name="section"
                 {...getSelectProps(
@@ -112,6 +112,32 @@ const TeacherShiftForm = ({
               >
                 {sectionData.map((event: IOptions) => (
                   <SelectItem key={event.key}>{event.label}</SelectItem>
+                ))}
+              </Select> */}
+              <Select
+                selectionMode="multiple"
+                items={sectionData}
+                name="section"
+                {...getSelectProps(
+                  "Nivel educativo que atiende:",
+                  "Seleccione el nivel",
+                  sectionData.length || 0,
+                  values.section as any,
+                  errors.section
+                )}
+                onSelectionChange={(keys: SharedSelection) => {
+                  // keys viene como Set<string> cuando selectionMode="multiple"
+                  const selected = Array.from(keys as Set<string>);
+                  // opcional: obtener labels en lugar de keys
+                  // const selectedLabels = selected.map(k => sectionData.find(s => s.key === k)?.label ?? k);
+                  // guardar en formik el array de keys (o labels según prefieras)
+                  formikGeneral.setFieldValue("section", selected);
+                }}
+              >
+                {sectionData.map((event: IOptions) => (
+                  <SelectItem key={event.key}>
+                    {event.label}
+                  </SelectItem>
                 ))}
               </Select>
               {/* eslint-enable @typescript-eslint/no-explicit-any */}
@@ -162,8 +188,8 @@ const TeacherShiftForm = ({
             </div>
           </div>
           <div>
-            {Array.isArray(teacherShiftData)&&teacherShiftData.length>0 &&(
-            <TeacherShiftTable items={teacherShiftData} onDelete={onDeleteTeacherShift} />)}
+            {Array.isArray(teacherShiftData) && teacherShiftData.length > 0 && (
+              <TeacherShiftTable items={teacherShiftData} onDelete={onDeleteTeacherShift} />)}
           </div>
         </div>
         <div className="mt-6 mb-4">
@@ -181,8 +207,12 @@ const TeacherShiftForm = ({
               isInvalid={!!errors.experienceYear}
               errorMessage={errors.experienceYear}
               onValueChange={(value: string) => {
-                // actualizar solo el form local (no forzar la validación del form padre al agregar filas)
+                // actualizar form local
                 formikGeneral.setFieldValue("experienceYear", value);
+                // sincronizar con el form padre (Appendix2Form) para que sea requerido al submit
+                if (typeof setFieldValue === "function") {
+                  setFieldValue("experienceYear", value);
+                }
               }}
             >
               {experienceYearData.map((option) => (
