@@ -22,6 +22,14 @@ export const dimensionData: IOptions[] = [
   }
 ];
 
+export const levelOfAchievementData: IOptions[] = [
+  { key: "No iniciado", label: "No iniciado" },
+  { key: "Iniciado", label: "Iniciado" },
+  { key: "En proceso", label: "En proceso" },
+  { key: "Logrado", label: "Logrado" }
+];
+
+
 export const subDimensionMap: Record<string, { key: string; label: string }[]> = {
   "Desarrollo y Aprendizaje Activos. Currículo integrado": [
     { key: "Aprendizaje significativo", label: "Aprendizaje significativo" },
