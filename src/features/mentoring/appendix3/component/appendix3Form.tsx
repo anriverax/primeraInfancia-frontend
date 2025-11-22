@@ -17,10 +17,12 @@ import {
   TableColumn,
   TableBody,
   TableRow,
-  TableCell
+  TableCell,
+  Radio,
+  RadioGroup
 } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import { dimensionData, strategiesValueData, subDimensionMap } from "../appendix3Data";
+import { dimensionData, strategiesValueData, subDimensionMap, levelOfAchievementData } from "../appendix3Data";
 import { useAppendix3Form } from "../hook/useAppendix3Form";
 import { IOptions } from "@/shared/types/globals";
 import { AppendixCard } from "../../component/appendixCard";
@@ -121,15 +123,24 @@ const Appendix3Form = (): React.JSX.Element => {
                   (errors as any)?.dimensions?.[currentIndex]?.goal
                 )}
               />
-              <Input
-                {...getFieldProps(`dimensions[${currentIndex}].levelOfAchievement`)}
-                {...getInputProps(
-                  "text",
-                  "Nivel de logro",
-                  (touched as any)?.dimensions?.[currentIndex]?.levelOfAchievement,
-                  (errors as any)?.dimensions?.[currentIndex]?.levelOfAchievement
-                )}
-              />
+              <RadioGroup
+                isRequired
+                label="Nivel de logro"
+                orientation="horizontal"
+                value={current.levelOfAchievement}
+                isInvalid={!!(errors as any)?.dimensions?.[currentIndex]?.levelOfAchievement}
+                errorMessage={(errors as any)?.dimensions?.[currentIndex]?.levelOfAchievement}
+                onValueChange={(value: string) =>
+                  setFieldValue(`dimensions[${currentIndex}].levelOfAchievement`, value)
+                }
+              >
+                {levelOfAchievementData.map((option) => (
+                  <Radio key={option.key} value={option.label}>
+                    {option.label}
+                  </Radio>
+                ))}
+              </RadioGroup>
+
             </div>
 
             <div className="grid grid-cols-4 gap-6">
@@ -248,6 +259,28 @@ const Appendix3Form = (): React.JSX.Element => {
                 className="max-w-full"
               />
             )}
+          </div>
+          <div className="mt-4 space-y-6">
+            <Input
+              {...getFieldProps("descriptionAgreements")}
+              {...getInputProps(
+                "text",
+                "Descripción de los acuerdos",
+                touched.descriptionAgreements,
+                errors.descriptionAgreements
+              )}
+              className="max-w-md"
+            />
+            <Input
+              {...getFieldProps("nextVisit")}
+              {...getInputProps(
+                "date",
+                "Fecha de la próxima visita",
+                Boolean(touched.nextVisit),
+                errors.nextVisit as string
+              )}
+              className="max-w-md"
+            />
           </div>
         </AppendixCard>
       </AppendixForm>
