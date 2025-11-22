@@ -54,11 +54,14 @@ const useAppendix2Form = (
       return;
     }
 
-    const result = Object.entries(values).map(([key, value], index) => ({
-      index: index + 1,
-      question: (questionsAppendix2 as Record<string, string>)[key],
-      answer: value instanceof Date ? value.toISOString() : value
-    }));
+    const result = Object.entries(values)
+      .map(([key, value], index) => ({
+        index: index + 1,
+        question: (questionsAppendix2 as Record<string, string>)[key],
+        answer: value instanceof Date ? value.toISOString() : value
+      }))
+      // solo mantener entradas con `question` definido
+      .filter((item) => typeof item.question !== "undefined");
 
     const joinAnswers = [
       ...result,
@@ -74,11 +77,10 @@ const useAppendix2Form = (
       survey: joinAnswers,
       inscriptionId
     };
-console.log(appendixData);
 
     try {
       const res: AxiosResponse<FetchResponse<IAppendix2Input>> = await useRequest.post(
-        "/surveyData/cre/ate",
+        "/surveyData/create",
         appendixData
       );
 
