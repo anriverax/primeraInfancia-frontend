@@ -17,8 +17,8 @@ const TeacherShiftTable = ({ items, onDelete }: Props): React.JSX.Element => {
           <th>Sección</th>
           <th>Niños</th>
           <th>Niñas</th>
-          <th>Niños c/discapacidad</th>
-          <th>Niñas c/discapacidad</th>
+          <th>Niños con <br />discapacidad <br/> diagnosticada</th>
+          <th>Niñas con <br />discapacidad <br/> diagnosticada</th>
 
         </tr>
       </thead>
@@ -27,7 +27,7 @@ const TeacherShiftTable = ({ items, onDelete }: Props): React.JSX.Element => {
           const key = row.id ?? String(Math.random());
           return (
             <tr key={key}>
-              <td>
+              <td className="text-center">
                 {/* usar el id de la fila al eliminar */}
                 <button
                   type="button"
@@ -40,13 +40,13 @@ const TeacherShiftTable = ({ items, onDelete }: Props): React.JSX.Element => {
                   <Trash2 className="h-4 w-4 text-red-500 cursor-pointer" />
                 </button>
               </td>
-              <td>{row.boyNumber + row.girlNumber}</td>
+              <td className="text-center">{row.boyNumber + row.girlNumber}</td>
               <td>{row.shift}</td>
               <td>{Array.isArray(row.section) ? row.section.join(", ") : row.section}</td>
-              <td>{row.boyNumber}</td>
-              <td>{row.girlNumber}</td>
-              <td>{row.boyDisabilityNumber}</td>
-              <td>{row.girlDisabilityNumber}</td>
+              <td className="text-center">{row.boyNumber}</td>
+              <td className="text-center">{row.girlNumber}</td>
+              <td className="text-center">{row.boyDisabilityNumber}</td>
+              <td className="text-center">{row.girlDisabilityNumber}</td>
             </tr>
           );
         })}
