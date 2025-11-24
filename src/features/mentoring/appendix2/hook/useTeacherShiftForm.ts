@@ -77,6 +77,12 @@ const useTeacherShiftForm = ({
 
     // Reset local form to its initial state after a successful append.
     formikHelpers.resetForm();
+        formikHelpers.setFieldValue("shift", "");
+    formikHelpers.setFieldValue("section", Array.isArray(values.section) ? [] : "");
+    formikHelpers.setFieldValue("boyNumber", 0);
+    formikHelpers.setFieldValue("girlNumber", 0);
+    formikHelpers.setFieldValue("boyDisabilityNumber", 0);
+    formikHelpers.setFieldValue("girlDisabilityNumber", 0);
   };
 
   const formikAppendixGeneralDate = useFormik({

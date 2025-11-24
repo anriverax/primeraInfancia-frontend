@@ -40,10 +40,10 @@ export const shiftData: IOptions[] = [
 ];
 
 export const sectionData: IOptions[] = [
-  { key: "Inicial 3", label: "Inicial 3" },
-  { key: "Parvularia 4", label: "Parvularia 4" },
-  { key: "Parvularia 5", label: "Parvularia 5" },
-  { key: "Parvularia 6", label: "Parvularia 6" },
-  { key: "Primer grado", label: "Primer grado" },
-  { key: "Parvularia multiple", label: "Parvularia multiple" }
+  { key: "Inicial 3 ", label: "Inicial 3 " },
+  { key: "Parvularia 4 ", label: "Parvularia 4 " },
+  { key: "Parvularia 5 ", label: "Parvularia 5 " },
+  { key: "Parvularia 6 ", label: "Parvularia 6 " },
+  { key: "Primer grado ", label: "Primer grado " },
+  { key: "Parvularia integrada ", label: "Parvularia integrada " }
 ];

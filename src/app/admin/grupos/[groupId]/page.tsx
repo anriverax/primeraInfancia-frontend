@@ -10,6 +10,7 @@ const GroupDetailPage = (): React.JSX.Element => {
   const params = useParams();
 
   const { groupDetail } = useGroupDetail(Number(params.groupId));
+console.log(groupDetail,"#####");
 
   return (
     <div>

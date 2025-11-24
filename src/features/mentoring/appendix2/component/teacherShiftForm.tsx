@@ -18,6 +18,16 @@ const TeacherShiftForm = ({
   const { getFieldProps, touched, errors, handleSubmit, values } = formikGeneral;
   const { getInputProps, getSelectProps } = useCustomFormFields();
 
+  // unique correlativo counter for rows (seq). Initialize to max existing seq + 1
+  // const seqRef = useRef<number>(Date.now());
+  // useEffect(() => {
+  //   const maxSeq = Array.isArray(teacherShiftData)
+  //     ? teacherShiftData.reduce((m, e) => Math.max(m, Number(e?.seq ?? 0)), 0)
+  //     : 0;
+  //   seqRef.current = maxSeq > 0 ? maxSeq + 1 : Date.now();
+  // }, [teacherShiftData]);
+  // NOTE: We use `id` field (number) as unique identifier for rows (no seq)
+
   // NOTE: Removed automatic sync to parent form.
   // experienceYear remains local/optional here so "Agregar" doesn't require it.
   // Appendix2Form still declares experienceYear as required in its validation schema,
@@ -25,18 +35,35 @@ const TeacherShiftForm = ({
 
   /* eslint-disable react-hooks/exhaustive-deps */
   const onDeleteTeacherShift = useCallback(
-    (id: number) => {
-      const result = teacherShiftData.filter((entry) => entry.id && entry.id !== id);
-      setFieldValue("teacherShiftTable", result);
+    (identifier: number | string) => {
+      const idNumber = Number(identifier);
+      const items = Array.isArray(teacherShiftData) ? teacherShiftData : [];
+
+      const idx = items.findIndex((entry) => Number((entry as any)?.id) === idNumber);
+      if (idx === -1) return; // no match
+
+      const next = [...items.slice(0, idx), ...items.slice(idx + 1)];
+      setFieldValue("teacherShiftTable", next);
+
+      if (typeof setAnswers === "function") {
+        const answersPayload = next.map((entry, i) => ({
+          index: i,
+          question: "teacherShiftTable",
+          answer: entry
+        }));
+        setAnswers(answersPayload as unknown as any);
+      }
     },
-    [teacherShiftData]
+    [teacherShiftData, setFieldValue, setAnswers]
   );
   /* eslint-enable react-hooks/exhaustive-deps */
 
   // handler para "Agregar" que NO dispara la validación del form principal
   const handleAddRow = useCallback(() => {
+    // generar id único (timestamp + random para minimizar colisiones)
+    const newId = Date.now() + Math.floor(Math.random() * 1000);
     const newEntry = {
-      id: Date.now(),
+      id: newId,
       shift: values.shift ?? "",
       section: values.section ?? "",
       boyNumber: Number(values.boyNumber ?? 0),
@@ -55,6 +82,7 @@ const TeacherShiftForm = ({
       const answersPayload = next.map((entry, idx) => ({
         index: idx,
         question: "teacherShiftTable",
+        // include seq so parent can identify rows
         answer: entry
       }));
       // cast to satisfy the parent's expected type
@@ -189,7 +217,9 @@ const TeacherShiftForm = ({
           </div>
           <div>
             {Array.isArray(teacherShiftData) && teacherShiftData.length > 0 && (
-              <TeacherShiftTable items={teacherShiftData} onDelete={onDeleteTeacherShift} />)}
+              // TeacherShiftTable debe eliminar filas usando el correlativo `seq`
+              <TeacherShiftTable items={teacherShiftData} onDelete={onDeleteTeacherShift} />
+            )}
           </div>
         </div>
         <div className="mt-6 mb-4">

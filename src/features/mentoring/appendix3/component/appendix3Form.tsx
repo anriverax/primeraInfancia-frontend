@@ -260,6 +260,30 @@ const Appendix3Form = (): React.JSX.Element => {
               />
             )}
           </div>
+          {/* <div className="mt-4 space-y-6">
+            <Input
+              {...getFieldProps("descriptionAgreements")}
+              {...getInputProps(
+                "text",
+                "Descripción de los acuerdos",
+                touched.descriptionAgreements,
+                errors.descriptionAgreements
+              )}
+              className="max-w-md"
+            />
+            <Input
+              {...getFieldProps("nextVisit")}
+              {...getInputProps(
+                "date",
+                "Fecha de la próxima visita",
+                Boolean(touched.nextVisit),
+                errors.nextVisit as string
+              )}
+              className="max-w-md"
+            />
+          </div> */}
+        </AppendixCard>
+         <AppendixCard step="III" title="Próxima visita">
           <div className="mt-4 space-y-6">
             <Input
               {...getFieldProps("descriptionAgreements")}
