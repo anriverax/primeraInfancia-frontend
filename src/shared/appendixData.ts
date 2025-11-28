@@ -26,7 +26,7 @@ export const questionsAppendix2 = {
   planningLearningExperiences: "Planificación de experiencias",
   levelPracticeInclusion: "Atención a la inclusión educativa",
   gameAndExplorationStrategies: "Estrategias de juego y exploración",
-  assessmentOfLearning: "Estrategias de juego y exploración",
+  assessmentOfLearning: "Evaluación de los aprendizajes",
   relationshipWithFamilies: "Relación con las familias",
   managementOfTheEducationalEnvironment: "Gestión del ambiente educativo",
   aspectsWouldYouLikeToImprove: "¿En qué aspectos le gustaría mejorar o profundizar su práctica?",
