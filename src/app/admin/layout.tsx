@@ -29,7 +29,7 @@ function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
       <div className="relative flex h-full flex-1 flex-col ">
         <TopBar />
 
-        <div className="px-5 relative py-12 md:px-8">{children}</div>
+        <div className="px-5 relative py-12 md:px-8 bg-[#f9fafb]">{children}</div>
         {session && !session?.user.isVerified && <FormModal isOpen={true} />}
         {isTech && !mode && !isSigningOut && <TechnicianModeModal isOpen={true} />}
       </div>
