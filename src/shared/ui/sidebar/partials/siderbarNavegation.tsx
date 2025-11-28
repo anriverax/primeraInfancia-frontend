@@ -16,7 +16,7 @@ const SidebarNavigation = memo(({ isMobile, isExtended }: SidebarNavigationProps
     enabled: !!session,
     description: "Lista de menu"
   });
-  console.log(data);
+
   return (
     <nav className={cn("px-3 py-4 space-y-1 bg-white overflow-y-auto", { "px-2": !isExtended })}>
       {data &&

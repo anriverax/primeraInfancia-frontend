@@ -23,7 +23,7 @@ const AccordionLayout = ({
 }: AccordionLayoutProps): React.JSX.Element => (
   <Accordion
     itemClasses={{
-      base: "hover:cursor-pointer data-[open=true]:px-4 data-[open=true]:shadow-custom-shadow data-[open=true]:rounded-medium data-[open=true]:mb-8 transition-all"
+      base: "hover:cursor-pointer border-white data-[open=true]:px-4 data-[open=true]:bg-white data-[open=true]:border data-[open=true]:border-gray-200 data-[open=true]:shadow-custom-shadow data-[open=true]:rounded-medium data-[open=true]:mb-8 transition-all"
     }}
     selectedKeys={selectedKeys}
     showDivider={false}

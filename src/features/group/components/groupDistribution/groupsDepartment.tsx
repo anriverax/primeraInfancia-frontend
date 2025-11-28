@@ -32,11 +32,11 @@ const GroupDistribution = (): React.JSX.Element => {
   return (
     <>
       <div className="flex justify-center items-center gap-6">
-        <div className="bg-white px-6 py-3 rounded-full">
+        <div className="px-6 py-3 rounded-full">
           <span className="text-sm mr-2">Total grupos:</span>
           <span className="text-xl font-semibold text-gray-900">{departmentListResult.totalGroups}</span>
         </div>
-        <div className="bg-white px-6 py-3 rounded-full">
+        <div className="px-6 py-3 rounded-full">
           <span className="text-sm mr-2">Total inscritos:</span>
           <span className="text-xl font-semibold text-gray-900">
             {departmentListResult.totalInscriptions}
