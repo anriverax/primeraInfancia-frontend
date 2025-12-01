@@ -57,8 +57,13 @@ export interface IAttendanceTable {
 
 export interface AttendanceListResult {
   handleChangePage: Dispatch<SetStateAction<number>>;
-  attendanceList: IAttendanceTable[];
+  attendanceList: EventList[];
   meta: IPagination | undefined;
 }
 
 export type IAttendanceColumnKey = "fullName" | "totalEvents" | "actions";
+
+export interface EventList {
+  id: number;
+  name: string;
+}

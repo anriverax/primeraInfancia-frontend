@@ -18,7 +18,9 @@ export default function AttendancePage(): React.JSX.Element {
   const techMode = useTechnicianModeStore((s) => s.mode);
 
   const [selectedTab, setSelectedTab] = useState<TabsType>("new");
+
   const isSupportTech = role === TypeRole.USER_TECNICO_APOYO;
+
   const initialView: RoleViewType = isSupportTech
     ? techMode === "mentor"
       ? "mentor"

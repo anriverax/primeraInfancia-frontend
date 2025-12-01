@@ -1,5 +1,5 @@
 import { SharedSelection } from "@heroui/react";
-import { IAttendance, TeachersAssignmentWithEvents } from "../attendance.type";
+import { EventList, IAttendance, TeachersAssignmentWithEvents } from "../attendance.type";
 import { useApiQuery } from "@/shared/hooks/useApiQuery";
 import { FormikErrors } from "formik";
 import { useMemo } from "react";
@@ -23,53 +23,36 @@ const useAttendanceNew = ({
   rol,
   mentorId
 }: AttendanceNewProps): {
-  assignmentList: TeachersAssignmentWithEvents;
+  assignmentList: EventList[];
   handleSelectionChange: (_keys: SharedSelection) => void;
   getErrorTeacher: (_teacherId?: string | string[] | undefined) => string | undefined;
   mentors?: IPerson[];
 } => {
+  /*
   const isTech = rol === TypeRole.USER_TECNICO_APOYO;
   const isMentor = rol === TypeRole.USER_MENTOR;
   const isLeader = rol === TypeRole.USER_FORMADOR;
 
   // Cargar mentores asignados al técnico (solo si es técnico)
+
   const { data: mentors } = useApiQuery<IPerson[]>(`mentors-by-tech`, "/attendance/me/mentors", {
     enabled: Boolean(isTech),
     description: "listado de mentores"
   });
-
+*/
   // Endpoint y habilitación para teachers-with-events
-  const { endpointTeachersEvents, enabledTeachersEvents, teachersEventsKey } = useMemo(() => {
-    if (isMentor || isLeader) {
-      return {
-        endpointTeachersEvents: "/attendance/me/teachers-and-events",
-        enabledTeachersEvents: true,
-        teachersEventsKey: "teachers-with-events:me"
-      } as const;
-    }
-    // Técnico: esperar a que haya un mentorId válido desde el formulario
-    const hasMentor = isTech && typeof mentorId === "number" && mentorId > 0;
-    const enabled = Boolean(hasMentor);
-    const endpoint = hasMentor ? `/attendance/me/teachers-and-events?mentorId=${mentorId}` : "";
-    return {
-      endpointTeachersEvents: endpoint,
-      enabledTeachersEvents: enabled,
-      teachersEventsKey: `teachers-with-events:${mentorId ?? "none"}`
-    } as const;
-  }, [isMentor, isLeader, isTech, mentorId]);
 
-  const { data: assignmentList } = useApiQuery<TeachersAssignmentWithEvents>(
-    teachersEventsKey,
-    endpointTeachersEvents,
-    { enabled: enabledTeachersEvents, description: "listado de eventos" }
-  );
+  const { data: assignmentList } = useApiQuery<EventList[]>("event-list", "/events", {
+    enabled: true,
+    description: "listado de eventos"
+  });
 
   const handleSelectionChange = (keys: SharedSelection): void => {
     const selectedIds = Array.from(keys as Iterable<unknown>)
       .map((k) => Number(k))
       .filter((n) => !isNaN(n));
 
-    const currentEvent = assignmentList.events.find((e) => e.id === Number(eventId));
+    const currentEvent = assignmentList.find((e) => e.id === Number(eventId));
 
     const limits: Record<string, number> = {
       individual: 1,
@@ -94,10 +77,9 @@ const useAttendanceNew = ({
   };
 
   return {
-    assignmentList: assignmentList as TeachersAssignmentWithEvents,
+    assignmentList,
     handleSelectionChange,
-    getErrorTeacher,
-    mentors
+    getErrorTeacher
   };
 };
 

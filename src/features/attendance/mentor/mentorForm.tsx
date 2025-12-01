@@ -20,7 +20,7 @@ import { TypeRole } from "@/shared/constants";
 const MentorForm = (): React.JSX.Element => {
   const { data: session } = useSession();
   const role = session?.user.role;
-  console.log(role);
+
   const formik = useAttendanceForm(role);
   const { getSelectProps, getTextAreaProps, getInputProps } = useCustomFormFields();
 
@@ -33,8 +33,6 @@ const MentorForm = (): React.JSX.Element => {
     mentorId: values.mentorId as number
   });
 
-  console.log(assignmentList);
-  console.log(mentors);
   // Loading gates: si es mentor, esperamos directamente el listado; si es técnico, primero mentores
   if (!assignmentList && !mentors) return <CustomProgress />;
 
@@ -67,12 +65,12 @@ const MentorForm = (): React.JSX.Element => {
         )}
 
         <Select
-          items={assignmentList?.events ?? []}
+          items={assignmentList ?? []}
           name="eventId"
           {...getSelectProps(
             "Evento",
             "Seleccione un evento",
-            assignmentList?.events?.length || 0,
+            assignmentList.length || 0,
             values.eventId,
             errors.eventId
           )}
@@ -84,7 +82,7 @@ const MentorForm = (): React.JSX.Element => {
             setFieldValue("teacherId", []);
           }}
         >
-          {(assignmentList?.events ?? []).map((event: IEvent) => (
+          {(assignmentList ?? []).map((event: IEvent) => (
             <SelectItem key={event.id}>{event.name}</SelectItem>
           ))}
         </Select>
