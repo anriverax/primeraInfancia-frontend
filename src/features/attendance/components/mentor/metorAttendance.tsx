@@ -1,11 +1,7 @@
 import MentorView from "./mentorView";
 // import MentorAttendanceHistory from "./table/mentorAttendanceHistory";
 
-type MentorAttendanceProps = {
-  isHistory: boolean;
-};
-
-export const MentorAttendance = ({ isHistory }: MentorAttendanceProps): React.JSX.Element => {
+export const MentorAttendance = (): React.JSX.Element => {
   // if (isHistory) return <MentorAttendanceHistory />;
 
   return (

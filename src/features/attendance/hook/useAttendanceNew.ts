@@ -1,10 +1,8 @@
 import { SharedSelection } from "@heroui/react";
-import { EventList, IAttendance, TeachersAssignmentWithEvents } from "../attendance.type";
+import { EventList, IAttendance } from "../attendance.type";
 import { useApiQuery } from "@/shared/hooks/useApiQuery";
 import { FormikErrors } from "formik";
-import { useMemo } from "react";
 import { IPerson } from "@/shared/types/globals";
-import { TypeRole } from "@/shared/constants";
 
 type AttendanceNewProps = {
   eventId: number;
@@ -19,9 +17,7 @@ type AttendanceNewProps = {
 
 const useAttendanceNew = ({
   eventId,
-  setFieldValue,
-  rol,
-  mentorId
+  setFieldValue
 }: AttendanceNewProps): {
   assignmentList: EventList[];
   handleSelectionChange: (_keys: SharedSelection) => void;

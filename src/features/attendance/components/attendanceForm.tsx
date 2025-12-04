@@ -1,6 +1,8 @@
 import {
   Button,
   Input,
+  Listbox,
+  ListboxItem,
   Radio,
   RadioGroup,
   Select,
@@ -16,8 +18,10 @@ import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
 import CustomProgress from "@/shared/ui/custom/customProgress";
 import { useSession } from "next-auth/react";
 import { TypeRole } from "@/shared/constants";
+import { useEventList } from "../hook/useEventList";
+import { useTeachersList } from "../hook/useTeachersList";
 
-const MentorForm = (): React.JSX.Element => {
+const AttendanceForm = (): React.JSX.Element => {
   const { data: session } = useSession();
   const role = session?.user.role;
 
@@ -25,8 +29,9 @@ const MentorForm = (): React.JSX.Element => {
   const { getSelectProps, getTextAreaProps, getInputProps } = useCustomFormFields();
 
   const { values, touched, errors, getFieldProps, handleSubmit, setFieldValue } = formik;
-
-  const { assignmentList, handleSelectionChange, getErrorTeacher, mentors } = useAttendanceNew({
+  const { assignmentList } = useEventList();
+  const { teachersList } = useTeachersList();
+  const { mentors } = useAttendanceNew({
     eventId: values.eventId,
     setFieldValue,
     rol: role,
@@ -37,33 +42,8 @@ const MentorForm = (): React.JSX.Element => {
   if (!assignmentList && !mentors) return <CustomProgress />;
 
   return (
-    <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-full md:w-3/4 lg:w-1/2">
+    <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-full">
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {role === TypeRole.USER_TECNICO_APOYO && (
-          <Select
-            items={mentors ?? []}
-            name="mentorId"
-            {...getSelectProps(
-              "Mentor",
-              "Seleccione un mentor",
-              mentors?.length || 0,
-              values.mentorId as number,
-              errors.mentorId
-            )}
-            onSelectionChange={(keys: SharedSelection) => {
-              const selected = Array.from(keys as Set<string>)[0];
-              const id = selected ? Number(selected) : -1;
-              setFieldValue("mentorId", id);
-              setFieldValue("eventId", -1);
-              setFieldValue("teacherId", []);
-            }}
-          >
-            {(mentors ?? []).map((m) => (
-              <SelectItem key={m.id}>{m.fullName}</SelectItem>
-            ))}
-          </Select>
-        )}
-
         <Select
           items={assignmentList ?? []}
           name="eventId"
@@ -105,6 +85,7 @@ const MentorForm = (): React.JSX.Element => {
             {AttendanceModeEnum.VIRTUAL}
           </Radio>
         </RadioGroup>
+
         {/*        <Select
           items={assignmentList?.teachers ?? []}
           {...getSelectProps(
@@ -170,6 +151,20 @@ const MentorForm = (): React.JSX.Element => {
             />
           </div>
         )}
+        {teachersList && (
+          <div className="w-full  border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
+            <Listbox
+              classNames={{
+                list: "max-h-[300px] overflow-scroll"
+              }}
+              aria-label="Dynamic Actions"
+              items={teachersList}
+              onAction={(key) => alert(key)}
+            >
+              {(item) => <ListboxItem key={item.id}>{item.fullName}</ListboxItem>}
+            </Listbox>
+          </div>
+        )}
         <Button fullWidth color="primary" type="submit">
           Iniciar jornada
         </Button>
@@ -178,4 +173,4 @@ const MentorForm = (): React.JSX.Element => {
   );
 };
 
-export default MentorForm;
+export default AttendanceForm;
