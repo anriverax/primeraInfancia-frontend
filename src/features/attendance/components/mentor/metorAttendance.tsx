@@ -6,6 +6,7 @@ export const MentorAttendance = (): React.JSX.Element => {
 
   return (
     <div className="flex justify-center xl:gap-6">
+      <p>HOLA</p>
       <MentorView />
     </div>
   );

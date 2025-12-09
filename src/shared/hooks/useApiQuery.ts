@@ -47,7 +47,7 @@ export const useApiQuery = <T>(
     placeholderData: (previousData) => previousData,
     select: (raw) => raw // aquí podrías normalizar
   });
-  console.log(query.data);
+
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (query.error && !hasHandledError.current) {

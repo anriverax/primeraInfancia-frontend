@@ -1,6 +1,5 @@
 import { SharedSelection } from "@heroui/react";
 import { EventList, IAttendance } from "../attendance.type";
-import { useApiQuery } from "@/shared/hooks/useApiQuery";
 import { FormikErrors } from "formik";
 import { IPerson } from "@/shared/types/globals";
 
@@ -8,18 +7,17 @@ type AttendanceNewProps = {
   eventId: number;
   setFieldValue: (
     _field: string,
-    _value: number[],
+    _value: Set<number>,
     _shouldValidate?: boolean | undefined
   ) => Promise<void> | Promise<FormikErrors<IAttendance>>;
-  rol?: string | undefined;
-  mentorId?: number | undefined;
+  assignmentList: EventList[];
 };
 
 const useAttendanceNew = ({
   eventId,
-  setFieldValue
+  setFieldValue,
+  assignmentList
 }: AttendanceNewProps): {
-  assignmentList: EventList[];
   handleSelectionChange: (_keys: SharedSelection) => void;
   getErrorTeacher: (_teacherId?: string | string[] | undefined) => string | undefined;
   mentors?: IPerson[];
@@ -38,15 +36,10 @@ const useAttendanceNew = ({
 */
   // Endpoint y habilitación para teachers-with-events
 
-  const { data: assignmentList } = useApiQuery<EventList[]>("event-list", "/events", {
-    enabled: true,
-    description: "listado de eventos"
-  });
-
   const handleSelectionChange = (keys: SharedSelection): void => {
-    const selectedIds = Array.from(keys as Iterable<unknown>)
-      .map((k) => Number(k))
-      .filter((n) => !isNaN(n));
+    // Convertir Set<string> a Array de strings
+    const selectedIds = Array.from(keys as Set<string>);
+    console.log({ selectedIds });
 
     const currentEvent = assignmentList.find((e) => e.id === Number(eventId));
 
@@ -59,9 +52,13 @@ const useAttendanceNew = ({
       Object.entries(limits).find(([key]) => currentEvent?.name.toLowerCase().includes(key))?.[1] ??
       null;
 
+    // Aplicar límite si existe
     const limitedSelection = selectionLimit ? selectedIds.slice(-selectionLimit) : selectedIds;
 
-    setFieldValue("teacherId", limitedSelection);
+    // Convertir a números y crear un Set para Formik
+    const numbersSet = new Set(limitedSelection.map((id) => Number(id)));
+
+    setFieldValue("teacherId", numbersSet);
   };
 
   const getErrorTeacher = (teacherId?: string | string[] | undefined): string | undefined => {
@@ -73,7 +70,6 @@ const useAttendanceNew = ({
   };
 
   return {
-    assignmentList,
     handleSelectionChange,
     getErrorTeacher
   };

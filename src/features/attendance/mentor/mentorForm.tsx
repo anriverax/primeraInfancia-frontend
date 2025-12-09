@@ -11,7 +11,7 @@ import {
 import { useAttendanceForm } from "../hook/useAttendanceForm";
 import { useAttendanceNew } from "../hook/useAttendanceNew";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import { IEvent, TeachersAssignmentMentor } from "../attendance.type";
+import { IEvent } from "../attendance.type";
 import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
 import CustomProgress from "@/shared/ui/custom/customProgress";
 import { useSession } from "next-auth/react";
@@ -26,7 +26,7 @@ const MentorForm = (): React.JSX.Element => {
 
   const { values, touched, errors, getFieldProps, handleSubmit, setFieldValue } = formik;
 
-  const { assignmentList, handleSelectionChange, getErrorTeacher, mentors } = useAttendanceNew({
+  const { assignmentList, mentors } = useAttendanceNew({
     eventId: values.eventId,
     setFieldValue,
     rol: role,

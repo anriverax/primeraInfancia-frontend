@@ -57,13 +57,13 @@ const useAppendix1Form = (
     });
 
     if (!confirmed) return;
-    console.log(values);
+
     const result = Object.entries(values).map(([key, value], index) => ({
       index: index + 1,
       question: (questionsAppendix1 as Record<string, string>)[key],
       answer: value instanceof Date ? value.toISOString() : value
     }));
-    console.log(result);
+
     const appendixData = {
       appendixId,
       survey: result,

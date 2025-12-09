@@ -3,6 +3,7 @@ import {
   Input,
   Listbox,
   ListboxItem,
+  ListboxSection,
   Radio,
   RadioGroup,
   Select,
@@ -13,33 +14,47 @@ import {
 import { useAttendanceForm } from "../hook/useAttendanceForm";
 import { useAttendanceNew } from "../hook/useAttendanceNew";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import { IEvent, TeachersAssignmentMentor } from "../attendance.type";
+import { IEvent } from "../attendance.type";
 import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
 import CustomProgress from "@/shared/ui/custom/customProgress";
 import { useSession } from "next-auth/react";
 import { TypeRole } from "@/shared/constants";
 import { useEventList } from "../hook/useEventList";
 import { useTeachersList } from "../hook/useTeachersList";
+import { useState, useMemo } from "react";
+import { useDebouncedValue } from "@/shared/hooks/useDebouncedValue";
 
 const AttendanceForm = (): React.JSX.Element => {
   const { data: session } = useSession();
   const role = session?.user.role;
 
+  const [searchTeacher, setSearchTeacher] = useState<string>("");
+  const { debouncedValue, isPending } = useDebouncedValue(searchTeacher, { delay: 300 });
+
   const formik = useAttendanceForm(role);
   const { getSelectProps, getTextAreaProps, getInputProps } = useCustomFormFields();
 
   const { values, touched, errors, getFieldProps, handleSubmit, setFieldValue } = formik;
+
   const { assignmentList } = useEventList();
   const { teachersList } = useTeachersList();
-  const { mentors } = useAttendanceNew({
+
+  const { handleSelectionChange } = useAttendanceNew({
     eventId: values.eventId,
     setFieldValue,
-    rol: role,
-    mentorId: values.mentorId as number
+    assignmentList
   });
 
+  const filteredTeachers = useMemo(() => {
+    if (!teachersList) return [];
+    if (!debouncedValue.trim()) return teachersList;
+
+    const searchLower = debouncedValue.toLowerCase();
+    return teachersList.filter((teacher) => teacher.fullName.toLowerCase().includes(searchLower));
+  }, [teachersList, debouncedValue]);
+
   // Loading gates: si es mentor, esperamos directamente el listado; si es técnico, primero mentores
-  if (!assignmentList && !mentors) return <CustomProgress />;
+  if (!assignmentList) return <CustomProgress />;
 
   return (
     <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-full">
@@ -52,7 +67,7 @@ const AttendanceForm = (): React.JSX.Element => {
           }}
           {...getSelectProps(
             "Evento",
-            "Seleccione un eventosss",
+            "Seleccione un eventos",
             assignmentList.length || 0,
             values.eventId,
             errors.eventId
@@ -152,21 +167,45 @@ const AttendanceForm = (): React.JSX.Element => {
           </div>
         )}
         {teachersList && (
-          <div className="w-full  border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
+          <div className="w-full  border-small px-1 py-2 rounded-small border-default-200">
             <Listbox
+              disallowEmptySelection
               classNames={{
-                list: "max-h-[300px] overflow-scroll"
+                list: "max-h-[300px] overflow-y-auto"
               }}
+              items={filteredTeachers}
+              selectedKeys={new Set(Array.from(values.teacherId || []).map(String))}
               aria-label="Dynamic Actions"
-              items={teachersList}
-              onAction={(key) => alert(key)}
+              selectionMode="multiple"
+              onSelectionChange={(keys: SharedSelection) => handleSelectionChange(keys)}
+              topContent={
+                <div>
+                  <div className="mb-3">
+                    <Input
+                      isClearable
+                      value={searchTeacher}
+                      onValueChange={setSearchTeacher}
+                      description={isPending ? "Buscando..." : isPending}
+                      {...getInputProps("text", "Buscar docente por nombre", undefined, undefined)}
+                    />
+                  </div>
+                  <p className="font-bold text-gray-600 text-sm">Docentes activos</p>
+                </div>
+              }
             >
-              {(item) => <ListboxItem key={item.id}>{item.fullName}</ListboxItem>}
+              {(item) => (
+                <ListboxItem key={item.id}>
+                  <ul>
+                    <li>{item.fullName}</li>
+                    <li className="text-default-400 text-xs">{item.School.name}</li>
+                  </ul>
+                </ListboxItem>
+              )}
             </Listbox>
           </div>
         )}
         <Button fullWidth color="primary" type="submit">
-          Iniciar jornada
+          Agregar docentes
         </Button>
       </form>
     </div>
