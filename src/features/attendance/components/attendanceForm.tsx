@@ -56,7 +56,7 @@ const AttendanceForm = (): React.JSX.Element => {
   if (!assignmentList) return <CustomProgress />;
 
   return (
-    <div className='grid grid-cols-2'>
+    <div className="grid grid-cols-2">
       <div className="border border-t-4 border-t-primary-300 rounded-2xl border-gray-200 bg-white p-6 w-full">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <Select
@@ -84,22 +84,39 @@ const AttendanceForm = (): React.JSX.Element => {
               <SelectItem key={event.id}>{event.name}</SelectItem>
             ))}
           </Select>
-          <RadioGroup
-            isRequired
-            label="Seleccione una modalidad"
-            orientation="horizontal"
-            value={values.modality}
-            isInvalid={!!errors.modality}
-            errorMessage={errors.modality}
-            onValueChange={(value: string) => setFieldValue("modality", value)}
-          >
-            <Radio value={AttendanceModeEnum.PRESENCIAL} color="primary">
-              {AttendanceModeEnum.PRESENCIAL}
-            </Radio>
-            <Radio value={AttendanceModeEnum.VIRTUAL} color="primary">
-              {AttendanceModeEnum.VIRTUAL}
-            </Radio>
-          </RadioGroup>
+          <div className="flex justify-between gap-4">
+            <RadioGroup
+              isRequired
+              label="Eres el responsable del evento?"
+              value={values.modality}
+              isInvalid={!!errors.modality}
+              errorMessage={errors.modality}
+              onValueChange={(value: string) => setFieldValue("modality", value)}
+            >
+              <Radio value="1" color="primary">
+                Si
+              </Radio>
+              <Radio value="0" color="primary">
+                No
+              </Radio>
+            </RadioGroup>
+            <RadioGroup
+              isRequired
+              label="Seleccione una modalidad"
+              value={values.modality}
+              isInvalid={!!errors.modality}
+              errorMessage={errors.modality}
+              onValueChange={(value: string) => setFieldValue("modality", value)}
+            >
+              <Radio value={AttendanceModeEnum.PRESENCIAL} color="primary">
+                {AttendanceModeEnum.PRESENCIAL}
+              </Radio>
+              <Radio value={AttendanceModeEnum.VIRTUAL} color="primary">
+                {AttendanceModeEnum.VIRTUAL}
+              </Radio>
+            </RadioGroup>
+          </div>
+
           <RadioGroup
             label="Seleccione una opción"
             orientation="horizontal"
