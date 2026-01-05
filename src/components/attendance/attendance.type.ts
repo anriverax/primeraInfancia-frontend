@@ -2,20 +2,17 @@ import { AxiosMessage, IPagination } from "@/shared/types/globals";
 import { Dispatch, SetStateAction } from "react";
 
 export interface AttendanceInput {
-  eventId: number;
-  coordenates?: string;
+  isResponsible: string;
+  eventInstanceId: number;
   modality: string;
+  supportId: number;
+  coordenates?: string;
   teacherId: number[];
-  // Presente solo cuando el rol es técnico de apoyo (para filtrar docentes/eventos)
-  mentorId?: number;
+  status: string;
   comment?: string;
   justificationUrl?: string;
-  status?: string;
 }
-export interface IAttendanceCreated {
-  id: number;
-  coordenates: string;
-}
+
 export type IAttendance = AttendanceInput & AxiosMessage;
 
 export interface TeachersAssignmentMentor {
@@ -32,21 +29,6 @@ export interface TeachersAssignmentMentor {
 export interface IEvent {
   id: number;
   name: string;
-}
-export interface TeachersAssignmentWithEvents {
-  events: IEvent[];
-  teachers: TeachersAssignmentMentor[];
-}
-
-export interface ILastAttendance {
-  id: number;
-  event: string;
-  modality: string;
-  checkIn: string;
-  details: {
-    fullName: string;
-    coordenates: string;
-  }[];
 }
 
 export interface IAttendanceTable {
@@ -66,4 +48,28 @@ export type IAttendanceColumnKey = "fullName" | "totalEvents" | "actions";
 export interface EventList {
   id: number;
   name: string;
+}
+
+export interface SupportList {
+  id: number;
+  fullName: string;
+}
+
+export interface LastAttendance {
+  id: number;
+  coordenates: string | null;
+  checkIn: Date;
+  modality: string;
+  eventInstance: {
+    id: number;
+    name: string;
+    responsible: string;
+  };
+  support: SupportList;
+  teacherSession: {
+    id: number;
+    checkIn: Date;
+    status: "PRESENTE" | "AUSENTE";
+    teacher: SupportList;
+  }[];
 }

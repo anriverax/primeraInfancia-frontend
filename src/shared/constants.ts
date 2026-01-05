@@ -58,3 +58,8 @@ export enum AttendanceModeEnum {
   PRESENCIAL = "Presencial",
   VIRTUAL = "Virtual"
 }
+
+export const MAX_MENTORSHIP_PARTICIPANTS: Record<string, number> = {
+  individual: 1,
+  pareja: 2
+};

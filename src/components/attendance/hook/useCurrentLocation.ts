@@ -54,7 +54,7 @@ const useCurrentLocation = (): (() => Promise<LocationData>) => {
 
       const options: PositionOptions = {
         enableHighAccuracy: true,
-        timeout: 10000,
+        timeout: 30000,
         maximumAge: 60000
       };
 

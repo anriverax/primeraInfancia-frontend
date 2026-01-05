@@ -8,10 +8,10 @@ import {
   SharedSelection,
   Textarea
 } from "@heroui/react";
-import { useAttendanceForm } from "../hook/useAttendanceForm";
-import { useAttendanceNew } from "../hook/useAttendanceNew";
+import { useAttendanceForm } from "../../../components/attendance/hook/useAttendanceForm";
+import { useAttendanceNew } from "../../../components/attendance/hook/usAttendance.utils";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
-import { IEvent } from "../attendance.type";
+import { IEvent } from "../../../components/attendance/attendance.type";
 import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
 import CustomProgress from "@/shared/ui/custom/customProgress";
 import { useSession } from "next-auth/react";

@@ -24,7 +24,7 @@ function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
   const isTech = session?.user.role === TypeRole.USER_TECNICO_APOYO;
 
   return (
-    <div className="relative flex h-dvh w-full  bg-[#f9fafb]">
+    <div className="relative flex h-full w-full  bg-[#f9fafb]">
       <Sidebar logo={<Logo />} />
       <div className="relative flex h-full flex-1 flex-col ">
         <TopBar />

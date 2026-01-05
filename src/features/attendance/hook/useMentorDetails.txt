@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from "react";
-import { ILastAttendance } from "../attendance.type";
+import { ILastAttendance } from "../../../components/attendance/attendance.type";
 import { useApiQuery } from "@/shared/hooks/useApiQuery";
 
 const useMentorDetails = (

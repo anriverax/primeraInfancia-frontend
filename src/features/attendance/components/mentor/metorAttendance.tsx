@@ -1,4 +1,4 @@
-import MentorView from "./mentorView";
+// import MentorView from "./mentorView";
 // import MentorAttendanceHistory from "./table/mentorAttendanceHistory";
 
 export const MentorAttendance = (): React.JSX.Element => {
@@ -7,7 +7,6 @@ export const MentorAttendance = (): React.JSX.Element => {
   return (
     <div className="flex justify-center xl:gap-6">
       <p>HOLA</p>
-      <MentorView />
     </div>
   );
 };

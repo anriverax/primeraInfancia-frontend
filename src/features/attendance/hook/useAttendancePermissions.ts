@@ -3,7 +3,6 @@
 import { useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { TypeRole } from "@/shared/constants";
-import { useTechnicianModeStore } from "@/shared/hooks/store/useTechnicianModeStore";
 
 /**
  * Interface representing the computed permissions for attendance management.
@@ -46,38 +45,22 @@ export interface AttendancePermissions {
  * ```
  *
  * @see {@link AttendancePermissions} for detailed description of returned properties
- * @see {@link useTechnicianModeStore} for technician mode state management
  */
 export function useAttendancePermissions(): AttendancePermissions {
-  // Extract session data and loading status from NextAuth
+  // *Extract session data and loading status from NextAuth
   const { data: session, status } = useSession();
 
-  // Get current technician working mode from Zustand store (relevant for USER_TECNICO_APOYO)
-  const technicianMode = useTechnicianModeStore((state) => state.mode);
-
   return useMemo(() => {
-    /**
-     * Current user's role from the authenticated session.
-     * @type {TypeRole | undefined | string}
-     */
+    // * Current user's role from the authenticated session.
     const userRole: TypeRole | undefined | string = session?.user?.role;
 
-    /**
-     * Indicates if the session is currently being loaded.
-     * @type {boolean}
-     */
+    // * Indicates if the session is currently being loaded.
     const isLoading: boolean = status === "loading";
 
-    /**
-     * Validates session existence by checking if userRole is defined.
-     * @type {boolean}
-     */
+    // * Validates session existence by checking if userRole is defined.
     const hasValidSession: boolean = !!userRole;
 
-    /**
-     * Checks if the current user has administrator privileges.
-     * @type {boolean}
-     */
+    // * Checks if the current user has administrator privileges.
     const isAdmin: boolean = userRole === TypeRole.ADMIN;
 
     /**
@@ -85,21 +68,17 @@ export function useAttendancePermissions(): AttendancePermissions {
      * Granted to:
      * - Mentors (USER_MENTOR)
      * - Trainers/Formadores (USER_FORMADOR)
-     * - Support Technicians (USER_TECNICO_APOYO) who have selected a working mode
-     *
-     * @type {boolean}
+     * - Support Technicians (USER_TECNICO_APOYO)
      */
     const canCreateAttendance: boolean =
       userRole === TypeRole.USER_MENTOR ||
       userRole === TypeRole.USER_FORMADOR ||
-      (userRole === TypeRole.USER_TECNICO_APOYO && technicianMode !== null && technicianMode !== false);
+      userRole === TypeRole.USER_TECNICO_APOYO;
 
     /**
      * Determines if tab navigation should be visible.
      * Tabs are only shown to non-admin users who have attendance creation permissions.
      * Admins only see the history table and don't need tab navigation.
-     *
-     * @type {boolean}
      */
     const canViewTabs: boolean = !isAdmin && canCreateAttendance;
 
@@ -110,5 +89,5 @@ export function useAttendancePermissions(): AttendancePermissions {
       isLoading,
       hasValidSession
     };
-  }, [session?.user?.role, status, technicianMode]);
+  }, [session?.user?.role, status]);
 }

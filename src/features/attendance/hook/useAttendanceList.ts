@@ -1,6 +1,6 @@
 import { useApiQuery } from "@/shared/hooks/useApiQuery";
 import { useState } from "react";
-import { AttendanceListResult, EventList } from "../attendance.type";
+import { AttendanceListResult, EventList } from "../../../components/attendance/attendance.type";
 
 const useAttendanceList = (): AttendanceListResult => {
   const [page, setPage] = useState<number>(1);
