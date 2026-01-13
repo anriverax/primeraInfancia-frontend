@@ -2,7 +2,7 @@ import { User, Lock } from "lucide-react";
 import { Button, Input } from "@heroui/react";
 import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
 import { FormikProps } from "@/shared/types/globals";
-import { ISignIn } from "../type";
+import { ISignIn } from "./type";
 
 type SignInFormProps = {
   formik: FormikProps<ISignIn>;

@@ -33,7 +33,7 @@ export interface TextAreaProps
 }
 
 export interface SelectProps
-  extends Pick<InputProps, "label" | "variant" | "isRequired" | "isInvalid" | "errorMessage"> {
+  extends Pick<InputProps, "label" | "variant" | "isRequired" | "errorMessage"> {
   placeholder: string;
   className: string;
   classNames: {

@@ -14,9 +14,11 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
     () => ({
       variant: "bordered",
       classNames: {
-        inputWrapper: "border data-[hover=true]:border-blue-500 group-data-[focus=true]:border-blue-500",
-        label: "group-data-[filled=true]:font-bold",
-        input: "text-gray-600"
+        inputWrapper:
+          "border border-gray-200 data-[hover=true]:border-blue-500 group-data-[focus=true]:border-blue-200 group-data-[invalid=true]:!border-gray-200",
+        label:
+          "text-gray-500 group-data-[filled=true]:font-bold group-data-[invalid=true]:!text-gray-500",
+        input: "text-gray-500 group-data-[invalid=true]:!text-gray-500"
       }
     }),
     []
@@ -108,7 +110,6 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
         selectedKeys,
         isLoading: itemsLength === 0,
         isDisabled: itemsLength === 0,
-        isInvalid: !!error && selectedKeys.length === 0,
         errorMessage: error ? error : undefined
       };
     },
