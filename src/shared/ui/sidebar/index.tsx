@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { memo, useCallback, useState } from "react";
 import { useAsideAnimation } from "./hooks/useAsideAnimation";
 import ToggleButton from "./partials/toggleButton";
-import { useMediaQuery } from "@/shared/hooks/useMediaQuery";
+import { useMediaQuery } from "@/shared/hooks/responsive/useMediaQuery";
 import { SidebarOverlay } from "./partials/sidebarOverlay";
 import { SidebarNavigation } from "./partials/siderbarNavegation";
 

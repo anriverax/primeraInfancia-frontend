@@ -10,7 +10,7 @@ import {
 import { memo } from "react";
 import { roleDisplayNames, TypeRole } from "@/shared/constants";
 import { useSession } from "next-auth/react";
-import { useLogout } from "@/shared/hooks/useLogout";
+import { useLogout } from "@/shared/hooks/ui/useLogout";
 
 const UserAvatar = memo((): React.JSX.Element => {
   const { data: session } = useSession();

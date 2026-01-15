@@ -19,7 +19,7 @@ import {
   TableRow,
   TableCell
 } from "@heroui/react";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { dimensionData, strategiesValueData, subDimensionMap } from "../appendix3Data";
 import { useAppendix3Form } from "../hook/useAppendix3Form";
 import { IOptions } from "@/shared/types/globals";

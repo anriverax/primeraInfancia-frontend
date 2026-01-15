@@ -1,7 +1,7 @@
 import { Button, Select, SelectItem } from "@heroui/react";
 import { Calendar } from "lucide-react";
 import { ILastAttendance } from "../../../../components/attendance/attendance.type";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { ChangeEvent } from "react";
 import { useAttendanceFinish } from "../../hook/useAttendanceFinish";
 type ListTeacherProps = {

@@ -1,4 +1,4 @@
-import useAxios from "@/shared/hooks/useAxios";
+import useAxios from "@/shared/hooks/http/useAxios";
 import { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import { FetchResponse } from "@/shared/types/globals";

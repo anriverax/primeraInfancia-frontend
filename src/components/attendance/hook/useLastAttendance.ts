@@ -1,4 +1,4 @@
-import { useApiQuery } from "@/shared/hooks/useApiQuery";
+import { useApiQuery } from "@/shared/hooks/http/useApiQuery";
 import { LastAttendance } from "../attendance.type";
 
 const useLastAttendance = (): LastAttendance | null => {

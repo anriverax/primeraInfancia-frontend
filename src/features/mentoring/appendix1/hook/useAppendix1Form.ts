@@ -4,7 +4,7 @@ import { appendix1Schema } from "../appendix1Validation";
 import { questionsAppendix1 } from "@/shared/appendixData";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
-import useAxios from "@/shared/hooks/useAxios";
+import useAxios from "@/shared/hooks/http/useAxios";
 import { confirmAction, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { useRouter } from "next/navigation";
 

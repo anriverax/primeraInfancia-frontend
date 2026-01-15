@@ -3,7 +3,7 @@ import { attendanceSchema } from "../attendanceValidation";
 import { handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { AttendanceInput, IAttendance } from "../attendance.type";
-import useAxios from "@/shared/hooks/useAxios";
+import useAxios from "@/shared/hooks/http/useAxios";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { useQueryClient } from "@tanstack/react-query";
 import { AttendanceEnum } from "@/shared/constants";

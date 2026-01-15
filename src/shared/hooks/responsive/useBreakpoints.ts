@@ -1,4 +1,4 @@
-import { breakpoints } from "../constants";
+import { breakpoints } from "../../constants";
 import { useMediaQuery } from "./useMediaQuery";
 
 // -------------------------

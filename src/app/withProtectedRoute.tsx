@@ -4,6 +4,7 @@
 import { FC } from "react";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
+import LoadingSkeleton from "@/shared/ui/loadingSkeleton";
 
 /**
  * Higher-Order Component (HOC) to protect paths in Client Components.
@@ -46,11 +47,10 @@ const WithProtectedRoute = <P extends object>(WrappedComponent: React.ComponentT
     }, [update, status]);*/ // Añadir status como dependencia para evitar llamadas innecesarias
 
     // --- Handling of loading and unauthenticated state ---
-    // If the session is loading, we can display a fallback UI.
+    // If the session is loading, we display a loading skeleton.
+    // This provides better UX than showing nothing.
     if (status === "loading") {
-      // If a loadingFallback is provided, we render it.
-      // Otherwise, we render nothing (or a default spinner).
-      return null;
+      return <LoadingSkeleton />;
     }
 
     // If the status is “unauthenticated”, `onUnauthenticated` has already been triggered.

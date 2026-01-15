@@ -1,4 +1,4 @@
-import { useApiQuery } from "@/shared/hooks/useApiQuery";
+import { useApiQuery } from "@/shared/hooks/http/useApiQuery";
 import { SupportList } from "../attendance.type";
 
 const useSupportList = (trigger: string): { supportList: SupportList[] } => {

@@ -10,7 +10,7 @@ import {
 } from "@heroui/react";
 import { useAttendanceForm } from "../../../components/attendance/hook/useAttendanceForm";
 import { useAttendanceNew } from "../../../components/attendance/hook/usAttendance.utils";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { IEvent } from "../../../components/attendance/attendance.type";
 import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
 import CustomProgress from "@/shared/ui/custom/customProgress";

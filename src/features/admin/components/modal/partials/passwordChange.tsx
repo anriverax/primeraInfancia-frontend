@@ -1,4 +1,4 @@
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { Button, Input, ModalBody } from "@heroui/react";
 import { KeyIcon } from "lucide-react";
 import ModalRegisterHeader from "../modalRegisterHeader";

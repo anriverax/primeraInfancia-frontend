@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { useUpdatedProfileStore } from "../../../shared/hooks/store/useUpdatedProfileStore";
+import { useUpdatedProfileStore } from "../../../shared/store/useUpdatedProfileStore";
 import { useEffect } from "react";
 import { Session } from "next-auth";
 

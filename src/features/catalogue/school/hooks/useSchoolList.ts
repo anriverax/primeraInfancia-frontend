@@ -1,4 +1,4 @@
-import { useQueryRequest } from "@/shared/hooks/useApiQuery";
+import { useQueryRequest } from "@/shared/hooks/http/useApiQuery";
 import { useState } from "react";
 import { ISchoolTable, SchoolListResult } from "../schoolType";
 

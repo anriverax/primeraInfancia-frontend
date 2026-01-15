@@ -1,6 +1,7 @@
 // app/providers.tsx
 "use client";
 
+import { TIMEOUT_TOAST } from "@/shared/constants";
 import { queryClient } from "@/shared/utils/reactQueryClient";
 import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -12,7 +13,11 @@ export function Providers({ children }: { children: React.ReactNode }): React.JS
     <SessionProvider>
       <QueryClientProvider client={queryClient}>
         <HeroUIProvider>
-          <ToastProvider placement="top-right" toastOffset={60} toastProps={{ timeout: 2000 }} />
+          <ToastProvider
+            placement="top-right"
+            toastOffset={60}
+            toastProps={{ timeout: TIMEOUT_TOAST }}
+          />
           {children}
         </HeroUIProvider>
       </QueryClientProvider>

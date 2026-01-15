@@ -1,10 +1,10 @@
 import { IUploadFiles, UploadFilesInput } from "../adminType";
 import { FormikHelpers, useFormik } from "formik";
 import { AxiosError, AxiosResponse } from "axios";
-import useAxios from "@/shared/hooks/useAxios";
+import useAxios from "@/shared/hooks/http/useAxios";
 import { FormikProps } from "@/shared/types/globals";
 import { handleFormikResponseError } from "@/shared/utils/functions";
-import { useModalFormVisibleStore } from "@/shared/hooks/store/useModalFormVisibleStore";
+import { useModalFormVisibleStore } from "@/shared/store/useModalFormVisibleStore";
 
 const initialFilesValues: UploadFilesInput = {
   file: null,

@@ -1,7 +1,7 @@
 import { memo } from "react";
 import MenuItem from "./menu/menuItem";
 import { cn } from "@/shared/utils/tv";
-import { useApiQuery } from "@/shared/hooks/useApiQuery";
+import { useApiQuery } from "@/shared/hooks/http/useApiQuery";
 import { IMenuPermission } from "@/shared/types/next-auth";
 import { useSession } from "next-auth/react";
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { useQueryRequest } from "@/shared/hooks/useApiQuery";
+import { useQueryRequest } from "@/shared/hooks/http/useApiQuery";
 import { GroupListResult, IGroupTable } from "../groupType";
-import { useDeleteRequest } from "@/shared/hooks/useDeleteRequest";
+import { useDeleteRequest } from "@/shared/hooks/data/useDeleteRequest";
 
 const useGroupsList = (): GroupListResult => {
   const [page, setPage] = useState<number>(1);

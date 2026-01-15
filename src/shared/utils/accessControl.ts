@@ -50,7 +50,7 @@ export async function getRoutePermissionsMap(opts?: { bearer?: string }): Promis
   }
 
   try {
-    const endpoint = `${process.env.NEXT_PUBLIC_BACKEND}/auth/route-permissions`;
+    const endpoint = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/route-permissions`;
     const res = await fetch(endpoint, {
       method: "GET",
       headers: {

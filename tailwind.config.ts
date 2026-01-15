@@ -13,6 +13,9 @@ const config = {
     extend: {
       boxShadow: {
         "custom-shadow": "8px 8px 16px rgba(209, 217, 230, 0.8), -8px -8px 16px rgba(255, 255, 255, 0.9)"
+      },
+      backgroundImage: {
+        "background-gradient": "linear-gradient(to bottom, #1e3a8a, #dbeafe)"
       }
     }
   },

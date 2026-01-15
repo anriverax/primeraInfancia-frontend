@@ -63,3 +63,5 @@ export const MAX_MENTORSHIP_PARTICIPANTS: Record<string, number> = {
   individual: 1,
   pareja: 2
 };
+
+export const TIMEOUT_TOAST = 2000;

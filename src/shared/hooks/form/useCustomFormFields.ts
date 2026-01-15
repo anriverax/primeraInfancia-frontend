@@ -7,8 +7,60 @@ import {
   TextAreaProps,
   CustomFormFieldsResult,
   ClassNamesProps
-} from "../types/customFormFields";
+} from "../../types/customFormFields";
 
+/**
+ * Custom hook for consistent form field styling and validation across the application.
+ *
+ * Provides pre-configured props for form inputs, selects, textareas, and date pickers
+ * following the application's design system (HeroUI + Tailwind CSS).
+ *
+ * **Features:**
+ * - Memoized className configuration for optimal performance
+ * - Consistent validation state handling
+ * - Pre-built field creators for common input types
+ * - Type-safe field props generation
+ *
+ * @returns {CustomFormFieldsResult} Object containing:
+ *   - `getCommonFieldProps`: Function to get base field props (label, required, placeholder)
+ *   - `getValidationState`: Function to compute validation state from touched/error
+ *   - `getInputProps`: Function to create pre-styled Input field props
+ *   - `getSelectProps`: Function to create pre-styled Select field props
+ *   - `getTextAreaProps`: Function to create pre-styled TextArea field props
+ *   - `getDateProps`: Function to create pre-styled Date picker field props
+ *
+ * @example
+ * ```tsx
+ * export const MyForm = () => {
+ *   const { getInputProps, getSelectProps } = useCustomFormFields();
+ *   const [values, setValues] = useState({ name: '', role: '' });
+ *   const [touched, setTouched] = useState({});
+ *   const [errors, setErrors] = useState({});
+ *
+ *   return (
+ *     <form>
+ *       <Input
+ *         {...getInputProps('Full Name', true, 'Enter your name')}
+ *         value={values.name}
+ *         errorMessage={errors.name}
+ *         isInvalid={!!(touched.name && errors.name)}
+ *       />
+ *       <Select
+ *         {...getSelectProps('Role', true)}
+ *         selectedKeys={new Set([values.role])}
+ *       >
+ *         // options
+ *       </Select>
+ *     </form>
+ *   );
+ * };
+ * ```
+ *
+ * @performance
+ * - Uses `useMemo` to avoid recreating className objects on every render
+ * - Each getter function is memoized to prevent unnecessary dependencies
+ * - Safe to use with Formik or other form libraries
+ */
 const useCustomFormFields = (): CustomFormFieldsResult => {
   const classNameProps = useMemo<ClassNamesProps>(
     () => ({

@@ -2,7 +2,7 @@ import { Button, Input, Radio, RadioGroup, Select, SelectItem, SharedSelection }
 import { AppendixCard } from "../../component/appendixCard";
 import { useTeacherShiftForm, UseTeacherShiftFormProps } from "../hook/useTeacherShiftForm";
 import { experienceYearData, sectionData, shiftData } from "../appendix2Data";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { IOptions } from "@/shared/types/globals";
 import TeacherShiftTable from "./table/teacherShiftTable";
 import { useCallback } from "react";

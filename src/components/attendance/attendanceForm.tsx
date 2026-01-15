@@ -11,12 +11,12 @@ import {
   Textarea
 } from "@heroui/react";
 
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 
 import { AttendanceEnum, AttendanceModeEnum } from "@/shared/constants";
 
 import { useState, useMemo, useEffect } from "react";
-import { useDebouncedValue } from "@/shared/hooks/useDebouncedValue";
+import { useDebouncedValue } from "@/shared/hooks/data/useDebouncedValue";
 import { useAttendanceForm } from "./hook/useAttendanceForm";
 import { useEventList } from "@/components/attendance/hook/useEventList";
 import { useAttendanceUtils } from "@/components/attendance/hook/usAttendance.utils";

@@ -1,9 +1,9 @@
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
-import { FetchResponseWithPagination } from "../types/globals";
+import { FetchResponseWithPagination } from "../../types/globals";
 import useAxios from "./useAxios";
-import { handleAxiosError } from "../utils/functions";
-import { TableWithPaginationResponse } from "../types/pagination";
+import { handleAxiosError } from "../../utils/functions";
+import { TableWithPaginationResponse } from "../../types/pagination";
 import { useEffect, useRef } from "react";
 
 type UseApiQueryOptions = {

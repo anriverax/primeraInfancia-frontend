@@ -7,10 +7,10 @@ import TopBar from "@/shared/ui/topbar";
 
 import WithProtectedRoute from "../withProtectedRoute";
 import { useIsFirstFormRender } from "@/features/admin/hooks/useIsFirstFormRender";
-import { useTechnicianModeStore } from "@/shared/hooks/store/useTechnicianModeStore";
+import { useTechnicianModeStore } from "@/shared/store/useTechnicianModeStore";
 import { TypeRole } from "@/shared/constants";
 import TechnicianModeModal from "@/features/admin/components/modal/technicianModeModal";
-import { useAppStateStore } from "@/shared/hooks/store/useAppStateStore";
+import { useAppStateStore } from "@/shared/store/useAppStateStore";
 
 type AuthLayoutProps = {
   children: React.ReactNode;

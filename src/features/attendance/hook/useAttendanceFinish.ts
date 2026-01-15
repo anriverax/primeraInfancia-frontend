@@ -1,6 +1,6 @@
 import { handleAxiosError, showToast } from "@/shared/utils/functions";
 import { AxiosResponse, HttpStatusCode } from "axios";
-import useAxios from "@/shared/hooks/useAxios";
+import useAxios from "@/shared/hooks/http/useAxios";
 import { FetchResponse } from "@/shared/types/globals";
 import { useQueryClient } from "@tanstack/react-query";
 

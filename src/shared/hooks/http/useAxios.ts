@@ -2,14 +2,14 @@ import { useEffect, useRef } from "react";
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import { useSession, signOut } from "next-auth/react";
 import { Session } from "next-auth";
-import { LOGIN_REDIRECT_URL } from "../constants";
+import { LOGIN_REDIRECT_URL } from "../../constants";
 
 /**
  * Axios client configured with the backend baseURL.
  * Shared between all hook instances.
  */
 const axiosConfig = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND ?? undefined
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL ?? undefined
 });
 
 /**
@@ -34,7 +34,7 @@ const refreshAccessToken = async (
   if (refreshPromise) {
     return refreshPromise;
   }
-
+  console.log("Refreshing access token...", session);
   // Validate that session and refreshToken exist
   if (!session?.refreshToken) {
     const error = new Error("No hay refresh token disponible");
@@ -44,7 +44,7 @@ const refreshAccessToken = async (
   // Start new refresh and store promise
   refreshPromise = (async (): Promise<string> => {
     try {
-      const refreshRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/auth/refresh-token`, {
+      const refreshRes = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh-token`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${session.refreshToken}`,

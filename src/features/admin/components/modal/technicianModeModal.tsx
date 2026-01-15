@@ -3,7 +3,7 @@
 import ModalLayout from "@/shared/ui/modal/modalLayout";
 import { Button, Card, CardBody } from "@heroui/react";
 import { useCallback } from "react";
-import { useTechnicianModeStore, TechnicianMode } from "@/shared/hooks/store/useTechnicianModeStore";
+import { useTechnicianModeStore, TechnicianMode } from "@/shared/store/useTechnicianModeStore";
 
 type TechnicianModeModalProps = {
   isOpen: boolean;

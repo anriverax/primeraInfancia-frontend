@@ -1,9 +1,9 @@
 import { useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
-import { confirmAction, handleAxiosError } from "../utils/functions";
+import { confirmAction, handleAxiosError } from "../../utils/functions";
 import { AxiosResponse, HttpStatusCode } from "axios";
-import useAxios from "./useAxios";
-import { FetchResponse } from "../types/globals";
+import useAxios from "../http/useAxios";
+import { FetchResponse } from "../../types/globals";
 
 type UseDeleteRequestReturn = {
   onConfirmDelete: (_id: number, _nfo: string) => Promise<boolean>;

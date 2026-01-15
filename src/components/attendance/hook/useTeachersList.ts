@@ -1,4 +1,4 @@
-import { useApiQuery } from "@/shared/hooks/useApiQuery";
+import { useApiQuery } from "@/shared/hooks/http/useApiQuery";
 import { TeachersAssignmentMentor } from "../../../components/attendance/attendance.type";
 
 const useTeachersList = (triggerId: string): { teachersList: TeachersAssignmentMentor[] } => {

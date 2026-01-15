@@ -1,4 +1,4 @@
-import { useQueryRequest } from "@/shared/hooks/useApiQuery";
+import { useQueryRequest } from "@/shared/hooks/http/useApiQuery";
 import { ISchoolDetail } from "../schoolType";
 
 const useSchoolDetail = (

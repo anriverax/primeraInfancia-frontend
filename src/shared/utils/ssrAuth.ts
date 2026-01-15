@@ -1,9 +1,9 @@
 import { headers } from "next/headers";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/features/auth/service/nextAuth";
 import { getToken } from "next-auth/jwt";
 import { NextRequest } from "next/server";
 import { getRoutePermissionsMap, hasAccess } from "./accessControl";
+import { authOptions } from "@/app/auth/infrastructure/nextAuth";
 
 /**
  * Obtiene la sesión en el servidor y valida permisos para una ruta dada.

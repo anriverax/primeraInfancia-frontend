@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
 import { Input, RadioGroup, Radio, Select, SelectItem, SharedSelection } from "@heroui/react";
 import { useAppendix2Form } from "../hook/useAppendix2Form";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { useAppendix } from "../../hooks/useAppendix";
 import {
   complementaryStudies,

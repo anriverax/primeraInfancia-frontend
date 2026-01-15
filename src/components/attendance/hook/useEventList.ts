@@ -1,4 +1,4 @@
-import { useApiQuery } from "@/shared/hooks/useApiQuery";
+import { useApiQuery } from "@/shared/hooks/http/useApiQuery";
 import { EventList } from "../attendance.type";
 
 const useEventList = (triggerId: string): { assignmentList: EventList[] } => {

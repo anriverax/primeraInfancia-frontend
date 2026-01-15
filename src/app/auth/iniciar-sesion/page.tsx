@@ -1,35 +1,37 @@
 "use client";
 
-import { Checkbox } from "@heroui/react";
-
+import { useMemo, memo } from "react";
 import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
-import { useSignInForm } from "@/features/auth/useSignInForm";
-import SignInForm from "@/features/auth/components/signInForm";
+import { useSignInForm } from "@/components/auth/hook/useSignInForm";
+import SignInForm from "@/components/auth/signInForm";
+
+// ✅ Memoize OUTSIDE component to prevent recreation on each render
+// This prevents input elements from being unmounted/remounted on every parent render
+const MemoizedSignInForm = memo(SignInForm);
 
 const SignInPage = (): React.JSX.Element => {
+  // ✅ Call hook directly - no need for useMemo
+  // useSignInForm internally handles memoization with useCallback and useFormik
+  // The formik instance is stable across renders due to Formik's internal state management
   const formik = useSignInForm();
-
   const { status, errors, setStatus } = formik;
+
+  // Memoized error check to avoid recalculation
+  const hasErrors = useMemo(() => Object.keys(errors).length > 0, [errors]);
 
   return (
     <div className="mx-auto">
-      {Object.keys(errors).length > 0 && status === 401 && (
+      {hasErrors && status === 401 && (
         <ConditionalAlert status={status} errors={errors} setStatus={setStatus} />
       )}
-      <SignInForm formik={formik} />
-      <div className="flex flex-col space-y-3 md:items-center justify-between mt-8 lg:flex-row lg:space-y-0">
-        <div className="flex  items-center space-x-2">
-          <Checkbox id="remember" />
-          <label htmlFor="remember" className="text-sm text-gray-600">
-            Recordar contraseña
-          </label>
-        </div>
-
-        <a href="#" className="text-sm text-blue-500 hover:underline">
-          Contraseña olvidada?
+      <MemoizedSignInForm formik={formik} />
+      <nav className="flex flex-col space-y-3 md:items-center justify-center mt-8 lg:flex-row lg:space-y-0">
+        <a href="/recuperar-contrasena" className="text-sm text-blue-500 hover:underline">
+          Recuperar contraseña
         </a>
-      </div>
+      </nav>
     </div>
   );
 };
+
 export default SignInPage;
