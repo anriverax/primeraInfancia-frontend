@@ -33,7 +33,7 @@ const Sidebar = memo(({ logo }: SidebarProps): React.JSX.Element => {
 
       {typeof isMobile !== "undefined" && (
         <motion.aside {...getAsideAnimation(isMobile)}>
-          <div className="flex justify-center gap-2 p-4 border-b bg-white border-gray-200">{logo}</div>
+          <div className="flex justify-center gap-2 p-4">{logo}</div>
           <ToggleButton isExtended={isExtended} setExtended={setExtended} isMobile={isMobile} />
           <SidebarNavigation isMobile={isMobile} isExtended={isExtended} />
         </motion.aside>

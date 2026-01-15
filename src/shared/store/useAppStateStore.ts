@@ -9,3 +9,6 @@ export const useAppStateStore = create<AppState>()((set) => ({
   isSigningOut: false,
   setSigningOut: (value) => set({ isSigningOut: value })
 }));
+
+// Selector para prevenir re-renders innecesarios
+export const useIsSigningOut = () => useAppStateStore((state) => state.isSigningOut);

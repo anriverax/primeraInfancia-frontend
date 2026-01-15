@@ -12,3 +12,9 @@ export const useModalFormVisibleStore: UseBoundStore<StoreApi<ModalFormVisiblePr
     setFormVisible: (n) => set({ isFormVisible: n }),
     reset: () => set({ isFormVisible: 0 })
   }));
+
+// Selectors para prevenir re-renders innecesarios
+export const useFormVisibleId = () => useModalFormVisibleStore((state) => state.isFormVisible);
+
+export const useIsFormVisible = (formId: number) =>
+  useModalFormVisibleStore((state) => state.isFormVisible === formId);

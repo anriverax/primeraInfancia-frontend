@@ -18,7 +18,7 @@ const SidebarNavigation = memo(({ isMobile, isExtended }: SidebarNavigationProps
   });
 
   return (
-    <nav className={cn("px-3 py-4 space-y-1 bg-white overflow-y-auto", { "px-2": !isExtended })}>
+    <nav className={cn("px-3 py-4 space-y-1 overflow-y-auto", { "px-2": !isExtended })}>
       {data &&
         data.map((item, index) => (
           <MenuItem key={index} item={item} isMobile={isMobile} isExtended={isExtended} />

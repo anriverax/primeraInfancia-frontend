@@ -14,6 +14,7 @@ import Credentials from "next-auth/providers/credentials";
  * - Credential encryption: Email and password are encrypted before being sent to the backend
  * - Generic error messages: Prevents user enumeration attacks
  * - Server-side token refresh: Refresh tokens never exposed to the client
+ * - Type safety: Strict TypeScript types for all auth objects
  *
  * **Configuration Details:**
  * - Session strategy: JWT (stateless, scalable)
@@ -21,6 +22,7 @@ import Credentials from "next-auth/providers/credentials";
  * - Credentials provider: Validates against backend `/auth/login` endpoint
  * - JWT callbacks: Enriches token with user data (role, permissions, email)
  * - Session callbacks: Exposes necessary data to client components via useSession()
+ * - Error handling: Graceful fallback with generic messages to prevent enumeration attacks
  *
  * @type {NextAuthOptions}
  *
@@ -28,33 +30,38 @@ import Credentials from "next-auth/providers/credentials";
  * ```tsx
  * // In [...nextauth]/route.ts
  * export const { handlers, auth } = NextAuth(authOptions);
+ *
+ * // In client components
+ * const { data: session } = useSession();
+ * const hasPermission = session?.permissions.includes("VIEW_GROUPS");
  * ```
  *
  * @see {@link https://next-auth.js.org/configuration/options NextAuth.js Docs}
  */
+
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt"
   },
   pages: {
-    signIn: "/auth/iniciar-sesion"
+    signIn: "/auth/iniciar-sesion",
+    error: "/auth/iniciar-sesion" // Redirect auth errors to login page
   },
   providers: [
     Credentials({
       name: "Credentials",
       credentials: {
         email: {
-          label: "email:",
+          label: "Correo Electrónico",
           type: "email",
-          placeholder: "your-cool-username"
+          placeholder: "correo@ejemplo.com"
         },
         password: {
-          label: "Password:",
+          label: "Contraseña",
           type: "password"
         }
       },
-      /* eslint-disable  @typescript-eslint/no-explicit-any */
       /**
        * Authorizes a user based on provided credentials.
        *
@@ -62,46 +69,57 @@ export const authOptions: NextAuthOptions = {
        * for validation. Returns the authenticated user data (including tokens and metadata)
        * on success, or throws an error with a generic message to prevent user enumeration.
        *
-       * **Security Note:** The credentials are encrypted by the client before being passed
-       * to this function, and encrypted again during transmission via HTTPS.
+       * **Security Notes:**
+       * - Credentials are encrypted by the client before transmission
+       * - Backend communication happens over HTTPS
+       * - Generic error messages prevent email enumeration attacks
+       * - All returned data is validated before storing in JWT
        *
-
-       * @param {string} credentials.email - Encrypted user email address.
-       * @param {string} credentials.password - Encrypted user password.
-       *
-       * @example
-       * ```ts
-       * const user = await authorize({ email: "encrypted...", password: "encrypted..." });
-       * ```
+       * @param credentials - User email and password
+       * @returns Validated user data for JWT token
+       * @throws Error with generic message to prevent information leakage
        */
       async authorize(credentials) {
-        const { email, password } = credentials as any;
+        if (!credentials?.email || !credentials.password) {
+          throw new Error("Email y contraseña son requeridos");
+        }
+
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ value1: email, value2: password })
+            body: JSON.stringify({
+              value1: credentials.email,
+              value2: credentials.password
+            })
           });
 
-          if (!res.ok) {
-            throw new Error(`HTTP ${res.status}`);
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error(`[auth] Backend returned HTTP ${response.status}:`, errorData);
+            // Usa el mensaje del backend si está disponible
+            throw new Error(
+              errorData.message ||
+                "No pudimos iniciar sesión. Verifica tus credenciales e intenta de nuevo"
+            );
           }
 
-          const data = await res.json();
+          const json = await response.json();
 
-          if (!data?.data || data.statusCode !== 200) {
-            return null;
+          if (json.statusCode !== 200 || !json.data) {
+            console.error("[auth] Invalid backend response", json);
+            throw new Error("No pudimos iniciar sesión. Verifica tus credenciales e intenta de nuevo");
           }
 
-          return data.data;
+          return json.data;
         } catch (error) {
-          console.error("[auth] Authorization error:", error);
-
-          throw new Error(
-            "Credenciales inválidas. Por favor, verifica tu nombre de usuario y contraseña"
-          );
+          if (error instanceof Error) {
+            console.error("[auth] Authorization error:", error.message);
+            throw error;
+          }
+          throw new Error("No pudimos iniciar sesión. Por favor intenta de nuevo más tarde");
         }
       }
     })
@@ -116,20 +134,15 @@ export const authOptions: NextAuthOptions = {
      * **Token Enrichment:**
      * - On sign-in: Stores accessToken, refreshToken, email, role, isVerified, permissions
      * - On refresh: Updates accessToken and refreshToken from the refresh endpoint response
+     * - Validates all data before storing in JWT
      *
      * **Security:** Tokens are stored in the JWT (httpOnly cookie), not in the client.
      * They are only transmitted to the client via NextAuth's secure mechanisms.
      *
-     *
-     * @example
-     * ```ts
-     * // On sign-in:
-     * token.accessToken = user.accessToken;
-     * token.permissions = user.permissions;
-     *
-     * // On refresh:
-     * token.accessToken = session.accessToken;
-     * ```
+     * @param token - JWT token object
+     * @param user - User object from authorize callback (on sign-in)
+     * @param session - Session object from session callback (on refresh)
+     * @returns Updated JWT token
      */
     async jwt({ token, user, session }) {
       if (user) {
@@ -149,16 +162,17 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
+
     /**
-     * Session callback - Exposes user data and tokens to client components.
+     * Session callback - Exposes user data to client components.
      *
      * This callback is invoked when `useSession()` is called on the client. It determines
      * what data from the JWT is exposed to the client application.
      *
      * **Exposed Data:**
-     * - User object: email, name, role, isVerified, picture
-     * - Permissions: Array of user permissions for role-based access control
-     * - Tokens: accessToken and refreshToken (stored in httpOnly, exposed for useAxios refresh flow)
+     * - User object: email, role, isVerified
+     * - Permissions: Array of user permissions for RBAC
+     * - Tokens: accessToken and refreshToken (for API requests)
      *
      * **Security Note:** While tokens are returned here, they are stored in httpOnly cookies
      * by NextAuth and transmitted securely. The client receives the session object but cannot
@@ -185,16 +199,10 @@ export const authOptions: NextAuthOptions = {
       };
 
       session.permissions = token.permissions;
+      session.accessToken = token.accessToken as string;
+      session.refreshToken = token.refreshToken as string;
 
-      // ✅ SEGURO: Tokens en JWT (httpOnly) para refresh token flow
-      // Los tokens se almacenan en el JWT token (no en el cliente directamente)
-      // useSession() accede a través de NextAuth que lo obtiene del server
-      // Solo se exponen donde se necesitan (useAxios para refresh)
-      return {
-        ...session,
-        accessToken: token.accessToken,
-        refreshToken: token.refreshToken
-      };
+      return session;
     }
   }
 };

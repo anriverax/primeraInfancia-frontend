@@ -12,3 +12,8 @@ export const useMenuItemsStore: UseBoundStore<StoreApi<MenuItemsProps>> = create
     setMenuItems: (m) => set({ menuItems: m })
   })
 );
+
+// Selectors para prevenir re-renders innecesarios
+export const useMenuItems = () => useMenuItemsStore((state) => state.menuItems);
+
+export const useMenuItemsCount = () => useMenuItemsStore((state) => state.menuItems.length);

@@ -7,7 +7,7 @@ const useLogout = (): {
   handleSignOut: () => Promise<void>;
 } => {
   const resetTechnicianMode = useTechnicianModeStore.getState().reset;
-  const setSigningOut = useAppStateStore.getState().setSigningOut;
+  const { setSigningOut } = useAppStateStore.getState();
   const { signOutWithCredentials } = useSignOut();
 
   const handleSignOut = async (): Promise<void> => {

@@ -3,7 +3,10 @@ import { changePasswordSchema } from "../modalValidation";
 import { encrypt, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { AxiosError, AxiosResponse } from "axios";
 import useAxios from "@/shared/hooks/http/useAxios";
-import { useUpdatedProfileStore } from "../../../shared/store/useUpdatedProfileStore";
+import {
+  useProfileFormIsOk,
+  useUpdatedProfileStore
+} from "../../../shared/store/useUpdatedProfileStore";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { useEffect } from "react";
 import { signOut } from "next-auth/react";
@@ -19,7 +22,8 @@ const initialPasswordValues: ChangePasswordInput = {
 
 const usePasswordChange = (): FormikProps<IPasswordChange> => {
   const useRequest = useAxios(true);
-  const { formStatus, setFormStatus } = useUpdatedProfileStore();
+  const { setFormStatus } = useUpdatedProfileStore.getState();
+  const isOk = useProfileFormIsOk();
 
   const handleSubmit = async (
     values: ChangePasswordInput,
@@ -62,8 +66,8 @@ const usePasswordChange = (): FormikProps<IPasswordChange> => {
   });
 
   useEffect(() => {
-    if (formStatus.isOk) signOut({ callbackUrl: LOGIN_REDIRECT_URL });
-  }, [formStatus]);
+    if (isOk) signOut({ callbackUrl: LOGIN_REDIRECT_URL });
+  }, [isOk]);
 
   return formik;
 };

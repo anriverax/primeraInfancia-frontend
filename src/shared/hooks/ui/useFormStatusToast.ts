@@ -1,6 +1,8 @@
+"use client";
+
 import { useEffect, useCallback } from "react";
 import { addToast } from "@heroui/react";
-import { useUpdatedProfileStore } from "../../store/useUpdatedProfileStore";
+import { useProfileFormStatus, useUpdatedProfileStore } from "../../store/useUpdatedProfileStore";
 
 /**
  * Custom hook for managing form status toast notifications
@@ -22,7 +24,8 @@ import { useUpdatedProfileStore } from "../../store/useUpdatedProfileStore";
 const TOAST_RESET_DELAY = 1500; // 1.5 segundos para que el usuario vea el toast
 
 export const useFormStatusToast = (): void => {
-  const { formStatus, setFormStatus } = useUpdatedProfileStore();
+  const formStatus = useProfileFormStatus();
+  const { setFormStatus } = useUpdatedProfileStore.getState();
 
   // Memoized toast handler to prevent unnecessary function recreations
   // Dependencies: only formStatus.msg changes trigger new function

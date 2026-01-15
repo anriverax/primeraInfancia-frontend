@@ -116,7 +116,7 @@ export function handleAxiosError(
   action: "obtener" | "eliminar" | "actualizar"
 ): void {
   const isAxios = axios.isAxiosError(error);
-  const isDev = process.env.NODE_ENV === "development";
+  const isDev = process.env.NEXT_PUBLIC_NODE_ENV_ENV === "development";
   const title = isAxios ? `Error al ${action}` : `Error inesperado al ${action}`;
 
   const detail = isAxios ? error.response?.data || error.message : (error as Error).message || error;

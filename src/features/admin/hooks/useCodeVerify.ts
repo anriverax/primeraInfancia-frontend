@@ -13,7 +13,7 @@ const initialCodeValues: VerifyCodeInput = {
 
 const useCodeVerify = (): FormikProps<IVerifyCode> => {
   const useRequest = useAxios(true);
-  const { setFormVisible } = useModalFormVisibleStore();
+  const { setFormVisible } = useModalFormVisibleStore.getState();
 
   const handleSubmit = async (
     values: VerifyCodeInput,

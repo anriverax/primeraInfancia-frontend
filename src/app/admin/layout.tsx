@@ -7,10 +7,10 @@ import TopBar from "@/shared/ui/topbar";
 
 import WithProtectedRoute from "../withProtectedRoute";
 import { useIsFirstFormRender } from "@/features/admin/hooks/useIsFirstFormRender";
-import { useTechnicianModeStore } from "@/shared/store/useTechnicianModeStore";
+import { useTechnicianMode } from "@/shared/store/useTechnicianModeStore";
 import { TypeRole } from "@/shared/constants";
 import TechnicianModeModal from "@/features/admin/components/modal/technicianModeModal";
-import { useAppStateStore } from "@/shared/store/useAppStateStore";
+import { useIsSigningOut } from "@/shared/store/useAppStateStore";
 
 type AuthLayoutProps = {
   children: React.ReactNode;
@@ -18,8 +18,8 @@ type AuthLayoutProps = {
 
 function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
   const { session } = useIsFirstFormRender();
-  const mode = useTechnicianModeStore((s) => s.mode);
-  const isSigningOut = useAppStateStore((s) => s.isSigningOut);
+  const mode = useTechnicianMode();
+  const isSigningOut = useIsSigningOut();
 
   const isTech = session?.user.role === TypeRole.USER_TECNICO_APOYO;
 

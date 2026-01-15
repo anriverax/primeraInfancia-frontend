@@ -65,3 +65,15 @@ export const MAX_MENTORSHIP_PARTICIPANTS: Record<string, number> = {
 };
 
 export const TIMEOUT_TOAST = 2000;
+
+export const AUTH_MESSAGES = {
+  LOGOUT_ERROR: "Error al cerrar sesión. Por favor intenta de nuevo.",
+  LOGIN_ERROR: "No pudimos iniciar sesión. Verifica tus credenciales e intenta de nuevo.",
+  SESSION_EXPIRED: "Tu sesión ha expirado. Por favor inicia sesión nuevamente."
+} as const;
+
+export const STATUS_CODES = {
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  INTERNAL_ERROR: 500
+} as const;

@@ -11,7 +11,7 @@ const useAsideAnimation = (isExtended: boolean): any => {
           animate: { x: isExtended ? 0 : "-100%" },
           transition: { duration: 0.3, ease: "easeInOut" },
           exit: { x: "-100%" },
-          className: "fixed bg-white top-0 left-0 w-64 h-dvh z-40 border-gray-200 border-r"
+          className: "fixed bg-white border-r border-gray-200 min-h-screen top-0 left-0 w-64 z-40"
         };
       }
 
@@ -19,10 +19,13 @@ const useAsideAnimation = (isExtended: boolean): any => {
         initial: false,
         animate: { width: isExtended ? 256 : 72 },
         transition: { duration: 0.3, ease: "easeInOut" },
-        className: cn("relative bg-white top-0 left-0 h-dvh z-10 space-y-5 border-gray-200 border-r", {
-          "w-64": isExtended,
-          "w-[72px]": !isExtended
-        })
+        className: cn(
+          "relative bg-white border-r border-gray-200 min-h-screen top-0 left-0 z-10 space-y-5",
+          {
+            "w-64": isExtended,
+            "w-[72px]": !isExtended
+          }
+        )
       };
     },
     [isExtended]

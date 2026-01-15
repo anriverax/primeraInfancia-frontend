@@ -29,3 +29,10 @@ export const useUpdatedProfileStore = create<UpdatedProfileProps>()(
     }
   )
 );
+
+// Selectors para prevenir re-renders innecesarios
+export const useProfileFormStatus = () => useUpdatedProfileStore((state) => state.formStatus);
+
+export const useProfileFormIsOk = () => useUpdatedProfileStore((state) => state.formStatus.isOk);
+
+export const useProfileFormMessage = () => useUpdatedProfileStore((state) => state.formStatus.msg);

@@ -25,3 +25,12 @@ export const useTechnicianModeStore = create<TechnicianModeState>()(
     }
   )
 );
+
+// Selectors para prevenir re-renders innecesarios
+export const useTechnicianMode = () => useTechnicianModeStore((state) => state.mode);
+
+export const useIsTechnicianModeMentor = () =>
+  useTechnicianModeStore((state) => state.mode === "mentor");
+
+export const useIsTechnicianModeFormador = () =>
+  useTechnicianModeStore((state) => state.mode === "formador");

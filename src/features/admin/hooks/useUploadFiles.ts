@@ -14,7 +14,7 @@ const initialFilesValues: UploadFilesInput = {
 
 const useUploadFiles = (): FormikProps<IUploadFiles> => {
   const useRequest = useAxios(true);
-  const { setFormVisible } = useModalFormVisibleStore();
+  const { setFormVisible } = useModalFormVisibleStore.getState();
 
   const handleSubmit = async (
     values: UploadFilesInput,
