@@ -4,55 +4,8 @@ import useAxios from "@/shared/hooks/http/useAxios";
 import { AUTH_MESSAGES } from "@/shared/constants";
 
 /**
- * Custom hook for user sign-out with NextAuth and backend cleanup.
- *
- * Handles secure session cleanup and backend logout on the client side.
- * Implements a two-phase logout strategy:
- * 1. Backend cleanup (via API)
- * 2. NextAuth session destruction
- *
- * **Security Benefits:**
- * - Backend cleanup happens BEFORE session destruction (with valid token)
- * - NextAuth handles secure session termination
- * - Tokens are cleared from httpOnly cookies
- * - Works seamlessly with NextAuth v4
- * - Automatic redirection to login page
- *
- * **Error Handling:**
- * - If backend logout fails, user is still logged out from NextAuth
- * - Generic error messages prevent information leakage
- *
- * @hook
- * @returns {Object} Sign-out handler and state
- *   - `signOutWithCredentials`: Async function to logout user
- *   - `isLoading`: Whether logout is in progress
- *   - `error`: Error message if logout failed
- *
- * @example
- * ```tsx
- * const { signOutWithCredentials, isLoading, error } = useSignOut();
- *
- * const handleLogout = async () => {
- *   const result = await signOutWithCredentials();
- *   if (result.ok) {
- *     // Automatically redirected to login by NextAuth
- *   } else {
- *     // Handle error (usually backend is unreachable)
- *     console.error('Logout failed:', result.error);
- *   }
- * };
- *
- * return (
- *   <button onClick={handleLogout} disabled={isLoading}>
- *     {isLoading ? 'Cerrando sesión...' : 'Cerrar sesión'}
- *   </button>
- * );
- * ```
- *
- * @throws {Error} Caught internally and returned in result object
- *
- * @see {@link useAxios} - Used for backend logout API call
- * @see {@link signOut} - NextAuth sign-out function
+ * Hook for signing out users and terminating their session.
+ * @returns Object with sign-out function, loading state, and error state.
  */
 export const useSignOut = (): {
   signOutWithCredentials: () => Promise<{
@@ -66,6 +19,10 @@ export const useSignOut = (): {
   const [error, setError] = useState<string | null>(null);
   const api = useAxios(true);
 
+  /**
+   * Destroys backend session and NextAuth session, then redirects to login.
+   * @returns Promise with sign-out result and optional error message.
+   */
   const signOutWithCredentials = useCallback(async (): Promise<{ ok: boolean; error?: string }> => {
     setIsLoading(true);
     setError(null);

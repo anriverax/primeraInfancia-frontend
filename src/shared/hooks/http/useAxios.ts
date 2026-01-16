@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import { useSession, signOut } from "next-auth/react";
 import { Session } from "next-auth";
-import { LOGIN_REDIRECT_URL } from "../../constants";
+import { ROUTES } from "@/shared/constants";
 
 /**
  * Axios client configured with the backend baseURL.
@@ -75,7 +75,7 @@ const refreshAccessToken = async (
       console.error("[useAxios] Error al refrescar token:", refreshError);
       // Log out and redirect to login
       // Use relative path so hosting base URL is respected (via NEXTAUTH_URL)
-      signOut({ callbackUrl: LOGIN_REDIRECT_URL });
+      signOut({ callbackUrl: ROUTES.AUTH_LOGIN });
       throw refreshError;
     } finally {
       // Release the mutex

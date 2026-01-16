@@ -11,7 +11,6 @@ import { useState } from "react";
 
 /**
  * Default initial values for the sign-in form.
- * @type {SignInInput}
  */
 const initialValues: SignInInput = {
   email: "",
@@ -19,62 +18,8 @@ const initialValues: SignInInput = {
 };
 
 /**
- * Custom hook for managing sign-in form state and submission logic using Formik.
- *
- * This hook integrates Formik with NextAuth's `signIn` function to handle user authentication.
- * It encrypts sensitive credentials (email and password) before submission and manages
- * both successful responses and error handling through Formik helpers.
- *
- * **Features:**
- * - Client-side credential encryption (AES)
- * - Form validation with Yup schema
- * - Automatic redirect to dashboard on success
- * - Generic error messages for security
- * - Login attempt tracking with cooldown
- *
- * **Flow:**
- * 1. Validate form inputs against `credentialsSchema`
- * 2. Encrypt email and password using AES
- * 3. Call NextAuth signIn with encrypted credentials
- * 4. Handle success (redirect) or error (show message)
- *
- * @hook
- * @returns {FormikProps<ISignIn>} A Formik instance configured with:
- *   - `values`: Form values (email, passwd)
- *   - `errors`: Validation errors
- *   - `touched`: Touched fields
- *   - `handleChange`, `handleBlur`, `handleSubmit`: Form handlers
- *   - `isSubmitting`: Whether form is being submitted
- *   - `setFieldError`: Method to set field-level errors
- *
- * @example
- * ```tsx
- * // In a sign-in page component
- * const formik = useSignInForm();
- *
- * return (
- *   <form onSubmit={formik.handleSubmit}>
- *     <input
- *       name="email"
- *       value={formik.values.email}
- *       onChange={formik.handleChange}
- *     />
- *     {formik.errors.email && <span>{formik.errors.email}</span>}
- *     <button type="submit" disabled={formik.isSubmitting}>
- *       {formik.isSubmitting ? 'Iniciando sesión...' : 'Iniciar sesión'}
- *     </button>
- *   </form>
- * );
- * ```
- *
- * @throws {Error} If the NextAuth credentials provider is not properly configured.
- * @throws {Error} If encryption utilities are not available.
- *
- * @see {@link ISignIn}
- * @see {@link SignInInput}
- * @see {@link credentialsSchema}
- * @see {@link useSignIn}
- * @see {@link encrypt}
+ * Hook for managing sign-in form state, validation, and submission with progressive cooldown.
+ * @returns Formik instance for form handling.
  */
 const useSignInForm = (): FormikProps<ISignIn> => {
   const router = useRouter();
@@ -82,6 +27,11 @@ const useSignInForm = (): FormikProps<ISignIn> => {
   const [loginAttempts, setLoginAttempts] = useState<number>(0);
   const [cooldownSeconds, setCooldownSeconds] = useState<number>(0);
 
+  /**
+   * Handles form submission with encryption, authentication, and progressive cooldown on failed attempts.
+   * @param values - Form input values (email and password).
+   * @param formikHelpers - Formik helper functions for error handling.
+   */
   const handleSubmit = async (
     values: SignInInput,
     formikHelpers: FormikHelpers<ISignIn>
@@ -93,41 +43,6 @@ const useSignInForm = (): FormikProps<ISignIn> => {
       );
       return;
     }
-    /**
-     * Submits the sign-in form using the `useSignIn` hook.
-     *
-     * **Security:**
-     * - Email and password are encrypted client-side before transmission
-     * - Encrypted credentials sent to NextAuth Credentials provider
-     * - NextAuth handles CSRF protection and secure transmission
-     * - Backend re-encrypts with additional layer of security
-     *
-     * **Process:**
-     * 1. Check if in cooldown period (rate limiting)
-     * 2. Encrypt email and password using AES-256
-     * 3. Call NextAuth signIn with encrypted values
-     * 4. On success: Redirect to dashboard (NextAuth handles)
-     * 5. On error: Show generic error message
-     *
-     * @async
-     * @param {SignInInput} values - Form values containing:
-     *   - `email`: User email address
-     *   - `passwd`: User password (will be encrypted)
-     * @param {FormikHelpers<ISignIn>} formikHelpers - Formik helper methods:
-     *   - `setFieldError(field, message)`: Set field-level error
-     *   - `setSubmitting(boolean)`: Control submission state
-     * @returns {Promise<void>}
-     * @throws {Error} Caught and displayed to user via `setFieldError`
-     *
-     * @example
-     * ```tsx
-     * // Triggered by form onSubmit
-     * const handleSubmit = async (values) => {
-     *   // Automatically called by Formik
-     *   // Result: User redirected or error shown
-     * };
-     * ```
-     */
 
     const encryptedEmail = encrypt(values.email);
     const encryptedPassword = encrypt(values.passwd);
@@ -139,14 +54,21 @@ const useSignInForm = (): FormikProps<ISignIn> => {
       if (!result.ok) {
         const newAttempts = loginAttempts + 1;
         setLoginAttempts(newAttempts);
-
         // ✅ Cooldown progresivo
         if (newAttempts >= 3) {
           const cooldown = Math.min(newAttempts * 10, 120); // Max 2 minutes
+
           setCooldownSeconds(cooldown);
 
-          setTimeout(() => {
-            setCooldownSeconds((prev) => prev - 1);
+          // Countdown timer que decrementa cada segundo
+          const countdownInterval = setInterval(() => {
+            setCooldownSeconds((prev) => {
+              if (prev <= 1) {
+                clearInterval(countdownInterval);
+                return 0; // Cooldown terminó
+              }
+              return prev - 1;
+            });
           }, 1000);
         }
 

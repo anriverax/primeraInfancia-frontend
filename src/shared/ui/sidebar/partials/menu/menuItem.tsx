@@ -21,69 +21,65 @@ type MenuItemProps = {
   item: IMenuPermission;
   isMobile: boolean;
   isExtended: boolean;
-  index?: number;
-  prevItem?: IMenuPermission | null;
-  nextItem?: IMenuPermission | null;
 };
 
-const MenuItem = memo(
-  ({ item, isMobile, isExtended, index = 0, prevItem, nextItem }: MenuItemProps): React.JSX.Element => {
-    const { hasSubmenu, isSubmenuOpen, isActive, pathname, getMenuAnimation, toggleSubmenu } =
-      useMenuItem({
-        item,
-        isMobile,
-        isExtended
-      });
+const MenuItem = memo(({ item, isMobile, isExtended }: MenuItemProps): React.JSX.Element => {
+  const { hasSubmenu, isSubmenuOpen, isActive, pathname, getMenuAnimation, toggleSubmenu } = useMenuItem(
+    {
+      item,
+      isMobile,
+      isExtended
+    }
+  );
 
-    return (
-      <div key={item.id} className="relative">
-        <Link
-          href={!hasSubmenu ? item.path : "#"}
-          className={cn(
-            "flex items-center gap-3 text-neutral-500 px-4 py-3 transition-all duration-200 ease-in-out relative cursor-pointer",
-            {
-              "rounded-xl text-primary-400 bg-primary-200/50": isActive, // when parent menu item or children menu item is active
-              "hover:bg-primary-50 hover:text-primary-600": !isActive // when a menu item it not active
-            }
-          )} // https://preview.sprukomarket.com/aspnet/bootstrap/meno/dist/html/index4.html
-          onClick={(e) => {
-            if (hasSubmenu) {
-              e.preventDefault();
-              toggleSubmenu(item.path);
-            }
-          }}
-        >
-          <LucideIconRenderer
-            iconName={item.icon}
-            className={cn("h-5 w-5 flex-shrink-0 text-gray-600", {
-              "text-white": Boolean(isActive)
-            })}
-          />
-          <motion.div {...getMenuAnimation()}>
-            <span className="flex-1 truncate">{item.title}</span>
+  return (
+    <div key={item.id} className="relative">
+      <Link
+        href={!hasSubmenu ? item.path : "#"}
+        className={cn(
+          "flex items-center gap-3 text-neutral-500 px-4 py-3 transition-all duration-200 ease-in-out relative cursor-pointer",
+          {
+            "rounded-md text-primary-400 bg-primary-50": isActive, // when parent menu item or children menu item is active
+            "rounded-md hover:bg-neutral-50": !isActive // when a menu item it not active
+          }
+        )}
+        onClick={(e) => {
+          if (hasSubmenu) {
+            e.preventDefault();
+            toggleSubmenu(item.path);
+          }
+        }}
+      >
+        <LucideIconRenderer
+          iconName={item.icon}
+          className={cn("h-5 w-5 flex-shrink-0 text-gray-600", {
+            "text-primary-500": Boolean(isActive)
+          })}
+        />
+        <motion.div {...getMenuAnimation()}>
+          <span className="flex-1 truncate">{item.title}</span>
 
-            {hasSubmenu && (
-              <ChevronDown
-                className={cn("h-4 w-4 transition-transform ml-auto text-gray-600", {
-                  "text-white": Boolean(isActive) && !isSubmenuOpen,
-                  "rotate-180 text-white": isSubmenuOpen
-                })}
-              />
-            )}
+          {hasSubmenu && (
+            <ChevronDown
+              className={cn("h-4 w-4 transition-transform ml-auto text-gray-600", {
+                "text-white": Boolean(isActive) && !isSubmenuOpen,
+                "rotate-180 text-white": isSubmenuOpen
+              })}
+            />
+          )}
 
-            {/*item.badge && (
+          {/*item.badge && (
             <div className="ml-auto flex items-center justify-center w-5 h-5 text-xs font-medium text-blue-600 bg-gray-50 rounded-full">
               {item.badge}
             </div>
           )*/}
-          </motion.div>
-        </Link>
+        </motion.div>
+      </Link>
 
-        <SubmenuItem isSubmenuOpen={isSubmenuOpen} submenu={item.children} pathname={pathname} />
-      </div>
-    );
-  }
-);
+      <SubmenuItem isSubmenuOpen={isSubmenuOpen} submenu={item.children} pathname={pathname} />
+    </div>
+  );
+});
 
 MenuItem.displayName = "MemorizedMenuItem";
 export default MenuItem;

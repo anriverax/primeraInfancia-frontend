@@ -5,7 +5,6 @@ interface ValidationMessage {
 }
 
 export const DASHBOARD_REDIRECT_URL = "/admin/dashboard";
-export const LOGIN_REDIRECT_URL = "/auth/iniciar-sesion";
 
 export const ERR_BAD_REQUEST = "ERR_BAD_REQUEST";
 
@@ -76,4 +75,10 @@ export const STATUS_CODES = {
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   INTERNAL_ERROR: 500
+} as const;
+
+export const ROUTES = {
+  ROOT: "/",
+  AUTH_LOGIN: "/auth/iniciar-sesion",
+  DASHBOARD_PARTICIPANTES: "/admin/dashboard/participantes"
 } as const;

@@ -54,12 +54,12 @@ export const useApiQuery = <T>(
       hasHandledError.current = true;
       handleAxiosError(query.error, description, "obtener");
     }
-  }, [query.error]);
+  }, [query.error, description, handleAxiosError]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   return {
     queryClient,
-    data: query.data as T, // si esperas array
+    data: query.data as T | undefined, // si esperas array
     meta: query.data?.meta,
     isLoading: query.isLoading,
     isError: query.isError

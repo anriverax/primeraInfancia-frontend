@@ -10,8 +10,8 @@ import {
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { useEffect } from "react";
 import { signOut } from "next-auth/react";
-import { LOGIN_REDIRECT_URL } from "@/shared/constants";
 import { ChangePasswordInput, IPasswordChange, UpdatedPasswordResponse } from "../adminType";
+import { ROUTES } from "@/shared/constants";
 
 const initialPasswordValues: ChangePasswordInput = {
   email: "",
@@ -66,7 +66,7 @@ const usePasswordChange = (): FormikProps<IPasswordChange> => {
   });
 
   useEffect(() => {
-    if (isOk) signOut({ callbackUrl: LOGIN_REDIRECT_URL });
+    if (isOk) signOut({ callbackUrl: ROUTES.AUTH_LOGIN });
   }, [isOk]);
 
   return formik;

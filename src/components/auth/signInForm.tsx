@@ -6,36 +6,17 @@ import { ISignIn } from "./type";
 import { memo } from "react";
 
 /**
- * Props for the SignInForm component.
- * @property {FormikProps<ISignIn>} formik - Formik instance managing form state, validation, and submission.
+ * Props for SignInForm.
+ * @property formik - Formik instance for managing form state and submission.
  */
 type SignInFormProps = {
   formik: FormikProps<ISignIn>;
 };
 
 /**
- * Sign-in form component for user authentication.
- *
- * Renders a form with email and password input fields, applying validation states and error messages.
- * The form integrates with Formik for state management and HeroUI for styling.
- * Memoized to prevent unnecessary re-renders when parent props haven't changed.
- *
- * **Performance Note:** This component is wrapped with `React.memo()` at module level to optimize
- * rendering and prevent focus loss issues during form interaction.
- *
- * @component
- * @param {SignInFormProps} props - Component props.
- * @param {FormikProps<ISignIn>} props.formik - Formik instance with sign-in form state.
- * @returns {React.JSX.Element} A form element with email and password inputs, and a submit button.
- *
- * @example
- * ```tsx
- * const formik = useSignInForm();
- * return <SignInForm formik={formik} />;
- * ```
- *
- * @see {@link useSignInForm}
- * @see {@link SignInFormProps}
+ * Sign-in form with email and password inputs, validation feedback, and submit button.
+ * @param props - Component props.
+ * @returns Rendered form component.
  */
 const SignInForm = memo(({ formik }: SignInFormProps): React.JSX.Element => {
   const { handleSubmit, touched, errors, isSubmitting, getFieldProps } = formik;
@@ -57,13 +38,7 @@ const SignInForm = memo(({ formik }: SignInFormProps): React.JSX.Element => {
       />
 
       <div className="mt-8">
-        <Button
-          fullWidth
-          type="submit"
-          color="primary"
-          isLoading={isSubmitting}
-          className="bg-gradient-to-b from-blue-800 to-blue-400"
-        >
+        <Button fullWidth type="submit" isLoading={isSubmitting} className="bg-primary-500 text-white">
           Iniciar sesión
         </Button>
       </div>

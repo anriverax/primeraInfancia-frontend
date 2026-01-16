@@ -19,14 +19,14 @@ const config = {
       },
       colors: {
         primary: {
-          50: "#EFF6FF",
-          100: "#DBEAFE",
-          200: "#BFDBFE",
-          300: "#93C5FD",
-          400: "#60A5FA",
-          500: "#2563EB",
-          600: "#1D4ED8",
-          700: "#1E40AF"
+          50: "#EEF5FF", // base solicitada
+          100: "#E1EDFF",
+          200: "#C7DBFF",
+          300: "#A4C2FF",
+          400: "#7BA5FF",
+          500: "#4F86F7", // principal real (botones)
+          600: "#3B6FE6", // hover
+          700: "#2F59C9"
         },
         success: {
           50: "#ECFDF5",

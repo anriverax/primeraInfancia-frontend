@@ -1,44 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
-/**
- * NextAuth.js configuration object for managing user authentication.
- *
- * This configuration implements JWT-based authentication strategy with a credentials provider.
- * It integrates with a backend authentication service to validate user credentials and manage
- * session tokens securely.
- *
- * **Security Features:**
- * - JWT strategy: Uses JSON Web Tokens for stateless session management
- * - httpOnly cookies: Tokens stored securely and inaccessible to client-side JavaScript
- * - Credential encryption: Email and password are encrypted before being sent to the backend
- * - Generic error messages: Prevents user enumeration attacks
- * - Server-side token refresh: Refresh tokens never exposed to the client
- * - Type safety: Strict TypeScript types for all auth objects
- *
- * **Configuration Details:**
- * - Session strategy: JWT (stateless, scalable)
- * - Sign-in page: Redirects unauthenticated users to `/auth/iniciar-sesion`
- * - Credentials provider: Validates against backend `/auth/login` endpoint
- * - JWT callbacks: Enriches token with user data (role, permissions, email)
- * - Session callbacks: Exposes necessary data to client components via useSession()
- * - Error handling: Graceful fallback with generic messages to prevent enumeration attacks
- *
- * @type {NextAuthOptions}
- *
- * @example
- * ```tsx
- * // In [...nextauth]/route.ts
- * export const { handlers, auth } = NextAuth(authOptions);
- *
- * // In client components
- * const { data: session } = useSession();
- * const hasPermission = session?.permissions.includes("VIEW_GROUPS");
- * ```
- *
- * @see {@link https://next-auth.js.org/configuration/options NextAuth.js Docs}
- */
-
+/** NextAuth configuration with JWT strategy, credentials provider, and token management. */
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
@@ -62,22 +25,11 @@ export const authOptions: NextAuthOptions = {
           type: "password"
         }
       },
+
       /**
-       * Authorizes a user based on provided credentials.
-       *
-       * Sends the encrypted email and password to the backend `/auth/login` endpoint
-       * for validation. Returns the authenticated user data (including tokens and metadata)
-       * on success, or throws an error with a generic message to prevent user enumeration.
-       *
-       * **Security Notes:**
-       * - Credentials are encrypted by the client before transmission
-       * - Backend communication happens over HTTPS
-       * - Generic error messages prevent email enumeration attacks
-       * - All returned data is validated before storing in JWT
-       *
-       * @param credentials - User email and password
-       * @returns Validated user data for JWT token
-       * @throws Error with generic message to prevent information leakage
+       * Validates user credentials against backend authentication endpoint.
+       * @param credentials - User email and password from form.
+       * @returns User object with tokens if valid, throws error if invalid.
        */
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
@@ -126,23 +78,11 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     /**
-     * JWT callback - Enriches JWT token with user data.
-     *
-     * This callback is invoked whenever a JWT is created or updated. It merges user data
-     * (from sign-in) or session updates (from refresh) into the JWT token.
-     *
-     * **Token Enrichment:**
-     * - On sign-in: Stores accessToken, refreshToken, email, role, isVerified, permissions
-     * - On refresh: Updates accessToken and refreshToken from the refresh endpoint response
-     * - Validates all data before storing in JWT
-     *
-     * **Security:** Tokens are stored in the JWT (httpOnly cookie), not in the client.
-     * They are only transmitted to the client via NextAuth's secure mechanisms.
-     *
-     * @param token - JWT token object
-     * @param user - User object from authorize callback (on sign-in)
-     * @param session - Session object from session callback (on refresh)
-     * @returns Updated JWT token
+     * Updates JWT token with user data and session information.
+     * @param token - JWT token to update.
+     * @param user - User object from authorization.
+     * @param session - Session object (for re-validation).
+     * @returns Updated JWT token with auth data.
      */
     async jwt({ token, user, session }) {
       if (user) {
@@ -164,30 +104,10 @@ export const authOptions: NextAuthOptions = {
     },
 
     /**
-     * Session callback - Exposes user data to client components.
-     *
-     * This callback is invoked when `useSession()` is called on the client. It determines
-     * what data from the JWT is exposed to the client application.
-     *
-     * **Exposed Data:**
-     * - User object: email, role, isVerified
-     * - Permissions: Array of user permissions for RBAC
-     * - Tokens: accessToken and refreshToken (for API requests)
-     *
-     * **Security Note:** While tokens are returned here, they are stored in httpOnly cookies
-     * by NextAuth and transmitted securely. The client receives the session object but cannot
-     * access the actual cookie values directly.
-     *
-
-     *
-     * @example
-     * ```tsx
-     * // On client:
-     * const session = await useSession();
-     * session.user.role // "admin"
-     * session.permissions // ["write:users", "read:reports"]
-     * session.accessToken // For authorization headers
-     * ```
+     * Updates session object with token data for client-side access.
+     * @param session - Session object to update.
+     * @param token - JWT token containing user and auth data.
+     * @returns Updated session with user and permission data.
      */
     async session({ session, token }) {
       session.user = {

@@ -10,56 +10,8 @@ import {
 } from "../../types/customFormFields";
 
 /**
- * Custom hook for consistent form field styling and validation across the application.
- *
- * Provides pre-configured props for form inputs, selects, textareas, and date pickers
- * following the application's design system (HeroUI + Tailwind CSS).
- *
- * **Features:**
- * - Memoized className configuration for optimal performance
- * - Consistent validation state handling
- * - Pre-built field creators for common input types
- * - Type-safe field props generation
- *
- * @returns {CustomFormFieldsResult} Object containing:
- *   - `getCommonFieldProps`: Function to get base field props (label, required, placeholder)
- *   - `getValidationState`: Function to compute validation state from touched/error
- *   - `getInputProps`: Function to create pre-styled Input field props
- *   - `getSelectProps`: Function to create pre-styled Select field props
- *   - `getTextAreaProps`: Function to create pre-styled TextArea field props
- *   - `getDateProps`: Function to create pre-styled Date picker field props
- *
- * @example
- * ```tsx
- * export const MyForm = () => {
- *   const { getInputProps, getSelectProps } = useCustomFormFields();
- *   const [values, setValues] = useState({ name: '', role: '' });
- *   const [touched, setTouched] = useState({});
- *   const [errors, setErrors] = useState({});
- *
- *   return (
- *     <form>
- *       <Input
- *         {...getInputProps('Full Name', true, 'Enter your name')}
- *         value={values.name}
- *         errorMessage={errors.name}
- *         isInvalid={!!(touched.name && errors.name)}
- *       />
- *       <Select
- *         {...getSelectProps('Role', true)}
- *         selectedKeys={new Set([values.role])}
- *       >
- *         // options
- *       </Select>
- *     </form>
- *   );
- * };
- * ```
- *
- * @performance
- * - Uses `useMemo` to avoid recreating className objects on every render
- * - Each getter function is memoized to prevent unnecessary dependencies
- * - Safe to use with Formik or other form libraries
+ * Hook that generates styled form field props for input, textarea, select, and date components.
+ * @returns Object with getter functions for each field type.
  */
 const useCustomFormFields = (): CustomFormFieldsResult => {
   const classNameProps = useMemo<ClassNamesProps>(
@@ -67,15 +19,23 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
       variant: "bordered",
       classNames: {
         inputWrapper:
-          "border border-gray-200 data-[hover=true]:border-blue-500 group-data-[focus=true]:border-blue-200 group-data-[invalid=true]:!border-gray-200",
+          "border border-neutral-100 data-[hover=true]:border-primary-600 group-data-[focus=true]:border-primary-300 group-data-[invalid=true]:!border-danger-100",
         label:
-          "text-gray-500 group-data-[filled=true]:font-bold group-data-[invalid=true]:!text-gray-500",
-        input: "text-gray-500 group-data-[invalid=true]:!text-gray-500"
+          "text-neutral-500 group-data-[filled=true]:font-bold group-data-[invalid=true]:!text-danger-500",
+        input: "text-neutral-500",
+        errorMessage: "text-danger-500"
       }
     }),
     []
   );
 
+  /**
+   * Creates common field props (label, required, placeholder).
+   * @param label - Field label text.
+   * @param isRequired - Whether field is required (default: true).
+   * @param placeholder - Placeholder text (default: empty).
+   * @returns Object with label, isRequired, and placeholder.
+   */
   const getCommonFieldProps = (
     label: string,
     isRequired: boolean = true,
@@ -86,6 +46,12 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
     placeholder
   });
 
+  /**
+   * Determines validation state based on touched and error status.
+   * @param touched - Whether field has been touched.
+   * @param error - Error message if validation failed.
+   * @returns Object with isInvalid flag and errorMessage.
+   */
   const getValidationState = (
     touched: boolean | undefined,
     error: string | undefined
@@ -97,6 +63,15 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
     errorMessage: touched && error ? error : undefined
   });
 
+  /**
+   * Generates input field props with styling and validation.
+   * @param type - Input type (text, email, password, etc.).
+   * @param label - Field label text.
+   * @param touched - Whether field has been touched.
+   * @param error - Error message if validation failed.
+   * @param isRequired - Whether field is required (default: true).
+   * @returns Input component props.
+   */
   const getInputProps = useCallback(
     (
       type: string,
@@ -113,6 +88,15 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
     [classNameProps]
   );
 
+  /**
+   * Generates textarea field props with styling and validation.
+   * @param label - Field label text.
+   * @param placeholder - Placeholder text.
+   * @param touched - Whether field has been touched.
+   * @param error - Error message if validation failed.
+   * @param isRequired - Whether field is required (default: true).
+   * @returns TextArea component props.
+   */
   const getTextAreaProps = useCallback(
     (
       label: string,
@@ -129,6 +113,16 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
     [classNameProps]
   );
 
+  /**
+   * Generates select field props with styling, selection handling, and validation.
+   * @param label - Field label text.
+   * @param placeholder - Placeholder text.
+   * @param itemsLength - Number of items in select (disables if 0).
+   * @param itemValue - Selected value(s), single value or array.
+   * @param error - Error message if validation failed.
+   * @param isRequired - Whether field is required (default: true).
+   * @returns Select component props.
+   */
   const getSelectProps = useCallback(
     (
       label: string,
@@ -168,6 +162,14 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
     []
   );
   /* eslint-disable @typescript-eslint/no-explicit-any */
+  /**
+   * Generates date field props with styling.
+   * @param value - Current date value or string.
+   * @param name - Field name attribute.
+   * @param label - Field label text.
+   * @param description - Field description text.
+   * @returns Date component props.
+   */
   const getDateProps = useCallback(
     (value: DateValue | string | null, name: string, label: string, description: string): DateProps =>
       ({

@@ -4,6 +4,10 @@ import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
 import { useSignInForm } from "@/components/auth/hook/useSignInForm";
 import SignInForm from "@/components/auth/signInForm";
 
+/**
+ * Sign-in page with form and error alerts.
+ * @returns Rendered sign-in page.
+ */
 const SignInPage = (): React.JSX.Element => {
   const formik = useSignInForm();
 

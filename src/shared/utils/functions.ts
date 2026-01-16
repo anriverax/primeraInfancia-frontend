@@ -54,13 +54,12 @@ export function handleFormikResponseError<T>(error: AxiosError, formikHelpers: F
 
   if (error.code === ERR_BAD_REQUEST) {
     // Extract error details from the Axios response when available.
-    const { response } = error;
-    if (response) {
-      const { data } = response as AxiosResponse;
-      const { statusCode, message } = data;
 
-      setStatus(statusCode);
-      setFieldError("axiosMessage", message);
+    if (error.response) {
+      const { data } = error.response as AxiosResponse;
+
+      setStatus(data.statusCode);
+      setFieldError("axiosMessage", data.message);
     } else {
       // Network issue or no response provided by the server.
       setStatus(400);
