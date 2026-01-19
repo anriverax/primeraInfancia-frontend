@@ -50,10 +50,7 @@ export const useSignIn = (): {
         // Successful authentication - NextAuth now has session cookie
         return { ok: true };
       } catch (err) {
-        const errorMsg = "Error durante la autenticación. Por favor intenta de nuevo.";
-        if (process.env.NEXT_PUBLIC_NODE_ENV_ENV === "development") {
-          console.error("[useSignIn] Error:", err);
-        }
+        const errorMsg = `Error durante la autenticación. Por favor intenta de nuevo. ${err instanceof Error ? err.message : ""}`;
         setError(errorMsg);
         return {
           ok: false,

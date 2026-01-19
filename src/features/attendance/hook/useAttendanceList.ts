@@ -1,4 +1,4 @@
-import { useApiQuery } from "@/shared/hooks/http/useApiQuery";
+import { useApiQuery } from "@/shared/react-query/hook/useApiQuery";
 import { useState } from "react";
 import { AttendanceListResult, EventList } from "../../../components/attendance/attendance.type";
 

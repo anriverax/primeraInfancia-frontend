@@ -1,5 +1,5 @@
 import { DateValue } from "@internationalized/date";
-import { useCallback, useMemo } from "react";
+import { ReactNode, useCallback, useMemo } from "react";
 import {
   DateProps,
   InputProps,
@@ -8,6 +8,7 @@ import {
   CustomFormFieldsResult,
   ClassNamesProps
 } from "../../types/customFormFields";
+import { RadioGroupProps } from "@heroui/react";
 
 /**
  * Hook that generates styled form field props for input, textarea, select, and date components.
@@ -19,9 +20,9 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
       variant: "bordered",
       classNames: {
         inputWrapper:
-          "border border-neutral-100 data-[hover=true]:border-primary-600 group-data-[focus=true]:border-primary-300 group-data-[invalid=true]:!border-danger-100",
+          "rounded-md border border-neutral-100 data-[hover=true]:border-primary-600 group-data-[focus=true]:border-primary-300 group-data-[invalid=true]:!border-danger-100",
         label:
-          "text-neutral-500 group-data-[filled=true]:font-bold group-data-[invalid=true]:!text-danger-500",
+          "text-neutral-400 group-data-[filled=true]:font-bold group-data-[invalid=true]:!text-danger-500",
         input: "text-neutral-500",
         errorMessage: "text-danger-500"
       }
@@ -87,7 +88,27 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
     }),
     [classNameProps]
   );
-
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  const getRadioGroupProps = useCallback(
+    (
+      label: string,
+      isInvalid: boolean | undefined,
+      errorMessage?: ReactNode | ((v: any) => ReactNode),
+      orientation: "horizontal" | "vertical" | undefined = "horizontal",
+      isRequired: boolean = true
+    ): RadioGroupProps => ({
+      ...getCommonFieldProps(label, isRequired),
+      classNames: {
+        label: "text-sm after:!text-danger-500",
+        errorMessage: "text-danger-500"
+      },
+      orientation: orientation,
+      isInvalid: !!isInvalid,
+      errorMessage: errorMessage
+    }),
+    []
+  );
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   /**
    * Generates textarea field props with styling and validation.
    * @param label - Field label text.
@@ -149,9 +170,16 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
         className: "w-full",
         classNames: {
           trigger:
-            "border h-auto data-[hover=true]:border-blue-500 data-[open=true]:border-blue-500 data-[focus=true]:border-blue-500",
-          label: "group-data-[filled=true]:font-bold top-4",
-          value: "group-data-[has-value=true]:text-gray-600 whitespace-pre-wrap"
+            "rounded-md border border-neutral-100 h-auto data-[hover=true]:border-primary-600 data-[open=true]:border-primary-600 data-[focus=true]:border-primary-300 group-data-[invalid=true]:!border-danger-100",
+          label:
+            "top-4 text-neutral-400 group-data-[filled=true]:font-bold group-data-[invalid=true]:!text-danger-500",
+          value: "group-data-[has-value=true]:text-neutral-500 whitespace-pre-wrap text-sm",
+          listbox: "data-[hover=true]:bg-[red]"
+        },
+        listboxProps: {
+          itemClasses: {
+            base: "rounded-md text-neutral-500 transition-opacity data-[hover=true]:font-semibold data-[hover=true]:bg-neutral-100 data-[selectable=true]:focus:bg-neutral-50 data-[pressed=true]:opacity-70 data-[selected=true]:text-neutral-700 data-[selected=true]:font-bold"
+          }
         },
         selectedKeys,
         isLoading: itemsLength === 0,
@@ -186,7 +214,7 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
   );
   /* eslint-enable @typescript-eslint/no-explicit-any */
 
-  return { getInputProps, getDateProps, getTextAreaProps, getSelectProps };
+  return { getInputProps, getRadioGroupProps, getDateProps, getTextAreaProps, getSelectProps };
 };
 
 export { useCustomFormFields };

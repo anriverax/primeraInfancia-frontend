@@ -1,10 +1,10 @@
 import { ITrainingModuleTable } from "./trainingModuleType";
-import { useQueryRequest } from "@/shared/hooks/http/useApiQuery";
+import { useApiQuery } from "@/shared/react-query/hook/useApiQuery";
 
 const useTrainingModuleList = (): {
   trainingModuleList: ITrainingModuleTable[];
 } => {
-  const { data: trainingModuleList } = useQueryRequest<ITrainingModuleTable[]>(
+  const { data: trainingModuleList } = useApiQuery<ITrainingModuleTable[]>(
     "trainingModule-list",
     "/catalogue/trainingModule",
     true,

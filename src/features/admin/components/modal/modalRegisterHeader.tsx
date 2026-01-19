@@ -11,12 +11,12 @@ const ModalRegisterHeader = ({
   description,
   icon
 }: ModalHeaderCustomProps): React.JSX.Element => (
-  <ModalHeader className="flex flex-col gap-1">
+  <ModalHeader className="flex flex-col gap-1 bg-primary-500 rounded-t-xl">
     <div className="flex justify-center mb-2">
-      <div className="p-2 bg-gray-100 rounded-full">{icon}</div>
+      <div className="p-2 bg-white rounded-full">{icon}</div>
     </div>
-    <h2 className="text-xl text-center">{title}</h2>
-    <p className="text-center font-normal text-base">{description}</p>
+    <h3 className="text-center text-white">{title}</h3>
+    <p className="text-center font-normal text-[13px]">{description}</p>
   </ModalHeader>
 );
 

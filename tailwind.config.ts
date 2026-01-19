@@ -11,6 +11,9 @@ const config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"]
+      },
       boxShadow: {
         "custom-shadow": "8px 8px 16px rgba(209, 217, 230, 0.8), -8px -8px 16px rgba(255, 255, 255, 0.9)"
       },
@@ -23,7 +26,7 @@ const config = {
           100: "#E1EDFF",
           200: "#C7DBFF",
           300: "#A4C2FF",
-          400: "#7BA5FF",
+          400: "#5d87ff",
           500: "#4F86F7", // principal real (botones)
           600: "#3B6FE6", // hover
           700: "#2F59C9"
@@ -42,7 +45,7 @@ const config = {
         },
         danger: {
           50: "#FEF2F2",
-          100: "#FEE2E2",
+          200: "#FEE2E2",
           500: "#EF4444"
         },
         neutral: {

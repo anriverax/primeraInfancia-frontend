@@ -201,3 +201,23 @@ export const isRolAdmin = (session: Session | null): boolean => {
   // Return false if role is FORMADOR or MENTOR, true in any other case
   return ![TypeRole.USER_FORMADOR, TypeRole.USER_MENTOR].includes(role as TypeRole);
 };
+
+export const formatDateAndTime = (date: Date | null | undefined): string => {
+  if (!date) return "-";
+
+  const dateObj = new Date(date);
+  const formattedDate = dateObj.toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  });
+
+  const formattedTime = dateObj.toLocaleTimeString("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  });
+
+  return `${formattedDate} - ${formattedTime}`;
+};

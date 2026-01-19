@@ -1,29 +1,25 @@
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/table";
 import { useRenderZoneCell, zoneColumns } from "./columns";
 import { IZoneColumnKey, IZoneTable } from "../../zoneType";
-import { tableClassNames } from "@/shared/constants";
-import { useZonesList } from "../../useZonesList";
-import { TableLayout } from "@/shared/ui/custom/tableLayout";
+import GenericTable from "@/shared/ui/custom/table/genericTable";
+import { usePaginationApiQuery } from "@/shared/react-query/hook/usePaginationApiQuery";
 
 const ZoneTable = (): React.JSX.Element => {
-  const { zonesList } = useZonesList();
+  const { data: zonesList } = usePaginationApiQuery<IZoneTable>({
+    key: "zones-list",
+    endpoint: "/catalogue/zone",
+    enabled: true,
+    description: "zonas"
+  });
+
   const renderZoneCell = useRenderZoneCell();
 
   return (
-    <TableLayout>
-      <Table classNames={tableClassNames} aria-label="Tabla para mostrar las zonas registradas">
-        <TableHeader columns={zoneColumns}>
-          {(zoneCol) => <TableColumn key={zoneCol.key}>{zoneCol.label}</TableColumn>}
-        </TableHeader>
-        <TableBody isLoading={!zonesList} items={zonesList || []}>
-          {(zoneItem: IZoneTable) => (
-            <TableRow key={zoneItem.id}>
-              {(zoneKey) => <TableCell>{renderZoneCell(zoneItem, zoneKey as IZoneColumnKey)}</TableCell>}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </TableLayout>
+    <GenericTable
+      items={zonesList}
+      columns={zoneColumns}
+      renderCell={(item, key) => renderZoneCell(item, key as IZoneColumnKey)}
+      ariaLabel="Tabla para mostrar las zonas registradas"
+    />
   );
 };
 

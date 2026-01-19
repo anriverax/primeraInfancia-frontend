@@ -2,7 +2,7 @@
 "use client";
 
 import { TIMEOUT_TOAST } from "@/shared/constants";
-import { queryClient } from "@/shared/utils/reactQueryClient";
+import { queryClient } from "@/shared/react-query/reactQueryClient";
 import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";

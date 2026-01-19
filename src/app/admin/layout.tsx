@@ -1,9 +1,9 @@
 "use client";
 
 import Logo from "@/shared/ui/logo";
-import Sidebar from "@/shared/ui/sidebar";
+import Sidebar from "@/shared/ui/custom/sidebar";
 import FormModal from "../../features/admin/components/modal/modalForms";
-import TopBar from "@/shared/ui/topbar";
+import TopBar from "@/shared/ui/custom/topbar";
 
 import WithProtectedRoute from "../withProtectedRoute";
 import { useIsFirstFormRender } from "@/features/admin/hooks/useIsFirstFormRender";
@@ -24,7 +24,7 @@ function AdminLayout({ children }: AuthLayoutProps): React.JSX.Element {
   const isTech = session?.user.role === TypeRole.USER_TECNICO_APOYO;
 
   return (
-    <div className="relative flex h-full w-full  bg-[#f9fafb]">
+    <div className="relative flex h-full w-full bg-white">
       <Sidebar logo={<Logo />} />
       <div className="relative flex h-full flex-1 flex-col ">
         <TopBar />

@@ -1,6 +1,6 @@
 "use client";
 
-import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
+import ConditionalAlert from "@/shared/ui/conditionalAlert";
 import { useSignInForm } from "@/components/auth/hook/useSignInForm";
 import SignInForm from "@/components/auth/signInForm";
 
@@ -21,7 +21,7 @@ const SignInPage = (): React.JSX.Element => {
       )}
       <SignInForm formik={formik} />
       <nav className="flex flex-col space-y-3 md:items-center justify-center mt-8 lg:flex-row lg:space-y-0">
-        <a href="/recuperar-contrasena" className="text-sm text-blue-500 hover:underline">
+        <a href="/recuperar-contrasena" className="text-sm text-primary-600 hover:underline">
           Recuperar contraseña
         </a>
       </nav>

@@ -34,7 +34,7 @@ const refreshAccessToken = async (
   if (refreshPromise) {
     return refreshPromise;
   }
-  console.log("Refreshing access token...", session);
+
   // Validate that session and refreshToken exist
   if (!session?.refreshToken) {
     const error = new Error("No hay refresh token disponible");
@@ -72,7 +72,6 @@ const refreshAccessToken = async (
 
       return `Bearer ${accessToken}`;
     } catch (refreshError) {
-      console.error("[useAxios] Error al refrescar token:", refreshError);
       // Log out and redirect to login
       // Use relative path so hosting base URL is respected (via NEXTAUTH_URL)
       signOut({ callbackUrl: ROUTES.AUTH_LOGIN });

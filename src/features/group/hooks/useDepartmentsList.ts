@@ -1,4 +1,4 @@
-import { useApiQuery } from "@/shared/hooks/http/useApiQuery";
+import { useApiQuery } from "@/shared/react-query/hook/useApiQuery";
 import { DepartmentGroupCountResponse } from "../groupType";
 
 const useDepartmentsList = (): {

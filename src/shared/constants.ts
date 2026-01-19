@@ -44,10 +44,6 @@ export const roleDisplayNames: Record<TypeRole, string> = {
   [TypeRole.USER_TECNICO_APOYO]: "Técnico de apoyo"
 };
 
-export const tableClassNames = {
-  th: "text-bold text-sm text-black bg-blue-50"
-};
-
 export enum AttendanceEnum {
   PRESENTE = "Presente",
   AUSENTE = "Ausente"
@@ -82,3 +78,10 @@ export const ROUTES = {
   AUTH_LOGIN: "/auth/iniciar-sesion",
   DASHBOARD_PARTICIPANTES: "/admin/dashboard/participantes"
 } as const;
+
+export const radioStyles: { control: string; label: string; wrapper: string } = {
+  control: "bg-primary-500",
+  label: "text-[14px]",
+  wrapper:
+    "border-2 group-data-[selected=true]:border-primary-500 group-data-[invalid=true]:border-danger-100"
+};

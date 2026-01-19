@@ -6,7 +6,7 @@ import { IAppendixTable } from "../mentoringType";
 import { Eye } from "lucide-react";
 
 const LucideIconRenderer = dynamic(
-  () => import("@/shared/ui/custom/lucideIcon").then((mod) => mod.LucideIconRenderer),
+  () => import("@/shared/ui/lucideIcon").then((mod) => mod.LucideIconRenderer),
   {
     ssr: false
   }

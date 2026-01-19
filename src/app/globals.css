@@ -1,12 +1,47 @@
 @config "../../tailwind.config.ts";
 @import "tailwindcss";
 
-html {
+@layer base {
+  body {
+    @apply text-base text-neutral-600 bg-neutral-50;
+  }
+
+  h1 {
+    @apply text-xl sm:text-2xl lg:text-3xl font-semibold text-neutral-800;
+  }
+
+  h2 {
+    @apply text-lg sm:text-xl lg:text-2xl font-semibold text-neutral-800;
+  }
+
+  h3 {
+    @apply text-base sm:text-lg font-medium text-neutral-700;
+  }
+}
+
+html,
+body {
   @apply overflow-x-hidden;
 }
-body {
-  @apply text-gray-600;
-  @apply overflow-x-hidden;
+
+.authentication-background {
+  position: relative;
+  background-image: url("/authentication-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(88, 155, 255, 0.95);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
 }
 
 .leaflet-label {
@@ -29,6 +64,35 @@ body {
 
 @media screen and (min-width: 390px) and (max-width: 767px) {
   .newQuery {
-    max-width: 10vw;
+    max-width: 100%;
   }
+}
+
+/* Ocultar tr vacío generado por HeroUI para scroll */
+table {
+  width: 100%;
+  box-shadow: none;
+}
+thead {
+  @apply border-b border-neutral-200 h-[45px];
+  & > tr > th {
+    @apply first:rounded-none last:rounded-none font-medium text-sm text-neutral-800 bg-transparent;
+  }
+  & > tr:last-child {
+    display: none !important;
+  }
+}
+
+tbody > tr {
+  @apply h-12;
+  &:hover {
+    @apply bg-primary-50 cursor-pointer;
+  }
+  & > td {
+    @apply border-b border-neutral-200 text-[13px] text-neutral-700 font-light;
+  }
+}
+
+.btn-primary {
+  @apply bg-primary-500 text-sm text-white rounded-md;
 }

@@ -3,7 +3,7 @@ import useGroupDFM from "@/features/group/hooks/useGroupDFM";
 import { groupDetailByUserColumns, useRenderGroupCell } from "./column";
 import { tableClassNames } from "@/shared/constants";
 import { IGroupByUser, IGroupByUserColumnKey } from "@/features/group/groupType";
-import { TableLayout } from "@/shared/ui/custom/tableLayout";
+import { TableLayout } from "@/shared/ui/custom/table/tableLayout";
 
 const ViewAnswerAppendix = (): React.JSX.Element => {
   const { groupDetailList } = useGroupDFM();

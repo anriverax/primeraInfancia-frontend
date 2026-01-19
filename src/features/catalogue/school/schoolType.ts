@@ -1,14 +1,7 @@
 import { IColumns, IPagination } from "@/shared/types/globals";
 import { Dispatch, SetStateAction } from "react";
 
-export type ISchoolColumnKey =
-  | "code"
-  | "name"
-  | "zone"
-  | "coordenates"
-  | "_count"
-  | "ubication"
-  | "actions";
+export type ISchoolColumnKey = "code" | "name" | "zone" | "_count" | "ubication" | "actions";
 
 export type ITeacherColumnKey = "fullName" | "email" | "phoneNumber";
 

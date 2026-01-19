@@ -46,6 +46,8 @@ export const useFormStatusToast = (): void => {
   // 2. Display toast notification
   // 3. Schedule reset of formStatus after 100ms
   // 4. Cleanup timer on unmount or when dependency changes
+
+  /* eslint-disable react-hooks/exhaustive-deps, @typescript-eslint/explicit-function-return-type,  react-hooks/exhaustive-deps */
   useEffect(() => {
     // Early return if form status is not "ok"
     if (!formStatus.isOk) return;
@@ -68,4 +70,5 @@ export const useFormStatusToast = (): void => {
     // - displaySuccessToast: when memo function changes, rerun effect
     // - setFormStatus: when setter changes (unlikely, but prevents stale closure)
   }, [formStatus.isOk, setFormStatus]);
+  /* eslint-enable react-hooks/exhaustive-deps, @typescript-eslint/explicit-function-return-type,  react-hooks/exhaustive-deps */
 };

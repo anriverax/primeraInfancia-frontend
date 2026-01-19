@@ -1,5 +1,5 @@
 import { useDepartmentsList } from "../../hooks/useDepartmentsList";
-import CustomProgress from "@/shared/ui/custom/customProgress";
+import CustomProgress from "@/shared/ui/customProgress";
 import { useMemo, useState } from "react";
 import type { Selection } from "@heroui/react";
 import { useGroupsByDepartment } from "../../hooks/useGroupsByDepartment";

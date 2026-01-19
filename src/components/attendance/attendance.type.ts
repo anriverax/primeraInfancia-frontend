@@ -1,11 +1,32 @@
 import { AxiosMessage, IPagination } from "@/shared/types/globals";
 import { Dispatch, SetStateAction } from "react";
 
-export interface AttendanceInput {
+export type AttendanceHeaderColumnsKey = "event" | "modality" | "checkIn" | "checkOut" | "actions";
+
+export interface AttendanceTableType {
+  id: number;
+  event: string;
+  checkIn: Date;
+  checkOut: Date | null;
+  modality: string;
+  coordenates: string | null;
+  support: {
+    id: number;
+    fullName: string;
+  };
+  responsible: {
+    id: number;
+    fullName: string;
+  };
+}
+
+export interface AttStepOneInput {
   isResponsible: string;
   eventInstanceId: number;
   modality: string;
   supportId: number;
+}
+export interface AttStepTwoInput extends AttStepOneInput {
   coordenates?: string;
   teacherId: number[];
   status: string;
@@ -13,7 +34,7 @@ export interface AttendanceInput {
   justificationUrl?: string;
 }
 
-export type IAttendance = AttendanceInput & AxiosMessage;
+export type AttStepTwoResponse = AttStepTwoInput & AxiosMessage;
 
 export interface TeachersAssignmentMentor {
   id: number;

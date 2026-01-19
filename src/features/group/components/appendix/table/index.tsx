@@ -3,7 +3,7 @@ import { useRenderDetailAppendixCell, detailAppendixColumns } from "./columns";
 import { IDetailAppendixColumnKey, IDetailAppendixTable } from "@/features/group/groupType";
 import { tableClassNames } from "@/shared/constants";
 import { useAppendixInscriptionList } from "@/features/mentoring/hooks/useAppendixInscription";
-import { TableLayout } from "@/shared/ui/custom/tableLayout";
+import { TableLayout } from "@/shared/ui/custom/table/tableLayout";
 
 type DetailAppendixTableProps = {
   id: number;

@@ -3,7 +3,7 @@ import { tableClassNames } from "@/shared/constants";
 import { evaluationInstrumentColumns, useRenderEvaluationInstrumentCell } from "./columns";
 import { useLearningPathList } from "../useLearningPathList";
 import { ILearningPathColumnKey, ILearningPathTable } from "../learningPathType";
-import { TableLayout } from "@/shared/ui/custom/tableLayout";
+import { TableLayout } from "@/shared/ui/custom/table/tableLayout";
 
 const LearningPathTable = (): React.JSX.Element => {
   const { learningPathList } = useLearningPathList();

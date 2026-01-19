@@ -13,7 +13,16 @@ import { NextResponse } from "next/server";
  * @throws 401 if no refresh token or invalid token format.
  * @throws 500 on server errors.
  */
-export async function POST() {
+
+export async function POST(): Promise<
+  | NextResponse<{
+      error: string;
+    }>
+  | NextResponse<{
+      accessToken: string;
+      refreshToken: string;
+    }>
+> {
   try {
     const session = await getServerSession(authOptions);
 
@@ -50,9 +59,6 @@ export async function POST() {
     const data = await response.json();
 
     if (!data?.data?.accessToken || !data?.data?.refreshToken) {
-      if (process.env.NEXT_PUBLIC_NODE_ENV_ENV === "development") {
-        console.error("[refresh] Invalid response structure", data);
-      }
       return NextResponse.json(
         { error: "Server error", message: data.message },
         { status: response.status }
@@ -68,10 +74,10 @@ export async function POST() {
       refreshToken: data.data?.refreshToken
     });
   } catch (error) {
-    if (process.env.NEXT_PUBLIC_NODE_ENV_ENV === "development") {
-      console.error("[/api/auth/refresh] Error:", error);
-    }
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Unknown error" },
+      { status: 500 }
+    );
   }
 }
 

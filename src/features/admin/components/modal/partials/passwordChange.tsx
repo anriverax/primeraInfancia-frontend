@@ -4,7 +4,7 @@ import { KeyIcon } from "lucide-react";
 import ModalRegisterHeader from "../modalRegisterHeader";
 import { usePasswordChange } from "@/features/admin/hooks/usePasswordChange";
 import { usePasswdVisible } from "@/features/admin/hooks/usePasswdVisible";
-import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
+import ConditionalAlert from "@/shared/ui/conditionalAlert";
 
 const PasswordChange = (): React.JSX.Element => {
   const formikPasswd = usePasswordChange();

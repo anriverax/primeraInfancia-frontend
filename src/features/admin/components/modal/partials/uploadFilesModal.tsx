@@ -5,7 +5,7 @@ import { Button, ModalBody } from "@heroui/react";
 import ModalRegisterHeader from "../modalRegisterHeader";
 import { UploadCloud } from "lucide-react";
 import { useUploadFiles } from "@/features/admin/hooks/useUploadFiles";
-import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
+import ConditionalAlert from "@/shared/ui/conditionalAlert";
 import { useUploadHandler } from "@/features/admin/hooks/useUploadHandler";
 
 const UploadFilesModal = (): React.JSX.Element => {

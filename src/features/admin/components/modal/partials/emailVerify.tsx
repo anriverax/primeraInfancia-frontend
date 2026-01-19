@@ -1,7 +1,7 @@
 import { Button, InputOtp, ModalBody } from "@heroui/react";
 import ModalRegisterHeader from "../modalRegisterHeader";
 import { MailCheck } from "lucide-react";
-import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
+import ConditionalAlert from "@/shared/ui/conditionalAlert";
 import { useCodeVerify } from "@/features/admin/hooks/useCodeVerify";
 
 const EmailVerify = (): React.JSX.Element => {

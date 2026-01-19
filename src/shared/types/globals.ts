@@ -20,7 +20,7 @@ export interface IPagination {
   next: number | null;
 }
 
-export interface FetchResponseWithPagination<T> extends FetchResponse<T> {
+export interface DataShape<T> extends FetchResponse<T> {
   meta?: IPagination;
 }
 export interface AxiosMessage {
@@ -78,4 +78,12 @@ export interface IDistrictWithZone {
 export interface IOptions {
   key: string | number;
   label: string;
+}
+
+export interface ApiQuery {
+  key: string;
+  endpoint: string;
+  enabled: boolean;
+  description: string;
+  pagination?: { page?: number; limit?: number };
 }

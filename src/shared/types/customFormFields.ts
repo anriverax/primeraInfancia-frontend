@@ -1,4 +1,7 @@
 import { DateValue } from "@internationalized/date";
+import { RadioGroupProps } from "@heroui/react";
+import { ReactNode } from "react";
+
 export interface ClassNamesProps {
   variant: "bordered";
   classNames: {
@@ -40,6 +43,12 @@ export interface SelectProps
     trigger: string;
     label: string;
     value: string;
+    listbox: string;
+  };
+  listboxProps: {
+    itemClasses: {
+      base: string;
+    };
   };
   selectedKeys: string[];
   isLoading: boolean;
@@ -54,6 +63,15 @@ export interface CustomFormFieldsResult {
     _error: string | undefined,
     _isRequired?: boolean
   ) => InputProps;
+  getRadioGroupProps: (
+    _label: string,
+    _isInvalid: boolean | undefined,
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    _errorMessage?: ReactNode | ((v: any) => ReactNode),
+    /* eslint-enable @typescript-eslint/no-explicit-any */
+    _orientation?: "horizontal" | "vertical" | undefined,
+    _isRequired?: boolean
+  ) => RadioGroupProps;
   getTextAreaProps: (
     _label: string,
     _placeholder: string,

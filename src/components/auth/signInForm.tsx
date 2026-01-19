@@ -28,17 +28,17 @@ const SignInForm = memo(({ formik }: SignInFormProps): React.JSX.Element => {
       <Input
         {...getFieldProps("email")}
         {...getInputProps("email", "Correo Electrónico", touched.email, errors.email)}
-        endContent={<User size={18} className="text-gray-400" />}
+        endContent={<User size={18} className="text-neutral-400" />}
         autoComplete="email"
       />
       <Input
         {...getFieldProps("passwd")}
         {...getInputProps("password", "Contraseña", touched.passwd, errors.passwd)}
-        endContent={<Lock size={18} className="text-gray-400" />}
+        endContent={<Lock size={18} className="text-neutral-400" />}
       />
 
       <div className="mt-8">
-        <Button fullWidth type="submit" isLoading={isSubmitting} className="bg-primary-500 text-white">
+        <Button fullWidth type="submit" isLoading={isSubmitting} className="btn-primary">
           Iniciar sesión
         </Button>
       </div>

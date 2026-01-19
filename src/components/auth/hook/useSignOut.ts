@@ -23,6 +23,7 @@ export const useSignOut = (): {
    * Destroys backend session and NextAuth session, then redirects to login.
    * @returns Promise with sign-out result and optional error message.
    */
+  /* eslint-disable react-hooks/exhaustive-deps */
   const signOutWithCredentials = useCallback(async (): Promise<{ ok: boolean; error?: string }> => {
     setIsLoading(true);
     setError(null);
@@ -38,7 +39,6 @@ export const useSignOut = (): {
 
       return { ok: true };
     } catch (err) {
-      console.error("[useSignOut] Error:", err);
       setError(err instanceof Error ? err.message : AUTH_MESSAGES.LOGOUT_ERROR);
       return {
         ok: false,
@@ -48,7 +48,7 @@ export const useSignOut = (): {
       setIsLoading(false);
     }
   }, []);
-
+  /* eslint-enable react-hooks/exhaustive-deps */
   return {
     signOutWithCredentials,
     isLoading,

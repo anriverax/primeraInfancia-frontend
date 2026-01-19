@@ -1,6 +1,6 @@
 import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
-import { getRoutePermissionsMap, hasAccess } from "@/shared/utils/accessControl";
+import { getRoutePermissionsMap, hasAccess } from "@/shared/next-auth/accessControl";
 import { ROUTES } from "./shared/constants";
 
 /**
@@ -19,17 +19,13 @@ export async function middleware(request: NextRequest): Promise<NextResponse<unk
   const isAuthPage = pathname.startsWith("/auth");
   const isAdminPage = pathname.startsWith("/admin");
 
-  if (isAuthPage) {
-    return NextResponse.next();
-  }
-
   // 0. Root path redirect handled here to avoid double hops with next.config redirects
-  /*
+
   if (pathname === ROUTES.ROOT) {
     const target = isAuthenticated ? ROUTES.DASHBOARD_PARTICIPANTES : ROUTES.AUTH_LOGIN;
     return NextResponse.redirect(new URL(target, request.url));
   }
-*/
+
   // 1. Authenticated user attempting to access /auth → redirect to dashboard
   if (isAuthenticated && isAuthPage) {
     return NextResponse.redirect(new URL(ROUTES.DASHBOARD_PARTICIPANTES, request.url));
@@ -41,17 +37,22 @@ export async function middleware(request: NextRequest): Promise<NextResponse<unk
   }
 
   // 3. Authenticated user in protected route → validate specific permissions
+  if (isAuthPage) {
+    return NextResponse.next();
+  }
+
+  // 4. Authenticated user in protected route → validate specific permissions
+
   if (isAuthenticated && isAdminPage) {
     const bearer = token?.accessToken ? `Bearer ${token.accessToken as string}` : undefined;
     const routeMap = await getRoutePermissionsMap({ bearer });
 
     if (!hasAccess(pathname, token, routeMap)) {
-      console.warn(`[middleware] Acceso denegado para ${pathname}`);
       return NextResponse.redirect(new URL(ROUTES.DASHBOARD_PARTICIPANTES, request.url));
     }
   }
 
-  // 4. Allow access
+  // 5. Allow access
   return NextResponse.next();
 }
 

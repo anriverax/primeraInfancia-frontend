@@ -3,7 +3,7 @@ import { tableClassNames } from "@/shared/constants";
 import { useTrainingModuleList } from "../useTrainingModuleList";
 import { ITrainingModuleColumnKey, ITrainingModuleTable } from "../trainingModuleType";
 import { trainingModuleColumns, useRenderTrainingModuleCell } from "./columns";
-import { TableLayout } from "@/shared/ui/custom/tableLayout";
+import { TableLayout } from "@/shared/ui/custom/table/tableLayout";
 
 const TrainingModuleTable = (): React.JSX.Element => {
   const { trainingModuleList } = useTrainingModuleList();

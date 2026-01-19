@@ -50,7 +50,6 @@ export const authOptions: NextAuthOptions = {
 
           if (!response.ok) {
             const errorData = await response.json();
-            console.error(`[auth] Backend returned HTTP ${response.status}:`, errorData);
             // Usa el mensaje del backend si está disponible
             throw new Error(
               errorData.message ||
@@ -61,14 +60,12 @@ export const authOptions: NextAuthOptions = {
           const json = await response.json();
 
           if (json.statusCode !== 200 || !json.data) {
-            console.error("[auth] Invalid backend response", json);
             throw new Error("No pudimos iniciar sesión. Verifica tus credenciales e intenta de nuevo");
           }
 
           return json.data;
         } catch (error) {
           if (error instanceof Error) {
-            console.error("[auth] Authorization error:", error.message);
             throw error;
           }
           throw new Error("No pudimos iniciar sesión. Por favor intenta de nuevo más tarde");

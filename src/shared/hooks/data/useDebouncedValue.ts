@@ -95,7 +95,7 @@ export function useDebouncedValue<T>(
     }, validatedDelay);
 
     // Cleanup function
-    return () => {
+    return (): void => {
       clearTimeout(debounceTimeout);
       if (maxWaitTimeoutRef.current) {
         clearTimeout(maxWaitTimeoutRef.current);
