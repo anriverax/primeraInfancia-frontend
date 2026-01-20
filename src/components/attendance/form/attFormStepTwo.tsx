@@ -16,7 +16,8 @@ const AttFormStepTwo = ({
 }: AttFormStepTwoProps): React.JSX.Element => {
   const { getTextAreaProps, getInputProps, getRadioGroupProps } = useCustomFormFields();
   const { values, touched, errors, getFieldProps, handleSubmit, setFieldValue } = formikStepTwo;
-
+  console.log(touched);
+  console.log(errors);
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <RadioGroup
@@ -63,7 +64,9 @@ const AttFormStepTwo = ({
         <Button variant="bordered" onPress={handlePrev}>
           Atras
         </Button>
-        <Button className="btn-primary">Guardar</Button>
+        <Button className="btn-primary" type="submit">
+          Guardar
+        </Button>
       </div>
     </form>
   );

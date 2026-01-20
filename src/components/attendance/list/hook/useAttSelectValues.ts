@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useListApiQuery } from "@/shared/react-query/hook/useListApiQuery";
 import { FormikErrors } from "formik";
-import { AttStepOneInput, EventList, SupportList } from '../../attendance.type';
+import { AttStepOneInput, EventList, SupportList } from "../../attendance.type";
 
 const useAttSelectValues = (
   supportKey: string,
