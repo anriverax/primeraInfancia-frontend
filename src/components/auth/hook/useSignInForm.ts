@@ -24,8 +24,6 @@ const initialValues: SignInInput = {
 const useSignInForm = (): FormikProps<ISignIn> => {
   const router = useRouter();
   const { signInWithCredentials } = useSignIn();
-  const [loginAttempts, setLoginAttempts] = useState<number>(0);
-  const [cooldownSeconds, setCooldownSeconds] = useState<number>(0);
 
   /**
    * Handles form submission with encryption, authentication, and progressive cooldown on failed attempts.
@@ -36,14 +34,6 @@ const useSignInForm = (): FormikProps<ISignIn> => {
     values: SignInInput,
     formikHelpers: FormikHelpers<ISignIn>
   ): Promise<void> => {
-    if (cooldownSeconds > 0) {
-      formikHelpers.setFieldError(
-        "axiosMessage",
-        `Por favor espera ${cooldownSeconds}s antes de intentar de nuevo`
-      );
-      return;
-    }
-
     const encryptedEmail = encrypt(values.email);
     const encryptedPassword = encrypt(values.passwd);
 
@@ -52,35 +42,11 @@ const useSignInForm = (): FormikProps<ISignIn> => {
       const result = await signInWithCredentials(encryptedEmail, encryptedPassword);
 
       if (!result.ok) {
-        const newAttempts = loginAttempts + 1;
-        setLoginAttempts(newAttempts);
-        // ✅ Cooldown progresivo
-        if (newAttempts >= 3) {
-          const cooldown = Math.min(newAttempts * 10, 120); // Max 2 minutes
-
-          setCooldownSeconds(cooldown);
-
-          // Countdown timer que decrementa cada segundo
-          const countdownInterval = setInterval(() => {
-            setCooldownSeconds((prev) => {
-              if (prev <= 1) {
-                clearInterval(countdownInterval);
-                return 0; // Cooldown terminó
-              }
-              return prev - 1;
-            });
-          }, 1000);
-        }
-
         const errorMessage = result.error || "Error inesperado. Por favor intenta de nuevo.";
         formikHelpers.setFieldError("axiosMessage", errorMessage);
         formikHelpers.setStatus(STATUS_CODES.UNAUTHORIZED);
         return;
       }
-
-      // Success - reset attempts
-      setLoginAttempts(0);
-      setCooldownSeconds(0);
 
       // Success - redirect to dashboard
       router.push("/admin/dashboard/participantes");
