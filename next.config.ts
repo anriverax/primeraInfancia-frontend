@@ -14,17 +14,11 @@ const isProd = process.env.NEXT_PUBLIC_NODE_ENV === "production";
 const getCSP = (): string => {
   const cspDirectives = [
     "default-src 'self'",
-    // DESARROLLO: unsafe-inline/eval para React DevTools
-    // PRODUCCIÓN: Solo 'self'
-    `script-src 'self' 'unsafe-inline' blob: https://cdn.jsdelivr.net https://api.mapbox.com https://events.mapbox.com`,
-    `style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net`,
+    "script-src 'self' 'unsafe-inline' blob: https://cdn.jsdelivr.net https://api.mapbox.com https://events.mapbox.com",
+    "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net",
     "img-src 'self' data: https: https://anriverax.s3.us-east-2.amazonaws.com",
     "font-src 'self' data: https://cdn.jsdelivr.net",
-    // DESARROLLO: Permite http://localhost:3001 Y WebSockets (ws/wss) para HMR y desarrollo
-    // PRODUCCIÓN: Solo HTTPS
-    `connect-src 'self' ${
-      isDev ? "http://localhost:3001 ws: wss: http://localhost:* 127.0.0.1:*" : ""
-    } https://api.mapbox.com https://events.mapbox.com https:`,
+    `connect-src 'self' https://api.mapbox.com https://events.mapbox.com https:`,
     "form-action 'self'",
     "frame-ancestors 'none'",
     "worker-src blob:"
