@@ -19,6 +19,7 @@ frontend:
         - echo "NEXT_PUBLIC_AUTH_CACHE_MS=$NEXT_PUBLIC_AUTH_CACHE_MS" >> .env
         - echo "NEXTAUTH_URL=$NEXTAUTH_URL" >> .env
         - echo "NEXT_PUBLIC_MAPBOX_TOKEN=$NEXT_PUBLIC_MAPBOX_TOKEN" >> .env
+        - echo "NODE_ENV=$NODE_ENV" >> .env
         - npm run build
   artifacts:
     baseDirectory: .next
