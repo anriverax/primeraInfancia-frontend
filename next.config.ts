@@ -16,8 +16,8 @@ const getCSP = (): string => {
     "default-src 'self'",
     // DESARROLLO: unsafe-inline/eval para React DevTools
     // PRODUCCIÓN: Solo 'self'
-    `script-src 'self' ${isDev ? "'unsafe-inline' 'unsafe-eval'" : ""} blob: https://cdn.jsdelivr.net https://api.mapbox.com https://events.mapbox.com`,
-    `style-src 'self' ${isDev ? "'unsafe-inline'" : ""} https://cdn.jsdelivr.net`,
+    `script-src 'self' 'unsafe-inline' blob: https://cdn.jsdelivr.net https://api.mapbox.com https://events.mapbox.com`,
+    `style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net`,
     "img-src 'self' data: https: https://anriverax.s3.us-east-2.amazonaws.com",
     "font-src 'self' data: https://cdn.jsdelivr.net",
     // DESARROLLO: Permite http://localhost:3001 Y WebSockets (ws/wss) para HMR y desarrollo
