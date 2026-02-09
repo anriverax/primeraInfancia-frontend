@@ -26,7 +26,7 @@ import { IOptions } from "@/shared/types/globals";
 import { AppendixCard } from "../../component/appendixCard";
 import { Fragment, useMemo } from "react";
 import { useAppendix3Func } from "../hook/useAppendix3Func";
-import { radioStyles } from '@/shared/constants';
+import { radioStyles } from "@/shared/constants";
 
 const Appendix3Form = (): React.JSX.Element => {
   const params = useParams();
