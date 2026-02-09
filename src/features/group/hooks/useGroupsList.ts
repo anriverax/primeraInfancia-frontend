@@ -1,21 +1,18 @@
-import { useState } from "react";
-
-import { useQueryRequest } from "@/shared/hooks/useQueryRequest";
 import { GroupListResult, IGroupTable } from "../groupType";
-import { useDeleteRequest } from "@/shared/hooks/useDeleteRequest";
+import { useDeleteRequest } from "@/shared/hooks/data/useDeleteRequest";
+import { usePaginationApiQuery } from "@/shared/hooks/http/usePaginationApiQuery";
 
 const useGroupsList = (): GroupListResult => {
-  const [page, setPage] = useState<number>(1);
-  const limit = 10;
-
-  const { data: groupList, meta } = useQueryRequest<IGroupTable[]>(
-    "groups-list",
-    "/group",
-    true,
-    "grupos",
-    page,
-    limit
-  );
+  const {
+    data: groupList,
+    meta,
+    handleChangePage
+  } = usePaginationApiQuery<IGroupTable[]>({
+    key: "groups-list",
+    endpoint: "/group",
+    enabled: true,
+    description: "grupos"
+  });
 
   const { onConfirmDelete } = useDeleteRequest("groups-list", "/group", "grupo");
 
@@ -26,7 +23,7 @@ const useGroupsList = (): GroupListResult => {
     );
   };
 
-  return { handleChangePage: setPage, groupList, meta, handleConfirmDeleteGroup };
+  return { handleChangePage, groupList, meta, handleConfirmDeleteGroup };
 };
 
 export { useGroupsList };

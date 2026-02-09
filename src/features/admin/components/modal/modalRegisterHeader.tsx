@@ -1,22 +1,18 @@
 import { ModalHeader } from "@heroui/react";
-
+import Image from "next/image";
 type ModalHeaderCustomProps = {
   title: string;
-  description: string;
+  imageSrc: string;
   icon: React.ReactNode;
 };
 
-const ModalRegisterHeader = ({
-  title,
-  description,
-  icon
-}: ModalHeaderCustomProps): React.JSX.Element => (
-  <ModalHeader className="flex flex-col gap-1">
-    <div className="flex justify-center mb-2">
-      <div className="p-2 bg-gray-100 rounded-full">{icon}</div>
+const ModalRegisterHeader = ({ title, imageSrc, icon }: ModalHeaderCustomProps): React.JSX.Element => (
+  <ModalHeader>
+    <div className="flex justify-center items-center gap-4">
+      <div className="p-2 bg-white rounded-full">{icon}</div>
+      <h3 className="text-center text-white">{title}</h3>
     </div>
-    <h2 className="text-xl text-center">{title}</h2>
-    <p className="text-center font-normal text-base">{description}</p>
+    <Image priority src={imageSrc} alt="logo del título" width={105} height={55} />
   </ModalHeader>
 );
 

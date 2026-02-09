@@ -1,9 +1,8 @@
 import { useCallback } from "react";
 import { ISchoolColumnKey, ISchoolTable } from "../../schoolType";
-import { Eye } from "lucide-react";
-import { Tooltip } from "@heroui/react";
-import Link from "next/link";
 import { IColumns } from "@/shared/types/globals";
+import { DetailAction } from "@/components/ui/actions/detail";
+import { MapPin } from "lucide-react";
 
 export const headerColumns: IColumns<ISchoolColumnKey>[] = [
   {
@@ -14,7 +13,6 @@ export const headerColumns: IColumns<ISchoolColumnKey>[] = [
     key: "name",
     label: "Nombre"
   },
-  { key: "coordenates", label: "Coordenadas" },
   { key: "ubication", label: "Ubicación Territorial" },
   {
     key: "_count",
@@ -36,19 +34,22 @@ export const useRenderSchoolCell = (): ((
     switch (columnKey) {
       case "_count":
         return (
-          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium 2xl:bg-blue-50 2xl:border-blue-500 2xl:border border-0 text-blue-700">{`${school._count?.PrincipalSchool} Docentes`}</span>
+          <span className="inline-flex items-center px-2 py-1 rounded-full text-xs text-primary-500 bg-primary-500/10 border border-primary-500/10">{`${school._count?.PrincipalSchool} Docentes`}</span>
+        );
+      case "ubication":
+        return (
+          <span className="flex items-center gap-1">
+            <MapPin className="w-4 h-4" />
+            <span>{school.ubication}</span>
+          </span>
         );
       case "actions":
         return (
-          <div className="relative flex items-center justify-center gap-2">
-            <Tooltip content="Detalle del centro escolar">
-              <Link
-                href={`./centros-educativos/${encodeURIComponent(school.id!)}`}
-                className="text-lg text-default-400 cursor-pointer active:opacity-50"
-              >
-                <Eye className="h-4 w-4" />
-              </Link>
-            </Tooltip>
+          <div className="flex items-center justify-center gap-2">
+            <DetailAction
+              url={`./centros-educativos/${encodeURIComponent(school.id!)}`}
+              description="Detalle del centro escolar"
+            />
           </div>
         );
       default: {

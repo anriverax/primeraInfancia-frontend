@@ -5,7 +5,7 @@ import { Eye } from "lucide-react";
 import dynamic from "next/dynamic";
 
 const LucideIconRenderer = dynamic(
-  () => import("@/shared/ui/custom/lucideIcon").then((mod) => mod.LucideIconRenderer),
+  () => import("@/components/ui/lucideIcon").then((mod) => mod.LucideIconRenderer),
   {
     ssr: false
   }

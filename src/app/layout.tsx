@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./globals.css";
 import "sweetalert2/src/sweetalert2.scss";
 import { Providers } from "./provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"]
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"]
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700", "800"]
 });
 
 export const metadata: Metadata = {
@@ -26,7 +24,7 @@ export default function RootLayout({
 }>): React.JSX.Element {
   return (
     <html lang="es" className="light">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${inter.variable} font-sans`}>
         <Providers>{children}</Providers>
       </body>
     </html>

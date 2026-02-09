@@ -1,63 +1,65 @@
 "use client";
 
-import SchoolsByDepartmentChart from "@/features/dashboard/components/participants/school/schoolsByDepartment";
-import SchoolsBy from "@/features/dashboard/components/participants/school/schoolsBy";
-import { useDashboardParticipant } from "@/features/dashboard/hook/useDashboardParticipant";
-import PieChartLayout from "@/features/dashboard/components/pieChartLayout";
-import Sex from "@/features/dashboard/components/participants/teacher/sex";
-import AgeChart from "@/features/dashboard/components/participants/teacher/birthday";
-import CareerTable from "@/features/dashboard/components/participants/career/careerTable";
-import { TeacherStatus } from "@/features/dashboard/components/participants/teacher/teacherStatus";
+import DepartmentSummary from "@/components/modules/dashboard/mapBox/departmentSummary";
+import { useMapbox } from "@/components/modules/dashboard/mapBox/hook/useMapbox";
+import { MapLegend } from "@/components/modules/dashboard/mapBox/mapLegend";
+import TopDepartment from "@/components/modules/dashboard/mapBox/topDeparment";
+import LoadingSkeleton from "@/components/ui/common/loadingSkeleton";
+import { useCallback } from "react";
+import MapboxReal from "../../../../components/modules/dashboard/mapBox/mapboxReal";
+import { KPI } from "@/components/modules/dashboard/mapBox/kpi";
 
-const DashboardParticipantsPage = (): React.JSX.Element => {
-  const { schoolFilters } = useDashboardParticipant();
+export default function DashboardPage(): React.JSX.Element {
+  const { schoolList, filtered, globalStats, isLoading, setSelectedDepto } = useMapbox();
+  /* eslint-disable react-hooks/exhaustive-deps */
+  const memoizedSetDepto = useCallback(setSelectedDepto, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
 
   return (
-    <div>
-      {schoolFilters && (
-        <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-12 h-auto">
-            <SchoolsBy title="Centros educativos por zonas" data={schoolFilters.zone} />
-            <Sex dataSex={schoolFilters.sex} total={schoolFilters.totalTeacher.active} />
-            <div className="h-full sm:col-span-2 xl:col-span-1">
-              <div className="space-y-6 sm:flex sm:gap-12 sm:space-y-0 lg:justify-between xl:block xl:space-y-6">
-                <TeacherStatus
-                  num={4998}
-                  title="Cuerpo docente activos"
-                  style={{ base: "bg-success/30", text: "text-success-800" }}
-                />
-                <TeacherStatus
-                  num={schoolFilters.totalTeacher.inactive}
-                  title="Cuerpo docente inactivos"
-                  style={{ base: "bg-danger/30", text: "text-danger-800" }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="2xl:flex my-12 gap-12">
-            <SchoolsByDepartmentChart data={schoolFilters.department} />
-            <div className="2xl:w-[25%] 2xl:mt-0 space-y-3 mt-12">
-              <AgeChart data={schoolFilters.ages} />
-            </div>
-          </div>
-          <div className="my-12 2xl:flex 2xl:space-y-0 gap-12 space-y-12">
-            <CareerTable title="Nivel académico del cuerpo docente" careerData={schoolFilters.career} />
-            {/*<CareerTable
-              title="Cuerpo docente por secciones"
-              careerData={schoolFilters.educationalLevel}
-            />*/}
-          </div>
-          <div className="my-12 ">
-            <PieChartLayout
-              data={schoolFilters.experience}
-              title="Tiempo de servicio del cuerpo docente"
-              height="h-[450px]"
-            />
-          </div>
-        </>
-      )}
-    </div>
+    <>
+      {schoolList.length > 0 && globalStats && <KPI nums={globalStats} />}
+      <div className="grid grid-cols-12 gap-4">
+        <div className="col-span-3 p-4 bg-white shadow-md h-[520px] overflow-y-auto rounded-2xl">
+          {filtered.length > 0 && (
+            <TopDepartment filtered={filtered} setSelectedDepto={memoizedSetDepto} />
+          )}
+        </div>
+        <div className="col-span-9 relative h-[520px] overflow-hidden">
+          <DepartmentSummary stats={globalStats!} filteredLength={filtered.length} />
+          {filtered.length > 0 && <MapboxReal filtered={filtered} setSelectedDepto={memoizedSetDepto} />}
+          <MapLegend />
+        </div>
+      </div>
+    </>
   );
-};
+}
 
-export default DashboardParticipantsPage;
+/*filtered.map((e, i) => {
+          const coords = e.coordenates.split(",").map((c) => parseFloat(c.trim()));
+          return (
+            <div
+              key={e.id}
+              style={{
+                padding: 10,
+                borderRadius: 8,
+                marginBottom: 6,
+                cursor: "pointer",
+                background: "#f9fafb"
+              }}
+              onClick={() =>
+                setPopup({
+                  lng: coords[0],
+                  lat: coords[1],
+                  name: e.name
+                })
+              }
+            >
+              <strong>{e.name}</strong>
+              <div style={{ fontSize: 12, opacity: 0.6 }}>{e.Department?.name}</div>
+            </div>
+          );
+        })*/

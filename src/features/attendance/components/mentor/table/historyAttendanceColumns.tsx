@@ -3,7 +3,7 @@ import { Eye } from "lucide-react";
 import { Tooltip } from "@heroui/react";
 import Link from "next/link";
 import { IColumns } from "@/shared/types/globals";
-import { IAttendanceColumnKey, IAttendanceTable } from "@/features/attendance/attendance.type";
+import { IAttendanceColumnKey, IAttendanceTable } from "@/components/attendance/attendance.type";
 
 export const headerColumns: IColumns<IAttendanceColumnKey>[] = [
   {

@@ -6,7 +6,7 @@ import { IAppendixTable } from "../mentoringType";
 import { Eye } from "lucide-react";
 
 const LucideIconRenderer = dynamic(
-  () => import("@/shared/ui/custom/lucideIcon").then((mod) => mod.LucideIconRenderer),
+  () => import("@/components/ui/lucideIcon").then((mod) => mod.LucideIconRenderer),
   {
     ssr: false
   }
@@ -76,7 +76,7 @@ const TrainerView = ({ teacher }: TrainerViewProps): React.JSX.Element => {
                 <div className="flex justify-center">
                   <Button
                     fullWidth
-                    color="primary"
+                    className="btn-primary"
                     type="submit"
                     as={Link}
                     href={`anexos/${item.id}/${encodeURIComponent(item.subTitle)}`}

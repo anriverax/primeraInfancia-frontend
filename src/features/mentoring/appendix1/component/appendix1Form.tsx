@@ -3,7 +3,7 @@ import { useAppendix } from "../../hooks/useAppendix";
 import { ArrowLeft, CheckCircle2, Send } from "lucide-react";
 import { Button, Divider, Input } from "@heroui/react";
 import { useAppendix1Form } from "../hook/useAppendix1Form";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import Link from "next/link";
 import { AppendixLayout } from "../../component/appendixLayout";
 import { AppendixCard } from "../../component/appendixCard";
@@ -119,7 +119,7 @@ const Appendix1Form = (): React.JSX.Element => {
           <Button
             type="submit"
             size="lg"
-            color="primary"
+            className="btn-primary"
             startContent={<Send className="w-4 h-4 mr-2" />}
           >
             Enviar acuerdo

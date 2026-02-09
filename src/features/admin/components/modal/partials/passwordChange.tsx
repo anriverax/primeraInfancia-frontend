@@ -1,10 +1,10 @@
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { Button, Input, ModalBody } from "@heroui/react";
 import { KeyIcon } from "lucide-react";
 import ModalRegisterHeader from "../modalRegisterHeader";
 import { usePasswordChange } from "@/features/admin/hooks/usePasswordChange";
 import { usePasswdVisible } from "@/features/admin/hooks/usePasswdVisible";
-import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
+import ConditionalAlert from "@/components/ui/conditionalAlert";
 
 const PasswordChange = (): React.JSX.Element => {
   const formikPasswd = usePasswordChange();
@@ -19,7 +19,7 @@ const PasswordChange = (): React.JSX.Element => {
     <>
       <ModalRegisterHeader
         title="Cambiar contraseña"
-        description="Ingresa tu contraseña temporal y crea una nueva contraseña segura"
+        imageSrc=""
         icon={<KeyIcon className="h-6 w-6 text-gray-600" />}
       />
       <ModalBody>

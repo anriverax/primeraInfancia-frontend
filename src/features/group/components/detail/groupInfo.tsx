@@ -1,4 +1,4 @@
-import { cn } from "@/shared/utils/tv";
+import { cn } from "@/shared/config/tv";
 import { GraduationCap, LucideProps, MapPin, Users } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 

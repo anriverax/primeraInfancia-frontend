@@ -8,6 +8,7 @@ type UseAppendix3FuncProps = {
     touched: FormikTouched<Appendix3Input>,
     shouldValidate?: boolean
   ) => Promise<void | FormikErrors<Appendix3Input>>;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   validateForm: (values?: any) => Promise<FormikErrors<Appendix3Input>>;
   touched: FormikTouched<Appendix3Input>;
   setFieldValue: (
@@ -15,6 +16,7 @@ type UseAppendix3FuncProps = {
     value: any,
     shouldValidate?: boolean | undefined
   ) => Promise<void | FormikErrors<Appendix3Input>>;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   data: [DimensionPlan, ...DimensionPlan[]];
 };
 
@@ -42,7 +44,7 @@ const useAppendix3Func = ({
       return prev;
     });
   };
-
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const addNewDimension = async (): Promise<void> => {
     const errs = await validateForm();
     const dimErrors = (errs as any)?.dimensions?.[currentIndex];
@@ -78,7 +80,7 @@ const useAppendix3Func = ({
     await setFieldValue("dimensions", next);
     setCurrentIndex(next.length - 1);
   };
-
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   return { addNewTask, newTask, addNewDimension, currentIndex };
 };
 

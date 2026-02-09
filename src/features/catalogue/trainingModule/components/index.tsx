@@ -1,38 +1,19 @@
-import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@heroui/table";
-import { tableClassNames } from "@/shared/constants";
 import { useTrainingModuleList } from "../useTrainingModuleList";
-import { ITrainingModuleColumnKey, ITrainingModuleTable } from "../trainingModuleType";
+import { ITrainingModuleColumnKey } from "../trainingModuleType";
 import { trainingModuleColumns, useRenderTrainingModuleCell } from "./columns";
-import { TableLayout } from "@/shared/ui/custom/tableLayout";
+import GenericTable from "@/components/ui/table/genericTable";
 
 const TrainingModuleTable = (): React.JSX.Element => {
   const { trainingModuleList } = useTrainingModuleList();
   const renderTrainingModuleCell = useRenderTrainingModuleCell();
 
   return (
-    <TableLayout>
-      <Table classNames={tableClassNames} aria-label="Tabla para mostrar las rutas de aprendizaje">
-        <TableHeader columns={trainingModuleColumns}>
-          {(trainingModuleCol) => (
-            <TableColumn key={trainingModuleCol.key}>{trainingModuleCol.label}</TableColumn>
-          )}
-        </TableHeader>
-        <TableBody isLoading={!trainingModuleList} items={trainingModuleList || []}>
-          {(trainingModuleItem: ITrainingModuleTable) => (
-            <TableRow key={trainingModuleItem.id}>
-              {(trainingModuleKey) => (
-                <TableCell>
-                  {renderTrainingModuleCell(
-                    trainingModuleItem,
-                    trainingModuleKey as ITrainingModuleColumnKey
-                  )}
-                </TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </TableLayout>
+    <GenericTable
+      items={trainingModuleList}
+      columns={trainingModuleColumns}
+      renderCell={(item, key) => renderTrainingModuleCell(item, key as ITrainingModuleColumnKey)}
+      ariaLabel="Tabla para mostrar los modulos de formación registrados"
+    />
   );
 };
 

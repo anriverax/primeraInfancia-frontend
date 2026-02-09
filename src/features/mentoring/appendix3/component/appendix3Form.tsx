@@ -19,17 +19,20 @@ import {
   TableRow,
   TableCell
 } from "@heroui/react";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { dimensionData, strategiesValueData, subDimensionMap } from "../appendix3Data";
 import { useAppendix3Form } from "../hook/useAppendix3Form";
 import { IOptions } from "@/shared/types/globals";
 import { AppendixCard } from "../../component/appendixCard";
 import { Fragment, useMemo } from "react";
 import { useAppendix3Func } from "../hook/useAppendix3Func";
+import { radioStyles } from '@/shared/constants';
 
 const Appendix3Form = (): React.JSX.Element => {
   const params = useParams();
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const { anexoId, fullName, groupId } = params as any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   const { appendix } = useAppendix(Number(anexoId));
 
   const formikAppendix3 = useAppendix3Form(Number(anexoId), Number(groupId));
@@ -56,7 +59,7 @@ const Appendix3Form = (): React.JSX.Element => {
   const addedRows = useMemo(() => values.dimensions.length > 0, [values.dimensions]);
 
   const { getSelectProps, getInputProps, getTextAreaProps } = useCustomFormFields();
-
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   return (
     <AppendixLayout
       title={appendix?.title || ""}
@@ -230,7 +233,7 @@ const Appendix3Form = (): React.JSX.Element => {
               }}
             >
               {strategiesValueData.map((item) => (
-                <Checkbox key={item} value={item}>
+                <Checkbox key={item} value={item} classNames={{ ...radioStyles }}>
                   {item}
                 </Checkbox>
               ))}
@@ -253,6 +256,7 @@ const Appendix3Form = (): React.JSX.Element => {
       </AppendixForm>
     </AppendixLayout>
   );
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 };
 
 export default Appendix3Form;

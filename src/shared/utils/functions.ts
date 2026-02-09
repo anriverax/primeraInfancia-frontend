@@ -1,3 +1,4 @@
+import { SharedSelection } from "@heroui/react";
 import { AnyObject, string, StringSchema, number, NumberSchema } from "yup";
 import { ERR_BAD_REQUEST, TypeRole } from "../constants";
 import axios, { AxiosError, AxiosResponse } from "axios";
@@ -6,6 +7,14 @@ import { FormikHelpers } from "formik";
 import { addToast } from "@heroui/react";
 import Swal from "sweetalert2";
 import { Session } from "next-auth";
+import {
+  CalendarDate,
+  CalendarDateTime,
+  DateValue,
+  getLocalTimeZone,
+  now,
+  ZonedDateTime
+} from "@internationalized/date";
 
 /**
  * Creates a Yup string schema that is required with a custom message.
@@ -54,13 +63,12 @@ export function handleFormikResponseError<T>(error: AxiosError, formikHelpers: F
 
   if (error.code === ERR_BAD_REQUEST) {
     // Extract error details from the Axios response when available.
-    const { response } = error;
-    if (response) {
-      const { data } = response as AxiosResponse;
-      const { statusCode, message } = data;
 
-      setStatus(statusCode);
-      setFieldError("axiosMessage", message);
+    if (error.response) {
+      const { data } = error.response as AxiosResponse;
+
+      setStatus(data.statusCode);
+      setFieldError("axiosMessage", data.message);
     } else {
       // Network issue or no response provided by the server.
       setStatus(400);
@@ -116,7 +124,7 @@ export function handleAxiosError(
   action: "obtener" | "eliminar" | "actualizar"
 ): void {
   const isAxios = axios.isAxiosError(error);
-  const isDev = process.env.NODE_ENV === "development";
+  const isDev = process.env.NEXT_PUBLIC_NODE_ENV_ENV === "development";
   const title = isAxios ? `Error al ${action}` : `Error inesperado al ${action}`;
 
   const detail = isAxios ? error.response?.data || error.message : (error as Error).message || error;
@@ -201,4 +209,73 @@ export const isRolAdmin = (session: Session | null): boolean => {
 
   // Return false if role is FORMADOR or MENTOR, true in any other case
   return ![TypeRole.USER_FORMADOR, TypeRole.USER_MENTOR].includes(role as TypeRole);
+};
+
+export const extractIdFromSelection = (keys: SharedSelection, defaultValue: number = -1): number => {
+  if (!keys || (keys instanceof Set && keys.size === 0)) {
+    return defaultValue;
+  }
+
+  const firstKey = Array.from(keys as Set<string>)[0];
+  const id = firstKey ? Number(firstKey) : defaultValue;
+
+  return id;
+};
+
+export const formatForBackend = (
+  value: DateValue | null | CalendarDate | CalendarDateTime | ZonedDateTime
+): string | null => {
+  if (!value) return null;
+
+  // Convertir a Date nativo en zona local
+  const jsDate = value.toDate(getLocalTimeZone());
+
+  // Retornar en formato ISO 8601
+  return jsDate.toISOString();
+};
+
+export const parseCustomDateFormat = (dateString: string): Date | null => {
+  const regex = /(\d{2})\/(\d{2})\/(\d{4}),\s(\d{2}):(\d{2})\s(a\.m\.|p\.m\.)/;
+  const match = dateString.match(regex);
+
+  if (!match) {
+    return null;
+  }
+
+  const [, day, month, year, hours, minutes, period] = match;
+  let hour = parseInt(hours, 10);
+
+  if (period === "p.m." && hour !== 12) hour += 12;
+  if (period === "a.m." && hour === 12) hour = 0;
+
+  return new Date(
+    parseInt(year, 10),
+    parseInt(month, 10) - 1,
+    parseInt(day, 10),
+    hour,
+    parseInt(minutes, 10)
+  );
+};
+
+export const parseCustomDateFormatToZonedDateTime = (dateString: string): ZonedDateTime => {
+  const date = parseCustomDateFormat(dateString);
+
+  if (!date) {
+    return now(getLocalTimeZone());
+  }
+
+  // Get current time to extract timezone offset
+  const currentTime = now(getLocalTimeZone());
+  const offset = currentTime.offset;
+
+  return new ZonedDateTime(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate(),
+    getLocalTimeZone(),
+    offset,
+    date.getHours(),
+    date.getMinutes(),
+    0
+  );
 };

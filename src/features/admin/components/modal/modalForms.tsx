@@ -1,6 +1,6 @@
 "use client";
 
-import ModalLayout from "@/shared/ui/modal/modalLayout";
+import ModalLayout from "@/components/ui/modal/modalLayout";
 import PasswordChange from "./partials/passwordChange";
 
 type ModalFormsProps = {

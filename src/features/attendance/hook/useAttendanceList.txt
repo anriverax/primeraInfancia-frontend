@@ -1,0 +1,19 @@
+import { useApiQuery } from "@/shared/hooks/http/useApiQuery";
+import { useState } from "react";
+import { AttendanceListResult, EventList } from "../../../components/attendance/attendance.type";
+
+const useAttendanceList = (): AttendanceListResult => {
+  const [page, setPage] = useState<number>(1);
+  const limit = 10;
+
+  const { data: attendanceList, meta } = useApiQuery<EventList[]>({key: "event-list", endpoint: "/event", {
+    enabled: true,
+    description: "Lista de asistencias",
+    page,
+    limit}
+  });
+
+  return { handleChangePage: setPage, attendanceList, meta };
+};
+
+export { useAttendanceList };

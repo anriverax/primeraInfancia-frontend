@@ -2,7 +2,7 @@ import { FormikHelpers, useFormik, FormikProps } from "formik";
 import { questionsAppendix3 } from "@/shared/appendixData";
 import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import { FetchResponse } from "@/shared/types/globals";
-import useAxios from "@/shared/hooks/useAxios";
+import useAxios from "@/shared/hooks/http/useAxios";
 import { confirmAction, handleFormikResponseError, showToast } from "@/shared/utils/functions";
 import { useRouter } from "next/navigation";
 import { Appendix3Input, IAppendix3Input } from "../appendix3Type";
@@ -47,7 +47,7 @@ const useAppendix3Form = (appendixId: number, inscriptionId: number): FormikProp
     const appendixData = {
       appendixId,
       survey: result,
-      inscriptionId
+      teacherId: inscriptionId
     };
 
     try {

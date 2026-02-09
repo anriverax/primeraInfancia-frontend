@@ -26,7 +26,12 @@ export const AppendixForm = ({
         Regresar
       </Button>
 
-      <Button type="submit" size="lg" color="primary" startContent={<Send className="w-4 h-4 mr-2" />}>
+      <Button
+        type="submit"
+        size="lg"
+        className="btn-primary"
+        startContent={<Send className="w-4 h-4 mr-2" />}
+      >
         Enviar formulario
       </Button>
     </div>

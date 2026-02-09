@@ -1,4 +1,7 @@
-import { DateValue } from "@internationalized/date";
+import { CalendarDate, CalendarDateTime, DateValue, ZonedDateTime } from "@internationalized/date";
+import { RadioGroupProps } from "@heroui/react";
+import { ReactNode } from "react";
+
 export interface ClassNamesProps {
   variant: "bordered";
   classNames: {
@@ -15,13 +18,12 @@ export interface InputProps extends ClassNamesProps {
   errorMessage: string | undefined;
 }
 
-export interface DateProps extends Pick<InputProps, "label" | "variant"> {
+export interface DateProps
+  extends Pick<InputProps, "label" | "variant" | "isRequired" | "isInvalid" | "errorMessage"> {
   name: string;
-  value: null;
-  description: string;
-  classNames: {
-    inputWrapper: string;
-  };
+  value: DateValue | null | CalendarDate | CalendarDateTime | ZonedDateTime;
+  classNames: { inputField: string; inputWrapper: string };
+  calendarProps: { classNames: { cellButton: string } };
 }
 
 export interface TextAreaProps
@@ -33,13 +35,19 @@ export interface TextAreaProps
 }
 
 export interface SelectProps
-  extends Pick<InputProps, "label" | "variant" | "isRequired" | "isInvalid" | "errorMessage"> {
+  extends Pick<InputProps, "label" | "variant" | "isRequired" | "errorMessage"> {
   placeholder: string;
   className: string;
   classNames: {
     trigger: string;
     label: string;
     value: string;
+    listbox: string;
+  };
+  listboxProps: {
+    itemClasses: {
+      base: string;
+    };
   };
   selectedKeys: string[];
   isLoading: boolean;
@@ -54,6 +62,15 @@ export interface CustomFormFieldsResult {
     _error: string | undefined,
     _isRequired?: boolean
   ) => InputProps;
+  getRadioGroupProps: (
+    _label: string,
+    _isInvalid: boolean | undefined,
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    _errorMessage?: ReactNode | ((v: any) => ReactNode),
+    /* eslint-enable @typescript-eslint/no-explicit-any */
+    _orientation?: "horizontal" | "vertical" | undefined,
+    _isRequired?: boolean
+  ) => RadioGroupProps;
   getTextAreaProps: (
     _label: string,
     _placeholder: string,
@@ -70,9 +87,11 @@ export interface CustomFormFieldsResult {
     _isRequired?: boolean
   ) => SelectProps;
   getDateProps: (
-    _value: DateValue | string | null,
+    _value: DateValue | null | CalendarDate | CalendarDateTime | ZonedDateTime,
     _name: string,
     _label: string,
-    _description: string
+    _touched: boolean | undefined,
+    _error: string | undefined,
+    _isRequired?: boolean
   ) => DateProps;
 }

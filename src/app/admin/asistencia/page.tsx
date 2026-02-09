@@ -1,66 +1,55 @@
 "use client";
 
-import { MentorAttendance } from "@/features/attendance/components/mentor/metorAttendance";
-import { TypeRole } from "@/shared/constants";
-import { PageTitle } from "@/shared/ui/pageTitle";
-import { isRolAdmin } from "@/shared/utils/functions";
-import { Tab, Tabs } from "@heroui/react";
-import { useSession } from "next-auth/react";
+import { PageTitle } from "@/components/ui/common/pageTitle";
+import { Button } from "@heroui/react";
 import { useState } from "react";
-import { useTechnicianModeStore } from "@/shared/hooks/store/useTechnicianModeStore";
-
-type TabsType = "new" | "history";
-type RoleViewType = "mentor" | "leader";
-
+import {
+  AttendancePermissions,
+  useAttendancePermissions
+} from "@/features/attendance/hook/useAttendancePermissions";
+import AttendanceForm from "@/components/attendance/form/attendanceForm";
+import AttendanceTable from "@/components/attendance/table/attendanceTable";
+import ModalLayout from "@/components/ui/modal/modalLayout";
+import { useSession } from "next-auth/react";
+import { isRolAdmin } from "@/shared/utils/functions";
 export default function AttendancePage(): React.JSX.Element {
   const { data: session } = useSession();
-  const role = session?.user.role;
-  const techMode = useTechnicianModeStore((s) => s.mode);
 
-  const [selectedTab, setSelectedTab] = useState<TabsType>("new");
-  const isSupportTech = role === TypeRole.USER_TECNICO_APOYO;
-  const initialView: RoleViewType = isSupportTech
-    ? techMode === "mentor"
-      ? "mentor"
-      : "leader"
-    : role === TypeRole.USER_MENTOR
-      ? "mentor"
-      : "leader";
+  const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
+  const permissions: AttendancePermissions = useAttendancePermissions();
 
-  const [selectedView, _setSelectedView] = useState<RoleViewType>(initialView);
+  // *Early return: Display access denied message for users without valid session
+  if (!permissions.hasValidSession) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500">Su perfil no dispone de permisos para registrar asistencias</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col justify-center w-full gap-4 md:flex-row md:justify-between">
-        <PageTitle title="Control de Asistencia" iconName="ClipboardList" />
+      <PageTitle
+        title="Control de Asistencia"
+        iconName="ClipboardList"
+        imageSrc="/titles/teamwork.png"
+      />
+      <div className="border border-neutral-200 p-4 rounded-lg space-y-4">
+        <div className="flex justify-between items-center">
+          <h3>Lista de eventos ejecutados</h3>
+          {!isRolAdmin(session) && (
+            <Button className="btn-primary" onPress={() => setIsOpenForm(!isOpenForm)}>
+              Registrar asistencia
+            </Button>
+          )}
+        </div>
 
-        {!isRolAdmin(session) && (
-          <Tabs
-            aria-label="Tabs para asistencia"
-            radius="full"
-            size="md"
-            color="primary"
-            selectedKey={selectedTab}
-            classNames={{ tabList: "bg-white shadow-sm" }}
-            onSelectionChange={(key) => setSelectedTab(key as TabsType)}
-          >
-            <Tab key="new" title="Nuevo registro" />
-            <Tab key="history" title="Historial" />
-          </Tabs>
-        )}
+        <AttendanceTable isAdmin={isRolAdmin(session)} />
+
+        <ModalLayout size="lg" isOpen={isOpenForm}>
+          <AttendanceForm onClose={() => setIsOpenForm(false)} />
+        </ModalLayout>
       </div>
-
-      {selectedView === "mentor" &&
-        (role === TypeRole.USER_MENTOR || role === TypeRole.USER_TECNICO_APOYO) && (
-          <MentorAttendance isHistory={selectedTab === "history"} />
-        )}
-
-      {selectedView === "leader" &&
-        (role === TypeRole.USER_FORMADOR || role === TypeRole.USER_TECNICO_APOYO) && (
-          <MentorAttendance isHistory={selectedTab === "history"} />
-        )}
-
-      {role === TypeRole.ADMIN && <MentorAttendance isHistory={true} />}
     </div>
   );
 }

@@ -2,10 +2,11 @@ import { Button, Input, Radio, RadioGroup, Select, SelectItem, SharedSelection }
 import { AppendixCard } from "../../component/appendixCard";
 import { useTeacherShiftForm, UseTeacherShiftFormProps } from "../hook/useTeacherShiftForm";
 import { experienceYearData, sectionData, shiftData } from "../appendix2Data";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { IOptions } from "@/shared/types/globals";
 import TeacherShiftTable from "./table/teacherShiftTable";
 import { useCallback } from "react";
+import { radioStyles } from "@/shared/constants";
 
 const TeacherShiftForm = ({
   setFieldValue,
@@ -43,7 +44,7 @@ const TeacherShiftForm = ({
                 onValueChange={(value: string) => formikGeneral.setFieldValue("shift", value)}
               >
                 {shiftData.map((option) => (
-                  <Radio key={option.key} value={option.label}>
+                  <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                     {option.label}
                   </Radio>
                 ))}
@@ -128,7 +129,7 @@ const TeacherShiftForm = ({
             onValueChange={(value: string) => formikGeneral.setFieldValue("experienceYear", value)}
           >
             {experienceYearData.map((option) => (
-              <Radio key={option.key} value={option.label}>
+              <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                 {option.label}
               </Radio>
             ))}

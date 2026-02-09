@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
 import { Input, RadioGroup, Radio, Select, SelectItem, SharedSelection } from "@heroui/react";
 import { useAppendix2Form } from "../hook/useAppendix2Form";
-import { useCustomFormFields } from "@/shared/hooks/useCustomFormFields";
+import { useCustomFormFields } from "@/shared/hooks/form/useCustomFormFields";
 import { useAppendix } from "../../hooks/useAppendix";
 import {
   complementaryStudies,
@@ -16,6 +16,7 @@ import { IOptions } from "@/shared/types/globals";
 import TeacherShiftForm from "./teacherShiftForm";
 import { useState } from "react";
 import { IAnswerTeacherShift } from "../appendix2Type";
+import { radioStyles } from "@/shared/constants";
 
 const Appendix2Form = (): React.JSX.Element => {
   const params = useParams();
@@ -27,7 +28,7 @@ const Appendix2Form = (): React.JSX.Element => {
 
   const { getFieldProps, setFieldValue, touched, errors, handleSubmit, values } = formikAppendix2;
 
-  const { getInputProps, getSelectProps } = useCustomFormFields();
+  const { getInputProps, getSelectProps, getRadioGroupProps } = useCustomFormFields();
 
   return (
     <AppendixLayout
@@ -46,19 +47,22 @@ const Appendix2Form = (): React.JSX.Element => {
         <AppendixCard step="II" title="Formación y actualización profesional">
           <div className="space-y-6">
             <RadioGroup
-              isRequired
-              label="¿Cuál es su formación inicial?"
-              orientation="horizontal"
+              {...getRadioGroupProps(
+                "¿Cuál es su formación inicial?",
+                !!errors.initialTraining,
+                errors.initialTraining,
+                "horizontal",
+                true
+              )}
               value={values.initialTraining}
               isInvalid={!!errors.initialTraining}
-              errorMessage={errors.initialTraining}
               onValueChange={(value: string) => {
                 if (value !== "Otros") setFieldValue("initialTrainingOther", "");
                 setFieldValue("initialTraining", value);
               }}
             >
               {initialTrainingData.map((option) => (
-                <Radio key={option.key} value={option.label}>
+                <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                   {option.label}
                 </Radio>
               ))}
@@ -119,7 +123,7 @@ const Appendix2Form = (): React.JSX.Element => {
               }}
             >
               {participationContinuingEducationData.map((option) => (
-                <Radio key={option.key} value={option.label}>
+                <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                   {option.label}
                 </Radio>
               ))}
@@ -157,7 +161,7 @@ const Appendix2Form = (): React.JSX.Element => {
               }
             >
               {knowledgeData.map((option) => (
-                <Radio key={option.key} value={option.label}>
+                <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                   {option.label}
                 </Radio>
               ))}
@@ -172,7 +176,7 @@ const Appendix2Form = (): React.JSX.Element => {
               onValueChange={(value: string) => setFieldValue("planningLearningExperiences", value)}
             >
               {knowledgeData.map((option) => (
-                <Radio key={option.key} value={option.label}>
+                <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                   {option.label}
                 </Radio>
               ))}
@@ -187,7 +191,7 @@ const Appendix2Form = (): React.JSX.Element => {
               onValueChange={(value: string) => setFieldValue("levelPracticeInclusion", value)}
             >
               {knowledgeData.map((option) => (
-                <Radio key={option.key} value={option.label}>
+                <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                   {option.label}
                 </Radio>
               ))}
@@ -202,7 +206,7 @@ const Appendix2Form = (): React.JSX.Element => {
               onValueChange={(value: string) => setFieldValue("gameAndExplorationStrategies", value)}
             >
               {knowledgeData.map((option) => (
-                <Radio key={option.key} value={option.label}>
+                <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                   {option.label}
                 </Radio>
               ))}
@@ -217,7 +221,7 @@ const Appendix2Form = (): React.JSX.Element => {
               onValueChange={(value: string) => setFieldValue("assessmentOfLearning", value)}
             >
               {knowledgeData.map((option) => (
-                <Radio key={option.key} value={option.label}>
+                <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                   {option.label}
                 </Radio>
               ))}
@@ -232,7 +236,7 @@ const Appendix2Form = (): React.JSX.Element => {
               onValueChange={(value: string) => setFieldValue("relationshipWithFamilies", value)}
             >
               {knowledgeData.map((option) => (
-                <Radio key={option.key} value={option.label}>
+                <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                   {option.label}
                 </Radio>
               ))}
@@ -249,7 +253,7 @@ const Appendix2Form = (): React.JSX.Element => {
               }
             >
               {knowledgeData.map((option) => (
-                <Radio key={option.key} value={option.label}>
+                <Radio key={option.key} value={option.label} classNames={{ ...radioStyles }}>
                   {option.label}
                 </Radio>
               ))}

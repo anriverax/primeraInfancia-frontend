@@ -5,7 +5,6 @@ interface ValidationMessage {
 }
 
 export const DASHBOARD_REDIRECT_URL = "/admin/dashboard";
-export const LOGIN_REDIRECT_URL = "/auth/iniciar-sesion";
 
 export const ERR_BAD_REQUEST = "ERR_BAD_REQUEST";
 
@@ -45,10 +44,6 @@ export const roleDisplayNames: Record<TypeRole, string> = {
   [TypeRole.USER_TECNICO_APOYO]: "Técnico de apoyo"
 };
 
-export const tableClassNames = {
-  th: "text-bold text-sm text-black bg-blue-50"
-};
-
 export enum AttendanceEnum {
   PRESENTE = "Presente",
   AUSENTE = "Ausente"
@@ -58,3 +53,35 @@ export enum AttendanceModeEnum {
   PRESENCIAL = "Presencial",
   VIRTUAL = "Virtual"
 }
+
+export const MAX_MENTORSHIP_PARTICIPANTS: Record<string, number> = {
+  individual: 1,
+  pareja: 2
+};
+
+export const TIMEOUT_TOAST = 2000;
+
+export const AUTH_MESSAGES = {
+  LOGOUT_ERROR: "Error al cerrar sesión. Por favor intenta de nuevo.",
+  LOGIN_ERROR: "No pudimos iniciar sesión. Verifica tus credenciales e intenta de nuevo.",
+  SESSION_EXPIRED: "Tu sesión ha expirado. Por favor inicia sesión nuevamente."
+} as const;
+
+export const STATUS_CODES = {
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  INTERNAL_ERROR: 500
+} as const;
+
+export const ROUTES = {
+  ROOT: "/",
+  AUTH_LOGIN: "/auth/iniciar-sesion",
+  DASHBOARD_PARTICIPANTES: "/admin/dashboard/participantes"
+} as const;
+
+export const radioStyles: { control: string; label: string; wrapper: string } = {
+  control: "bg-primary-500",
+  label: "text-[14px]",
+  wrapper:
+    "border-2 group-data-[selected=true]:border-primary-500 group-data-[invalid=true]:border-danger-100"
+};

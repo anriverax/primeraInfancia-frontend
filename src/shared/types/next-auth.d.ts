@@ -30,6 +30,8 @@ declare module "next-auth" {
   interface Session extends IToken {
     user: IUser;
     permissions: string[];
+    accessToken: string;
+    refreshToken: string;
   }
 }
 

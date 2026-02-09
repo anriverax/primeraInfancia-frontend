@@ -5,15 +5,19 @@ import { BreadcrumbItem, Breadcrumbs } from "@heroui/react";
 import Link from "next/link";
 import { Info } from "lucide-react";
 import SchoolMap from "@/features/catalogue/school/components/detail/schoolMap";
-import { useSchoolDetail } from "@/features/catalogue/school/hooks/useSchoolDetail";
 import TeacherTable from "@/features/catalogue/school/components/detail/table/teacherTable";
 import { ISchoolDetail } from "@/features/catalogue/school/schoolType";
-import CustomProgress from "@/shared/ui/custom/customProgress";
+import { useApiQuery } from "@/shared/hooks/http/useApiQuery";
 
 const SchoolPage = (): React.JSX.Element => {
   const params = useParams();
 
-  const { schoolDetail } = useSchoolDetail(Number(params.schoolId));
+  const { data: schoolDetail } = useApiQuery<ISchoolDetail>({
+    key: `school-detail-${params.schoolId}`,
+    endpoint: `/catalogue/school/${params.schoolId}`,
+    enabled: true,
+    description: "centro escolar"
+  });
 
   const schoolContent = (data: ISchoolDetail): React.JSX.Element => (
     <div className="space-y-8">
@@ -67,7 +71,7 @@ const SchoolPage = (): React.JSX.Element => {
         </BreadcrumbItem>
         <BreadcrumbItem>Detalle</BreadcrumbItem>
       </Breadcrumbs>
-      {schoolDetail ? schoolContent(schoolDetail) : <CustomProgress />}
+      {schoolDetail && schoolContent(schoolDetail)}
     </div>
   );
 };

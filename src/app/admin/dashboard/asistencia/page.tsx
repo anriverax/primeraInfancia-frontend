@@ -2,7 +2,7 @@
 
 import { useDashboardAttendance } from "@/features/dashboard/hook/useDashboardAttendance";
 import CardLayoutDashboard from "@/features/dashboard/components/cardLayoutDashboard";
-import { cn } from "@/shared/utils/tv";
+import { cn } from "@/shared/config/tv";
 import { UsersRound } from "lucide-react";
 import { Tab, Tabs } from "@heroui/react";
 import { AttendanceEnum } from "@/shared/constants";

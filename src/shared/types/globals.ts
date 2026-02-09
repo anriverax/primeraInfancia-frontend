@@ -1,4 +1,9 @@
+import { AxiosResponse } from "axios";
 import { FieldConfig, FieldInputProps, FormikErrors, FormikTouched } from "formik";
+
+export interface AxiosResponseCustom<T> extends AxiosResponse<T> {
+  message: string[] | string;
+}
 
 export interface FetchResponse<T> {
   statusCode: number;
@@ -15,8 +20,8 @@ export interface IPagination {
   next: number | null;
 }
 
-export interface FetchResponseWithPagination<T> extends FetchResponse<T> {
-  meta: IPagination;
+export interface DataShape<T> extends FetchResponse<T> {
+  meta?: IPagination;
 }
 export interface AxiosMessage {
   axiosMessage?: string | string[];
@@ -73,4 +78,22 @@ export interface IDistrictWithZone {
 export interface IOptions {
   key: string | number;
   label: string;
+}
+
+export interface ApiQuery {
+  key: string;
+  endpoint: string;
+  enabled: boolean;
+  description: string;
+  pagination?: { page?: number; limit?: number };
+}
+
+export interface SelectList {
+  id: number;
+  name: string;
+}
+
+export enum RecordStatus {
+  ACTIVE = "Activo",
+  DROPPED = "Dado de baja"
 }

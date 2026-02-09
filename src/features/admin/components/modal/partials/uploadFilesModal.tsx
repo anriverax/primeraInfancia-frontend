@@ -5,7 +5,7 @@ import { Button, ModalBody } from "@heroui/react";
 import ModalRegisterHeader from "../modalRegisterHeader";
 import { UploadCloud } from "lucide-react";
 import { useUploadFiles } from "@/features/admin/hooks/useUploadFiles";
-import ConditionalAlert from "@/shared/ui/custom/conditionalAlert";
+import ConditionalAlert from "@/components/ui/conditionalAlert";
 import { useUploadHandler } from "@/features/admin/hooks/useUploadHandler";
 
 const UploadFilesModal = (): React.JSX.Element => {
@@ -19,7 +19,7 @@ const UploadFilesModal = (): React.JSX.Element => {
     <>
       <ModalRegisterHeader
         title="Subir archivos"
-        description="Adjunta tu CV, tu DUI y tu foto de perfil para completar tu registro"
+        imageSrc=""
         icon={<UploadCloud className="h-6 w-6 text-gray-600" />}
       />
       <ModalBody>
