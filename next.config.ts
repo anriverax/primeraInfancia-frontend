@@ -7,9 +7,6 @@ import type { NextConfig } from "next";
  * PRODUCCIÓN: Restrictivo para máxima seguridad
  */
 
-const isDev = process.env.NEXT_PUBLIC_NODE_ENV === "development";
-const isProd = process.env.NEXT_PUBLIC_NODE_ENV === "production";
-
 // ✅ CSP diferente por ambiente
 const getCSP = (): string => {
   const cspDirectives = [
@@ -29,20 +26,12 @@ const getCSP = (): string => {
 
 // ✅ HSTS diferente por ambiente
 const getHSTS = (): string => {
-  if (isDev) {
-    // DESARROLLO: Corto TTL para testing
-    return "max-age=3600; includeSubDomains"; // 1 hora
-  }
   // PRODUCCIÓN: Largo TTL + preload
   return "max-age=31536000; includeSubDomains; preload"; // 1 año
 };
 
 // ✅ CORS diferente por ambiente
 const getCORSOrigin = (): string => {
-  if (isDev) {
-    // DESARROLLO: Permite localhost en diferentes puertos
-    return process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000";
-  }
   // PRODUCCIÓN: Solo el dominio configurado
   return process.env.NEXT_PUBLIC_FRONTEND_URL || "https://primera-infancia.org";
 };
@@ -82,16 +71,7 @@ const nextConfig: NextConfig = {
         {
           key: "Referrer-Policy",
           value: "strict-origin-when-cross-origin"
-        },
-        // ✅ Solo en desarrollo: Permite DevTools
-        ...(isDev
-          ? [
-              {
-                key: "X-Dev-Mode",
-                value: "true"
-              }
-            ]
-          : [])
+        }
       ]
     },
     {
@@ -111,14 +91,10 @@ const nextConfig: NextConfig = {
           value: "Content-Type, Authorization"
         },
         // ✅ Solo en producción: Credentials
-        ...(isProd
-          ? [
-              {
-                key: "Access-Control-Allow-Credentials",
-                value: "true"
-              }
-            ]
-          : [])
+        {
+          key: "Access-Control-Allow-Credentials",
+          value: "true"
+        }
       ]
     }
   ],
