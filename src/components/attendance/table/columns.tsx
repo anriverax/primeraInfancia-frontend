@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { IColumns } from "@/shared/types/globals";
-import { DetailAction } from "@/components/ui/actions/detail";
 import { AttendanceHeaderColumnsKey, AttendanceTableType } from "../attendance.type";
 import { CalendarClock } from "lucide-react";
 import Link from "next/link";

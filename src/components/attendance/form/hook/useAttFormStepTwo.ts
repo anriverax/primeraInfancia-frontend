@@ -7,7 +7,7 @@ import { AttendanceEnum } from "@/shared/constants";
 import { useCurrentLocation } from "./useCurrentLocation";
 import { attFormStepTwoSchema } from "../../attendanceValidation";
 import { AttStepOneInput, AttStepTwoInput, AttStepTwoResponse } from "../../attendance.type";
-import { invalidateQueryBySearchTerm } from '@/shared/utils/queryKeyFinder';
+import { invalidateQueryBySearchTerm } from "@/shared/utils/queryKeyFinder";
 
 type UseAttFormStepTwoProps = {
   stepOneValues: AttStepOneInput;
