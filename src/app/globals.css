@@ -74,14 +74,15 @@ table {
   width: 100%;
   box-shadow: none;
 }
-thead:not([data-slot="grid-header"]) {
+/* thead:not([data-slot="grid-header"])*/
+thead {
   @apply border-b border-neutral-200 h-[45px];
   & > tr > th {
     @apply first:rounded-none last:rounded-none font-medium text-sm text-neutral-800;
-  }
+  } /*
   & > tr:last-child {
     display: none !important;
-  }
+  }*/
 }
 
 tbody > tr {

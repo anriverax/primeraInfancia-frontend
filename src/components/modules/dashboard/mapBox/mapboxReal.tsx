@@ -48,7 +48,7 @@ const MapboxReal = ({ filtered, setSelectedDepto }: MapbofilteredxRealProps): Re
         onClick={(e) => onClick(e)}
       >
         {popup && <PopupCustom popup={popup} setPopup={memoizedSetPopup} />}
-        {tooltip && (
+        {tooltip && !popup && (
           <Popup
             longitude={tooltip.lng}
             latitude={tooltip.lat}

@@ -6,29 +6,32 @@ import type { NextConfig } from "next";
  * DESARROLLO: Más permisivo para debugging
  * PRODUCCIÓN: Restrictivo para máxima seguridad
  */
+const isProd = process.env.NODE_ENV === "production";
 
 // ✅ CSP diferente por ambiente
 const getCSP = (): string => {
-  const cspDirectives = [
+  const csp = [
     "default-src 'self'",
     `script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://cdn.jsdelivr.net https://api.mapbox.com https://events.mapbox.com`,
     `style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net`,
     "img-src 'self' data: https: https://anriverax.s3.us-east-2.amazonaws.com",
     "font-src 'self' data: https://cdn.jsdelivr.net",
-    `connect-src 'self' http://localhost:3001 ws://localhost:3001 ws://localhost:3000 https://api.mapbox.com https://events.mapbox.com https:`,
+    `connect-src 'self' http://localhost:3001 ws: wss: http://localhost:* 127.0.0.1:* https://api.mapbox.com https://events.mapbox.com https:`,
     "form-action 'self'",
     "frame-ancestors 'none'",
-    "worker-src blob:"
+    "worker-src blob:",
+    "object-src 'none'"
   ];
 
-  return cspDirectives.join("; ");
+  return csp
+    .join("; ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
 };
 
 // ✅ HSTS diferente por ambiente
-const getHSTS = (): string => {
-  // DESARROLLO: Corto TTL para testing
-  return "max-age=3600; includeSubDomains"; // 1 hora
-};
+const getHSTS = () =>
+  isProd ? "max-age=31536000; includeSubDomains; preload" : "max-age=3600; includeSubDomains";
 
 // ✅ CORS diferente por ambiente
 const getCORSOrigin = (): string => {
@@ -41,6 +44,12 @@ const nextConfig: NextConfig = {
     {
       source: "/:path*",
       headers: [
+        // ✅ Dinámico: CSP
+        {
+          key: "Content-Security-Policy",
+          value: getCSP()
+        },
+        // ✅ OWASP recommended headers
         // ✅ Siempre activo: Previene clickjacking
         {
           key: "X-Frame-Options",
@@ -51,31 +60,23 @@ const nextConfig: NextConfig = {
           key: "X-Content-Type-Options",
           value: "nosniff"
         },
-        // ✅ Siempre activo: Legacy XSS protection
-        {
-          key: "X-XSS-Protection",
-          value: "1; mode=block"
-        },
-        // ✅ Dinámico: HSTS
-        {
-          key: "Strict-Transport-Security",
-          value: getHSTS()
-        },
-        // ✅ Dinámico: CSP
-        {
-          key: "Content-Security-Policy",
-          value: getCSP()
-        },
-        // ✅ Siempre activo: Referrer Policy
         {
           key: "Referrer-Policy",
           value: "strict-origin-when-cross-origin"
         },
-        // ✅ Solo en desarrollo: Permite DevTools
+        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self)" },
+        // ✅ HSTS
         {
-          key: "X-Dev-Mode",
-          value: "true"
-        }
+          key: "Strict-Transport-Security",
+          value: getHSTS()
+        },
+        // ✅ Legacy browser protection
+        {
+          key: "X-XSS-Protection",
+          value: "1; mode=block"
+        },
+        // ✅ Hide tech stack
+        { key: "X-DNS-Prefetch-Control", value: "off" }
       ]
     },
     {
@@ -84,7 +85,7 @@ const nextConfig: NextConfig = {
       headers: [
         {
           key: "Access-Control-Allow-Origin",
-          value: getCORSOrigin()
+          value: process.env.NEXT_PUBLIC_FRONTEND_URL || "https://primera-infancia.org"
         },
         {
           key: "Access-Control-Allow-Methods",

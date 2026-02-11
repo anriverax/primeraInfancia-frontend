@@ -1,8 +1,7 @@
 "use client";
 
 import { PageTitle } from "@/components/ui/common/pageTitle";
-import { Button } from "@heroui/react";
-import { useState } from "react";
+import { Button, useDisclosure } from "@heroui/react";
 import {
   AttendancePermissions,
   useAttendancePermissions
@@ -13,9 +12,9 @@ import ModalLayout from "@/components/ui/modal/modalLayout";
 import { useSession } from "next-auth/react";
 import { isRolAdmin } from "@/shared/utils/functions";
 export default function AttendancePage(): React.JSX.Element {
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const { data: session } = useSession();
 
-  const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
   const permissions: AttendancePermissions = useAttendancePermissions();
 
   // *Early return: Display access denied message for users without valid session
@@ -38,7 +37,7 @@ export default function AttendancePage(): React.JSX.Element {
         <div className="flex justify-between items-center">
           <h3>Lista de eventos ejecutados</h3>
           {!isRolAdmin(session) && (
-            <Button className="btn-primary" onPress={() => setIsOpenForm(!isOpenForm)}>
+            <Button className="btn-primary" onPress={onOpen}>
               Registrar asistencia
             </Button>
           )}
@@ -46,8 +45,8 @@ export default function AttendancePage(): React.JSX.Element {
 
         <AttendanceTable isAdmin={isRolAdmin(session)} />
 
-        <ModalLayout size="lg" isOpen={isOpenForm}>
-          <AttendanceForm onClose={() => setIsOpenForm(false)} />
+        <ModalLayout size="lg" isOpen={isOpen} onOpenChange={onOpenChange}>
+          <AttendanceForm onClose={onClose} />
         </ModalLayout>
       </div>
     </div>

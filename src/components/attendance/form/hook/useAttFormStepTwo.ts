@@ -1,12 +1,13 @@
 import { FormikHelpers, useFormik } from "formik";
 import { handleFormikResponseError, showToast } from "@/shared/utils/functions";
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
 import useAxios from "@/shared/hooks/http/useAxios";
 import { FetchResponse, FormikProps } from "@/shared/types/globals";
 import { AttendanceEnum } from "@/shared/constants";
 import { useCurrentLocation } from "./useCurrentLocation";
 import { attFormStepTwoSchema } from "../../attendanceValidation";
 import { AttStepOneInput, AttStepTwoInput, AttStepTwoResponse } from "../../attendance.type";
+import { invalidateQueryBySearchTerm } from '@/shared/utils/queryKeyFinder';
 
 type UseAttFormStepTwoProps = {
   stepOneValues: AttStepOneInput;
@@ -52,13 +53,16 @@ const useAttFormStepTwo = ({
       );
 
       const resultData = res.data;
-      if (values?.status === AttendanceEnum.AUSENTE) {
+
+      if (resultData.statusCode === HttpStatusCode.Created) {
         showToast(String(resultData.message), "primary");
-        formikHelpers?.resetForm();
       } else {
         showToast(String(resultData.message), "success");
-        onClose();
       }
+
+      formikHelpers?.resetForm();
+      onClose();
+      await invalidateQueryBySearchTerm("attendance-list");
     } catch (error) {
       handleFormikResponseError<AttStepTwoResponse>(error as AxiosError, formikHelpers!);
     }

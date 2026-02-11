@@ -20,7 +20,7 @@ const useCustomFormFields = (): CustomFormFieldsResult => {
       variant: "bordered",
       classNames: {
         inputWrapper:
-          "rounded-lg border border-neutral-100 data-[hover=true]:border-primary-600 group-data-[focus=true]:border-primary-300 group-data-[invalid=true]:!border-danger-100",
+          "rounded-lg border border-neutral-100 data-[hover=true]:border-primary-600 group-data-[focus=true]:border-primary-300 group-data-[focus=true]:data-[hover=true]:border-primary-300 group-data-[invalid=true]:!border-danger-100",
         label:
           "text-neutral-400 group-data-[filled=true]:font-bold group-data-[invalid=true]:!text-danger-500",
         input: "text-neutral-500",

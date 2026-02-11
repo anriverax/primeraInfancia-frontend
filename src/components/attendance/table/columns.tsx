@@ -71,10 +71,6 @@ export const useRenderAttendanceCell = (
                   Finalizar
                 </Link>
               )}
-              <DetailAction
-                url={`./centros-educativos/${encodeURIComponent(attendanceData.id!)}`}
-                description="Detalle del centro escolar"
-              />
             </div>
           );
         }
