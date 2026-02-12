@@ -17,6 +17,7 @@ const DepartmentGroup = (): React.JSX.Element => {
   const { dptGroupcolumns, isLoading } = useDepartmentGroup();
   const [selectedDepartment, setSelectedDepartment] = useState<DepartGroup | null>(null);
   console.log(setPersonTempData);
+  console.log(selectedDepartment);
   if (isLoading) {
     return <LoadingSkeleton />;
   }
