@@ -6,7 +6,7 @@ import { Accordion, AccordionItem, useDisclosure } from "@heroui/react";
 import { DepartGroup, ExcelReadCompareResult } from "./group.type";
 import GroupList from "./groupList";
 // import ImportFile from "@/components/modules/group/upload/importFile";
-import GroupDetail from "./groupDetail";
+// import GroupDetail from "./groupDetail";
 import ModalLayout from "@/components/ui/modal/modalLayout";
 import PersonTempTable from "./table/personTempTable";
 
@@ -26,7 +26,7 @@ const DepartmentGroup = (): React.JSX.Element => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
         <div>
           {/*<ImportFile setPersonTempData={setPersonTempData} onOpenModal={onOpenChange} />*/}
-          {selectedDepartment && <GroupDetail groupData={selectedDepartment} />}
+          {/*{selectedDepartment && <GroupDetail groupData={selectedDepartment} />*/}
         </div>
         {dptGroupcolumns.map((col, idx) => (
           <Accordion
