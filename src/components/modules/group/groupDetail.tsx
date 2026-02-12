@@ -17,10 +17,10 @@ const GroupDetail = ({ groupData }: GroupDetailProps): React.JSX.Element => (
         <p className="text-lg font-bold text-primary-500">{groupData.memberCount}</p>
       </div>
     </div>
-    <div className="space-y-3">
+    {/*<div className="space-y-3">
       <Button className="btn-primary w-full">Ver detalles</Button>
       <Button className="w-full btn-secondary">Editar</Button>
-    </div>
+    </div>*/}
   </div>
 );
 
