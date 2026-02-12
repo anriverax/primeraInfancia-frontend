@@ -6,6 +6,7 @@ import Link from "next/link";
 type TopDepartmentProps = {
   filtered: SchoolList[];
   setSelectedDepto: React.Dispatch<React.SetStateAction<string | null>>;
+  selectedDepto: string | null;
 };
 
 const ItemCounter = ({ num }: { num: number }): React.JSX.Element => (
@@ -14,7 +15,11 @@ const ItemCounter = ({ num }: { num: number }): React.JSX.Element => (
   </div>
 );
 
-const TopDepartment = ({ filtered, setSelectedDepto }: TopDepartmentProps): React.JSX.Element => {
+const TopDepartment = ({
+  filtered,
+  setSelectedDepto,
+  selectedDepto
+}: TopDepartmentProps): React.JSX.Element => {
   /* eslint-disable react-hooks/exhaustive-deps */
   const stats = useMemo(() => {
     const total = filtered?.length;
@@ -40,7 +45,7 @@ const TopDepartment = ({ filtered, setSelectedDepto }: TopDepartmentProps): Reac
     <div className="mt-3">
       <div className="flex justify-between">
         <p className="text-sm font-bold">Departamentos</p>
-        {stats.ranking.length < 14 && (
+        {selectedDepto && (
           <Link
             href="#"
             className="text-primary-500 hover:underline"

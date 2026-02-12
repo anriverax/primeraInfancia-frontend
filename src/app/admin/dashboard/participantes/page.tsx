@@ -10,7 +10,7 @@ import MapboxReal from "../../../../components/modules/dashboard/mapBox/mapboxRe
 import { KPI } from "@/components/modules/dashboard/mapBox/kpi";
 
 export default function DashboardPage(): React.JSX.Element {
-  const { schoolList, filtered, globalStats, isLoading, setSelectedDepto } = useMapbox();
+  const { schoolList, filtered, globalStats, isLoading, setSelectedDepto, selectedDepto } = useMapbox();
   /* eslint-disable react-hooks/exhaustive-deps */
   const memoizedSetDepto = useCallback(setSelectedDepto, []);
   /* eslint-enable react-hooks/exhaustive-deps */
@@ -25,7 +25,11 @@ export default function DashboardPage(): React.JSX.Element {
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-3 p-4 bg-white shadow-md h-[520px] overflow-y-auto rounded-2xl">
           {filtered.length > 0 && (
-            <TopDepartment filtered={filtered} setSelectedDepto={memoizedSetDepto} />
+            <TopDepartment
+              filtered={filtered}
+              setSelectedDepto={memoizedSetDepto}
+              selectedDepto={selectedDepto}
+            />
           )}
         </div>
         <div className="col-span-9 relative h-[520px] overflow-hidden">
